@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OTIAdriver — Conhecimento Inteligente para Motoristas</title>
+  <meta name="description" content="OTIAdriver: Conhecimento Inteligente para Motoristas — app de suporte, treinamento e copiloto de direção." />
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container row between center">
+      <div class="row center brand-wrap">
+        <img src="./assets/logo-otiadriver.svg" class="logo" alt="Logo OTIAdriver" />
+        <div class="brand">
+          <h1>OTIAdriver</h1>
+          <p>Conhecimento Inteligente para Motoristas</p>
+        </div>
+      </div>
+      <nav class="row gap">
+        <a href="#planos">Planos</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#entrar" class="btn ghost">Entrar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container grid2">
+        <div class="hero-copy">
+          <h2>Seu copiloto de conhecimento na estrada</h2>
+          <p>Treinamento, símbolos do painel, RA/Visão, Voz e biblioteca de alertas — tudo em um só lugar.
+          A OTIAdriver impulsiona sua jornada com tecnologia e aprendizado prático.</p>
+          <div class="row gap buttons">
+            <a href="#planos" class="btn primary">Começar agora</a>
+            <a href="#recursos" class="btn secondary">Explorar recursos</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="./assets/hero-illustration.svg" alt="Ilustração futurista OTIAdriver" />
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos" class="features">
+      <div class="container">
+        <h3>Recursos principais</h3>
+        <div class="cards">
+          <article class="card">
+            <h4>RA / Visão (Beta)</h4>
+            <p>Blocos prontos para identificação de símbolos e sobreposições no painel.</p>
+            <span class="tag">Em breve</span>
+          </article>
+          <article class="card">
+            <h4>Voz &amp; Copiloto</h4>
+            <p>Fluxos de voz para consultas rápidas e suporte no dia a dia.</p>
+            <span class="tag">Em breve</span>
+          </article>
+          <article class="card">
+            <h4>Biblioteca de Alertas</h4>
+            <p>Conteúdo estruturado por marca/modelo. Editável e expansível.</p>
+            <span class="tag">Configurar</span>
+          </article>
+          <article class="card">
+            <h4>Painel Digital</h4>
+            <p>Componentes para simular indicadores e treinar leitura de instrumentos.</p>
+            <span class="tag">Demo</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos" class="pricing">
+      <div class="container">
+        <h3>Planos</h3>
+        <div class="cards price-cards">
+          <article class="card">
+            <h4>Free</h4>
+            <p class="price">R$ <strong>29,90</strong> / mês</p>
+            <ul>
+              <li>Acesso básico à biblioteca</li>
+              <li>Atualizações mensais</li>
+              <li>Suporte por e-mail</li>
+            </ul>
+            <button class="btn primary" data-plan="free" onclick="handleCheckout('free')">Assinar Free</button>
+          </article>
+          <article class="card highlight">
+            <div class="badge">Recomendado</div>
+            <h4>Premium</h4>
+            <p class="price">R$ <strong>100,00</strong> / mês</p>
+            <ul>
+              <li>Tudo do Free</li>
+              <li>Recursos Beta (Voz/Visão)</li>
+              <li>Conteúdo avançado e RA</li>
+              <li>Suporte prioritário</li>
+            </ul>
+            <button class="btn primary" data-plan="premium" onclick="handleCheckout('premium')">Assinar Premium</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="entrar" class="auth">
+      <div class="container auth-card">
+        <h3>Entrar</h3>
+        <form onsubmit="return handleLogin(event)">
+          <label>E-mail</label>
+          <input type="email" id="email" placeholder="voce@exemplo.com" required />
+          <label>Senha</label>
+          <input type="password" id="password" placeholder="********" required />
+          <button class="btn primary" type="submit">Entrar</button>
+        </form>
+        <p class="muted">* Login fictício para demonstração. Futuramente: Google OAuth.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container row between center">
+      <span>© <span id="year"></span> OTIAdriver — Conhecimento Inteligente para Motoristas</span>
+      <a href="#privacidade">Política de Privacidade</a>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
