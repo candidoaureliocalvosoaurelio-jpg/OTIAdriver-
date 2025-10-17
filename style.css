@@ -51,3 +51,39 @@ label{font-size:.9rem;color:var(--muted)}
 .footer a{color:#d6f8ee;text-decoration:none}
 .muted{color:var(--muted);font-size:.9rem}
 @media (max-width:860px){.grid2{grid-template-columns:1fr}.hero{padding:44px 0}}
+/* ===== Bandeiras abaixo do menu ===== */
+.flags {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.flags img {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px; /* formato quadrado com cantos levemente arredondados */
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.flags img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* Responsivo - celulares */
+@media (max-width: 600px) {
+  .flags {
+    gap: 10px;
+  }
+
+  .flags img {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+  }
+}
