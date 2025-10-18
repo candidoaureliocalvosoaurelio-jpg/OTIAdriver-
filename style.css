@@ -88,3 +88,53 @@ label{font-size:.9rem;color:var(--muted)}
     border-radius: 6px;
   }
 }
+/* === Bandeiras Responsivas (Topo Esquerdo) === */
+.flags-bar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px 0;
+  padding-left: 15px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 50;
+}
+
+.flag {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flag:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.flag img {
+  width: 36px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+/* Bandeira ativa (idioma atual) */
+.flag.active {
+  border: 2px solid #00bfa6;
+  box-shadow: 0 0 8px rgba(0, 191, 166, 0.6);
+  transform: scale(1.05);
+}
+
+/* Responsivo mobile */
+@media (max-width: 600px) {
+  .flags-bar {
+    justify-content: center;
+    flex-wrap: wrap;
+    position: static;
+    margin-top: 10px;
+  }
+}
