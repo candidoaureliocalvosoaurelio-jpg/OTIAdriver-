@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+  <!-- faixas -->
+  <rect width="900" height="600" fill="#AA151B"/>
+  <rect y="150" width="900" height="300" fill="#F1BF00"/>
+
+  <!-- GRUPO DO BRASÃO (simplificado) -->
+  <g transform="translate(260,180) scale(1)">
+    <!-- pilares -->
+    <g>
+      <rect x="-30" y="30" width="22" height="170" rx="6" fill="#eee" stroke="#9c7f47" stroke-width="3"/>
+      <rect x="198" y="30" width="22" height="170" rx="6" fill="#eee" stroke="#9c7f47" stroke-width="3"/>
+      <!-- bases d’água -->
+      <g fill="none" stroke="#2b6cb0" stroke-width="5">
+        <path d="M-35 215 q10 10 20 0 t20 0 t20 0" />
+        <path d="M193 215 q10 10 20 0 t20 0 t20 0" />
+      </g>
+      <!-- fitas PLYS / VLTRA (estilizado) -->
+      <g fill="#AA151B">
+        <path d="M-40 110 c25-15 45-15 60 0 v14 c-20 12-40 12-60 0z"/>
+        <path d="M190 110 c25-15 45-15 60 0 v14 c-20 12-40 12-60 0z"/>
+      </g>
+    </g>
+
+    <!-- escudo externo -->
+    <path d="M0,40 h190 v115 c0,55 -45,95 -95,105 c-50,-10 -95,-50 -95,-105 V40 z"
+          fill="#d9d9d9" stroke="#333" stroke-width="3"/>
+
+    <!-- campo do escudo (quarteado + Granada) -->
+    <g transform="translate(6,46)">
+      <!-- quartel 1: castelo -->
+      <rect width="88" height="85" fill="#AA151B" stroke="#333" stroke-width="2"/>
+      <g transform="translate(16,15)">
+        <rect width="56" height="40" fill="#caa55b" stroke="#8b6b2f" stroke-width="2"/>
+        <rect x="22" y="-10" width="12" height="18" fill="#caa55b" stroke="#8b6b2f" stroke-width="2"/>
+        <rect x="24" y="22" width="8" height="18" fill="#8b6b2f"/>
+        <circle cx="12" cy="26" r="4" fill="#8b6b2f"/>
+        <circle cx="44" cy="26" r="4" fill="#8b6b2f"/>
+      </g>
+
+      <!-- quartel 2: leão -->
+      <rect x="95" width="88" height="85" fill="#F2F2F8" stroke="#333" stroke-width="2"/>
+      <path d="M132,17 c14,-6 30,6 28,20 c0,10 -8,18 -18,22 v14 l-10,-6 v-12 c-10,-6 -14,-18 -8,-28
+               c2,-4 4,-7 8,-10z"
+            fill="#cc66a1" stroke="#7a2d59" stroke-width="2"/>
+
+      <!-- sobreposto: círculo Bourbon -->
+      <circle cx="92" cy="42" r="16" fill="#3157b7" stroke="#aa151b" stroke-width="6"/>
+      <circle cx="92" cy="42" r="6" fill="#e6e6ff"/>
+
+      <!-- quartel 3: Aragon (barras) -->
+      <rect y="90" width="88" height="85" fill="#F1BF00" stroke="#333" stroke-width="2"/>
+      <g fill="#AA151B">
+        <rect x="8" y="95" width="72" height="10"/>
+        <rect x="8" y="115" width="72" height="10"/>
+        <rect x="8" y="135" width="72" height="10"/>
+        <rect x="8" y="155" width="72" height="10"/>
+      </g>
+
+      <!-- quartel 4: Navarra (correntes estilizadas) -->
+      <rect x="95" y="90" width="88" height="85" fill="#AA151B" stroke="#333" stroke-width="2"/>
+      <g stroke="#F1BF00" stroke-width="4">
+        <circle cx="139" cy="132" r="26" fill="none"/>
+        <path d="M113 132 h52 M139 106 v52 M118 111 l42 42 M160 111 l-42 42"/>
+      </g>
+
+      <!-- ponta Granada -->
+      <path d="M78,180 q14,20 28,0 q-12,6 -28,0 z" fill="#F1BF00" stroke="#333" stroke-width="2"/>
+    </g>
+
+    <!-- coroa simplificada -->
+    <g transform="translate(95,10)">
+      <ellipse cx="0" cy="0" rx="52" ry="16" fill="#AA151B" stroke="#7a2d59" stroke-width="3"/>
+      <ellipse cx="0" cy="-6" rx="46" ry="10" fill="#d9a441"/>
+      <g fill="#d9a441" stroke="#7a2d59" stroke-width="2">
+        <circle cx="-34" cy="-24" r="6"/>
+        <circle cx="-12" cy="-30" r="6"/>
+        <circle cx="12"  cy="-30" r="6"/>
+        <circle cx="34"  cy="-24" r="6"/>
+      </g>
+      <path d="M-48,-10 q48,-34 96,0 v10 h-96z" fill="none" stroke="#7a2d59" stroke-width="3"/>
+      <rect x="-6" y="-40" width="12" height="18" rx="3" fill="#AA151B" stroke="#7a2d59" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
