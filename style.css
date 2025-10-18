@@ -52,12 +52,13 @@ label{font-size:.9rem;color:var(--muted)}
 .muted{color:var(--muted);font-size:.9rem}
 @media (max-width:860px){.grid2{grid-template-columns:1fr}.hero{padding:44px 0}}
 /* ===== Bandeiras abaixo do menu ===== */
-.flags {
+.flags-top {
+  position: absolute;
+  top: 12px;
+  left: 16px;
   display: flex;
-  gap: 14px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 12px;
+  gap: 8px
+  z-index: 999;
 }
 
 .flags-top img {
