@@ -60,19 +60,19 @@ label{font-size:.9rem;color:var(--muted)}
   margin-top: 12px;
 }
 
-.flags img {
-  width: 42px;
-  height: 42px;
-  border-radius: 8px; /* formato quadrado com cantos levemente arredondados */
+.flags-top img {
+  width: 28px;
+  height: 18px;
+  border-radius: 4px; /* formato quadrado com cantos levemente arredondados */
   border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
-.flags img:hover {
+.flags-top img:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
 }
 
 /* Responsivo - celulares */
