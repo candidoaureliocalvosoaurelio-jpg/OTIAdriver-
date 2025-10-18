@@ -44,22 +44,21 @@
 </header>
 <script src="/assets/lang-switch.js" defer></script>
 <!-- Bandeiras abaixo do menu -->
-<header>
-  <div class="flags-top">
-    <a href="?lang=pt"><img src="assets/flags/br.svg" alt="Português" title="Português"></a>
-    <a href="?lang=en"><img src="assets/flags/us.svg" alt="English" title="English"></a>
-    <a href="?lang=es"><img src="assets/flags/es.svg" alt="Español" title="Español"></a>
-    <a href="?lang=zh"><img src="assets/flags/cn.svg" alt="中文" title="中文"></a>
-  </div>
-  <div class="container nav">
-    <div class="logo"><a href="/">OTIAdriver</a></div>
-    <nav>
-      <a href="/">Início</a>
-      <a href="/sobre">Sobre</a>
-      <a href="/contato">Contato</a>
-    </nav>
-  </div>
-</header>
+<!-- Bandeiras (topo esquerdo, clicáveis e responsivas) -->
+<div class="flags-bar" aria-label="Trocar idioma">
+  <button class="flag" data-lang="pt" title="Português (Brasil)">
+    <img src="/assets/flags/br.svg" alt="Brasil">
+  </button>
+  <button class="flag" data-lang="en" title="English (USA)">
+    <img src="/assets/flags/us.svg" alt="United States">
+  </button>
+  <button class="flag" data-lang="es" title="Español (España)">
+    <img src="/assets/flags/es.svg" alt="España">
+  </button>
+  <button class="flag" data-lang="zh" title="中文 (China)">
+    <img src="/assets/flags/cn.svg" alt="中国">
+  </button>
+</div>
 <section class="hero">
   <div class="container">
     <h1>Seu copiloto de conhecimento</h1>
