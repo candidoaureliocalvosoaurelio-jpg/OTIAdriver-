@@ -1,97 +1,58 @@
-<!doctype html>
-<html lang="pt">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OTIAdriver — Conhecimento Inteligente para Motoristas</title>
-  <meta name="description" content="Treinamento, símbolos do painel, RA/Visão, Voz e biblioteca de alertas para motoristas.">
+
+  <!-- 🔹 Título principal para SEO e redes sociais -->
+  <title>OTIAdriver — IA Inteligente para Motoristas e Frotas</title>
+
+  <!-- 🔹 Descrição otimizada -->
+  <meta name="description" content="A OTIAdriver é a plataforma de conhecimento inteligente para motoristas. Treinamentos, alertas do painel, visão RA, voz, e IA de apoio — tudo em um só lugar." />
+
+  <!-- 🔹 Palavras-chave (ajuda no SEO) -->
+  <meta name="keywords" content="OTIAdriver, motorista inteligente, IA para caminhoneiros, treinamento de motoristas, RA, visão artificial, IA de frotas, educação automotiva, transporte inteligente" />
+
+  <!-- 🔹 Canonical (endereço principal do site) -->
   <link rel="canonical" href="https://otiadriver.com.br/" />
 
+  <!-- 🔹 Versões por idioma -->
   <link rel="alternate" hreflang="pt" href="https://otiadriver.com.br/" />
   <link rel="alternate" hreflang="en" href="https://otiadriver.com.br/en/" />
   <link rel="alternate" hreflang="es" href="https://otiadriver.com.br/es/" />
   <link rel="alternate" hreflang="x-default" href="https://otiadriver.com.br/" />
 
+  <!-- 🔹 Open Graph (Facebook, LinkedIn, WhatsApp preview) -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="OTIAdriver — Conhecimento Inteligente para Motoristas" />
-  <meta property="og:description" content="Treinamento, símbolos do painel, RA/Visão, Voz e biblioteca de alertas para motoristas." />
+  <meta property="og:description" content="Aprendizado rápido, IA de apoio e visão RA para o motorista moderno. Acesse a OTIAdriver e descubra a nova era do transporte inteligente." />
+  <meta property="og:image" content="https://otiadriver.com.br/assets/og-image.jpg" />
   <meta property="og:url" content="https://otiadriver.com.br/" />
 
-  <link rel="icon" href="/favicon.png" />
+  <!-- 🔹 Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="OTIAdriver — IA Inteligente para Motoristas e Frotas" />
+  <meta name="twitter:description" content="Treinamentos, símbolos do painel, RA, Voz e IA de apoio — tudo em um só lugar." />
+  <meta name="twitter:image" content="https://otiadriver.com.br/assets/og-image.jpg" />
+
+  <!-- 🔹 Ícone do site -->
+  <link rel="icon" href="/favicon.png" type="image/png" />
+
+  <!-- 🔹 CSS principal -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- 🔹 Estrutura JSON-LD para SEO (Google entende como empresa real) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "OTIAdriver",
+    "url": "https://otiadriver.com.br",
+    "logo": "https://otiadriver.com.br/favicon.png",
+    "sameAs": [
+      "https://linkedin.com/company/otiadriver",
+      "https://instagram.com/otiadriver",
+      "https://www.youtube.com/@otiadriver"
+    ],
+    "description": "A OTIAdriver é uma startup de IA que capacita motoristas e frotas com tecnologia, aprendizado e inteligência adaptativa."
+  }
+  </script>
 </head>
-
-<body>
-  <header>
-    <div class="container nav">
-      <div class="logo">
-        <a href="/">OTIAdriver</a>
-      </div>
-      <nav>
-        <a href="/" data-i18n="nav_home">Início</a>
-        <a href="/sobre" data-i18n="nav_about">Sobre</a>
-        <a href="/contato" data-i18n="nav_contact">Contato</a>
-      </nav>
-
-      <div class="lang">
-        <label for="lang-switch" class="muted" data-i18n="label_lang">Idioma</label>
-        <select id="lang-switch">
-          <option value="pt" selected>Português</option>
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="zh">中文</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Bandeiras (topo esquerdo) -->
-    <div class="flags-bar" aria-label="Trocar idioma">
-      <button class="flag" data-lang="pt" title="Português (Brasil)">
-        <img src="/assets/flags/br.svg" alt="Brasil">
-        <span>PT</span>
-      </button>
-      <button class="flag" data-lang="en" title="English (USA)">
-        <img src="/assets/flags/us.svg" alt="USA">
-        <span>EN</span>
-      </button>
-      <button class="flag" data-lang="es" title="Español (España)">
-        <img src="/assets/flags/es.svg" alt="Espanha">
-        <span>ES</span>
-      </button>
-      <button class="flag" data-lang="zh" title="中文 (China)">
-        <img src="/assets/flags/cn.svg" alt="China">
-        <span>中文</span>
-      </button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="container">
-      <h1 data-i18n="hero_title"> Conhecimento Inteligente Avançado </h1>
-      <p data-i18n="hero_sub">A OTIAdriver impulsiona sua jornada com tecnologia e aprendizado prático. Conteúdos curtos, pesquisa por voz e visão, além de uma biblioteca sempre atualizada.</p>
-
-      <div class="cta">
-      </div>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="container">
-      <h3 data-i18n="section_ai">IA de apoio</h3>
-      <p data-i18n="section_ai_desc">Respostas rápidas sobre símbolos e alertas.</p>
-
-      <h3 data-i18n="section_learn">Aprendizado</h3>
-      <p data-i18n="section_learn_desc">Módulos curtos e objetivos para o dia a dia.</p>
-
-      <h3 data-i18n="section_library">Biblioteca</h3>
-      <p data-i18n="section_library_desc">Conteúdo confiável e sempre disponível.</p>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 OTIAdriver — <span data-i18n="footer_rights">Todos os direitos reservados.</span></p>
-  </footer>
-
-  <script src="/assets/lang-switch.js" defer></script>
-</body>
-</html>
