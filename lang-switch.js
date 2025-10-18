@@ -5,7 +5,7 @@
       nav_home: "Início",
       nav_about: "Sobre",
       nav_contact: "Contato",
-      hero_title: "Conhecimento Inteligente Avançado",
+      hero_title: "Seu copiloto de conhecimento na estrada",
       hero_sub: "A OTIAdriver impulsiona sua jornada com tecnologia e aprendizado prático. Conteúdos curtos, pesquisa por voz e visão, além de uma biblioteca sempre atualizada.",
       cta_start: "Começar agora",
       cta_talk: "Falar com a equipe",
@@ -63,26 +63,35 @@
     }
   };
 
-  const $ = (sel, ctx=document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+  // Utilidades
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
   function getLangFromUrl() {
     const p = new URLSearchParams(location.search);
     return p.get("lang");
   }
-
   function setUrlLang(lang) {
     const url = new URL(location.href);
     url.searchParams.set("lang", lang);
     history.replaceState({}, "", url.toString());
   }
+  function saveLang(lang) { try { localStorage.setItem("lang", lang); } catch (_) {} }
+  function loadLang() { return getLangFromUrl() || (localStorage.getItem("lang") || "pt"); }
 
-  function saveLang(lang) {
-    try { localStorage.setItem("lang", lang); } catch (_) {}
+  // Detectar página atual (home / about / contact)
+  function currentPage() {
+    const p = location.pathname.replace(/\/+$/, "");
+    if (p.endsWith("/sobre") || p.endsWith("/about")) return "about";
+    if (p.endsWith("/contato") || p.endsWith("/contact") || p.endsWith("/contacto")) return "contact";
+    return "home";
   }
-  function loadLang() {
-    return getLangFromUrl() || (localStorage.getItem("lang") || "pt");
-  }
+
+  // Mapa de rotas por idioma (apenas para páginas de conteúdo separado)
+  const ROUTES = {
+    about: { pt: "/sobre", en: "/en/about", es: "/es/sobre", zh: "/sobre" },
+    contact:{ pt: "/contato", en: "/en/contact", es: "/es/contacto", zh: "/contato" }
+  };
 
   function applyDict(lang) {
     const dict = DICTS[lang] || DICTS.pt;
@@ -93,13 +102,20 @@
   }
 
   function syncUI(lang) {
-    // destacar bandeira ativa
     $$(".flags-bar .flag").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.lang === lang);
     });
-    // sincronizar <select> (se existir)
     const sel = $("#lang-switch");
     if (sel) sel.value = lang;
+  }
+
+  function navigateIfNeeded(lang) {
+    const page = currentPage();
+    if (page === "home") return; // home é traduzida via JS
+    const target = ROUTES[page] && ROUTES[page][lang];
+    if (target && location.pathname !== target) {
+      location.href = target + location.search; // mantém ?lang
+    }
   }
 
   function setLang(lang) {
@@ -107,21 +123,18 @@
     setUrlLang(lang);
     applyDict(lang);
     syncUI(lang);
+    navigateIfNeeded(lang);
   }
 
-  // Eventos das bandeiras
+  // Eventos: bandeiras
   $$(".flags-bar .flag").forEach(btn => {
     btn.addEventListener("click", () => setLang(btn.dataset.lang));
   });
 
-  // Evento do <select> (se existir)
+  // Evento: <select>
   const sel = $("#lang-switch");
-  if (sel) {
-    sel.addEventListener("change", () => setLang(sel.value));
-  }
+  if (sel) sel.addEventListener("change", () => setLang(sel.value));
 
   // Inicialização
-  const startLang = loadLang();
-  setLang(startLang);
+  setLang(loadLang());
 })();
-});
