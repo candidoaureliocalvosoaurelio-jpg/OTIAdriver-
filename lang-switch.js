@@ -5,7 +5,7 @@
       nav_home: "Início",
       nav_about: "Sobre",
       nav_contact: "Contato",
-      hero_title: "Seu copiloto de conhecimento na estrada",
+      hero_title: "Conhecimento Inteligente Avançado",
       hero_sub: "A OTIAdriver impulsiona sua jornada com tecnologia e aprendizado prático. Conteúdos curtos, pesquisa por voz e visão, além de uma biblioteca sempre atualizada.",
       cta_start: "Começar agora",
       cta_talk: "Falar com a equipe",
