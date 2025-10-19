@@ -8,4 +8,4 @@
   },
   "dependencies": {
     "next": "14.2.5",
-    "react-dom": "18.2.0"
+    "react-dom"
