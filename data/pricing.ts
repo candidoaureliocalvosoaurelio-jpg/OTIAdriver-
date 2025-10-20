@@ -1,4 +1,4 @@
-export const plans = PRICING;
+export const plans = {
   free: {
     name: "Free",
     monthly: "R$ 29,90",
@@ -10,10 +10,11 @@ export const plans = PRICING;
       "Acesso Web e Mobile",
       "Suporte padrão"
     ],
-    // 🔗 Links oficiais Mercado Pago (fornecidos por você)
+    // Links oficiais Mercado Pago
     mpMonthly: "https://mpago.la/1Xu1tTU",
     mpAnnual: "https://mpago.la/1Xu1tTU" // troque se tiver um checkout anual separado
   },
+
   premium: {
     name: "Premium",
     monthly: "R$ 99,90",
@@ -25,8 +26,8 @@ export const plans = PRICING;
       "Suporte prioritário",
       "Atualizações e recursos Beta"
     ],
-    // 🔗 Links oficiais Mercado Pago (fornecidos por você)
+    // Links oficiais Mercado Pago
     mpMonthly: "https://mpago.la/131Yx5T",
-    mpAnnual: "https://mpago.la/131Yx5T" // troque se tiver um checkout anual separado
+    mpAnnual: "https://mpago.la/131Yx5T"
   }
-} as const;
+};
