@@ -16,7 +16,7 @@ export default function Planos() {
       </section>
 
       <section className="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 px-6 pb-12">
-        {Object.values(PRICING).map((plan) => (
+        {Object.values( plans ).map((plan) => (
           <article key={plan.name} className="rounded-2xl border border-slate-200 p-6 shadow-sm bg-white">
             <h2 className="text-xl font-bold text-slate-900 mb-2 text-center">{plan.name}</h2>
 
