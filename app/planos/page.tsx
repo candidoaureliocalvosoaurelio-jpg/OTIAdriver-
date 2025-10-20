@@ -1,4 +1,4 @@
-import { plans } from "@/data/pricing";
+import { plans } from "../../data/pricing";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
