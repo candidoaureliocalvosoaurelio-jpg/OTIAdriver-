@@ -1,9 +1,12 @@
-export const metadata = { title: "OTIAdriver" };
+export const metadata = {
+  title: "OTIAdriver",
+  description: "Conhecimento Inteligente para Motoristas",
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className="min-h-screen bg-white text-slate-900">
+      <body>
         {children}
       </body>
     </html>
