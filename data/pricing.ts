@@ -1,4 +1,4 @@
-export const PRICING = {
+export const plans = {
   free: {
     name: "Free",
     monthly: "R$ 29,90",
