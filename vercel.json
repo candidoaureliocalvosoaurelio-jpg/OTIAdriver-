@@ -1,5 +1,5 @@
 {
   "framework": "nextjs",
   "installCommand": "npm install",
-  "buildCommand": "npx next@14.2.5 build"
+  "buildCommand": "next build"
 }
