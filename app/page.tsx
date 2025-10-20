@@ -1,7 +1,5 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Image from "next/image";
-
 export const metadata = {
   title: "OTIAdriver – Conhecimento Inteligente Avançado",
   description: "IA e inovação digital para motoristas profissionais – OTIAdriver Global.",
