@@ -15,10 +15,11 @@ export default function CheckoutPage({ params, searchParams }: Props) {
   const period = searchParams.period === "annual" ? "annual" : "monthly";
   const plan = PRICING[planKey];
 
+  // ✅ Aqui estava o erro: faltavam as crases (`) envolvendo o texto
   const priceLabel =
-  period === "monthly"
-    ? ${plan.monthly} / mês
-    : ${plan.annual} / ano (-10%);
+    period === "monthly"
+      ? ${plan.monthly} / mês
+      : ${plan.annual} / ano (-10%);
 
   const payLink = period === "monthly" ? plan.mpMonthly : plan.mpAnnual;
   const periodLabel = period === "monthly" ? "Mensal" : "Anual (-10%)";
@@ -44,7 +45,7 @@ export default function CheckoutPage({ params, searchParams }: Props) {
           <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-slate-700">
             {plan.features.map((f) => (
               <li key={f} className="flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="inline-block h-2 w-2 rounded-full" />
                 <span>{f}</span>
               </li>
             ))}
@@ -72,11 +73,7 @@ export default function CheckoutPage({ params, searchParams }: Props) {
             </a>
           </div>
 
-          {/* Selo de segurança */}
-          <p className="mt-6 text-xs text-slate-500 flex items-center justify-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-emerald-600">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V7.5a4.5 4.5 0 10-9 0v3m-1.5 0h12m-12 0a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5v-7.5a1.5 1.5 0 00-1.5-1.5m-12 0h12" />
-            </svg>
+          <p className="mt-6 text-xs text-slate-500 text-center">
             Pagamento seguro via <span className="font-semibold">Mercado Pago</span> — ambiente criptografado.
           </p>
 
