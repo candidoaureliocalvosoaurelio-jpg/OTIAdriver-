@@ -11,15 +11,17 @@ type Props = {
 export const metadata = { title: "Pagamento — OTIAdriver" };
 
 export default function CheckoutPage({ params, searchParams }: Props) {
-  const planKey = params.plan;
-  const period = (searchParams.period === "annual" ? "annual" : "monthly") as "monthly" | "annual";
+  const planKey = params.plan as keyof typeof PRICING;
+  const period = searchParams.period === "annual" ? "annual" : "monthly";
   const plan = PRICING[planKey];
 
-const priceLabel = period === "monthly"
-  ? ${plan.monthly} / mês
-  : ${plan.annual} / ano (-10%);
+  const priceLabel =
+    period === "monthly"
+      ? ${plan.monthly} / mês
+      : ${plan.annual} / ano (-10%);
+
   const payLink = period === "monthly" ? plan.mpMonthly : plan.mpAnnual;
-  const periodLabel = period === "monthly" ? "Mensal" : "Anual (–10%)";
+  const periodLabel = period === "monthly" ? "Mensal" : "Anual (-10%)";
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#EAF3FA] to-white text-slate-800">
@@ -27,7 +29,9 @@ const priceLabel = period === "monthly"
 
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-8 text-center">
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900">Pagamento Seguro</h1>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900">
+          Pagamento Seguro
+        </h1>
         <p className="mt-3 text-slate-600">
           Plano <strong>{plan.name}</strong> — {periodLabel} • {priceLabel}
         </p>
@@ -51,7 +55,13 @@ const priceLabel = period === "monthly"
               href={payLink}
               className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white hover:bg-emerald-700"
             >
-              <Image src="/assets/mercadopago-logo.png" alt="Mercado Pago" width={22} height={22} className="mr-2" />
+              <Image
+                src="/assets/mercadopago-logo.png"
+                alt="Mercado Pago"
+                width={22}
+                height={22}
+                className="mr-2"
+              />
               Ir para pagamento
             </a>
             <a
@@ -64,10 +74,19 @@ const priceLabel = period === "monthly"
 
           {/* Selo de segurança */}
           <p className="mt-6 text-xs text-slate-500 flex items-center justify-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                 strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-emerald-600">
-              <path strokeLinecap="round" strokeLinejoin="round"
-                    d="M16.5 10.5V7.5a4.5 4.5 0 10-9 0v3m-1.5 0h12m-12 0a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5v-7.5a1.5 1.5 0 00-1.5-1.5m-12 0h12" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4 text-emerald-600"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.5 10.5V7.5a4.5 4.5 0 10-9 0v3m-1.5 0h12m-12 0a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5v-7.5a1.5 1.5 0 00-1.5-1.5m-12 0h12"
+              />
             </svg>
             Pagamento seguro via <span className="font-semibold">Mercado Pago</span> — ambiente criptografado.
           </p>
