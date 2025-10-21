@@ -15,11 +15,10 @@ export default function CheckoutPage({ params, searchParams }: Props) {
   const period = searchParams.period === "annual" ? "annual" : "monthly";
   const plan = PRICING[planKey];
 
-  // ✅ Aqui estava o erro: faltavam as crases (`) envolvendo o texto
-  const priceLabel =
-    period === "monthly"
-      ? ${plan.monthly} / mês
-      : ${plan.annual} / ano (-10%);
+const priceLabel =
+  period === "monthly"
+    ? `${plan.monthly} / mês`
+    : `${plan.annual} / ano (-10%)`;
 
   const payLink = period === "monthly" ? plan.mpMonthly : plan.mpAnnual;
   const periodLabel = period === "monthly" ? "Mensal" : "Anual (-10%)";
