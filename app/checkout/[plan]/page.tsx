@@ -19,8 +19,8 @@ export default function CheckoutPage({ params, searchParams }: Props) {
 
 const priceLabel =
   period === "monthly"
-    ? ${plan.monthly} / mês`
-    : ${plan.annual} / ano (-10%)`;
+    ? `${plan.monthly} / mês`
+    : `${plan.annual} / ano (-10%)`;
 
   const payLink = period === "monthly" ? plan.mpMonthly : plan.mpAnnual;
   const periodLabel = period === "monthly" ? "Mensal" : "Anual (-10%)";
