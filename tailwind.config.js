@@ -8,10 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        otiaBlue:  "#3B82F6", // 💙
-        otiaGreen: "#10B981", // 💚
+        otiaBlue: "#1F6FEB",   // 💙
+        otiaGreen: "#10B981",  // 💚
       },
     },
   },
-  plugins: [],
+  plugins: [],
 };
