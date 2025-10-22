@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Header() {
   return (
-    <header className="w-full bg-black text-white py-3 px-6 flex justify-between items-center">
+    <header className="bg-[#0A2A6C] text-white shadow-md">
       {/* Logo → página inicial */}
       <Link href="/" className="flex items-center gap-2">
         {/* Troque o src se seu arquivo for outro ou remova o <Image /> */}
