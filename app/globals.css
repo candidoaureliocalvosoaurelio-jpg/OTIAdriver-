@@ -2,29 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Paleta OTIAdriver */
-:root {
-  --otia-blue:  #3B82F6; /* 💙 */
-  --otia-green: #10B981; /* 💚 */
-  --bg:         #F8FAFC; /* fundo claro */
-  --text:       #0F172A; /* texto principal */
+/* Visual padrão OTIAdriver */
+body {
+  @apply min-h-screen antialiased bg-gradient-to-b from-otiaBlue/5 to-otiaGreen/5 text-slate-800;
 }
-
-html, body {
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-}
-
-/* Cabeçalho padrão (opcional) */
-.header-otia {
-  @apply w-full text-white;
-  background-image: linear-gradient(90deg, var(--otia-blue), var(--otia-green));
-}
-
-/* Botão primário */
-.btn-otia {
-  @apply inline-flex items-center justify-center px-5 py-2.5 font-semibold rounded-xl text-white;
-  background: linear-gradient(90deg, var(--otia-blue), var(--otia-green));
-}
-.btn-otia:hover { filter: brightness(0.95); }
