@@ -1,4 +1,4 @@
-import LanguageSwitcher from "./LanguageSwitcher";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 export default function Header() {
   return (
