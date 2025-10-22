@@ -1,27 +1,21 @@
-import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "../components/Header";
 
-export const metadata: Metadata = {
-  title: "OTIAdriver",
-  description: "Conhecimento Inteligente para Motoristas",
-};
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <Header />
-
-      <section className="mx-auto max-w-6xl px-6 py-16 text-center">
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900">
-          Bem-vindo à OTIAdriver
+      <main className="text-center mt-16 px-4">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+          Bem-vindo à{" "}
+          <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-emerald-500 bg-clip-text text-transparent">
+            OTIAdriver
+          </span>
         </h1>
-        <p className="mt-3 text-slate-600">
+
+        <p className="mt-4 text-2xl md:text-3xl font-extrabold text-gray-900">
           Conhecimento Inteligente para Motoristas
         </p>
-      </section>
-
-      <Footer />
-    </main>
-  );
+      </main>
+    </>
+  );
 }
