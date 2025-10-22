@@ -1,10 +1,27 @@
-<header className="w-full bg-gradient-to-r from-otiaBlue to-otiaGreen text-white">
-  <div className="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
-    <span className="font-bold">OTIAdriver</span>
-    <nav className="space-x-4 text-sm opacity-95">
-      <a href="/essencia" className="hover:underline">Essência</a>
-      <a href="/planos" className="hover:underline">Planos</a>
-      <a href="/suporte" className="hover:underline">Suporte</a>
-    </nav>
-  </div>
-</header>
+import type { Metadata } from "next";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "OTIAdriver",
+  description: "Conhecimento Inteligente para Motoristas",
+};
+
+export default function HomePage() {
+  return (
+    <main className="min-h-screen">
+      <Header />
+
+      <section className="mx-auto max-w-6xl px-6 py-16 text-center">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900">
+          Bem-vindo à OTIAdriver
+        </h1>
+        <p className="mt-3 text-slate-600">
+          Conhecimento Inteligente para Motoristas 🚙🧠
+        </p>
+      </section>
+
+      <Footer />
+    </main>
+  );
+}
