@@ -1,18 +1,32 @@
-import React from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
   return (
-    <header className="w-full bg-gradient-to-r from-[#0A2A6C] via-[#1473E6] to-[#0AD88F] text-white shadow-md">
-      <div className="mx-auto max-w-6xl px-6 py-3 flex items-center justify-between">
-        <span className="text-lg sm:text-xl font-bold tracking-wide">
+    <header className="w-full bg-gradient-to-r from-blue-700 to-emerald-500 py-4 px-6 flex items-center justify-between">
+      {/* 🔹 Logo + Nome */}
+      <div className="flex items-center space-x-3">
+        <img
+          src="/logo-otiadriver.png"
+          alt="Logo OTIAdriver"
+          className="w-12 h-12 object-contain"
+        />
+        <a
+          href="/"
+          className="font-bold text-2xl bg-gradient-to-r from-blue-800 via-blue-600 to-emerald-500 bg-clip-text text-transparent"
+        >
           OTIAdriver
-        </span>
-        <nav className="space-x-4 text-sm sm:text-base font-medium">
-          <a href="/essencia" className="hover:underline">Essência</a>
-          <a href="/planos" className="hover:underline">Planos</a>
-          <a href="/suporte" className="hover:underline">Suporte</a>
-        </nav>
+        </a>
       </div>
+
+      {/* 🔹 Menu */}
+      <nav className="hidden md:flex space-x-8 text-white font-semibold">
+        <a href="#essencia" className="hover:text-gray-100">Propósito</a>
+        <a href="#planos" className="hover:text-gray-100">Planos</a>
+        <a href="#suporte" className="hover:text-gray-100">Suporte</a>
+      </nav>
+
+      {/* 🔹 Globo de idiomas */}
+      <LanguageSwitcher />
     </header>
   );
 }
