@@ -1,13 +1,14 @@
+// components/BrandPage.tsx
 import React from "react";
 import Image from "next/image";
 
 export type BrandData = {
   name: string;
-  heroImage: string;                 // ex.: "/trucks/volvo.jpg"
-  logo?: string;                     // ex.: "/logos/volvo.png"
+  heroImage: string;
+  logo?: string;
   specs?: Array<{ label: string; value: string }>;
-  gallery?: string[];                // ex.: ["/trucks/volvo-1.jpg", "/trucks/volvo-2.jpg"]
-  videos?: Array<{ title: string; url: string }>; // ex.: YouTube embed URL
+  gallery?: string[];
+  videos?: Array<{ title: string; url: string }>;
 };
 
 export default function BrandPage({ data }: { data: BrandData }) {
@@ -22,7 +23,7 @@ export default function BrandPage({ data }: { data: BrandData }) {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
-      {/* NAV VOLTAR */}
+      {/* VOLTAR */}
       <div className="mb-4">
         <a href="/" className="text-sm text-blue-700 hover:underline">
           &larr; Voltar
@@ -61,10 +62,7 @@ export default function BrandPage({ data }: { data: BrandData }) {
         <h2 className="text-xl font-bold mb-3">Ficha Técnica</h2>
         {specs.length === 0 ? (
           <div className="rounded-xl p-4 bg-gray-50 text-gray-600">
-            <p>
-              Adicione os dados técnicos (ex.: potência, torque, autonomia,
-              PBTC, cabine, transmissão, eixos, etc.).
-            </p>
+            <p>Adicione dados técnicos (potência, torque, transmissão etc.)</p>
           </div>
         ) : (
           <div className="overflow-hidden rounded-xl ring-1 ring-black/5 bg-white">
@@ -90,8 +88,7 @@ export default function BrandPage({ data }: { data: BrandData }) {
         {gallery.length === 0 ? (
           <div className="rounded-xl p-4 bg-gray-50 text-gray-600">
             <p>
-              Inclua imagens em <code>/public/trucks/&lt;marca&gt;-*.jpg</code> e
-              liste-as no array <code>gallery</code>.
+              Adicione imagens em <code>/public/trucks/&lt;marca&gt;-*.jpg</code>
             </p>
           </div>
         ) : (
@@ -118,7 +115,7 @@ export default function BrandPage({ data }: { data: BrandData }) {
         <h2 className="text-xl font-bold mb-3">Vídeos</h2>
         {videos.length === 0 ? (
           <div className="rounded-xl p-4 bg-gray-50 text-gray-600">
-            <p>Adicione URLs de vídeos (YouTube embed) no array <code>videos</code>.</p>
+            <p>Adicione vídeos (URLs YouTube embed) no array videos.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -143,7 +140,7 @@ export default function BrandPage({ data }: { data: BrandData }) {
         )}
       </section>
 
-      {/* PLANOS / CTA */}
+      {/* PLANOS */}
       <section className="mt-10">
         <h2 className="text-xl font-bold mb-3">Planos OTIAdriver</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -152,21 +149,21 @@ export default function BrandPage({ data }: { data: BrandData }) {
             className="rounded-2xl p-5 bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition text-center"
           >
             <div className="text-lg font-bold">Free</div>
-            <div className="text-gray-600">Introdução ao conteúdo</div>
+            <div className="text-gray-600">Introdução gratuita</div>
           </a>
           <a
             href="/#planos"
             className="rounded-2xl p-5 bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition text-center"
           >
             <div className="text-lg font-bold">Premium</div>
-            <div className="text-gray-600">Recursos avançados e treinamentos</div>
+            <div className="text-gray-600">Recursos avançados e IA</div>
           </a>
           <a
             href="/#planos"
             className="rounded-2xl p-5 bg-white ring-1 ring-black/5 shadow-sm hover:shadow-md transition text-center"
           >
             <div className="text-lg font-bold">Corporativo</div>
-            <div className="text-gray-600">Soluções para frotas e empresas</div>
+            <div className="text-gray-600">Frotas e empresas</div>
           </a>
         </div>
       </section>
@@ -183,6 +180,6 @@ export default function BrandPage({ data }: { data: BrandData }) {
           </p>
         </div>
       </section>
-    </main>
-  );
+    </main>
+  );
 }
