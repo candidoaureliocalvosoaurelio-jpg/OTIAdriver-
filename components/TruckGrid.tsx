@@ -5,32 +5,32 @@ import Link from "next/link";
 const trucks = [
   {
     name: "Volvo",
-    image: "/trucks/volvo.jpg",
+    image: "/assets/trucks/volvo.jpg",
     link: "/marcas/volvo",
   },
   {
     name: "Mercedes",
-    image: "/trucks/mercedes.jpg",
+    image: "/assets/trucks/mercedes.jpg",
     link: "/marcas/mercedes",
   },
   {
     name: "Iveco",
-    image: "/trucks/iveco.jpg",
+    image: "/assets/trucks/iveco.jpg",
     link: "/marcas/iveco",
   },
   {
     name: "Scania",
-    image: "/trucks/scania.jpg",
+    image: "/assets/trucks/scania.jpg",
     link: "/marcas/scania",
   },
   {
     name: "Meteor",
-    image: "/trucks/meteor.jpg",
+    image: "/assets/trucks/meteor.jpg",
     link: "/marcas/meteor",
   },
   {
     name: "DAF",
-    image: "/trucks/daf.jpg",
+    image: "/assets/trucks/daf.jpg",
     link: "/marcas/daf",
   },
 ];
