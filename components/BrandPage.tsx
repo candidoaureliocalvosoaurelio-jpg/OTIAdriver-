@@ -11,7 +11,7 @@ export type BrandData = {
   videos?: Array<{ title: string; url: string }>;
 };
 
-export default function BrandPage({ data }: { data: BrandData }) {
+export default function BrandPage({ data }: { data: BrandData }) 
   const {
     name,
     heroImage,
