@@ -11,7 +11,7 @@ export type BrandData = {
   videos?: Array<{ title: string; url: string }>;
 };
 
-export default function BrandPage({ data }: { data: BrandData }) 
+export default function BrandPage({ data }: { data: BrandData }) {
   const {
     name,
     heroImage,
@@ -19,7 +19,7 @@ export default function BrandPage({ data }: { data: BrandData })
     specs = [],
     gallery = [],
     videos = [],
-  } = data;
+  }
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
