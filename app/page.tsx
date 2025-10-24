@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import TruckGrid from "../components/TruckGrid";
+import MissaoVisaoValores from "../components/MissaoVisaoValores"; // ✅ Import novo
 
 export default function Home() {
   return (
@@ -7,19 +8,20 @@ export default function Home() {
       {/* TOPO */}
       <Header />
 
-      {/* Faixa de cor degradê no topo */}
-      <div className="w-full h-2 bg-gradient-to-r from-[#0033A0] to-[#00C389]" />
+      {/* FAIXA DE COR DEGRADÊ NO TOPO */}
+      <div className="w-full h-2 bg-gradient-to-r from-blue-800 to-green-500"></div>
 
       {/* CORPO PRINCIPAL */}
-      <main className="mx-auto max-w-6xl px-4 py-16 flex flex-col items-center text-center">
-        {/* Título central com cores oficiais */}
-        <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight">
+      <main className="mx-auto max-w-6xl px-4 py-10">
+
+        {/* Título central */}
+        <h1 className="text-6xl md:text-7xl font-bold text-center">
           <span style={{ color: "#0033A0" }}>OTIA</span>
-          <span style={{ color: "#00C389" }}>driver</span>
+          <span style={{ color: "#00C3A0" }}>driver</span>
         </h1>
 
         {/* Slogan */}
-        <p className="mt-6 text-2xl md:text-3xl font-semibold text-gray-800">
+        <p className="mt-6 text-2xl text-center text-gray-700">
           Conhecimento Inteligente para Motoristas
         </p>
 
@@ -27,13 +29,17 @@ export default function Home() {
         <div className="mt-12 w-full">
           <TruckGrid />
         </div>
+
+        {/* 🔹 Seção Propósito (Missão, Visão e Valores) */}
+        <MissaoVisaoValores />
+
       </main>
 
       {/* RODAPÉ */}
-      <footer className="bg-gradient-to-r from-[#0033A0] to-[#00C389] text-white py-6 text-center mt-16">
+      <footer className="bg-gradient-to-r from-blue-900 to-green-600 text-white py-4 text-center mt-10">
         <p className="text-sm">
-          Termos e Condições • Política de Privacidade<br />
-          © 2025 <span className="font-bold">OTIAdriver</span> — Todos os direitos reservados.
+          Termos e Condições • Política de Privacidade <br />
+          © 2025 <span className="font-bold">OTIAdriver</span> | Conhecimento Inteligente para Motoristas
         </p>
       </footer>
     </>
