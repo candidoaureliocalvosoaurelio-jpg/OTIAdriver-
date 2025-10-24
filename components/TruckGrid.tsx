@@ -20,6 +20,8 @@ export default function TruckGrid() {
             href={truck.link}
             className="block bg-white shadow-lg rounded-2xl overflow-hidden hover:scale-105 transition-transform duration-300"
           >
+            {/* Imagem dentro do card */}
+    <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
             <div className="relative w-full h-56">
               <Image
                 src={truck.image}
