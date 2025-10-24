@@ -31,19 +31,19 @@ export default function ElectricTruckPage({ params }: Props) {
   if (!truck) return notFound();
 
   const s = truck.specs || {};
-  const rows: Array<[string, string | number | undefined]> = [
-    ["Autonomia (km)", s.autonomia_km],
-    ["Bateria (kWh)", s.bateria_kwh],
-    ["Potência (kW)", s.potencia_kw],
-    ["Torque (Nm)", s.torque_nm],
-    ["PBTC (t)", s.pbt_t],
-    ["Configuração", s.configuracao],
-    ["Recarga", s.recarga],
-    ["Aplicação", s.aplicacao],
-    ["País", s.pais],
-    ["Observações", s.observacoes],
-  ].filter(([, v]) => v !== undefined && v !== "");
-
+  // Garante que o array tenha tipo consistente
+const rows = [
+  ["Autonomia (km)", s.autonomia_km],
+  ["Bateria (kWh)", s.bateria_kwh],
+  ["Potência (kW)", s.potencia_kw],
+  ["Torque (Nm)", s.torque_nm],
+  ["PBTC (t)", s.pbt_t],
+  ["Configuração", s.configuracao],
+  ["Recarga", s.recarga],
+  ["Aplicação", s.aplicacao],
+  ["País", s.pais],
+  ["Observações", s.observacoes],
+].filter(([_, v]) => v !== undefined && v !== "");
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
       {/* Voltar */}
