@@ -19,8 +19,6 @@ export default function Home() {
         <p className="mt-4 text-2xl md:text-3xl font-extrabold text-gray-900">
           Conhecimento Inteligente para Motoristas
         </p>
-        {/* GALERIA DE CAMINHÕES */}
-        <TruckGrid />
         {/* GRID DOS CAMINHÕES */}
         <TruckGrid />
       </main>
