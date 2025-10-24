@@ -20,7 +20,7 @@ export default function Home() {
           Conhecimento Inteligente para Motoristas
         </p>
         {/* GALERIA DE CAMINHÕES */}
-        <TrucksGallery />
+        <TruckGrid />
         {/* GRID DOS CAMINHÕES */}
         <TruckGrid />
       </main>
