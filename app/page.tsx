@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <>
       {/* TOPO */}
-      <Header />
-
+      <header className="w-full bg-gradient-to-r from-[#0033A0] to-[#00C389] text-white shadow">
       {/* CORPO PRINCIPAL */}
       <main className="mx-auto max-w-6xl px-4 py-16 flex flex-col items-center text-center">
         {/* Título central com as cores oficiais */}
