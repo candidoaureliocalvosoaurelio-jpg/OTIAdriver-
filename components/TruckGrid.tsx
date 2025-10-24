@@ -1,7 +1,14 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-
+const trucks = [
+  { key: "volvo",    title: "Volvo FH 2025",                 label: "Volvo",    file: "/images/trucks/volvo.jpg" },
+  { key: "daf",      title: "DAF XF 2025 (Brasil Blue)",     label: "DAF",      file: "/images/trucks/daf_brasil_blue.jpg" },
+  { key: "mercedes", title: "Mercedes Actros 2025",          label: "Mercedes", file: "/images/trucks/mercedes.jpg" },
+  { key: "meteor",   title: "VW Meteor 2025 (Azul Celeste)", label: "Meteor",   file: "/images/trucks/meteor.jpg" },
+  { key: "iveco",    title: "Iveco S-Way 2025 (Cinza Prata)",label: "Iveco",    file: "/images/trucks/iveco.jpg" },
+  { key: "scania",   title: "Scania 2025 (Vermelha Ferrari)",label: "Scania",   file: "/images/trucks/scania.jpg" },
+];
 export default function TruckGrid() {
   return (
     <section className="mt-12">
