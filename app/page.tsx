@@ -5,16 +5,20 @@ export default function Home() {
   return (
     <>
       {/* TOPO */}
-      <header className="w-full bg-gradient-to-r from-[#0033A0] to-[#00C389] text-white shadow">
+      <Header />
+
+      {/* Faixa de cor degradê no topo */}
+      <div className="w-full h-2 bg-gradient-to-r from-[#0033A0] to-[#00C389]" />
+
       {/* CORPO PRINCIPAL */}
       <main className="mx-auto max-w-6xl px-4 py-16 flex flex-col items-center text-center">
-        {/* Título central com as cores oficiais */}
+        {/* Título central com cores oficiais */}
         <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight">
           <span style={{ color: "#0033A0" }}>OTIA</span>
           <span style={{ color: "#00C389" }}>driver</span>
         </h1>
 
-        {/* Slogan (remova se não quiser) */}
+        {/* Slogan */}
         <p className="mt-6 text-2xl md:text-3xl font-semibold text-gray-800">
           Conhecimento Inteligente para Motoristas
         </p>
