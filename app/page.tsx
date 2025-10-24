@@ -1,6 +1,5 @@
 import Header from "../components/Header";
 import TruckGrid from "../components/TruckGrid";
-import TrucksGallery from "../components/TrucksGallery";
 
 export default function Home() {
   return (
