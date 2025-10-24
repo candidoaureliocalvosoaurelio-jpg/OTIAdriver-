@@ -25,3 +25,8 @@ export const trucks = [
     file: "/images/trucks/iveco.jpg",
   },
 ];
+
+// 🔧 Função auxiliar para buscar o caminhão pelo slug
+export function getTruckBySlug(slug: string) {
+  return trucks.find((t) => t.slug === slug);
+}
