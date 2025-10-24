@@ -2,39 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const trucks = [
-  {
-    name: "Volvo",
-    image: "/assets/trucks/volvo.jpg",
-    link: "/marcas/volvo",
-  },
-  {
-    name: "Mercedes",
-    image: "/assets/trucks/mercedes.jpg",
-    link: "/marcas/mercedes",
-  },
-  {
-    name: "Iveco",
-    image: "/assets/trucks/iveco.jpg",
-    link: "/marcas/iveco",
-  },
-  {
-    name: "Scania",
-    image: "/assets/trucks/scania.jpg",
-    link: "/marcas/scania",
-  },
-  {
-    name: "Meteor",
-    image: "/assets/trucks/meteor.jpg",
-    link: "/marcas/meteor",
-  },
-  {
-    name: "DAF",
-    image: "/assets/trucks/daf.jpg",
-    link: "/marcas/daf",
-  },
-];
-
 export default function TruckGrid() {
   return (
     <section className="mt-12">
