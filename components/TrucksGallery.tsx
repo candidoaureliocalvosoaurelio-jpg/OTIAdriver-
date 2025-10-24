@@ -23,7 +23,7 @@ export default function TrucksGallery() {
             key={file}
             className="rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all bg-white"
           >
-            <Image
+           <Image
               src={file}
               alt={name}
               width={1200}
@@ -31,7 +31,7 @@ export default function TrucksGallery() {
               className="object-cover w-full h-auto"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               priority={name.includes("Volvo")} // carrega 1º mais rápido
-            />
+            /> 
             <figcaption className="p-4 text-center text-gray-800 font-medium">
               {name}
             </figcaption>
