@@ -1,6 +1,6 @@
 // components/Header.tsx
 import Link from "next/link";
-// import LanguageSwitcher from "./LanguageSwitcher"; // se você usa
+// import LanguageSwitcher from "./LanguageSwitcher"; // use se existir
 
 export default function Header() {
   return (
@@ -19,10 +19,6 @@ export default function Header() {
           <span className="text-xs text-gray-500">BR</span>
         </div>
       </div>
-    </header>
-  );
-}      {/* 🔹 Globo de idiomas */}
-      <LanguageSwitcher />
     </header>
   );
 }
