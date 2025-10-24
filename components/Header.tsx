@@ -1,23 +1,23 @@
-// components/Header.tsx
+"use client";
 import Link from "next/link";
-// import LanguageSwitcher from "./LanguageSwitcher"; // use se existir
 
 export default function Header() {
   return (
-    <header className="w-full border-b border-gray-200 bg-white/60 backdrop-blur">
-      <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-        {/* Marca removida (logo + nome) */}
+    <header className="w-full border-b bg-white shadow-sm">
+      <div className="mx-auto max-w-6xl flex items-center justify-between px-4 py-3">
+        
+        {/* 🔹 Lado esquerdo — link Propósito */}
+        <a
+          href="/#proposito"
+          className="text-sm font-semibold text-[#004AAD] hover:underline"
+        >
+          Propósito
+        </a>
 
-        <nav className="flex items-center gap-6 text-sm font-medium">
-          <Link href="/proposito" className="hover:underline">Propósito</Link>
-          <Link href="/planos" className="hover:underline">Planos</Link>
-          <Link href="/suporte" className="hover:underline">Suporte</Link>
-        </nav>
-
-        <div className="flex items-center gap-3">
-          {/* <LanguageSwitcher /> */}
-          <span className="text-xs text-gray-500">BR</span>
-        </div>
+        {/* 🔹 Lado direito — logo / nome */}
+        <Link href="/" className="text-xl font-extrabold tracking-tight text-gray-900">
+          OTIAdriver
+        </Link>
       </div>
     </header>
   );
