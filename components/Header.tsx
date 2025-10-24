@@ -6,7 +6,12 @@ export default function Header() {
       {/* 🔹 Logo + Nome */}
       <div className="flex items-center gap-3">
         <img
-          <a
+          src="/logo-otiadriver.png" // certifique-se que o arquivo está em /public/
+          alt="Logo OTIAdriver"
+          className="w-12 h-12 object-contain"
+        />
+
+        <a
           href="/"
           className="font-bold text-2xl bg-gradient-to-r from-blue-800 via-blue-600 to-emerald-500 bg-clip-text text-transparent tracking-tight"
         >
