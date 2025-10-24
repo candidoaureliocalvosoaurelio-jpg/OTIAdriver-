@@ -2,12 +2,12 @@
 import Image from "next/image";
 
 const trucks = [
-  { name: "Volvo FH 2025", file: "/images/trucks/volvo.jpg" },
-  { name: "DAF XF 2025 (Brasil Blue)", file: "/images/trucks/daf_brasil_blue.jpg" },
-  { name: "Mercedes Actros 2025", file: "/images/trucks/mercedes.jpg" },
-  { name: "VW Meteor 2025 (Azul Celeste)", file: "/images/trucks/meteor.jpg" },
-  { name: "Iveco S-Way 2025 (Cinza Prata)", file: "/images/trucks/iveco.jpg" },
-  { name: "Scania 2025 (Vermelha Ferrari)", file: "/images/trucks/scania.jpg" },
+  { name: "Volvo FH", file: "/images/trucks/volvo.jpg" },
+  { name: "DAF XF", file: "/images/trucks/daf_brasil_blue.jpg" },
+  { name: "Mercedes Actros", file: "/images/trucks/mercedes.jpg" },
+  { name: "VW Meteor", file: "/images/trucks/meteor.jpg" },
+  { name: "Iveco S-Way", file: "/images/trucks/iveco.jpg" },
+  { name: "Scania", file: "/images/trucks/scania.jpg" },
 ];
 
 export default function TruckGrid() {
