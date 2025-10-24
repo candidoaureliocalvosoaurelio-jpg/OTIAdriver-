@@ -8,21 +8,26 @@ export default function Home() {
       <Header />
 
       {/* CORPO PRINCIPAL */}
-      <main className="text-center mt-16 px-4">
-       <span className="bg-gradient-to-r from-blue-800 via-blue-600 to-emerald-500 bg-clip-text text-transparent">
-            OTIAdriver
-          </span>
+      <main className="mx-auto max-w-6xl px-4 py-16 flex flex-col items-center text-center">
+        {/* Título central com as cores oficiais */}
+        <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight">
+          <span style={{ color: "#0033A0" }}>OTIA</span>
+          <span style={{ color: "#00C389" }}>driver</span>
         </h1>
 
-        <p className="mt-4 text-2xl md:text-3xl font-extrabold text-gray-900">
+        {/* Slogan (remova se não quiser) */}
+        <p className="mt-6 text-2xl md:text-3xl font-semibold text-gray-800">
           Conhecimento Inteligente para Motoristas
         </p>
+
         {/* GRID DOS CAMINHÕES */}
-        <TruckGrid />
+        <div className="mt-12 w-full">
+          <TruckGrid />
+        </div>
       </main>
 
       {/* RODAPÉ */}
-      <footer className="bg-gradient-to-r from-blue-700 to-emerald-500 text-white py-6 text-center mt-10">
+      <footer className="bg-gradient-to-r from-[#0033A0] to-[#00C389] text-white py-6 text-center mt-16">
         <p className="text-sm">
           Termos e Condições • Política de Privacidade<br />
           © 2025 <span className="font-bold">OTIAdriver</span> — Todos os direitos reservados.
