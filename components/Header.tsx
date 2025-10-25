@@ -37,8 +37,6 @@ export default function Header() {
           <Link href="/contato" className="hover:text-blue-600 transition">Contato</Link>
         </nav>
 
-        {/* 🔹 MENU MOBILE (botão hamburguer) */}
-        <button
           className="md:hidden p-2 text-gray-700 text-2xl"
           onClick={() => setIsOpen(!isOpen)}
         >
