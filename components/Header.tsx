@@ -1,9 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
   <header className="w-full bg-white shadow-sm border-b border-gray-100">
