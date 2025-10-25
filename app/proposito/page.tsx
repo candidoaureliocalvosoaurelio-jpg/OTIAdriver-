@@ -1,4 +1,4 @@
-import Header from "../../componentes/Header"; // se o Header está em /components
+import Header from "../../components/Header"; // se o Header está em /components
 import MissaoVisaoValores from "../../componentes/MissaoVisaoValores"; // (ou .../components/... se você mover)
 
 export default function PropositoPage() {
