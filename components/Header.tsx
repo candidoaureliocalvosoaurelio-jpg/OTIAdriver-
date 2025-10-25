@@ -1,26 +1,33 @@
-"use client";
+import Image from "next/image";
 import Link from "next/link";
-import LogoMark from "./LogoMark";
 
 export default function Header() {
   return (
-    <header className="w-full bg-white shadow-sm border-b border-gray-100">
-      <div className="mx-auto max-w-6xl flex items-center justify-start gap-4 px-4 py-3">
-        {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <LogoMark size={70} />
+    <header className="w-full bg-white shadow-sm">
+      <div className="mx-auto max-w-7xl flex items-center justify-between p-4">
+        {/* LOGO OTIAdriver */}
+        <Link href="/" className="flex items-center space-x-3">
+          <Image
+            src="/images/logo-otia.png"
+            alt="OTIAdriver Logo"
+            width={220}
+            height={80}
+            priority
+          />
         </Link>
 
-        {/* Nome e slogan */}
-        <div className="leading-tight">
-          <h1 className="text-3xl font-extrabold">
-            <span className="text-blue-700">OTIA</span>
-            <span className="text-green-600">driver</span>
-          </h1>
-          <p className="text-gray-600 font-semibold text-sm">
-            Conhecimento Inteligente para Motoristas
-          </p>
-        </div>
+        {/* MENU DE NAVEGAÇÃO */}
+        <nav className="flex space-x-6 text-gray-800 font-semibold text-lg">
+          <Link href="/caminhoes" className="hover:text-blue-600 transition">
+            Caminhões
+          </Link>
+          <Link href="/eletricos" className="hover:text-blue-600 transition">
+            Elétricos
+          </Link>
+          <Link href="/planos" className="hover:text-blue-600 transition">
+            Planos
+          </Link>
+        </nav>
       </div>
     </header>
   );
