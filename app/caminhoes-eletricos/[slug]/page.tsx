@@ -1,65 +1,57 @@
-// app/caminhoes-eletricos/[slug]/page.tsx
+// app/caminhoes/[slug]/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { electricTrucks, getElectricTruckBySlug } from "../../../data/electricTrucks";
+import { trucks, getTruckBySlug } from "../../data/trucks";
 
 type Props = { params: { slug: string } };
 
-// Gera rotas estáticas para cada modelo elétrico
 export function generateStaticParams() {
-  return electricTrucks.map((t) => ({ slug: t.slug }));
+  return trucks.map((t) => ({ slug: t.slug }));
 }
 
-// SEO por modelo
 export function generateMetadata({ params }: Props) {
-  const t = getElectricTruckBySlug(params.slug);
+  const t = getTruckBySlug(params.slug);
   if (!t) return {};
   return {
     title: `${t.name} | OTIAdriver`,
-    description: `Ficha técnica, imagem e PDFs do ${t.name}.`,
+    description: `Imagem e ficha técnica do ${t.name}.`,
     openGraph: {
       title: `${t.name} | OTIAdriver`,
-      description: `Ficha técnica, imagem e PDFs do ${t.name}.`,
+      description: `Imagem e ficha técnica do ${t.name}.`,
       images: t.file ? [{ url: t.file }] : [],
     },
   };
 }
 
-export default function ElectricTruckPage({ params }: Props) {
-  const truck = getElectricTruckBySlug(params.slug);
+export default function TruckPage({ params }: Props) {
+  const truck = getTruckBySlug(params.slug);
   if (!truck) return notFound();
 
   const s = truck.specs || {};
-  // Garante que o array tenha tipo consistente
-const rows = [
-  ["Autonomia (km)", s.autonomia_km],
-  ["Bateria (kWh)", s.bateria_kwh],
-  ["Potência (kW)", s.potencia_kw],
-  ["Torque (Nm)", s.torque_nm],
-  ["PBTC (t)", s.pbt_t],
-  ["Configuração", s.configuracao],
-  ["Recarga", s.recarga],
-  ["Aplicação", s.aplicacao],
-  ["País", s.pais],
-  ["Observações", s.observacoes],
-].filter(([_, v]) => v !== undefined && v !== "");
+  const rows = [
+    ["Motor", s.motor],
+    ["Potência", s.potencia],
+    ["Torque", s.torque],
+    ["Transmissão", s.transmissao],
+    ["PBTC (t)", s.pbt_t],
+    ["Configuração", s.configuracao],
+    ["Consumo", s.consumo],
+    ["Observações", s.observacoes],
+  ].filter(([, v]) => v !== undefined && v !== "");
+
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
-      {/* Voltar */}
-      <Link href="/caminhoes-eletricos" className="text-sm text-blue-700 hover:underline">
-        ← Voltar para Caminhões Elétricos
+      <Link href="/caminhoes" className="text-sm text-blue-700 hover:underline">
+        ← Voltar para Caminhões
       </Link>
 
-      {/* Título */}
       <h1 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight">
         {truck.name}
       </h1>
-      {truck.brand && <p className="text-gray-600">{truck.brand}</p>}
 
-      {/* Card principal */}
       <div className="mt-6 rounded-2xl overflow-hidden shadow bg-white">
-        {/* Imagem grande */}
+        {/* Foto grande */}
         <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
           <Image
             src={truck.file}
@@ -71,14 +63,14 @@ const rows = [
           />
         </div>
 
-        {/* Ficha Técnica */}
+        {/* Ficha técnica */}
         <div className="p-6">
-          <h2 className="text-xl font-bold mb-4">Ficha Técnica ⚡</h2>
+          <h2 className="text-xl font-bold mb-4">Ficha Técnica</h2>
 
           {rows.length === 0 ? (
             <div className="rounded-lg border p-4 text-gray-600">
               Sem especificações cadastradas ainda. Atualize em{" "}
-              <code className="bg-gray-100 px-1 py-0.5 rounded">data/electricTrucks.ts</code>.
+              <code className="bg-gray-100 px-1 py-0.5 rounded">data/trucks.ts</code>.
             </div>
           ) : (
             <div className="overflow-hidden rounded-xl border">
@@ -97,29 +89,7 @@ const rows = [
             </div>
           )}
         </div>
-
-        {/* Downloads (PDF) */}
-        {truck.pdfs && truck.pdfs.length > 0 && (
-          <div className="p-6 pt-0">
-            <h2 className="text-xl font-bold mb-4">Downloads (PDF) 📄</h2>
-            <ul className="space-y-3">
-              {truck.pdfs.map((doc) => (
-                <li key={doc.href}>
-                  <a
-                    href={doc.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-lg border px-4 py-2 hover:bg-gray-50"
-                  >
-                    <span>🔗</span>
-                    <span className="font-medium">{doc.label}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </main>
   );
-           }
+}
