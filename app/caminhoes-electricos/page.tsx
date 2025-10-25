@@ -1,7 +1,7 @@
 // app/caminhoes-eletricos/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { electricTrucks } from "../../../data/electricTrucks";
+import { electricTrucks } from "../../data/electricTrucks";
 
 export const metadata = {
   title: "Caminhões Elétricos | OTIAdriver",
