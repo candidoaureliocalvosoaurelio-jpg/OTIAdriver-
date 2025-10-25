@@ -13,6 +13,8 @@ export const metadata = {
 export default function HomePage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
+      <Header />   {/* Cabeçalho principal */}
+      
       {/* Cabeçalho principal */}
       <section className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
