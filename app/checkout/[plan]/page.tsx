@@ -25,7 +25,6 @@ const priceLabel =
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#EAF3FA] to-white text-slate-800">
       <Header />
-
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-8 text-center">
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900">
