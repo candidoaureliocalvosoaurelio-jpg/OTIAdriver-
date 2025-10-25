@@ -22,7 +22,7 @@ export default function Header() {
             <Link href="/" className="hover:text-blue-600">Início</Link>
             <Link href="/caminhoes" className="hover:text-blue-600">Caminhões</Link>
             <Link href="/caminhoes-eletricos" className="hover:text-blue-600">Caminhões Elétricos ⚡</Link>
-            <Link href="/proposito" className="hover:text-blue-600">Propósito</Link>
+            <Link href="/proposito" className="text-sm font-semibold text-[#004AAD] hover:underline">Propósito</Link>
             <Link href="/sobre" className="hover:text-blue-600">Sobre</Link>
             <Link href="/contato" className="hover:text-blue-600">Contato</Link>
           </nav>
