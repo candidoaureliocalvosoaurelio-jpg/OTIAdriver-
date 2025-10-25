@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import MissaoVisaoValores from "../components/MissaoVisaoValores";
+import Header from "../../components/Header";
+import MissaoVisaoValores from "../../components/MissaoVisaoValores";
 
 export default function PropositoPage() {
   return (
