@@ -6,18 +6,20 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="w-full bg-white shadow-sm border-b border-gray-100">
-      <div className="mx-auto max-w-6xl flex items-center justify-between px-4 py-3">
-        
-        <Link href="/">
-  <img
-    src="/images/logo-otia.png"
-    alt="Logo OTIAdriver"
-    width="90"
-    height="90"
-    className="object-contain"
-  />
-</Link>
+  <header className="w-full bg-white shadow-sm border-b border-gray-100">
+    <div className="mx-auto max-w-6xl flex items-center justify-start px-4 py-3">
+      <Link href="/" className="flex items-center">
+        <img
+          src="/images/logo-otia.png"
+          alt="Logo OTIAdriver"
+          width="90"
+          height="90"
+          className="object-contain"
+        />
+      </Link>
+    </div>
+  </header>
+);
 
         {/* 🔹 MENU DESKTOP */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
