@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { trucks } from "../data/trucks";
+import Header from "../components/Header";
 
 export const metadata = {
   title: "OTIAdriver | Conhecimento Inteligente para Motoristas",
