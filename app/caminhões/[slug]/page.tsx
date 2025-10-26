@@ -3,35 +3,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from "next/navigation"; // Para lidar com a página 404
-// CORREÇÃO CRÍTICA: Importa apenas a lista 'trucks' (que é a única exportação)
+
+// CORREÇÃO: Importa apenas a lista 'trucks', pois você não exportou getTruckBySlug
 import { trucks } from "../../../data/trucks"; 
+// NOTA: Se sua rota for 'app/caminhoes-eletricos/[slug]/page.tsx', 
+// o caminho pode precisar ser '../data/trucks'.
 
-
-// Interface para os dados do caminhão (copiada do data/trucks.ts)
+// Interface para os dados do caminhão
 interface Truck {
     slug: string;
-    // app/caminhoes/[slug]/page.tsx - CORREÇÃO DA generateMetadata
-
-// As interfaces Props e Truck devem estar definidas acima.
-
-export function generateMetadata({ params }: Props) {
-    
-    // CORREÇÃO CRÍTICA: Usa trucks.find() em vez de getTruckBySlug()
-    const truck = trucks.find(t => t.slug === params.slug);
-    
-    // Se o caminhão não for encontrado, retorna um título padrão
-    if (!truck) {
-        return {
-            title: "Caminhão Não Encontrado | OTIAdriver",
-        };
-    }
-
-    // Retorna o título dinâmico com o nome do caminhão
-    return {
-        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
-    };
+    name: string;
+    file: string;
+    description: string;
+    specs: { label: string; value: string }[];
 }
-
 
 // Interface para os parâmetros da rota dinâmica
 interface Props {
@@ -40,14 +25,14 @@ interface Props {
   };
 }
 
-
-// Função para gerar metadados (resolve o erro da Linha 14 na imagem 1000228853.jpg)
+// FUNÇÃO DE METADADOS CORRIGIDA: Usa trucks.find()
 export function generateMetadata({ params }: Props) {
-    // CORREÇÃO: Usa .find() para encontrar o caminhão em vez de getTruckBySlug
     const truck = trucks.find(t => t.slug === params.slug);
     
     if (!truck) {
-        return { title: "Caminhão Não Encontrado | OTIAdriver" };
+        return {
+            title: "Caminhão Não Encontrado | OTIAdriver",
+        };
     }
 
     return {
@@ -59,7 +44,7 @@ export function generateMetadata({ params }: Props) {
 // Componente principal da página
 export default function TruckPage({ params }: Props) {
   
-  // CORREÇÃO: Usa .find() para encontrar o caminhão
+  // CORREÇÃO: Encontra o caminhão usando .find()
   const truck = trucks.find(t => t.slug === params.slug) as Truck | undefined;
 
   // Se o caminhão não for encontrado, chama a página 404 do Next.js
