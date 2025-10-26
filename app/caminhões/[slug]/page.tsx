@@ -1,91 +1,79 @@
-// app/caminhoes/[slug]/page.tsx
+// app/caminhões/[slug]/page.tsx
+import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { trucks, type Truck } from "../../../data/trucks";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from "next/navigation"; 
+type Props = { params: { slug: string } };
 
-// Importa apenas a lista 'trucks', pois ela é a única exportação do arquivo data/trucks.ts
-import { trucks } from "../../../data/trucks"; 
-// NOTA: Se o caminho estiver incorreto para você, ajuste-o.
-
-// Interface para os dados do caminhão
-interface Truck {
-    slug: string;
-    file: string;
-    description: string;
-    specs: { label: string; value: string }[];
-}
-
-// Interface para os parâmetros da rota dinâmica
-interface Props {
-  params: {
-    slug: string;
+// SEO dinâmico por slug
+export function generateMetadata({ params }: Props): Metadata {
+  const truck = trucks.find((t) => t.slug === params.slug);
+  if (!truck) {
+    return {
+      title: "Caminhão não encontrado — OTIAdriver",
+      description: "A página solicitada não foi encontrada.",
+    };
+  }
+  return {
+    title: `${truck.name} — OTIAdriver`,
+    description: `Ficha técnica e imagem do ${truck.name}.`,
   };
 }
 
-// FUNÇÃO DE METADADOS CORRIGIDA: Usa trucks.find()
-export function generateMetadata({ params }: Props) {
-    const truck = trucks.find(t => t.slug === params.slug);
-    
-    if (!truck) {
-        return {
-            title: "Caminhão Não Encontrado | OTIAdriver",
-        };
-    }
+// Página do caminhão
+export default function TruckPage({ params }: Props) {
+  const truck = trucks.find((t) => t.slug === params.slug) as Truck | undefined;
 
-    return {
-        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
-        description: truck.description,
-    };
-}
+  if (!truck) return notFound();
 
-// Componente principal da página
-export default function TruckPage({ params }: Props) {  
-  const truck = trucks.find(t => t.slug ===params.slug) as Truck  
-  if (!truck) return notFound(); 
-  // Estrutura de exibição dos detalhes do caminhão
-    <main className="mx-auto max-w-6xl px-4 py-10      
+  // ⬇️ IMPORTANTE: todo JSX precisa estar dentro de um return (...)
+  return (
+    <main className="mx-auto max-w-6xl px-4 py-10">
       {/* Título e Navegação */}
       <div className="mb-8">
         <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm">
-            ← Voltar para Galeria
+          ← Voltar para Galeria
         </Link>
-        <h1 className="text-4xl font-extrabold text-white mt-2">{truck.name}</h1>
+        <h1 className="mt-2 text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          {truck.name}
+        </h1>
       </div>
 
-      {/* Layout de Duas Colunas: Imagem e Especificações */}
+      {/* Grid: Imagem | Ficha técnica */}
       <div className="grid md:grid-cols-2 gap-10">
-        
-        {/* Coluna da Imagem */}
-        <div className="relative w-full bg-white rounded-2xl shadow-lg" style={{ aspectRatio: "4 / 3" }}>
+        {/* Imagem */}
+        <div
+          className="relative w-full bg-white rounded-2xl shadow-lg"
+          style={{ aspectRatio: "4 / 3" }}
+        >
           <Image
             src={truck.file}
             alt={truck.name}
             fill
-            className="object-contain p-6"
+            className="object-contain p-4"
             sizes="(max-width: 768px) 100vw, 50vw"
+            priority
           />
         </div>
 
-        {/* Coluna da Informação (Descrição e Specs) */}
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-4">Ficha Técnica e Suporte</h2>
-          
-          <p className="text-gray-300 mb-6">{truck.description}</p>
-
-          <div className="bg-zinc-800 rounded-lg p-5">
-            <h3 className="text-xl font-semibold text-white mb-3 border-b border-zinc-700 pb-2">Especificações Principais</h3>
-            <ul className="space-y-2 text-gray-400">
-              {truck.specs.map((spec, index) => (
-                <li key={index} className="flex justify-between border-b border-zinc-700/50 pb-1">
-                  <span className="font-medium text-white">{spec.label}:</span>
-                  <span>{spec.value}</span>
+        {/* Ficha técnica */}
+        <section>
+          <h2 className="text-2xl font-bold mb-4 text-white">Ficha Técnica</h2>
+          {truck.specs ? (
+            <ul className="space-y-2 text-gray-200">
+              {Object.entries(truck.specs).map(([key, value]) => (
+                <li key={key}>
+                  <span className="font-semibold">{key}:</span> {value}
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
+          ) : (
+            <p className="text-gray-300">Especificações em breve.</p>
+          )}
+        </section>
       </div>
     </main>
   );
-                  }
+}
