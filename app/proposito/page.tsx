@@ -5,6 +5,5 @@ export default function PropositoPage() {
     <main className="min-h-screen bg-[#D7F1FB] py-10">
       <MissaoVisaoValores />
       </main>
-    </>
-  );
+      );
 }
