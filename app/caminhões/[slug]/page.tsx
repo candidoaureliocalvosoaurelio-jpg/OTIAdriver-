@@ -47,7 +47,6 @@ export default function TruckPage({ params }: Props) {
   // Se o caminhão não for encontrado, chama a página 404 do Next.js
   
   if (!truck) return notFound(); 
-
   // Estrutura de exibição dos detalhes do caminhão
 
     <main className="mx-auto max-w-6xl px-4 py-10
