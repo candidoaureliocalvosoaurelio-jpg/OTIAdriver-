@@ -2,11 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-// CORREÇÃO: Importa apenas a lista 'trucks', pois você não exportou getTruckBySlug
+import { notFound } from "next/navigation"; // Para lidar com a página 404
+// CORREÇÃO CRÍTICA: Importa apenas a lista 'trucks'
 import { trucks } from "../../../data/trucks"; 
-// NOTA: Ajuste o caminho se seu arquivo de dados estiver em outro lugar.
 
-// Interface para garantir o tipo de dados
+
+// Interface para os dados do caminhão (copiada do data/trucks.ts)
 interface Truck {
     slug: string;
     name: string;
@@ -22,28 +23,32 @@ interface Props {
   };
 }
 
-// Este é o componente TruckDetailPage
-export default function TruckDetailPage({ params }: Props) {
+
+// Função para gerar metadados (Título da aba)
+export function generateMetadata({ params }: Props) {
+    // Usa .find() para encontrar o caminhão
+    const truck = trucks.find(t => t.slug === params.slug);
+    
+    if (!truck) {
+        return { title: "Caminhão Não Encontrado | OTIAdriver" };
+    }
+
+    return {
+        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
+        description: truck.description,
+    };
+}
+
+// Componente principal da página
+export default function TruckPage({ params }: Props) {
   
-  // 1. Encontrar o caminhão com base no 'slug' da URL
+  // Encontrar o caminhão usando .find()
   const truck = trucks.find(t => t.slug === params.slug) as Truck | undefined;
 
-  // 2. Se o caminhão não for encontrado, exibe uma mensagem de erro
-  if (!truck) {
-    // Você pode usar 'notFound()' do next/navigation (que você tentou importar)
-    // Se não estiver funcionando, use esta estrutura:
-    return (
-      <main className="mx-auto max-w-6xl px-4 py-10 text-white text-center">
-        <h1 className="text-4xl font-bold mb-4">Caminhão não encontrado (404)</h1>
-        <p className="text-lg">O modelo com o identificador "{params.slug}" não existe.</p>
-        <Link href="/" className="mt-8 inline-block text-blue-400 hover:text-blue-300 transition">
-            ← Voltar para a Galeria de Caminhões
-        </Link>
-      </main>
-    );
-  }
+  // Se o caminhão não for encontrado, chama a página 404 do Next.js
+  if (!truck) return notFound(); 
 
-  // 3. Estrutura de exibição dos detalhes do caminhão
+  // Estrutura de exibição dos detalhes do caminhão
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
       
@@ -90,4 +95,4 @@ export default function TruckDetailPage({ params }: Props) {
       </div>
     </main>
   );
-          }
+}
