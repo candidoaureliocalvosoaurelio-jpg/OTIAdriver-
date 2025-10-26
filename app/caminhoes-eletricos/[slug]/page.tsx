@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { trucks, getTruckBySlug } from "../../../data/trucks";
+import { trucks } from "../../../data/trucks";
 
 type Props = { params: { slug: string } };
 
