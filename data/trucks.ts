@@ -18,7 +18,7 @@ export type Truck = {
 export const trucks: Truck[] = [
   {
     slug: "volvo-fh",
-    name: "Volvo FH",
+    name: "Volvo",
     file: "/images/trucks/volvo.jpg",
     specs: {
       motor: "D13",
@@ -29,7 +29,7 @@ export const trucks: Truck[] = [
   },
   {
     slug: "daf-xf",
-    name: "DAF XF",
+    name: "DAF",
     file: "/images/trucks/daf_brasil_blue.jpg",
     specs: {
       motor: "MX-13",
@@ -40,7 +40,7 @@ export const trucks: Truck[] = [
   },
   {
     slug: "mercedes-actros",
-    name: "Mercedes Actros",
+    name: "Mercedes",
     file: "/images/trucks/mercedes.jpg",
     specs: {
       motor: "OM 471",
@@ -51,7 +51,7 @@ export const trucks: Truck[] = [
   },
   {
     slug: "vw-meteor",
-    name: "VW Meteor",
+    name: "Volkswagen",
     file: "/images/trucks/meteor.jpg",
     specs: {
       motor: "MAN D26",
@@ -62,7 +62,7 @@ export const trucks: Truck[] = [
   },
   {
     slug: "iveco-sway",
-    name: "Iveco S-Way",
+    name: "Iveco",
     file: "/images/trucks/iveco.jpg",
     specs: {
       motor: "Cursor 13",
@@ -73,7 +73,7 @@ export const trucks: Truck[] = [
   },
   {
     slug: "scania-2025",
-    name: "Scania 2025",
+    name: "Scania",
     file: "/images/trucks/scania.jpg",
     specs: {
       motor: "Super",
