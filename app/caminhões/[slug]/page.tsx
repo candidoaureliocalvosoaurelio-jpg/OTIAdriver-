@@ -1,7 +1,49 @@
-Componente principal da página
+// app/caminhoes/[slug]/page.tsx
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from "next/navigation"; 
+
+// Importa apenas a lista 'trucks', pois ela é a única exportação do arquivo data/trucks.ts
+import { trucks } from "../../../data/trucks"; 
+// NOTA: Se o caminho estiver incorreto para você, ajuste-o.
+
+// Interface para os dados do caminhão
+interface Truck {
+    slug: string;
+    name: string;
+    file: string;
+    description: string;
+    specs: { label: string; value: string }[];
+}
+
+// Interface para os parâmetros da rota dinâmica
+interface Props {
+  params: {
+    slug: string;
+  };
+}
+
+// FUNÇÃO DE METADADOS CORRIGIDA: Usa trucks.find()
+export function generateMetadata({ params }: Props) {
+    const truck = trucks.find(t => t.slug === params.slug);
+    
+    if (!truck) {
+        return {
+            title: "Caminhão Não Encontrado | OTIAdriver",
+        };
+    }
+
+    return {
+        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
+        description: truck.description,
+    };
+}
+
+// Componente principal da página
 export default function TruckPage({ params }: Props) {
   
-  // CORREÇÃO: Encontra o caminhão usando .find()
+  // Encontra o caminhão usando .find()
   const truck = trucks.find(t => t.slug === params.slug) as Truck | undefined;
 
   // Se o caminhão não for encontrado, chama a página 404 do Next.js
@@ -54,4 +96,4 @@ export default function TruckPage({ params }: Props) {
       </div>
     </main>
   );
-}
+                  }
