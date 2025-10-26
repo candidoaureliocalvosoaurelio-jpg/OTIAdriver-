@@ -24,9 +24,9 @@ export function TruckGrid() {
             </div>
 
             {/* Nome do caminhão */}
-            <div className="p-3 text-center font-bold text-zinc-900">
+            <div className="p-3 text-center font-bold text-zinc-900"> group-hover:text-blue-600">
             {t.name}
-            </div>
+            div>
             </Link>
         ))}
       </div>
