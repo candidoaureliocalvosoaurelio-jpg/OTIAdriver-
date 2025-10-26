@@ -1,4 +1,4 @@
-1 | import "./globals.css";
+ 1 | import "./globals.css";
  2 | import type { Metadata } from "next";
  3 | import Link from "next/link";
  4 | import React from "react";
