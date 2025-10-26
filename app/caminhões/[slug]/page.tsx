@@ -11,7 +11,6 @@ import { trucks } from "../../../data/trucks";
 // Interface para os dados do caminhão
 interface Truck {
     slug: string;
-    name: string;
     file: string;
     description: string;
     specs: { label: string; value: string }[];
