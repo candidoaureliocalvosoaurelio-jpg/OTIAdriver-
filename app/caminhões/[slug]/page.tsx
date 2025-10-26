@@ -42,15 +42,15 @@ export function generateMetadata({ params }: Props) {
 // Componente principal da página
 export default function TruckPage({ params }: Props) {
   
-  // Encontra o caminhão usando .find()
-  const truck = trucks.find(t => t.slug === params.slug) as Truck | undefined;
+  const truck = trucks.find(t => t.slug ===params.slug) as Truck
 
   // Se o caminhão não for encontrado, chama a página 404 do Next.js
+  
   if (!truck) return notFound(); 
 
   // Estrutura de exibição dos detalhes do caminhão
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 py-10
       
       {/* Título e Navegação */}
       <div className="mb-8">
