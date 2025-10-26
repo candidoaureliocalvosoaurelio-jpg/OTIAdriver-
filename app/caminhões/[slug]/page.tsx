@@ -1,47 +1,4 @@
-// app/caminhoes/[slug]/page.tsx
-
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from "next/navigation"; // Para lidar com a página 404
-
-// CORREÇÃO: Importa apenas a lista 'trucks', pois você não exportou getTruckBySlug
-import { trucks } from "../../../data/trucks"; 
-// NOTA: Se sua rota for 'app/caminhoes-eletricos/[slug]/page.tsx', 
-// o caminho pode precisar ser '../data/trucks'.
-
-// Interface para os dados do caminhão
-interface Truck {
-    slug: string;
-    name: string;
-    file: string;
-    description: string;
-    specs: { label: string; value: string }[];
-}
-
-// Interface para os parâmetros da rota dinâmica
-interface Props {
-  params: {
-    slug: string;
-  };
-}
-
-// FUNÇÃO DE METADADOS CORRIGIDA: Usa trucks.find()
-export function generateMetadata({ params }: Props) {
-    const truck = trucks.find(t => t.slug === params.slug);
-    
-    if (!truck) {
-        return {
-            title: "Caminhão Não Encontrado | OTIAdriver",
-        };
-    }
-
-    return {
-        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
-        description: truck.description,
-    };
-}
-
-// Componente principal da página
+Componente principal da página
 export default function TruckPage({ params }: Props) {
   
   // CORREÇÃO: Encontra o caminhão usando .find()
