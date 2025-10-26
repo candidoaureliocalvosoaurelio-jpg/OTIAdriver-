@@ -14,16 +14,7 @@ export default function HomePage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
       <Header />   {/* Cabeçalho principal */}
-      
-      {/* Cabeçalho principal */}
-      <section className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-          <span className="text-blue-700">OTIA</span>
-          <span className="text-green-600">driver</span>
-        </h1>
-        <p className="mt-3 text-gray-600 text-lg">
-          Conhecimento Inteligente para Motoristas
-        </p>
+        
       </section>
 
       {/* Grade de caminhões */}
