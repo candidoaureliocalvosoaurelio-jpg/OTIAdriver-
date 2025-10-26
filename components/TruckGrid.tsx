@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-// O caminho abaixo usa o caminho relativo. Se não funcionar, tente "@/data/trucks"
 import { trucks } from "../data/trucks"; 
 
 // Exportação nomeada correta (sem o 'default')
