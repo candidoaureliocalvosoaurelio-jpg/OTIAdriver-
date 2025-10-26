@@ -11,7 +11,7 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: Props) {
-  const t = getTruckBySlug(params.slug);
+  const truck = trucks.find(t => t.slug === params.slug);
   if (!t) return {};
   return {
     title: `${t.name} | OTIAdriver`,
