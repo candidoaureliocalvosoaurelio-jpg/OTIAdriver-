@@ -13,7 +13,7 @@ export function TruckGrid() {
             className="group block rounded-2xl overflow-hidden shadow bg-white transition-transform duration-300 hover:scale-[1.02]"
           >
             {/* Contêiner com proporção fixa e posição relativa */}
-            <div className="relative w-full bg-gray-50" style={{ paddingTop: "66.66%" }}>
+            <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
               <Image
                 src={t.file}
                 alt={t.name}
@@ -24,10 +24,10 @@ export function TruckGrid() {
             </div>
 
             {/* Nome do caminhão */}
-            <div className="p-4 text-center font-semibold text-gray-800 group-hover:text-blue-700">
-              {t.name}
+            <div className="p-3 text-center font-bold text-zinc-900">
+            {t.name}
             </div>
-          </Link>
+            </Link>
         ))}
       </div>
     </section>
