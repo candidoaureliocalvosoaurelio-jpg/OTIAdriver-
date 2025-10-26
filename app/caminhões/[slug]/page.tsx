@@ -41,8 +41,7 @@ export function generateMetadata({ params }: Props) {
 
 // Componente principal da página
 export default function TruckPage({ params }: Props) {  
-  const truck = trucks.find(t => t.slug ===params.slug) as Truck
-  
+  const truck = trucks.find(t => t.slug ===params.slug) as Truck  
   if (!truck) return notFound(); 
   // Estrutura de exibição dos detalhes do caminhão
     <main className="mx-auto max-w-6xl px-4 py-10      
