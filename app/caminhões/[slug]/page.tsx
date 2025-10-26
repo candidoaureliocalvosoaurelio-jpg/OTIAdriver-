@@ -49,7 +49,7 @@ export default function TruckPage({ params }: Props) {
   if (!truck) return notFound(); 
 
   // Estrutura de exibição dos detalhes do caminhão
-  return (
+
     <main className="mx-auto max-w-6xl px-4 py-10
       
       {/* Título e Navegação */}
