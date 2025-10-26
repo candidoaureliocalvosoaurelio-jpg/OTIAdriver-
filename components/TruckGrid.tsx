@@ -2,8 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-
-// Corrigido para o caminho relativo correto. Se não funcionar, tente "@/data/trucks"
+// O caminho abaixo usa o caminho relativo. Se não funcionar, tente "@/data/trucks"
 import { trucks } from "../data/trucks"; 
 
 // Exportação nomeada correta (sem o 'default')
@@ -24,7 +23,7 @@ export function TruckGrid() {
             className="group block rounded-2xl overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-[1.02]"
           >
             
-            {/* Contêiner com proporção fixa e posição relativa */}
+            {/* Contêiner com proporção fixa e posição relativa (CORRIGIDO com aspectRatio) */}
             <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
               <Image
                 src={t.file}
@@ -36,7 +35,7 @@ export function TruckGrid() {
               />
             </div>
 
-            {/* Nome do caminhão - SINTAXE CORRIGIDA E COM HOVER */}
+            {/* Nome do caminhão - SINTAXE E ESTILO CORRIGIDOS (t.name DENTRO da div) */}
             <div className="p-3 text-center font-bold text-zinc-900 group-hover:text-blue-600">
               {t.name}
             </div>
