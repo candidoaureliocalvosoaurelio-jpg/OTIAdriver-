@@ -1,9 +1,11 @@
+// app/page.tsx
+
 import Image from 'next/image';
 import Link from 'next/link';
 // 1. Importa o componente TruckGrid (com export nomeada)
-import { TruckGrid } from '@/components/TruckGrid'; // Ajuste o caminho conforme sua estrutura
+import { TruckGrid } from '@/components/TruckGrid'; 
 
-// 2. Remove importação duplicada de 'trucks' se ela não for necessária aqui
+// Importação de dados de caminhões removida daqui, pois o TruckGrid cuida disso.
 
 export const metadata = {
   title: "OTIAdriver | Conhecimento Inteligente para Motoristas",
@@ -13,16 +15,16 @@ export const metadata = {
 
 export default function HomePage() {
   return (
+    // mx-auto max-w-6xl px-4 py-10: Este Main agora é o container de todo o conteúdo DA PÁGINA.
     <main className="mx-auto max-w-6xl px-4 py-10">
       
       {/* ========================================= */}
-      {/* SEÇÃO DE CAMINHÕES          */}
-      {/* Substitui a seção <section className="py-6"> que estava no código */}
+      {/* SEÇÃO DE CAMINHÕES - Componente Integrado  */}
       {/* ========================================= */}
       <TruckGrid /> 
 
       {/* ========================================= */}
-      {/* BLOCO DE PROPÓSITO          */}
+      {/* BLOCO DE PROPÓSITO, MISSÃO, VISÃO, VALORES */}
       {/* ========================================= */}
       <section className="mt-16 border-t border-blue-100 rounded-2xl p-8 bg-blue-50">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Nosso Propósito 🎯</h2>
@@ -67,7 +69,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ========================================= */}
-      {/* RODAPÉ                  */}
-      {/* ========================================= */}
-      
+      {/* RODAPÉ REMOVIDO: Agora ele está no app/layout.tsx */}
+    </main>
+  );
+}
