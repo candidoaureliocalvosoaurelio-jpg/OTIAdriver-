@@ -1,10 +1,12 @@
-export interface Truck {
+    // data/trucks.ts
+
+export type Truck = {
   slug: string;
   name: string;
-  file: string; // Caminho da imagem em /public/images/trucks
+  file: string;         // caminho dentro de /public
   description?: string;
-  specs?: Record<string, string>; // Lista de especificações
-}
+  specs?: Record<string, string>;
+};
 
 export const trucks: Truck[] = [
   {
@@ -36,40 +38,7 @@ export const trucks: Truck[] = [
     specs: {
       Motor: "OM 471",
       Potência: "530 cv",
-      Transmissão: "Powershift 3 automatizada",
-      PesoBruto: "45 toneladas",
-    },
-  },
-  {
-    slug: "vw-meteor-2025",
-    name: "VW Meteor 2025",
-    file: "/images/trucks/vw_meteor.jpg",
-    specs: {
-      Motor: "MAN D26 13L",
-      Potência: "520 cv",
-      Transmissão: "ZF TraXon 12 velocidades",
-      PesoBruto: "45 toneladas",
-    },
-  },
-  {
-    slug: "iveco-s-way-2025",
-    name: "Iveco S-Way 2025",
-    file: "/images/trucks/iveco_sway.jpg",
-    specs: {
-      Motor: "Cursor 13 Euro 6",
-      Potência: "570 cv",
-      Transmissão: "HI-TRONIX 12 velocidades",
-      PesoBruto: "44 toneladas",
-    },
-  },
-  {
-    slug: "scania-2025",
-    name: "Scania 2025",
-    file: "/images/trucks/scania.jpg",
-    specs: {
-      Motor: "DC16 770 V8",
-      Potência: "770 cv",
-      Transmissão: "Opticruise 12 velocidades",
+      Transmissão: "Powershift 3",
       PesoBruto: "45 toneladas",
     },
   },
