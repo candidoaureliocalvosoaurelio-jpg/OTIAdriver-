@@ -1,6 +1,6 @@
 // data/trucks.ts
 
-export interface Truck {
+    export interface Truck {
     slug: string;
     name: string;
     file: string; // Caminho da imagem em /public
@@ -8,7 +8,7 @@ export interface Truck {
     specs: { label: string; value: string }[];
 }
 
-export const trucks: Truck[] = [
+    export const trucks: Truck[] = [
     { 
         slug: "volvo-fh-2025", 
         name: "Volvo FH", 
