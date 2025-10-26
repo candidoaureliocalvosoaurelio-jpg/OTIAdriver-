@@ -1,7 +1,6 @@
 // app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { trucks } from "../data/trucks";
 
 export const metadata = {
   title: "OTIAdriver | Conhecimento Inteligente para Motoristas",
