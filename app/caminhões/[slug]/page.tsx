@@ -10,11 +10,28 @@ import { trucks } from "../../../data/trucks";
 // Interface para os dados do caminhão (copiada do data/trucks.ts)
 interface Truck {
     slug: string;
-    name: string;
-    file: string;
-    description: string;
-    specs: { label: string; value: string }[];
+    // app/caminhoes/[slug]/page.tsx - CORREÇÃO DA generateMetadata
+
+// As interfaces Props e Truck devem estar definidas acima.
+
+export function generateMetadata({ params }: Props) {
+    
+    // CORREÇÃO CRÍTICA: Usa trucks.find() em vez de getTruckBySlug()
+    const truck = trucks.find(t => t.slug === params.slug);
+    
+    // Se o caminhão não for encontrado, retorna um título padrão
+    if (!truck) {
+        return {
+            title: "Caminhão Não Encontrado | OTIAdriver",
+        };
+    }
+
+    // Retorna o título dinâmico com o nome do caminhão
+    return {
+        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
+    };
 }
+
 
 // Interface para os parâmetros da rota dinâmica
 interface Props {
