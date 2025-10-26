@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from "next/navigation"; // Para lidar com a página 404
-// CORREÇÃO CRÍTICA: Importa apenas a lista 'trucks'
+// CORREÇÃO CRÍTICA: Importa apenas a lista 'trucks' (que é a única exportação)
 import { trucks } from "../../../data/trucks"; 
 
 
@@ -24,9 +24,9 @@ interface Props {
 }
 
 
-// Função para gerar metadados (Título da aba)
+// Função para gerar metadados (resolve o erro da Linha 14 na imagem 1000228853.jpg)
 export function generateMetadata({ params }: Props) {
-    // Usa .find() para encontrar o caminhão
+    // CORREÇÃO: Usa .find() para encontrar o caminhão em vez de getTruckBySlug
     const truck = trucks.find(t => t.slug === params.slug);
     
     if (!truck) {
@@ -42,7 +42,7 @@ export function generateMetadata({ params }: Props) {
 // Componente principal da página
 export default function TruckPage({ params }: Props) {
   
-  // Encontrar o caminhão usando .find()
+  // CORREÇÃO: Usa .find() para encontrar o caminhão
   const truck = trucks.find(t => t.slug === params.slug) as Truck | undefined;
 
   // Se o caminhão não for encontrado, chama a página 404 do Next.js
