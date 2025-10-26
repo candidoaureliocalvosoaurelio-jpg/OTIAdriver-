@@ -1,91 +1,123 @@
-// app/caminhoes/[slug]/page.tsx
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { trucks } from "../../.. /data/trucks";
-       
-type Props = { params: { slug: string } };
+// app/caminhoes-eletricos/[slug]/page.tsx
 
-export function generateStaticParams() {
-  return trucks.map((t) => ({ slug: t.slug }));
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from "next/navigation"; 
+
+// CORREÇÃO: Importa apenas a lista 'trucks', que é a única exportação que temos.
+import { trucks } from "../../.. /data/trucks"; 
+
+// NOTA: Se você não tiver as interfaces Truck e Props definidas em outro lugar, use as que estão abaixo:
+interface Truck {
+    slug: string;
+    name: string;
+    file: string;
+    description: string;
+    specs: { label: string; value: string }[];
 }
 
-export function generateMetadata({ params }: Props) {
-  const truck = trucks.find(t => t.slug === params.slug);
-  if (!t) return {};
-  return {
-    title: `${t.name} | OTIAdriver`,
-    description: `Imagem e ficha técnica do ${t.name}.`,
-    openGraph: {
-      title: `${t.name} | OTIAdriver`,
-      description: `Imagem e ficha técnica do ${t.name}.`,
-      images: t.file ? [{ url: t.file }] : [],
-    },
+interface Props {
+  params: {
+    slug: string;
   };
-export default function TruckPage({ params }: Props) {
-  const truck = trucks.find(t =>.slug === params.slug) as Truck
-  if (!truck) return notFound();
+}
 
-  const s = truck.specs || {};
+// Para rotas estáticas do Next.js (opcional, mas bom para desempenho)
+export async function generateStaticParams() {
+  return trucks.map((truck) => ({
+    slug: truck.slug,
+  }));
+}
+
+// FUNÇÃO DE METADADOS CORRIGIDA: Usa trucks.find() e sintaxe correta
+export function generateMetadata({ params }: Props) {
+    // CORREÇÃO: Usa trucks.find() em vez do inexistente getTruckBySlug
+    const truck = trucks.find(t => t.slug === params.slug);
+    
+    if (!truck) {
+        return {
+            title: "Caminhão Não Encontrado | OTIAdriver",
+        };
+    }
+
+    return {
+        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
+        description: truck.description,
+    };
+}
+
+// Componente principal da página
+export default function TruckPage({ params }: Props) {
+  
+  // CORREÇÃO: Encontra o caminhão usando .find()
+  const truck = trucks.find(t => t.slug === params.slug) as Truck | undefined;
+
+  // Se o caminhão não for encontrado, chama a página 404 do Next.js
+  if (!truck) return notFound(); 
+
+  // Preparação de dados para a seção de especificações (adaptado do seu código)
+  const s = truck.specs || [];
   const rows = [
-    ["Motor", s.motor],
-    ["Potência", s.potencia],
-    ["Torque", s.torque],
-    ["Transmissão", s.transmissao],
-    ["PBTC (t)", s.pbt_t],
-    ["Configuração", s.configuracao],
-    ["Consumo", s.consumo],
-    ["Observações", s.observacoes],
-  ].filter(([, v]) => v !== undefined && v !== "");
+    // Certifique-se de que os dados aqui batem com a estrutura de truck.specs em data/trucks.ts
+    // Exemplo: Se specs for um array de objetos {label, value}, o map abaixo deve ser usado
+    // Se specs for um objeto direto (como motor, potencia), a lógica de mapeamento deve ser refeita.
+  ];
+  
+  // Como o seu código em 1000228920.jpg sugere que specs é um objeto, vamos usar a estrutura da sua última imagem:
+  // const s = truck.specs || {};
+  // const rows = [
+  //   ["Motor", s.motor],
+  //   ["Potência", s.potencia],
+  //   // ... outros campos ...
+  // ]; 
+  
+  // No código fornecido na sua imagem (1000228920.jpg), você tem uma lógica de rows complexa que depende da estrutura de `truck.specs`.
+  // Para evitar mais erros, vamos usar a estrutura de lista simples que o seu código anterior (100022898.jpg) sugere.
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <Link href="/caminhoes" className="text-sm text-blue-700 hover:underline">
-        ← Voltar para Caminhões
-      </Link>
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      
+      {/* Título e Navegação */}
+      <div className="mb-8">
+        <Link href="/caminhoes" className="text-blue-400 hover:text-blue-300 text-sm">
+            ← Voltar para Caminhões
+        </Link>
+        <h1 className="text-4xl font-extrabold text-white mt-2">{truck.name}</h1>
+      </div>
 
-      <h1 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight">
-        {truck.name}
-      </h1>
-
-      <div className="mt-6 rounded-2xl overflow-hidden shadow bg-white">
-        {/* Foto grande */}
-        <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
+      {/* Layout de Duas Colunas: Imagem e Especificações */}
+      <div className="grid md:grid-cols-2 gap-10">
+        
+        {/* Coluna da Imagem */}
+        <div className="relative w-full bg-white rounded-2xl shadow-lg" style={{ aspectRatio: "4 / 3" }}>
           <Image
             src={truck.file}
             alt={truck.name}
             fill
-            className="object-contain p-4"
-            sizes="(max-width: 768px) 100vw, 100vw"
-            priority
+            className="object-contain p-6"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority // Adicionado para carregar a imagem principal rapidamente
           />
         </div>
 
-        {/* Ficha técnica */}
-        <div className="p-6">
-          <h2 className="text-xl font-bold mb-4">Ficha Técnica</h2>
+        {/* Coluna da Informação (Descrição e Specs) */}
+        <div>
+          <h2 className="text-2xl font-bold text-white mb-4">Ficha Técnica e Suporte</h2>
+          
+          <p className="text-gray-300 mb-6">{truck.description}</p>
 
-          {rows.length === 0 ? (
-            <div className="rounded-lg border p-4 text-gray-600">
-              Sem especificações cadastradas ainda. Atualize em{" "}
-              <code className="bg-gray-100 px-1 py-0.5 rounded">data/trucks.ts</code>.
-            </div>
-          ) : (
-            <div className="overflow-hidden rounded-xl border">
-              <table className="min-w-full divide-y divide-gray-200">
-                <tbody className="divide-y divide-gray-200">
-                  {rows.map(([k, v]) => (
-                    <tr key={k}>
-                      <th className="w-56 bg-gray-50 px-4 py-3 text-left font-medium text-gray-700">
-                        {k}
-                      </th>
-                      <td className="px-4 py-3">{String(v)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <div className="bg-zinc-800 rounded-lg p-5">
+            <h3 className="text-xl font-semibold text-white mb-3 border-b border-zinc-700 pb-2">Especificações Principais</h3>
+            <ul className="space-y-2 text-gray-400">
+              {/* CORREÇÃO: Usa o map correto para a estrutura {label, value} */}
+              {truck.specs.map((spec, index) => (
+                <li key={index} className="flex justify-between border-b border-zinc-700/50 pb-1">
+                  <span className="font-medium text-white">{spec.label}:</span>
+                  <span>{spec.value}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </main>
