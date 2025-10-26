@@ -1,21 +1,43 @@
-export default function Header() {
-  return (
-    <header className="flex flex-col items-center justify-center py-8">
-      <div className="flex items-center space-x-3">
-        <img
-          src="/images/logo-otia.png"
-          alt="Logo OTIAdriver"
-          className="h-20 w-auto"
-        />
-        <h1 className="text-6xl font-extrabold tracking-tight">
-          <span className="text-[#1F6FEB]">OTIA</span>
-          <span className="text-[#40E0D0]">driver</span>
-        </h1>
-      </div>
+// components/Header.tsx
+import Image from 'next/image';
+import Link from 'next/link';
 
-      <p className="mt-4 text-3xl md:text-4xl font-extrabold text-black text-center">
-        Conhecimento Inteligente para Motoristas
-      </p>
+// Exportação nomeada é mais robusta, então removemos o 'default' para usar no layout.tsx
+export function Header() { 
+  return (
+    // 'sticky' fixa o cabeçalho no topo da tela ao rolar
+    <header className="sticky top-0 bg-zinc-900/95 backdrop-blur-sm z-50">
+      <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between border-b border-white/10">
+        
+        {/* Logo e Título (Link para Home) */}
+        <Link href="/" className="flex items-center gap-2">
+          {/* USANDO NEXT/IMAGE COM DIMENSÕES */}
+          <Image
+            src="/images/logo-otia.png"
+            alt="Logo OTIAdriver"
+            width={32} 
+            height={32}
+            className="h-8 w-auto"
+          />
+          {/* O seu Título estilizado, agora em tamanho de Topbar */}
+          <span className="text-xl font-extrabold tracking-tight">
+            <span className="text-[#1F6FEB]">OTIA</span>
+            <span className="text-[#4E0E00]">driver</span>
+          </span>
+        </Link>
+        
+        {/* Navegação Principal */}
+        <nav className="flex items-center gap-6 text-sm text-white/70 font-medium">
+          <Link href="/caminhoes-eletricos" className="hover:text-white transition">
+            Caminhões Elétricos
+          </Link>
+          <Link href="/planos" className="hover:text-white transition">
+            Planos
+          </Link>
+          {/* Adicione outros links se houver */}
+        </nav>
+        
+      </div>
     </header>
   );
 }
