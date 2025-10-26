@@ -1,5 +1,3 @@
-// data/trucks.ts
-
 export interface Truck {
   slug: string;
   name: string;
