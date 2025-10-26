@@ -22,8 +22,6 @@ export function generateMetadata({ params }: Props) {
       images: t.file ? [{ url: t.file }] : [],
     },
   };
-}
-
 export default function TruckPage({ params }: Props) {
   const truck = trucks.find(t =>.slug === params.slug) as Truck
   if (!truck) return notFound();
