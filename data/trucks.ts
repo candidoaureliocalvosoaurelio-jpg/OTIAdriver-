@@ -1,6 +1,6 @@
 // data/trucks.ts
 
-export interface Truck { export interface Truck {
+interface Truck { export interface Truck {
     slug: string;
     name: string;
     file: string; // Caminho da imagem em /public
