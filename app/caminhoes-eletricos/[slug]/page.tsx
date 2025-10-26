@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { notFound } from "next/navigation"; 
 
 // CORREÇÃO: Importa apenas a lista 'trucks', que é a única exportação que temos.
-import { trucks } from "../../.. /data/trucks"; 
+import { trucks } from "../../../data/trucks"; 
 
 // NOTA: Se você não tiver as interfaces Truck e Props definidas em outro lugar, use as que estão abaixo:
 interface Truck {
