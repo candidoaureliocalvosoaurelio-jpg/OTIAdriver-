@@ -15,12 +15,17 @@ function normalizeSlug(s: string) {
 
 // Tenta achar o plano dentro de PRICING (estrutura flexível)
 function findPlan(slug: string) {
-  const plans = (PRICING as any[]) || [];
+  // Se PRICING for um objeto, pega só os valores
+  const plans = Array.isArray(PRICING)
+    ? PRICING
+    : Object.values(PRICING ?? {});
+
   const s = normalizeSlug(slug);
   return (
-    plans.find((p) => normalizeSlug(p?.slug ?? p?.id ?? p?.name ?? "") === s) ??
-    plans.find((p) => normalizeSlug(p?.name ?? "") === s) ??
-    null
+    plans.find(
+      (p: any) =>
+        normalizeSlug(p?.slug ?? p?.id ?? p?.name ?? "") === s
+    ) ?? null
   );
 }
 
