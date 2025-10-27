@@ -1,6 +1,6 @@
 // data/trucks.ts
 
-export interface Truck = {
+export interface Truck {
   slug: string;
   name: string;
   file: string;  // caminho dentro de /public
