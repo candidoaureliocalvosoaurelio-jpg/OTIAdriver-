@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { trucks, type Truck }, type Truck } from "@/data/trucks";
+import { trucks, type Truck } from "../../../data/trucks";
 
 type Props = { params: { slug: string } };
 
