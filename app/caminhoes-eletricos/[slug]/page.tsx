@@ -41,8 +41,7 @@ export function generateMetadata({ params }: Props) {
     }
 
     return {
-        title: `${truck.name} | Ficha Técnica | OTIAdriver`,
-        description: truck.description,
+        title: `${truck.name} | Ficha Técnica | OTIAdriver`,        
     };
 }
 
