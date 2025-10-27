@@ -1,5 +1,5 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { PRICING } from "../../data/pricing";
 
 export const metadata = { title: "Planos — OTIAdriver" };
