@@ -1,11 +1,11 @@
 // data/trucks.ts
 
-export type Truck = {
+export interface Truck = {
   slug: string;
   name: string;
-  file: string;            // caminho dentro de /public
+  file: string;  // caminho dentro de /public
   description?: string;
-  specs?: Record<string, string>;
+  specs: { label : string; value: string>;[];
 };
 
 // Helper opcional (facilita buscar pelo slug)
