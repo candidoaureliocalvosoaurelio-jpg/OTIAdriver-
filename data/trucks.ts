@@ -10,7 +10,7 @@ export type Truck = {
 
 // Helper opcional (facilita buscar pelo slug)
 export function getTruckBySlug(slug: string): Truck | undefined {
-  return trucks.find(t => t.slug === slug);
+  return trucks.find((t) => t.slug === slug);
 }
 
 export const trucks: Truck[] = [
