@@ -1,18 +1,7 @@
+// data/trucks.ts
+// Arquivo só de dados, sem TypeScript avançado (compatível com qualquer parser)
 
-export interface Truck {
-  slug: string;
-  name: string;
-  file: string;  // caminho dentro de /public
-  description?: string;
-  specs: { label : string; value: string>;[];
-};
-
-// Helper opcional (facilita buscar pelo slug)
-export function getTruckBySlug(slug: string) {
-  return trucks.find(t => t.slug === slug);
-}
-
-export const trucks: Truck[] = [
+export const trucks = [
   {
     slug: "volvo-fh-2025",
     name: "Volvo FH 2025",
@@ -21,8 +10,8 @@ export const trucks: Truck[] = [
       Motor: "D13K 540",
       Potência: "540 cv",
       Transmissão: "I-Shift automatizada",
-      PesoBruto: "45 toneladas",
-    },
+      PesoBruto: "45 toneladas"
+    }
   },
   {
     slug: "daf-xf-2025",
@@ -32,8 +21,8 @@ export const trucks: Truck[] = [
       Motor: "PACCAR MX-13",
       Potência: "530 cv",
       Transmissão: "TraXon 12 velocidades",
-      PesoBruto: "44 toneladas",
-    },
+      PesoBruto: "44 toneladas"
+    }
   },
   {
     slug: "mercedes-actros-2025",
@@ -43,7 +32,12 @@ export const trucks: Truck[] = [
       Motor: "OM 471",
       Potência: "530 cv",
       Transmissão: "Powershift 3",
-      PesoBruto: "45 toneladas",
-    },
-  },
-];
+      PesoBruto: "45 toneladas"
+    }
+  }
+] as const;
+
+// Helper simples, opcional
+export function getTruckBySlug(slug: string) {
+  return trucks.find(t => t.slug === slug);
+}
