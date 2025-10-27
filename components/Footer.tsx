@@ -1,4 +1,4 @@
-export default function Footer() { ... }
+export default function Footer() {...}
   return (
     <footer className="w-full bg-gradient-to-r from-[#0AD88F] via-[#1473E6] to-[#0A2A6C] text-white text-center text-sm py-6 shadow-inner border-t border-gray-700">
       <div className="flex flex-col md:flex-row justify-center items-center gap-4">
