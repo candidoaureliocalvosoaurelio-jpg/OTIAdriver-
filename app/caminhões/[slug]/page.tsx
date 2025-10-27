@@ -21,7 +21,7 @@ export function generateMetadata({ params }: Props): Metadata {
 
 // Página do caminhão
 export default function TruckPage({ params }: Props) {
-  const truck = trucks.find((t) => t.slug === params.slug) as Truck | undefined;
+  const truck = trucks.find((t) => t.slug === params.slug);
 
   if (!truck) return notFound();
 
