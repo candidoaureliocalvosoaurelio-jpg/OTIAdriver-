@@ -1,22 +1,18 @@
-// app/essencia/page.tsx
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-
-export const metadata = { title: "Essência — OTIAdriver" };
-
-export default function EssenciaPage() {
+// components/Footer.tsx
+export function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <>
-      <Header />
-      <main className="mx-auto max-w-6xl px-4 py-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white">
-          Essência OTIAdriver
-        </h1>
-        <p className="mt-4 text-gray-300 text-lg">
-          Conhecimento inteligente para motoristas, com inovação, segurança e eficiência.
+    <footer className="w-full bg-gradient-to-r from-[#0AD88F] via-[#1473E6] to-[#0A2A6C] text-white text-center text-sm">
+      <div className="mx-auto max-w-6xl px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p className="opacity-90">
+          © {year} OTIAdriver — Conhecimento Inteligente para Motoristas
         </p>
-      </main>
-      <Footer />
-    </>
+        <nav className="flex items-center gap-5">
+          <a href="/essencia" className="hover:underline">Essência</a>
+          <a href="/contato" className="hover:underline">Contato</a>
+          <a href="/" className="hover:underline">Home</a>
+        </nav>
+      </div>
+    </footer>
   );
 }
