@@ -52,8 +52,7 @@ export default function ElectricTrucksPage() {
         <p>🚚 A nova era do transporte começa com energia limpa e inteligência OTIAdriver.</p>
       </div>
     </main>
-  );
-}                className="object-contain p-4 group-hover:scale-[1.02] transition-transform"
+  }                className="object-contain p-4 group-hover:scale-[1.02] transition-transform"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
             <div className="p-4 text-center">
