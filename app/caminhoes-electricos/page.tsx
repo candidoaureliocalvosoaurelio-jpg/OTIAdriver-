@@ -1,4 +1,4 @@
-import Image from "next/image";
+      import Image from "next/image";
 import Link from "next/link";
 import { electricTrucks } from "@/data/electricTrucks";
 
@@ -90,5 +90,3 @@ export default function ElectricTrucksPage() {
         <p>🚚 A nova era do transporte começa com energia limpa e inteligência OTIAdriver.</p>
       </div>
     </main>
-  );
-}
