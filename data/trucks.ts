@@ -1,4 +1,4 @@
-/ data/trucks.ts
+
 export type Truck = {
   slug: string;
   name: string;
