@@ -37,11 +37,12 @@ export default function ElectricTrucksPage() {
                 className="object-contain p-4 group-hover:scale-[1.02] transition-transform"
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-            </div>
             <div className="p-4 text-center">
-              <h2 className="font-semibold text-lg text-gray-800">{truck.name}</h2>
-              <p className="text-sm text-gray-500 mt-1">{truck.description}</p>
-            </div>
+  <h2 className="font-semibold text-lg text-gray-800">{truck.name}</h2>
+  {truck.description && (
+    <p className="text-sm text-gray-500 mt-1">{truck.description}</p>
+  )}
+</div>
           </Link>
         ))}
       </section>
