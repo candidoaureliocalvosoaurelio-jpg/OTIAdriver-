@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function ElectricTrucksPage() {
   // Se seu export for `electricTrucks`, mude esta linha para: const trucks = electricTrucks;
-  const trucks = eletricTrucks;
+  const trucks = electricTrucks;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
