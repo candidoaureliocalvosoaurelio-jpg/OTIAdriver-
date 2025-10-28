@@ -6,7 +6,7 @@ import Link from "next/link";
 // Se o seu arquivo for "data/eletricTrucks.ts" e exportar `eletricTrucks` (sem o 2º "c"),
 // mantenha a linha abaixo. Se você exporta `electricTrucks`, troque o import e a
 // constante `trucks` ali embaixo para usar `electricTrucks`.
-import { eletricTrucks } from "@/data/eletricTrucks";
+import { electricTrucks } from "@/data/eletricTrucks";
 
 export const metadata = {
   title: "Caminhões Elétricos | OTIAdriver",
