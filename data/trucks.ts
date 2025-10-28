@@ -1,4 +1,4 @@
-// data/trucks.ts
+/ data/trucks.ts
 export type Truck = {
   slug: string;
   name: string;
@@ -22,7 +22,7 @@ export const trucks: Truck[] = [
   {
     slug: "daf-xf-2025",
     name: "DAF XF 2025",
-    file: "/images/trucks/daf.jpg",
+    file: "/images/trucks/daf_brasil_blue.jpg", // ✅ nome real
     specs: {
       Motor: "PACCAR MX-13",
       Potência: "530 cv",
@@ -46,7 +46,7 @@ export const trucks: Truck[] = [
   {
     slug: "volkswagen-meteor-2025",
     name: "Volkswagen Meteor 2025",
-    file: "/images/trucks/volkswagen.jpg", // veja a etapa 2
+    file: "/images/trucks/meteor.jpg", // ✅ nome real
     specs: {
       Motor: "MAN D26",
       Potência: "520 cv",
@@ -81,4 +81,4 @@ export const trucks: Truck[] = [
 // Helper opcional
 export function getTruckBySlug(slug: string) {
   return trucks.find((t) => t.slug === slug);
-}
+  }
