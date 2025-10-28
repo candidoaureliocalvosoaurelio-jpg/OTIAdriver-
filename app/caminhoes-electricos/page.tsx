@@ -1,4 +1,4 @@
-// app/caminhoes-eletricos/page.tsx
+// app/caminhoes-electricos/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,7 +6,7 @@ import Link from "next/link";
 // Se o seu arquivo for "data/eletricTrucks.ts" e exportar `eletricTrucks` (sem o 2º "c"),
 // mantenha a linha abaixo. Se você exporta `electricTrucks`, troque o import e a
 // constante `trucks` ali embaixo para usar `electricTrucks`.
-import { electricTrucks } from "@/data/eletricTrucks";
+import { electricTrucks } from "@/data/electricTrucks";
 
 export const metadata = {
   title: "Caminhões Elétricos | OTIAdriver",
