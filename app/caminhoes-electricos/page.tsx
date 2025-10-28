@@ -1,72 +1,55 @@
-// app/caminhoes-electricos/page.tsx
+ // app/caminhoes-eletricos/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-
-// ATENÇÃO ao nome da exportação no seu arquivo de dados.
-// Se o seu arquivo for "data/eletricTrucks.ts" e exportar `eletricTrucks` (sem o 2º "c"),
-// mantenha a linha abaixo. Se você exporta `electricTrucks`, troque o import e a
-// constante `trucks` ali embaixo para usar `electricTrucks`.
 import { electricTrucks } from "@/data/electricTrucks";
 
 export const metadata = {
-  title: "Caminhões Elétricos | OTIAdriver",
-  description: "Galeria dos 13 caminhões elétricos — imagens, nomes e links para detalhes.",
+  title: "Caminhões Elétricos ⚡ | OTIAdriver",
+  description: "Galeria oficial dos caminhões elétricos OTIAdriver — inovação, eficiência e sustentabilidade.",
 };
 
 export default function ElectricTrucksPage() {
-  // Se seu export for `electricTrucks`, mude esta linha para: const trucks = electricTrucks;
-  const trucks = electricTrucks;
-
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
-      {/* Cabeçalho + Voltar */}
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+      {/* Título e Introdução */}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
           Caminhões Elétricos ⚡
         </h1>
-        <Link
-          href="/"
-          className="text-sm text-blue-700 hover:underline"
-        >
-          ← Voltar para a Home
-        </Link>
+        <p className="mt-3 text-gray-600 text-lg">
+          Inovação e sustentabilidade sobre rodas — conheça os modelos elétricos mais avançados.
+        </p>
       </div>
 
-      {/* Grade de cartões */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {trucks.map((t) => (
+      {/* Galeria de Caminhões */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {electricTrucks.map((truck) => (
           <Link
-            key={t.slug}
-            href={`/caminhoes-eletricos/${t.slug}`}
-            className="group"
+            key={truck.slug}
+            href={`/caminhoes-eletricos/${truck.slug}`}
+            className="group block bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
           >
-            <div className="rounded-2xl overflow-hidden shadow bg-white transition-transform group-hover:scale-[1.01]">
-              <div
-                className="relative w-full bg-gray-50"
-                style={{ aspectRatio: "3 / 2" }}
-              >
-                <Image
-                  src={t.file}
-                  alt={t.name}
-                  fill
-                  className="object-contain p-3"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
-              <div className="p-4 text-center font-medium text-gray-800">
-                {t.name}
-              </div>
+            <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
+              <Image
+                src={truck.file}
+                alt={truck.name}
+                fill
+                className="object-contain p-4 group-hover:scale-[1.02] transition-transform"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+            <div className="p-4 text-center">
+              <h2 className="font-semibold text-lg text-gray-800">{truck.name}</h2>
+              <p className="text-sm text-gray-500 mt-1">{truck.description}</p>
             </div>
           </Link>
         ))}
       </section>
 
-      {/* Observação opcional (caso alguma imagem falhe) */}
-      {(!trucks || trucks.length === 0) && (
-        <p className="mt-8 text-sm text-gray-500">
-          Nenhum caminhão elétrico cadastrado ainda.
-        </p>
-      )}
+      {/* Rodapé da seção */}
+      <div className="text-center mt-12 text-gray-600">
+        <p>🚚 A nova era do transporte começa com energia limpa e inteligência OTIAdriver.</p>
+      </div>
     </main>
   );
 }
