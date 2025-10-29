@@ -10,7 +10,7 @@ export function Header() {
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between border-b border-white/10">
         
         {/* Logo e Título (Link para Home) */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-1">
           {/* USANDO NEXT/IMAGE COM DIMENSÕES */}
           <Image
             src="/images/logo-otia.png"
@@ -20,7 +20,7 @@ export function Header() {
             className="h-8 w-auto"
           />
           {/* O seu Título estilizado, agora em tamanho de Topbar */}
-          <span className="text-xl font-extrabold tracking-tight">
+          <span className="text-lg font-extrabold tracking-tight">
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#4E0E00]">driver</span>
           </span>
