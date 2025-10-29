@@ -40,7 +40,7 @@ export default function RootLayout({
         <div className="pt-20"></div>
 
         {/* 🔹 Cabeçalho principal da OTIAdriver */}
-        <header className="w-full flex flex-col items-center justify-center py-10">
+        <header className="w-full flex flex-col items-center justify-center py-6 -mt-6">
           <h1 className="text-center leading-none tracking-tight font-extrabold text-4xl md:text-6xl">
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
