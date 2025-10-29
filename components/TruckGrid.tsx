@@ -7,10 +7,10 @@ import { trucks } from "../data/trucks";
 // Exportação nomeada correta (sem o 'default')
 export function TruckGrid() {
   return (
-    <section className="py-8">
+    <section className="pt-0 -mt-16">
       
       {/* Título da seção (adicionado de volta) */}
-      <h2 className="text-2xl font-extrabold text-black mb-2 mt-[-20px]text-center">Caminhões em Destaque 🚛</h2>
+      <h2 className="text-2xl font-extrabold text-black mb-4 text-left">Caminhões em Destaque 🚛</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         
