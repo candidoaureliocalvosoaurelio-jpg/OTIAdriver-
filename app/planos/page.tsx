@@ -1,52 +1,82 @@
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { PRICING } from "../../data/pricing";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos OTIADriver - Escolha a Sua Performance</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
 
-export const metadata = { title: "Planos — OTIAdriver" };
+    <main class="container">
+        <header class="introducao-planos">
+            <h1>Escolha o Seu Nível de Inteligência e Performance.</h1>
+            <p>O avanço da tecnologia automotiva exige ferramentas à altura. Na OTIADriver, criamos três níveis de serviço para garantir que você tenha exatamente o que precisa – seja você um entusiasta buscando dados essenciais ou um **profissional exigente** que depende da IA para decisões críticas.</p>
+            <p><strong>Recomendamos o plano PRO</strong> para a maioria dos usuários, pois ele oferece a combinação perfeita de **Fichas Técnicas COMPLETAS** e suporte ilimitado da nossa IA, garantindo excelência e eficiência no seu dia a dia.</p>
+        </header>
 
-export default function Planos() {
-  return (
-    <main className="min-h-screen bg-gradient-to-b from-[#EAF3FA] to-white text-slate-800">
-      <Header />
+        <section class="planos-grid">
 
-      <section className="text-center py-16">
-        <h1 className="text-4xl font-extrabold text-slate-900">Escolha seu plano</h1>
-        <p className="mt-3 text-slate-600">
-          Cobrança mensal, cancele quando quiser • Anual com 10% de economia
-        </p>
-      </section>
-
-      <section className="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 px-6 pb-12">
-        {Object.values(PRICING).map((plan) => (
-          <article key={plan.name} className="rounded-2xl border border-slate-200 p-6 shadow-sm bg-white">
-            <h2 className="text-xl font-bold text-slate-900 mb-2 text-center">{plan.name}</h2>
-            <div className="mb-4 text-center">
-              <div className="text-3xl font-extrabold text-slate-900">{plan.monthly}</div>
-              <div className="text-slate-500">/mês</div>
-              <div className="text-xl font-bold text-slate-900 mt-2">{plan.annual}</div>
-              <div className="text-slate-500">/ano (-10%)</div>
+            <div class="card plano-basico">
+                <h2>Básico</h2>
+                <p class="ideal-para">Ideal para Uso Pessoal</p>
+                <div class="preco">
+                    <span class="cifra">R$</span>
+                    <span class="valor">29,90</span>
+                    <span class="periodo">/ mês</span>
+                </div>
+                <ul class="recursos">
+                    <li>✔️ Fichas Técnicas Essenciais</li>
+                    <li>✔️ Acesso à Galeria</li>
+                    <li>✔️ Suporte Básico por Chat</li>
+                    <li>❌ Análise de Imagem (IA)</li>
+                    <li>❌ Acesso a Dados Históricos</li>
+                </ul>
+                <a href="#link-checkout-basico" class="btn btn-basico">Assinar Agora</a>
             </div>
-            <ul className="mt-4 space-y-2 text-slate-700">
-              {plan.features.map((f) => (
-                <li key={f} className="flex items-center gap-2">
-                  <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 grid gap-2">
-              <a className="rounded-xl bg-emerald-600 text-white font-semibold py-3 text-center hover:bg-emerald-700" href={plan.mpMonthly}>
-                Assinar Mensal
-              </a>
-              <a className="rounded-xl border border-slate-300 font-semibold py-3 text-center hover:bg-slate-50" href={plan.mpAnnual}>
-                Assinar Anual (-10%)
-              </a>
-            </div>
-          </article>
-        ))}
-      </section>
 
-      <Footer />
+            <div class="card plano-pro destaque">
+                <span class="selo-recomendado">RECOMENDADO</span>
+                <h2>PRO</h2>
+                <p class="ideal-para">Ideal para Profissionais Exigentes</p>
+                <div class="preco">
+                    <span class="cifra">R$</span>
+                    <span class="valor">49,90</span>
+                    <span class="periodo">/ mês</span>
+                </div>
+                <ul class="recursos">
+                    <li>✔️ **Fichas Técnicas COMPLETAS**</li>
+                    <li>✔️ Suporte Técnico IA Ilimitado</li>
+                    <li>✔️ Análise de Imagem (5/mês)</li>
+                    <li>✔️ Checklists de Viagem</li>
+                    <li>❌ Acesso a Dados Históricos</li>
+                </ul>
+                <a href="#link-checkout-pro" class="btn btn-pro">Assinar Agora</a>
+            </div>
+
+            <div class="card plano-premium">
+                <h2>Premium</h2>
+                <p class="ideal-para">Ideal para Uso Profissional Ilimitado</p>
+                <div class="preco">
+                    <span class="cifra">R$</span>
+                    <span class="valor">99,90</span>
+                    <span class="periodo">/ mês</span>
+                </div>
+                <ul class="recursos">
+                    <li>✔️ Todos os Recursos PRO</li>
+                    <li>✔️ Análise de Imagem **ILIMITADA**</li>
+                    <li>✔️ Treinamento Personalizado IA</li>
+                    <li>✔️ **Acesso a Dados Históricos**</li>
+                    <li>✔️ Suporte Prioritário</li>
+                </ul>
+                <a href="#link-checkout-premium" class="btn btn-premium">Assinar Agora</a>
+            </div>
+
+        </section>
+
+        <section class="faq">
+            </section>
+
     </main>
-  );
-}
+</body>
+</html>
