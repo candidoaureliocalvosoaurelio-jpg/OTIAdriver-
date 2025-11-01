@@ -18,7 +18,6 @@ function Check({ children }: { children: React.ReactNode }) {
 export default function PlanosPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 text-black">
-      {/* Título e subtítulo */}
       <header className="text-center mb-12">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
           Escolha o Plano Certo para Você
@@ -29,9 +28,7 @@ export default function PlanosPage() {
         </p>
       </header>
 
-      {/* Cards */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-
         {/* Básico */}
         <div className="rounded-2xl bg-gradient-to-b from-gray-100 to-gray-50 ring-1 ring-gray-200 shadow-sm overflow-hidden !opacity-100">
           <div className="p-6">
@@ -56,7 +53,7 @@ export default function PlanosPage() {
           </div>
         </div>
 
-        {/* PRO (DESTAQUE) */}
+        {/* PRO – destaque */}
         <div className="relative rounded-2xl bg-[#21B2A7] text-white shadow-md overflow-hidden !opacity-100">
           <span className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-gray-900 shadow-sm">
             RECOMENDADO
@@ -112,4 +109,4 @@ export default function PlanosPage() {
       </section>
     </main>
   );
-}
+            }
