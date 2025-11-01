@@ -19,8 +19,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white flex flex-col items-center">
       <Header />
         
-        {/* 🔹 Cabeçalho fixo com links */}
-        <div className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white shadow-md">
+          <div className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white shadow-md">
           <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
             
             {/* Lado esquerdo */}
