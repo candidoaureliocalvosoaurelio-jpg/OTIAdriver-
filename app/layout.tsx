@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -16,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white flex flex-col items-center">
+      <Header />
         
         {/* 🔹 Cabeçalho fixo com links */}
         <div className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white shadow-md">
