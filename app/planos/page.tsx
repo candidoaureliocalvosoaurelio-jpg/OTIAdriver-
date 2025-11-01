@@ -1,10 +1,9 @@
+"use client";
 export const metadata = {
   title: "Planos | OTIAdriver",
   description:
     "Escolha o plano OTIAdriver ideal para você: Básico, PRO e Premium. Assine com segurança pelo Mercado Pago.",
 };
-
-"use client";
 
 import type React from "react";
 
