@@ -32,6 +32,7 @@ export default function RootLayout({
               <Link href="/" className="hover:underline">Início</Link>
               <Link href="/proposito" className="hover:underline">Propósito</Link>
               <Link href="/caminhoes-eletricos" className="hover:underline">Elétricos ⚡</Link>
+              <Link href="/planos" className="hover:underline">Planos</Link>
               <Link href="/contato" className="hover:underline">Contato</Link>
             </nav>
           </div>
