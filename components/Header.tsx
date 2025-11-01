@@ -21,8 +21,8 @@ export function Header() {
           />
           {/* O seu Título estilizado, agora em tamanho de Topbar */}
           <span className="text-lg font-extrabold tracking-tight">
-            <span className="text-[#1F6FEB]">OTIA</span>
-            <span className="text-[#4E0E00]">driver</span>
+            <span className="text-[#003F9A]">OTIA</span>
+            <span className="text-[#15B8B2]">driver</span>
           </span>
         </Link>
         
