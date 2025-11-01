@@ -1,4 +1,4 @@
-// app/planos/page.tsx
+"use client";
 export const metadata = {
   title: "Planos | OTIAdriver",
   description:
