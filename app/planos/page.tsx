@@ -18,6 +18,7 @@ function Check({ children }: { children: React.ReactNode }) {
 export default function PlanosPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 text-black">
+      {/* Título e subtítulo */}
       <header className="text-center mb-12">
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight">
           Escolha o Plano Certo para Você
@@ -28,8 +29,11 @@ export default function PlanosPage() {
         </p>
       </header>
 
+      {/* Cards */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-        <div className="rounded-2xl bg-gradient-to-b from-gray-100 to-gray-50 ring-1 ring-gray-200 shadow-sm overflow-hidden">
+
+        {/* Básico */}
+        <div className="rounded-2xl bg-gradient-to-b from-gray-100 to-gray-50 ring-1 ring-gray-200 shadow-sm overflow-hidden !opacity-100">
           <div className="p-6">
             <h2 className="text-[22px] font-extrabold text-gray-800">Básico</h2>
             <div className="mt-1 text-3xl font-extrabold text-gray-900">
@@ -37,7 +41,8 @@ export default function PlanosPage() {
               <span className="ml-1 text-base font-medium text-gray-500">/ mês</span>
             </div>
             <p className="mt-2 text-sm text-gray-500">Ideal para uso pessoal.</p>
-            <ul className="mt-6 space-y-3 text-gray-800">
+
+            <ul className="mt-6 space-y-3 text-gray-800 [&>li::before]:content-none">
               <Check>Fichas Técnicas Essenciais</Check>
               <Check>Acesso à Galeria</Check>
               <Check>Suporte Básico por Chat</Check>
@@ -51,7 +56,8 @@ export default function PlanosPage() {
           </div>
         </div>
 
-        <div className="relative rounded-2xl bg-[#21B2A7] text-white shadow-md overflow-hidden">
+        {/* PRO (DESTAQUE) */}
+        <div className="relative rounded-2xl bg-[#21B2A7] text-white shadow-md overflow-hidden !opacity-100">
           <span className="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-gray-900 shadow-sm">
             RECOMENDADO
           </span>
@@ -62,7 +68,8 @@ export default function PlanosPage() {
               <span className="ml-1 text-base font-medium text-white/80">/ mês</span>
             </div>
             <p className="mt-2 text-sm text-white/90">Ideal para Profissionais Exigentes.</p>
-            <ul className="mt-6 space-y-3">
+
+            <ul className="mt-6 space-y-3 [&>li::before]:content-none">
               <Check>Fichas Técnicas COMPLETAS</Check>
               <Check>Suporte Técnico IA ilimitado</Check>
               <Check>Análise de Imagem (5/mês)</Check>
@@ -77,7 +84,8 @@ export default function PlanosPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-gradient-to-b from-[#0C3B66] to-[#0A2F52] text-white shadow-sm overflow-hidden">
+        {/* Premium */}
+        <div className="rounded-2xl bg-gradient-to-b from-[#0C3B66] to-[#0A2F52] text-white shadow-sm overflow-hidden !opacity-100">
           <div className="p-6">
             <h2 className="text-[22px] font-extrabold">Premium</h2>
             <div className="mt-1 text-3xl font-extrabold">
@@ -85,7 +93,8 @@ export default function PlanosPage() {
               <span className="ml-1 text-base font-medium text-white/80">/ mês</span>
             </div>
             <p className="mt-2 text-sm text-white/90">Ideal para Uso Profissional Ilimitado.</p>
-            <ul className="mt-6 space-y-3">
+
+            <ul className="mt-6 space-y-3 [&>li::before]:content-none">
               <Check>Todos os Recursos PRO</Check>
               <Check>Análise de Imagem ILIMITADA</Check>
               <Check>Treinamento Personalizado IA</Check>
