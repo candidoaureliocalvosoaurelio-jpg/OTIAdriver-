@@ -1,4 +1,6 @@
-// app/planos/page.tsx
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 export const metadata = {
   title: "Planos | OTIAdriver",
   description: "Conheça os planos da plataforma OTIAdriver",
