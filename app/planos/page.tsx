@@ -1,4 +1,5 @@
-            // app/planos/page.tsx
+// app/planos/page.tsx
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,140 +8,169 @@ export const metadata: Metadata = {
     "Escolha o plano OTIAdriver ideal para você: Básico, PRO e Premium. Assine com segurança pelo Mercado Pago.",
 };
 
-// Item com check (SVG próprio, não depende de CSS externo)
-function Check({ children }: { children: React.ReactNode }) {
+/** Ícone de check. Quando invert=true, o traço fica branco (para fundo escuro). */
+function Check({
+  children,
+  invert = false,
+}: {
+  children: React.ReactNode;
+  invert?: boolean;
+}) {
   return (
-    <li className="flex items-start gap-2">
+    <li className="flex items-start gap-3">
       <svg
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        className="h-5 w-5 flex-none text-emerald-600"
+        className="h-5 w-5 flex-none"
         fill="none"
-        stroke="currentColor"
-        strokeWidth="2.5"
+        stroke={invert ? "#FFFFFF" : "#10b981"}
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         aria-hidden="true"
       >
-        <path d="M20 6L9 17l-5-5" />
+        <path d="M5 13l4 4L19 7" />
       </svg>
-      <span className="text-[15px] leading-6 text-slate-800">{children}</span>
+      <span className={invert ? "text-white" : "text-slate-800"}>{children}</span>
     </li>
-  );
-}
-
-function BuyButton({
-  href,
-  color = "primary",
-  children,
-}: {
-  href: string;
-  color?: "primary" | "success";
-  children: React.ReactNode;
-}) {
-  const base =
-    "inline-flex w-full md:w-auto items-center justify-center rounded-xl px-5 py-3 font-semibold text-white transition focus:outline-none focus:ring-2 focus:ring-offset-2";
-  const theme =
-    color === "success"
-      ? "bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500"
-      : "bg-[#0b5bd3] hover:bg-[#094bb0] focus:ring-[#0b5bd3]";
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={`${base} ${theme}`}>
-      {children}
-    </a>
   );
 }
 
 export default function PlanosPage() {
   return (
-    <main data-page="planos" className="mx-auto max-w-6xl px-4 py-8">
+    <main data-page="planos" className="mx-auto max-w-6xl px-4 py-10">
       {/* Título + subtítulo */}
-      <header className="mb-6 text-center">
-        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-          Planos <span className="text-[#1F6FEB]">OTIA</span>
-          <span className="text-[#40E0D0]">driver</span>
-        </h2>
-        <p className="mt-2 text-sm md:text-base text-slate-600">
-          Encontre a solução perfeita da OTIAdriver para suas necessidades.
+      <header className="text-center mb-8 md:mb-12">
+        <h1 className="text-2xl md:text-4xl font-extrabold text-slate-900">
+          Conhecimento Inteligente para Motoristas
+        </h1>
+        <p className="mt-3 text-slate-600">
+          Encontre a solução perfeita da{" "}
+          <span className="font-semibold text-slate-700">OTIAdriver</span> para
+          suas necessidades, seja para uso pessoal ou profissional exigente.
         </p>
       </header>
 
-      {/* Grid */}
-      <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {/* Básico */}
-        <article className="rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-sm">
-          <h3 className="text-xl md:text-2xl font-extrabold">Básico</h3>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl md:text-3xl font-extrabold">R$ 29,90</span>
-            <span className="text-slate-500">/ mês</span>
+      {/* Cards */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {/* BÁSICO */}
+        <div className="rounded-3xl overflow-hidden shadow-lg bg-white">
+          {/* topo cinza claro */}
+          <div className="bg-gradient-to-b from-slate-100 to-slate-200 px-8 pt-8 pb-6">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-[#0b1220]">
+              Básico
+            </h3>
+            <div className="mt-3">
+              <span className="block text-3xl md:text-4xl font-extrabold text-[#0b4aa6]">
+                R$ 29,90
+              </span>
+              <span className="text-slate-600 font-semibold">/ mês</span>
+            </div>
+            <p className="mt-4 text-slate-600">Ideal para uso pessoal.</p>
           </div>
-          <p className="mt-2 text-slate-600">Ideal para uso pessoal.</p>
 
-          <ul className="mt-5 space-y-3">
-            <Check>Fichas Técnicas Essenciais</Check>
-            <Check>Acesso à Galeria</Check>
-            <Check>Suporte Básico por Chat</Check>
-          </ul>
+          {/* corpo branco */}
+          <div className="px-8 py-6 space-y-4">
+            <ul className="space-y-4">
+              <Check>Fichas Técnicas Essenciais</Check>
+              <Check>Acesso à Galeria</Check>
+              <Check>Suporte Básico por Chat</Check>
+            </ul>
 
-          <div className="mt-6">
-            <BuyButton href="https://mpago.la/131Yx5T">Assinar Agora</BuyButton>
+            <div className="pt-4">
+              <a
+                href="https://mpago.la/131Yx5T"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 font-semibold bg-[#0b4aa6] text-white hover:opacity-90 transition"
+                aria-label="Assinar plano Básico"
+              >
+                Assinar Agora
+              </a>
+            </div>
           </div>
-        </article>
+        </div>
 
-        {/* PRO (destaque) */}
-        <article className="relative rounded-2xl border border-emerald-300 bg-white p-6 shadow-lg ring-2 ring-emerald-400/60 hover:shadow-emerald-200 transition">
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow">
-            Recomendado
+        {/* PRO (recomendado) */}
+        <div className="rounded-3xl overflow-hidden shadow-xl ring-2 ring-emerald-200 bg-white relative">
+          {/* selo recomendado */}
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold bg-white text-slate-700 shadow">
+            RECOMENDADO
           </span>
 
-          <h3 className="text-xl md:text-2xl font-extrabold">PRO</h3>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl md:text-3xl font-extrabold">R$ 49,90</span>
-            <span className="text-slate-500">/ mês</span>
+          {/* topo teal */}
+          <div className="bg-[#20c7c7] px-8 pt-8 pb-6 text-white">
+            <h3 className="text-2xl md:text-3xl font-extrabold">PRO</h3>
+            <div className="mt-3">
+              <span className="block text-3xl md:text-4xl font-extrabold">
+                R$ 49,90
+              </span>
+              <span className="opacity-90 font-semibold">/ mês</span>
+            </div>
+            <p className="mt-4 opacity-90">Ideal para Profissionais Exigentes.</p>
           </div>
-          <p className="mt-2 text-slate-600">Ideal para Profissionais Exigentes.</p>
 
-          <ul className="mt-5 space-y-3">
-            <Check>Fichas Técnicas COMPLETAS</Check>
-            <Check>Suporte Técnico IA Ilimitado</Check>
-            <Check>Análise de Imagem (5/mês)</Check>
-            <Check>Checklists de Viagem</Check>
-          </ul>
+          {/* corpo branco */}
+          <div className="px-8 py-6 space-y-4">
+            <ul className="space-y-4">
+              <Check>Fichas Técnicas COMPLETAS</Check>
+              <Check>Suporte Técnico IA ilimitado</Check>
+              <Check>Análise de Imagem (5/mês)</Check>
+              <Check>Checklists de Viagem</Check>
+            </ul>
 
-          <div className="mt-6">
-            <BuyButton href="https://mpago.la/1KhUK3d" color="success">
-              Assinar Agora
-            </BuyButton>
+            <div className="pt-4">
+              <a
+                href="https://mpago.la/1KhUK3d"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 font-semibold bg-emerald-500 text-white hover:opacity-90 transition"
+                aria-label="Assinar plano PRO"
+              >
+                Assinar Agora
+              </a>
+            </div>
           </div>
-        </article>
+        </div>
 
-        {/* Premium */}
-        <article className="rounded-2xl border border-slate-200 bg-white/95 p-6 shadow-sm">
-          <h3 className="text-xl md:text-2xl font-extrabold">Premium</h3>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl md:text-3xl font-extrabold">R$ 99,90</span>
-            <span className="text-slate-500">/ mês</span>
+        {/* PREMIUM */}
+        <div className="rounded-3xl overflow-hidden shadow-lg bg-white">
+          {/* topo azul escuro */}
+          <div className="bg-[#0a3c78] px-8 pt-8 pb-6 text-white">
+            <h3 className="text-2xl md:text-3xl font-extrabold">Premium</h3>
+            <div className="mt-3">
+              <span className="block text-3xl md:text-4xl font-extrabold">
+                R$ 99,90
+              </span>
+              <span className="opacity-90 font-semibold">/ mês</span>
+            </div>
+            <p className="mt-4 opacity-90">Ideal para Uso Profissional Ilimitado.</p>
           </div>
-          <p className="mt-2 text-slate-600">Ideal para Uso Profissional Ilimitado.</p>
 
-          <ul className="mt-5 space-y-3">
-            <Check>Todos os Recursos PRO</Check>
-            <Check>Análise de Imagem ILIMITADA</Check>
-            <Check>Treinamento IA Personalizado</Check>
-            <Check>Acesso a Dados Históricos</Check>
-            <Check>Suporte Prioritário</Check>
-          </ul>
+          {/* corpo branco */}
+          <div className="px-8 py-6 space-y-4">
+            <ul className="space-y-4">
+              <Check>Todos os Recursos PRO</Check>
+              <Check>Análise de Imagem ILIMITADA</Check>
+              <Check>Treinamento IA Personalizado</Check>
+              <Check>Acesso a Dados Históricos</Check>
+              <Check>Suporte Prioritário</Check>
+            </ul>
 
-          <div className="mt-6">
-            <BuyButton href="https://mpago.la/1Xu1tTU">Assinar Agora</BuyButton>
+            <div className="pt-4">
+              <a
+                href="https://mpago.la/1Xu1tTU"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 font-semibold bg-[#0b4aa6] text-white hover:opacity-90 transition"
+                aria-label="Assinar plano Premium"
+              >
+                Assinar Agora
+              </a>
+            </div>
           </div>
-        </article>
+        </div>
       </section>
-
-      {/* 🔒 Reset local contra CSS legado (ex.: li::before gigante ou opacidade) */}
-      <style>{`
-        main[data-page="planos"] li::before { content: none !important; background: none !important; }
-        main[data-page="planos"] ul, 
-        main[data-page="planos"] li, 
-        main[data-page="planos"] * { opacity: 1 !important; filter: none !important; }
-      `}</style>
     </main>
   );
-}
+                          }
