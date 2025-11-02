@@ -1,5 +1,3 @@
-<main>
-
     <header>
         <h1>Escolha o Seu Nível de Inteligência e Performance.</h1>
         <p>O avanço da tecnologia automotiva exige ferramentas à altura. Na OTIADriver, criamos três níveis de serviço para garantir que você tenha exatamente o que precisa – seja você um entusiasta buscando dados essenciais ou um <b>profissional exigente</b> que depende da IA para decisões críticas.</p>
