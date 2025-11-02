@@ -1,3 +1,4 @@
+// app/planos/page.tsx
 
 export default function PlanosPage() {
     return (
