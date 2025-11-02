@@ -1,76 +1,154 @@
-export const metadata = {
+// app/planos/page.tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
   title: "Planos | OTIAdriver",
-  description: "Conheça os planos da plataforma OTIAdriver",
+  description:
+    "Escolha o plano OTIAdriver ideal para você: Básico, PRO e Premium. Assine com segurança pelo Mercado Pago.",
 };
+
+// ✔️ item com check
+function Check({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-5 w-5 flex-none"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        aria-hidden="true"
+      >
+        <path d="M20 6L9 17l-5-5" />
+      </svg>
+      <span className="text-[15px] leading-6">{children}</span>
+    </li>
+  );
+}
+
+// botão padrão
+function BuyButton({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold text-white bg-[#0b5bd3] hover:bg-[#094bb0] transition md:w-auto md:px-6"
+    >
+      {children}
+    </a>
+  );
+}
 
 export default function PlanosPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-6">
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      {/* título e subtítulo */}
+      <header className="mb-8 text-center">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+          Planos <span className="text-[#1F6FEB]">OTIA</span>
+          <span className="text-[#40E0D0]">driver</span>
+        </h2>
+        <p className="mt-3 text-sm md:text-base text-slate-600">
+          Encontre a solução perfeita da OTIAdriver para suas necessidades.
+        </p>
+      </header>
 
-      <h1 className="text-center text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
-        Planos OTIAdriver
-      </h1>
+      {/* grid de cards */}
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* Básico */}
+        <div className="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/70">
+          <h3 className="text-xl md:text-2xl font-extrabold">Básico</h3>
 
-      <p className="text-center text-base md:text-lg text-gray-700 mb-10 max-w-3xl mx-auto">
-        Encontre a solução perfeita da OTIAdriver para suas necessidades.
-      </p>
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl md:text-3xl font-extrabold">
+              R$ 29,90
+            </span>
+            <span className="text-slate-500">/ mês</span>
+          </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <p className="mt-2 text-slate-600">Ideal para uso pessoal.</p>
 
-        {/* BÁSICO */}
-        <div className="bg-white rounded-2xl shadow p-6 border">
-          <h2 className="text-xl font-bold mb-2">Básico</h2>
-          <p className="text-2xl font-extrabold text-blue-800">R$ 29,90 <span className="text-base font-medium text-gray-600">/ mês</span></p>
-          <p className="text-sm text-gray-700 mb-6">Ideal para uso pessoal.</p>
-
-          <ul className="space-y-3 mb-6 text-sm">
-            <li>✅ Fichas Técnicas Essenciais</li>
-            <li>✅ Acesso à Galeria</li>
-            <li>✅ Suporte Básico por Chat</li>
+          <ul className="mt-5 space-y-3 text-slate-800">
+            <Check>Fichas Técnicas Essenciais</Check>
+            <Check>Acesso à Galeria</Check>
+            <Check>Suporte Básico por Chat</Check>
           </ul>
 
-          <a href="https://mpago.la/131Yx5T" className="block text-center bg-blue-800 text-white font-bold py-3 rounded-lg hover:opacity-90">
-            Assinar Agora
-          </a>
+          <div className="mt-6">
+            <BuyButton href="https://mpago.la/131Yx5T">Assinar Agora</BuyButton>
+          </div>
         </div>
 
-        {/* PRO */}
-        <div className="bg-white rounded-2xl shadow p-6 border">
-          <h2 className="text-xl font-bold mb-2 relative">
-            PRO
-            <span className="absolute -top-5 right-0 bg-blue-800 text-white text-xs px-2 py-1 rounded-md">RECOMENDADO</span>
-          </h2>
-          <p className="text-2xl font-extrabold text-blue-800">R$ 49,90 <span className="text-base font-medium text-gray-600">/ mês</span></p>
-          <p className="text-sm text-gray-700 mb-6">Ideal para Profissionais Exigentes.</p>
-          <ul className="space-y-3 mb-6 text-sm">
-            <li>✅ Fichas Técnicas COMPLETAS</li>
-            <li>✅ Suporte Técnico IA Ilimitado</li>
-            <li>✅ Análise de Imagem (5/mês)</li>
-            <li>✅ Checklists de Viagem</li>
+        {/* PRO — destaque */}
+        <div className="relative rounded-2xl border border-emerald-300 bg-white p-6 shadow-lg ring-2 ring-emerald-400/60 hover:shadow-emerald-200 transition">
+          {/* badge RECOMENDADO */}
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow">
+            Recomendado
+          </span>
+
+          <h3 className="text-xl md:text-2xl font-extrabold">PRO</h3>
+
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl md:text-3xl font-extrabold">
+              R$ 49,90
+            </span>
+            <span className="text-slate-500">/ mês</span>
+          </div>
+
+          <p className="mt-2 text-slate-600">Ideal para Profissionais Exigentes.</p>
+
+          <ul className="mt-5 space-y-3 text-slate-800">
+            <Check>Fichas Técnicas COMPLETAS</Check>
+            <Check>Suporte Técnico IA Ilimitado</Check>
+            <Check>Análise de Imagem (5/mês)</Check>
+            <Check>Checklists de Viagem</Check>
           </ul>
-          <a href="https://mpago.la/1KhUK3d" className="block text-center bg-green-600 text-white font-bold py-3 rounded-lg hover:opacity-90">
-            Assinar Agora
-          </a>
+
+          <div className="mt-6">
+            <a
+              href="https://mpago.la/1KhUK3d"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition md:w-auto md:px-6 shadow-md"
+            >
+              Assinar Agora
+            </a>
+          </div>
         </div>
 
-        {/* PREMIUM */}
-        <div className="bg-white rounded-2xl shadow p-6 border">
-          <h2 className="text-xl font-bold mb-2">Premium</h2>
-          <p className="text-2xl font-extrabold text-blue-800">R$ 99,90 <span className="text-base font-medium text-gray-600">/ mês</span></p>
-          <p className="text-sm text-gray-700 mb-6">Ideal para Uso Profissional Ilimitado.</p>
-          <ul className="space-y-3 mb-6 text-sm">
-            <li>✅ Todos os Recursos PRO</li>
-            <li>✅ Análise de Imagem ILIMITADA</li>
-            <li>✅ Treinamento IA Personalizado</li>
-            <li>✅ Acesso a Dados Históricos</li>
-            <li>✅ Suporte Prioritário</li>
+        {/* Premium */}
+        <div className="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/70">
+          <h3 className="text-xl md:text-2xl font-extrabold">Premium</h3>
+
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-2xl md:text-3xl font-extrabold">
+              R$ 99,90
+            </span>
+            <span className="text-slate-500">/ mês</span>
+          </div>
+
+          <p className="mt-2 text-slate-600">Ideal para Uso Profissional Ilimitado.</p>
+
+          <ul className="mt-5 space-y-3 text-slate-800">
+            <Check>Todos os Recursos PRO</Check>
+            <Check>Análise de Imagem ILIMITADA</Check>
+            <Check>Treinamento IA Personalizado</Check>
+            <Check>Acesso a Dados Históricos</Check>
+            <Check>Suporte Prioritário</Check>
           </ul>
-          <a href="https://mpago.la/1Xu1tTU" className="block text-center bg-blue-900 text-white font-bold py-3 rounded-lg hover:opacity-90">
-            Assinar Agora
-          </a>
-        </div>
 
-      </div>
+          <div className="mt-6">
+            <BuyButton href="https://mpago.la/1Xu1tTU">Assinar Agora</BuyButton>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
