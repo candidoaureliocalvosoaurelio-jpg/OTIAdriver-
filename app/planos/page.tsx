@@ -1,153 +1,76 @@
-    // app/planos/page.tsx
-import * as React from "react";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "Planos | OTIAdriver",
-  description:
-    "Escolha o plano OTIAdriver ideal para você: Básico, PRO e Premium. Assine com segurança pelo Mercado Pago.",
+  description: "Conheça os planos da plataforma OTIAdriver",
 };
 
-/** Ícone de check verde (ou branco quando invert=true) */
-function Check({
-  children,
-  invert = false,
-}: {
-  children: React.ReactNode;
-  invert?: boolean;
-}) {
+export default function PlanosPage() {
   return (
-    <li className="flex items-start gap-3">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        className="h-5 w-5 flex-none"
-        fill="none"
-        stroke={invert ? "#FFFFFF" : "#10b981"}
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M5 13l4 4L19 7" />
-      </svg>
-      <span className={invert ? "text-white" : "text-slate-800"}>{children}</span>
-    </li>
-  );
-}
+    <main className="mx-auto max-w-6xl px-4 py-6">
 
-export default function Page() {
-  return (
-    <main data-page="planos" className="mx-auto max-w-6xl px-4 py-10">
-      <header className="text-center mb-8 md:mb-12">
-        <h1 className="text-2xl md:text-4xl font-extrabold text-slate-900">
-          Conhecimento Inteligente para Motoristas
-        </h1>
-        <p className="mt-3 text-slate-600">
-          Encontre a solução perfeita da <span className="font-semibold">OTIAdriver</span>{" "}
-          para suas necessidades, seja para uso pessoal ou profissional exigente.
-        </p>
-      </header>
+      <h1 className="text-center text-3xl md:text-4xl font-extrabold tracking-tight mb-4">
+        Planos OTIAdriver
+      </h1>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      <p className="text-center text-base md:text-lg text-gray-700 mb-10 max-w-3xl mx-auto">
+        Encontre a solução perfeita da OTIAdriver para suas necessidades.
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
         {/* BÁSICO */}
-        <div className="rounded-3xl overflow-hidden shadow-lg bg-white">
-          <div className="bg-gradient-to-b from-slate-100 to-slate-200 px-8 pt-8 pb-6">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-[#0b1220]">Básico</h3>
-            <div className="mt-3">
-              <span className="block text-3xl md:text-4xl font-extrabold text-[#0b4aa6]">
-                R$ 29,90
-              </span>
-              <span className="text-slate-600 font-semibold">/ mês</span>
-            </div>
-            <p className="mt-4 text-slate-600">Ideal para uso pessoal.</p>
-          </div>
-          <div className="px-8 py-6 space-y-4">
-            <ul className="space-y-4">
-              <Check>Fichas Técnicas Essenciais</Check>
-              <Check>Acesso à Galeria</Check>
-              <Check>Suporte Básico por Chat</Check>
-            </ul>
-            <div className="pt-4">
-              <a
-                href="https://mpago.la/131Yx5T"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 font-semibold bg-[#0b4aa6] text-white hover:opacity-90 transition"
-                aria-label="Assinar plano Básico"
-              >
-                Assinar Agora
-              </a>
-            </div>
-          </div>
+        <div className="bg-white rounded-2xl shadow p-6 border">
+          <h2 className="text-xl font-bold mb-2">Básico</h2>
+          <p className="text-2xl font-extrabold text-blue-800">R$ 29,90 <span className="text-base font-medium text-gray-600">/ mês</span></p>
+          <p className="text-sm text-gray-700 mb-6">Ideal para uso pessoal.</p>
+
+          <ul className="space-y-3 mb-6 text-sm">
+            <li>✅ Fichas Técnicas Essenciais</li>
+            <li>✅ Acesso à Galeria</li>
+            <li>✅ Suporte Básico por Chat</li>
+          </ul>
+
+          <a href="https://mpago.la/131Yx5T" className="block text-center bg-blue-800 text-white font-bold py-3 rounded-lg hover:opacity-90">
+            Assinar Agora
+          </a>
         </div>
 
-        {/* PRO (RECOMENDADO) */}
-        <div className="rounded-3xl overflow-hidden shadow-xl ring-2 ring-emerald-200 bg-white relative">
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold bg-white text-slate-700 shadow">
-            RECOMENDADO
-          </span>
-          <div className="bg-[#20c7c7] px-8 pt-8 pb-6 text-white">
-            <h3 className="text-2xl md:text-3xl font-extrabold">PRO</h3>
-            <div className="mt-3">
-              <span className="block text-3xl md:text-4xl font-extrabold">R$ 49,90</span>
-              <span className="opacity-90 font-semibold">/ mês</span>
-            </div>
-            <p className="mt-4 opacity-90">Ideal para Profissionais Exigentes.</p>
-          </div>
-          <div className="px-8 py-6 space-y-4">
-            <ul className="space-y-4">
-              <Check>Fichas Técnicas COMPLETAS</Check>
-              <Check>Suporte Técnico IA ilimitado</Check>
-              <Check>Análise de Imagem (5/mês)</Check>
-              <Check>Checklists de Viagem</Check>
-            </ul>
-            <div className="pt-4">
-              <a
-                href="https://mpago.la/1KhUK3d"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 font-semibold bg-emerald-500 text-white hover:opacity-90 transition"
-                aria-label="Assinar plano PRO"
-              >
-                Assinar Agora
-              </a>
-            </div>
-          </div>
+        {/* PRO */}
+        <div className="bg-white rounded-2xl shadow p-6 border">
+          <h2 className="text-xl font-bold mb-2 relative">
+            PRO
+            <span className="absolute -top-5 right-0 bg-blue-800 text-white text-xs px-2 py-1 rounded-md">RECOMENDADO</span>
+          </h2>
+          <p className="text-2xl font-extrabold text-blue-800">R$ 49,90 <span className="text-base font-medium text-gray-600">/ mês</span></p>
+          <p className="text-sm text-gray-700 mb-6">Ideal para Profissionais Exigentes.</p>
+          <ul className="space-y-3 mb-6 text-sm">
+            <li>✅ Fichas Técnicas COMPLETAS</li>
+            <li>✅ Suporte Técnico IA Ilimitado</li>
+            <li>✅ Análise de Imagem (5/mês)</li>
+            <li>✅ Checklists de Viagem</li>
+          </ul>
+          <a href="https://mpago.la/1KhUK3d" className="block text-center bg-green-600 text-white font-bold py-3 rounded-lg hover:opacity-90">
+            Assinar Agora
+          </a>
         </div>
 
         {/* PREMIUM */}
-        <div className="rounded-3xl overflow-hidden shadow-lg bg-white">
-          <div className="bg-[#0a3c78] px-8 pt-8 pb-6 text-white">
-            <h3 className="text-2xl md:text-3xl font-extrabold">Premium</h3>
-            <div className="mt-3">
-              <span className="block text-3xl md:text-4xl font-extrabold">R$ 99,90</span>
-              <span className="opacity-90 font-semibold">/ mês</span>
-            </div>
-            <p className="mt-4 opacity-90">Ideal para Uso Profissional Ilimitado.</p>
-          </div>
-          <div className="px-8 py-6 space-y-4">
-            <ul className="space-y-4">
-              <Check>Todos os Recursos PRO</Check>
-              <Check>Análise de Imagem ILIMITADA</Check>
-              <Check>Treinamento IA Personalizado</Check>
-              <Check>Acesso a Dados Históricos</Check>
-              <Check>Suporte Prioritário</Check>
-            </ul>
-            <div className="pt-4">
-              <a
-                href="https://mpago.la/1Xu1tTU"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 font-semibold bg-[#0b4aa6] text-white hover:opacity-90 transition"
-                aria-label="Assinar plano Premium"
-              >
-                Assinar Agora
-              </a>
-            </div>
-          </div>
+        <div className="bg-white rounded-2xl shadow p-6 border">
+          <h2 className="text-xl font-bold mb-2">Premium</h2>
+          <p className="text-2xl font-extrabold text-blue-800">R$ 99,90 <span className="text-base font-medium text-gray-600">/ mês</span></p>
+          <p className="text-sm text-gray-700 mb-6">Ideal para Uso Profissional Ilimitado.</p>
+          <ul className="space-y-3 mb-6 text-sm">
+            <li>✅ Todos os Recursos PRO</li>
+            <li>✅ Análise de Imagem ILIMITADA</li>
+            <li>✅ Treinamento IA Personalizado</li>
+            <li>✅ Acesso a Dados Históricos</li>
+            <li>✅ Suporte Prioritário</li>
+          </ul>
+          <a href="https://mpago.la/1Xu1tTU" className="block text-center bg-blue-900 text-white font-bold py-3 rounded-lg hover:opacity-90">
+            Assinar Agora
+          </a>
         </div>
-      </section>
+
+      </div>
     </main>
   );
-        }                    
+}
