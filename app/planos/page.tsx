@@ -1,146 +1,69 @@
-// app/planos/page.tsx
-export default function PlanosPage() {
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      {/* Título */}
-      <h1 className="text-center text-3xl md:text-4xl font-extrabold tracking-tight">
-        Escolha o Plano Certo para Você
-      </h1>
-      <p className="mt-3 text-center text-slate-600">
-        Encontre a solução perfeita da <span className="font-semibold">OTIAdriver</span> para suas necessidades,
-        seja para uso pessoal ou profissional exigente.
-      </p>
+<main>
 
-      {/* Grade de planos */}
-      <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <header>
+        <h1>Escolha o Seu Nível de Inteligência e Performance.</h1>
+        <p>O avanço da tecnologia automotiva exige ferramentas à altura. Na OTIADriver, criamos três níveis de serviço para garantir que você tenha exatamente o que precisa – seja você um entusiasta buscando dados essenciais ou um <b>profissional exigente</b> que depende da IA para decisões críticas.</p>
+        <p><b>Recomendamos o plano PRO</b> para a maioria dos usuários, pois ele oferece a combinação perfeita de <b>Fichas Técnicas COMPLETAS</b> e suporte ilimitado da nossa IA, garantindo excelência e eficiência no seu dia a dia.</p>
+    </header>
 
-        {/* === BÁSICO === */}
-        <article className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-slate-200 bg-gradient-to-b from-slate-100 to-white">
-          {/* Cabeçalho do card */}
-          <div className="p-6">
-            <h3 className="text-2xl font-extrabold text-slate-800">Básico</h3>
-            <div className="mt-2 text-3xl font-extrabold text-slate-900">
-              R$ 29,90 <span className="text-base font-semibold text-slate-500">/ mês</span>
-            </div>
-            <p className="mt-1 text-slate-600">Ideal para uso pessoal.</p>
+    <section class="planos-secao">
 
-            <ul className="mt-6 space-y-3 text-slate-800">
-              <Feature>Fichas Técnicas Essenciais</Feature>
-              <Feature>Acesso à Galeria</Feature>
-              <Feature>Suporte Básico por Chat</Feature>
-            </ul>
-          </div>
+        <h2>--- PLANO BÁSICO ---</h2>
+        <p>Ideal para Uso Pessoal</p>
+        <p><b>Preço: R$ 29,90 / mês</b></p>
+        
+        <h3>Recursos:</h3>
+        <ul>
+            <li>✔️ Fichas Técnicas Essenciais (Básicas e indispensáveis)</li>
+            <li>✔️ Acesso à Galeria</li>
+            <li>✔️ Suporte Básico por Chat</li>
+            <li>❌ Análise de Imagem (IA)</li>
+            <li>❌ Acesso a Dados Históricos</li>
+        </ul>
+        <a href="#link-checkout-basico"><b>ASSINAR AGORA (R$ 29,90)</b></a>
+        <br><br>
 
-          {/* Botão */}
-          <div className="p-6 pt-0">
-            <a
-              href="https://mpago.la/131Yx5T"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold bg-slate-900 text-white hover:opacity-90"
-            >
-              Assinar Agora
-            </a>
-          </div>
-        </article>
+        <h2>--- PLANO PRO (RECOMENDADO) ---</h2>
+        <p>Ideal para Profissionais Exigentes</p>
+        <p><b>Preço: R$ 49,90 / mês</b></p>
+        
+        <h3>Recursos:</h3>
+        <ul>
+            <li>✔️ <b>Fichas Técnicas COMPLETAS</b> (Biblioteca detalhada e atualizada)</li>
+            <li>✔️ Suporte Técnico IA Ilimitado</li>
+            <li>✔️ Análise de Imagem (5 por mês)</li>
+            <li>✔️ Checklists de Viagem</li>
+            <li>❌ Acesso a Dados Históricos</li>
+        </ul>
+        <a href="#link-checkout-pro"><b>ASSINAR AGORA (RECOMENDADO)</b></a>
+        <br><br>
 
-        {/* === PRO (RECOMENDADO) === */}
-        <article className="relative rounded-2xl overflow-hidden shadow-2xl ring-2 ring-teal-400 bg-gradient-to-b from-teal-400 to-teal-500 text-white">
-          {/* Selo */}
-          <span className="absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-white/90 text-teal-700 px-3 py-1 text-xs font-extrabold shadow">
-            RECOMENDADO
-          </span>
+        <h2>--- PLANO PREMIUM ---</h2>
+        <p>Ideal para Uso Profissional Ilimitado</p>
+        <p><b>Preço: R$ 99,90 / mês</b></p>
 
-          <div className="p-6">
-            <h3 className="text-2xl font-extrabold">PRO</h3>
-            <div className="mt-2 text-3xl font-extrabold">
-              R$ 49,90 <span className="text-base font-semibold opacity-90">/ mês</span>
-            </div>
-            <p className="mt-1 opacity-90">Ideal para Profissionais Exigentes.</p>
+        <h3>Recursos:</h3>
+        <ul>
+            <li>✔️ Todos os Recursos PRO</li>
+            <li>✔️ Análise de Imagem <b>ILIMITADA</b></li>
+            <li>✔️ Treinamento Personalizado IA</li>
+            <li>✔️ <b>Acesso a Dados Históricos</b> (Vasto arquivo de dados)</li>
+            <li>✔️ Suporte Prioritário</li>
+        </ul>
+        <a href="#link-checkout-premium"><b>ASSINAR AGORA (R$ 99,90)</b></a>
+        <br><br>
 
-            <ul className="mt-6 space-y-3">
-              <Feature invert>Fichas Técnicas COMPLETAS</Feature>
-              <Feature invert>Suporte Técnico IA ilimitado</Feature>
-              <Feature invert>Análise de Imagem (5/mês)</Feature>
-              <Feature invert>Checklists de Viagem</Feature>
-            </ul>
-          </div>
+    </section>
 
-          <div className="p-6 pt-0">
-            <a
-              href="https://mpago.la/1KhUK3d"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold bg-white text-teal-700 hover:opacity-90"
-            >
-              Assinar Agora
-            </a>
-          </div>
-        </article>
+    <section>
+        <h2>Perguntas Frequentes</h2>
+        <p><b>1. Qual a diferença entre as Fichas Técnicas Essenciais e as COMPLETAS?</b></p>
+        <p>R: As Fichas Essenciais são ideais para consultas rápidas. As Fichas COMPLETAS (PRO e Premium) oferecem um nível muito maior de detalhe, incluindo diagramas e procedimentos avançados.</p>
+        
+        <p><b>2. O que significa "Análise de Imagem" e o limite do Plano PRO?</b></p>
+        <p>R: A Análise de Imagem utiliza IA para fornecer insights sobre fotos que você carrega. No Plano PRO, você tem direito a 5 análises por mês. O Premium é Ilimitado.</p>
+        
+        </section>
 
-        {/* === PREMIUM === */}
-        <article className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-slate-200 bg-gradient-to-b from-slate-800 to-indigo-900 text-white">
-          <div className="p-6">
-            <h3 className="text-2xl font-extrabold">Premium</h3>
-            <div className="mt-2 text-3xl font-extrabold">
-              R$ 99,90 <span className="text-base font-semibold opacity-90">/ mês</span>
-            </div>
-            <p className="mt-1 opacity-90">Ideal para Uso Profissional Ilimitado.</p>
-
-            <ul className="mt-6 space-y-3">
-              <Feature invert>Todos os Recursos PRO</Feature>
-              <Feature invert>Análise de Imagem ILIMITADA</Feature>
-              <Feature invert>Treinamento IA Personalizado</Feature>
-              <Feature invert>Acesso a Dados Históricos</Feature>
-              <Feature invert>Suporte Prioritário</Feature>
-            </ul>
-          </div>
-
-          <div className="p-6 pt-0">
-            <a
-              href="https://mpago.la/1Xu1tTU"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold bg-white text-slate-900 hover:opacity-90"
-            >
-              Assinar Agora
-            </a>
-          </div>
-        </article>
-
-      </section>
-    </main>
-  );
-}
-
-/* ---------- Componentes auxiliares ---------- */
-function Feature({
-  children,
-  invert = false,
-}: {
-  children: React.ReactNode;
-  invert?: boolean;
-}) {
-  return (
-    <li className="flex items-start gap-3">
-      {/* Check redondo */}
-      <svg
-        viewBox="0 0 24 24"
-        className="h-5 w-5 flex-none"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-      >
-        <circle cx="12" cy="12" r="10" className={invert ? "opacity-100" : "text-violet-600"} />
-        <path
-          d="M7 12l3 3 7-7"
-          className={invert ? "text-white" : "text-white"}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-
-      <span className={invert ? "text-white/95" : "text-slate-800"}>{children}</span>
-    </li>
-  );
-            }
+</main>
+          
