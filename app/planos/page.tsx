@@ -34,20 +34,20 @@ function Check({ children }: { children: React.ReactNode }) {
 
 export default function PlanosPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      {/* Título e subtítulo exatamente como no mock */}
-      <h1 className="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
+    <main className="mx-auto max-w-7xl px-4 py-10">
+      {/* Cabeçalho igual ao mock */}
+      <h1 className="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
         Escolha o Plano Certo para Você
       </h1>
-      <p className="mt-3 text-center text-lg md:text-xl text-slate-600">
+      <p className="mt-3 text-center text-base md:text-xl text-slate-600">
         Encontre a solução perfeita da <span className="font-semibold text-blue-700">OTIAdriver</span> para suas
         necessidades, seja para uso pessoal ou profissional exigente.
       </p>
 
-      {/* Cards */}
+      {/* Grid de cards */}
       <section className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* BÁSICO */}
-        <article className="overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+        <article className="flex min-h-[520px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
           <div className="bg-gradient-to-b from-slate-100 to-slate-200 px-6 py-7">
             <h3 className="text-3xl font-extrabold text-slate-800">Básico</h3>
             <p className="mt-2 text-4xl font-black text-slate-900">
@@ -56,9 +56,8 @@ export default function PlanosPage() {
             <p className="mt-2 text-sm text-slate-600">Ideal para uso pessoal.</p>
           </div>
 
-          <div className="px-6 py-6">
+          <div className="flex grow flex-col px-6 py-6">
             <ul className="space-y-4">{basic.map((t) => <Check key={t}>{t}</Check>)}</ul>
-
             <a
               href="https://mpago.la/131Yx5T"
               target="_blank"
@@ -71,8 +70,7 @@ export default function PlanosPage() {
         </article>
 
         {/* PRO (RECOMENDADO) */}
-        <article className="relative overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-300 md:scale-105">
-          {/* Selo recomendado */}
+        <article className="relative flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-300 md:scale-[1.03]">
           <div className="absolute left-1/2 -top-3 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-black tracking-wide text-white shadow">
             RECOMENDADO
           </div>
@@ -85,9 +83,8 @@ export default function PlanosPage() {
             <p className="mt-2 text-sm/6 opacity-95">Ideal para Profissionais Exigentes.</p>
           </div>
 
-          <div className="px-6 py-6">
+          <div className="flex grow flex-col px-6 py-6">
             <ul className="space-y-4">{pro.map((t) => <Check key={t}>{t}</Check>)}</ul>
-
             <a
               href="https://mpago.la/1KhUK3d"
               target="_blank"
@@ -100,7 +97,7 @@ export default function PlanosPage() {
         </article>
 
         {/* PREMIUM */}
-        <article className="overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+        <article className="flex min-h-[520px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
           <div className="bg-gradient-to-b from-blue-900 to-blue-800 px-6 py-7 text-white">
             <h3 className="text-3xl font-extrabold">Premium</h3>
             <p className="mt-2 text-4xl font-black">
@@ -109,9 +106,8 @@ export default function PlanosPage() {
             <p className="mt-2 text-sm/6 opacity-95">Ideal para Uso Profissional Ilimitado.</p>
           </div>
 
-          <div className="px-6 py-6">
+          <div className="flex grow flex-col px-6 py-6">
             <ul className="space-y-4">{premium.map((t) => <Check key={t}>{t}</Check>)}</ul>
-
             <a
               href="https://mpago.la/1Xu1tTU"
               target="_blank"
@@ -125,4 +121,4 @@ export default function PlanosPage() {
       </section>
     </main>
   );
-      }
+}
