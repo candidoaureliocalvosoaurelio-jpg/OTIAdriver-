@@ -1,67 +1,5 @@
-export default function PlanosPage() {
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-
-      <h1 className="text-center text-3xl md:text-4xl font-extrabold tracking-tight">
-        Escolha o Plano Certo para Você
-      </h1>
-
-      <p className="mt-3 text-center text-slate-600">
-        Encontre a solução perfeita da <span className="font-semibold">OTIAdriver</span> para suas necessidades,
-        seja para uso pessoal ou profissional exigente.
-      </p>
-
-      <section className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        {/* BÁSICO */}
-        <article className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-slate-200 bg-white">
-          <div className="p-6">
-            <h3 className="text-2xl font-extrabold text-slate-800">Básico</h3>
-            <div className="mt-2 text-3xl font-extrabold text-slate-900">
-              R$ 29,90 <span className="text-base font-semibold text-slate-500">/ mês</span>
-            </div>
-            <p className="mt-1 text-slate-600">Ideal para uso pessoal.</p>
-            <ul className="mt-6 space-y-3 text-slate-800">
-              <Feature>Fichas Técnicas Essenciais</Feature>
-              <Feature>Acesso à Galeria</Feature>
-              <Feature>Suporte Básico por Chat</Feature>
-            </ul>
-          </div>
-          <div className="p-6 pt-0">
-            <a href="https://mpago.la/131Yx5T" target="_blank" rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold bg-slate-900 text-white hover:opacity-90">
-              Assinar Agora
-            </a>
-          </div>
-        </article>
-
-        {/* PRO */}
-        <article className="rounded-2xl overflow-hidden shadow-xl ring-2 ring-emerald-400 bg-emerald-500 text-white relative">
-          <span className="absolute top-3 left-1/2 -translate-x-1/2 rounded-full bg-white/90 text-emerald-700 px-3 py-1 text-xs font-extrabold shadow">
-            RECOMENDADO
-          </span>
-          <div className="p-6">
-            <h3 className="text-2xl font-extrabold">PRO</h3>
-            <div className="mt-2 text-3xl font-extrabold">
-              R$ 49,90 <span className="text-base font-semibold opacity-90">/ mês</span>
-            </div>
-            <p className="mt-1 opacity-90">Ideal para Profissionais Exigentes.</p>
-            <ul className="mt-6 space-y-3">
-              <Feature invert>Fichas Técnicas COMPLETAS</Feature>
-              <Feature invert>Suporte Técnico IA ilimitado</Feature>
-              <Feature invert>Análise de Imagem (5/mês)</Feature>
-              <Feature invert>Checklists de Viagem</Feature>
-            </ul>
-          </div>
-          <div className="p-6 pt-0">
-            <a href="https://mpago.la/1KhUK3d" target="_blank" rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl px-4 py-3 font-semibold bg-white text-emerald-700 hover:opacity-90">
-              Assinar Agora
-            </a>
-          </div>
-        </article>
-// app/planos/page.tsx
-import Link from "next/link";
+    // app/planos/page.tsx
+import * as React from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -70,7 +8,7 @@ export const metadata: Metadata = {
     "Escolha o plano OTIAdriver ideal para você: Básico, PRO e Premium. Assine com segurança pelo Mercado Pago.",
 };
 
-/** Ícone de check. Quando invert=true, o traço fica branco (para fundo escuro). */
+/** Ícone de check verde (ou branco quando invert=true) */
 function Check({
   children,
   invert = false,
@@ -98,30 +36,24 @@ function Check({
   );
 }
 
-export default function PlanosPage() {
+export default function Page() {
   return (
     <main data-page="planos" className="mx-auto max-w-6xl px-4 py-10">
-      {/* Título + subtítulo */}
       <header className="text-center mb-8 md:mb-12">
         <h1 className="text-2xl md:text-4xl font-extrabold text-slate-900">
           Conhecimento Inteligente para Motoristas
         </h1>
         <p className="mt-3 text-slate-600">
-          Encontre a solução perfeita da{" "}
-          <span className="font-semibold text-slate-700">OTIAdriver</span> para
-          suas necessidades, seja para uso pessoal ou profissional exigente.
+          Encontre a solução perfeita da <span className="font-semibold">OTIAdriver</span>{" "}
+          para suas necessidades, seja para uso pessoal ou profissional exigente.
         </p>
       </header>
 
-      {/* Cards */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         {/* BÁSICO */}
         <div className="rounded-3xl overflow-hidden shadow-lg bg-white">
-          {/* topo cinza claro */}
           <div className="bg-gradient-to-b from-slate-100 to-slate-200 px-8 pt-8 pb-6">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-[#0b1220]">
-              Básico
-            </h3>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-[#0b1220]">Básico</h3>
             <div className="mt-3">
               <span className="block text-3xl md:text-4xl font-extrabold text-[#0b4aa6]">
                 R$ 29,90
@@ -130,15 +62,12 @@ export default function PlanosPage() {
             </div>
             <p className="mt-4 text-slate-600">Ideal para uso pessoal.</p>
           </div>
-
-          {/* corpo branco */}
           <div className="px-8 py-6 space-y-4">
             <ul className="space-y-4">
               <Check>Fichas Técnicas Essenciais</Check>
               <Check>Acesso à Galeria</Check>
               <Check>Suporte Básico por Chat</Check>
             </ul>
-
             <div className="pt-4">
               <a
                 href="https://mpago.la/131Yx5T"
@@ -153,26 +82,19 @@ export default function PlanosPage() {
           </div>
         </div>
 
-        {/* PRO (recomendado) */}
+        {/* PRO (RECOMENDADO) */}
         <div className="rounded-3xl overflow-hidden shadow-xl ring-2 ring-emerald-200 bg-white relative">
-          {/* selo recomendado */}
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold bg-white text-slate-700 shadow">
             RECOMENDADO
           </span>
-
-          {/* topo teal */}
           <div className="bg-[#20c7c7] px-8 pt-8 pb-6 text-white">
             <h3 className="text-2xl md:text-3xl font-extrabold">PRO</h3>
             <div className="mt-3">
-              <span className="block text-3xl md:text-4xl font-extrabold">
-                R$ 49,90
-              </span>
+              <span className="block text-3xl md:text-4xl font-extrabold">R$ 49,90</span>
               <span className="opacity-90 font-semibold">/ mês</span>
             </div>
             <p className="mt-4 opacity-90">Ideal para Profissionais Exigentes.</p>
           </div>
-
-          {/* corpo branco */}
           <div className="px-8 py-6 space-y-4">
             <ul className="space-y-4">
               <Check>Fichas Técnicas COMPLETAS</Check>
@@ -180,7 +102,6 @@ export default function PlanosPage() {
               <Check>Análise de Imagem (5/mês)</Check>
               <Check>Checklists de Viagem</Check>
             </ul>
-
             <div className="pt-4">
               <a
                 href="https://mpago.la/1KhUK3d"
@@ -197,19 +118,14 @@ export default function PlanosPage() {
 
         {/* PREMIUM */}
         <div className="rounded-3xl overflow-hidden shadow-lg bg-white">
-          {/* topo azul escuro */}
           <div className="bg-[#0a3c78] px-8 pt-8 pb-6 text-white">
             <h3 className="text-2xl md:text-3xl font-extrabold">Premium</h3>
             <div className="mt-3">
-              <span className="block text-3xl md:text-4xl font-extrabold">
-                R$ 99,90
-              </span>
+              <span className="block text-3xl md:text-4xl font-extrabold">R$ 99,90</span>
               <span className="opacity-90 font-semibold">/ mês</span>
             </div>
             <p className="mt-4 opacity-90">Ideal para Uso Profissional Ilimitado.</p>
           </div>
-
-          {/* corpo branco */}
           <div className="px-8 py-6 space-y-4">
             <ul className="space-y-4">
               <Check>Todos os Recursos PRO</Check>
@@ -218,7 +134,6 @@ export default function PlanosPage() {
               <Check>Acesso a Dados Históricos</Check>
               <Check>Suporte Prioritário</Check>
             </ul>
-
             <div className="pt-4">
               <a
                 href="https://mpago.la/1Xu1tTU"
@@ -235,4 +150,4 @@ export default function PlanosPage() {
       </section>
     </main>
   );
-      }
+        }                    
