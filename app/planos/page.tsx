@@ -1,4 +1,4 @@
-    <header>
+    
         <h1>Escolha o Seu Nível de Inteligência e Performance.</h1>
         <p>O avanço da tecnologia automotiva exige ferramentas à altura. Na OTIADriver, criamos três níveis de serviço para garantir que você tenha exatamente o que precisa – seja você um entusiasta buscando dados essenciais ou um <b>profissional exigente</b> que depende da IA para decisões críticas.</p>
         <p><b>Recomendamos o plano PRO</b> para a maioria dos usuários, pois ele oferece a combinação perfeita de <b>Fichas Técnicas COMPLETAS</b> e suporte ilimitado da nossa IA, garantindo excelência e eficiência no seu dia a dia.</p>
