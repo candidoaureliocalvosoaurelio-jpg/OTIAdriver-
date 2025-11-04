@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
+
 export const metadata = {
   title: "Planos | OTIAdriver",
   description: "Conheça os planos da plataforma OTIAdriver",
@@ -37,7 +38,7 @@ function Check({ children }: { children: React.ReactNode }) {
 export default function PlanosPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
-      {/* Cabeçalho igual ao mock */}
+
       <h1 className="text-center text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
         Escolha o Plano Certo para Você
       </h1>
@@ -46,8 +47,9 @@ export default function PlanosPage() {
         necessidades, seja para uso pessoal ou profissional exigente.
       </p>
 
-      {/* Grid de cards */}
+
       <section className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+
         {/* BÁSICO */}
         <article className="flex min-h-[520px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
           <div className="bg-gradient-to-b from-slate-100 to-slate-200 px-6 py-7">
@@ -55,24 +57,27 @@ export default function PlanosPage() {
             <p className="mt-2 text-4xl font-black text-slate-900">
               R$ 29,90 <span className="text-base font-semibold text-slate-600">/ mês</span>
             </p>
-            <p className="mt-2 text-sm text-slate-600">Ideal para uso pessoal.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Ideal para uso pessoal.</p>
           </div>
 
           <div className="flex grow flex-col px-6 py-6">
             <ul className="space-y-4">{basic.map((t) => <Check key={t}>{t}</Check>)}</ul>
+
             <a
               href="https://mpago.la/131Yx5T"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-800 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:translate-y-[1px] hover:opacity-95 active:translate-y-[2px] transition"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-slate-800 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:opacity-90 active:scale-[.98] transition"
             >
               Assinar Agora
             </a>
           </div>
         </article>
 
+
         {/* PRO (RECOMENDADO) */}
-        <article className="relative flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-300 md:scale-[1.03]">
+        <article className="relative flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-400 md:scale-[1.04]">
+          
           <div className="absolute left-1/2 -top-3 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-black tracking-wide text-white shadow">
             RECOMENDADO
           </div>
@@ -82,21 +87,23 @@ export default function PlanosPage() {
             <p className="mt-2 text-4xl font-black">
               R$ 49,90 <span className="text-base font-semibold opacity-90">/ mês</span>
             </p>
-            <p className="mt-2 text-sm/6 opacity-95">Ideal para Profissionais Exigentes.</p>
+            <p className="mt-2 text-sm leading-6 opacity-95">Ideal para Profissionais Exigentes.</p>
           </div>
 
           <div className="flex grow flex-col px-6 py-6">
             <ul className="space-y-4">{pro.map((t) => <Check key={t}>{t}</Check>)}</ul>
+
             <a
               href="https://mpago.la/1KhUK3d"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:bg-emerald-700 active:translate-y-[2px] transition"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:bg-emerald-700 active:scale-[.98] transition"
             >
               Assinar Agora
             </a>
           </div>
         </article>
+
 
         {/* PREMIUM */}
         <article className="flex min-h-[520px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
@@ -105,21 +112,23 @@ export default function PlanosPage() {
             <p className="mt-2 text-4xl font-black">
               R$ 99,90 <span className="text-base font-semibold opacity-90">/ mês</span>
             </p>
-            <p className="mt-2 text-sm/6 opacity-95">Ideal para Uso Profissional Ilimitado.</p>
+            <p className="mt-2 text-sm leading-6 opacity-95">Ideal para Uso Profissional Ilimitado.</p>
           </div>
 
           <div className="flex grow flex-col px-6 py-6">
             <ul className="space-y-4">{premium.map((t) => <Check key={t}>{t}</Check>)}</ul>
+
             <a
               href="https://mpago.la/1Xu1tTU"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-blue-900 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:bg-blue-800 active:translate-y-[2px] transition"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-blue-900 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:bg-blue-800 active:scale-[.98] transition"
             >
               Assinar Agora
             </a>
           </div>
         </article>
+
       </section>
     </main>
   );
