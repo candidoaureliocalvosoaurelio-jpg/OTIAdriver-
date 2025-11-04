@@ -1,3 +1,4 @@
+// app/planos/page.tsx
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
@@ -47,28 +48,26 @@ export default function PlanosPage() {
         necessidades, seja para uso pessoal ou profissional exigente.
       </p>
 
-      {/* Grid */}
+      {/* Grid de cards */}
       <section className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-        {/* BÁSICO */}
-        <article className="flex min-h-[520px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
-          <div className="bg-gradient-to-b from-slate-100 to-slate-200 px-6 py-7 text-center">
-            <h3 className="text-3xl font-extrabold text-slate-800">Básico</h3>
+        {/* BÁSICO (cinza no header) */}
+        <article className="flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+          <div className="px-6 py-7" style={{ background: "#E3E4E7" }}>
+            <h3 className="text-4xl font-extrabold text-slate-900">Básico</h3>
             <p className="mt-2 text-4xl font-black text-slate-900">
-              R$ 29,90 <span className="text-base font-semibold text-slate-600">/ mês</span>
+              R$ 29,90 <span className="text-base font-semibold text-slate-700">/ mês</span>
             </p>
-            <p className="mt-2 text-sm text-slate-600">Ideal para uso pessoal.</p>
+            <p className="mt-2 text-sm text-slate-700">Ideal para uso pessoal.</p>
           </div>
 
           <div className="flex grow flex-col px-6 py-6">
-            <ul className="space-y-4">{basic.map((t) => <Check key={t}>{t}</Check>)}</ul>
+            <ul className="space-y-4 mb-6">{basic.map((t) => <Check key={t}>{t}</Check>)}</ul>
 
-            {/* Botão forçado a aparecer mesmo se houver CSS global conflitante */}
             <a
               href="https://mpago.la/131Yx5T"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-base font-extrabold shadow-lg transition hover:translate-y-[1px] active:translate-y-[2px]"
-              style={{ backgroundColor: "#0a2540", color: "#ffffff" }}
+              className="mt-auto inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
             >
               Assinar Agora
             </a>
@@ -76,14 +75,15 @@ export default function PlanosPage() {
         </article>
 
         {/* PRO (RECOMENDADO) */}
-        <article className="relative flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-300 md:scale-[1.03]">
-          {/* Selo */}
-          <div className="absolute left-1/2 -top-3 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-black tracking-wide text-white shadow">
+        <article className="relative flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-400">
+          {/* Selo centralizado */}
+          <div className="absolute left-1/2 -top-4 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-sm font-extrabold tracking-wide text-white shadow">
             RECOMENDADO
           </div>
 
-          <div className="px-6 py-7 text-center text-white" style={{ backgroundColor: "#11b5ae" }}>
-            <h3 className="text-3xl font-extrabold">PRO</h3>
+          {/* Header teal destacado */}
+          <div className="px-6 py-7 text-white" style={{ background: "#12B8A6" }}>
+            <h3 className="text-4xl font-extrabold">PRO</h3>
             <p className="mt-2 text-4xl font-black">
               R$ 49,90 <span className="text-base font-semibold opacity-90">/ mês</span>
             </p>
@@ -91,14 +91,13 @@ export default function PlanosPage() {
           </div>
 
           <div className="flex grow flex-col px-6 py-6">
-            <ul className="space-y-4">{pro.map((t) => <Check key={t}>{t}</Check>)}</ul>
+            <ul className="space-y-4 mb-6">{pro.map((t) => <Check key={t}>{t}</Check>)}</ul>
 
             <a
               href="https://mpago.la/1KhUK3d"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-base font-extrabold shadow-lg transition hover:opacity-95 active:translate-y-[2px]"
-              style={{ backgroundColor: "#10a37f", color: "#ffffff" }}
+              className="mt-auto inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-4 py-3 text-base font-extrabold text-white shadow-lg hover:bg-emerald-700 active:translate-y-[1px] transition"
             >
               Assinar Agora
             </a>
@@ -106,9 +105,9 @@ export default function PlanosPage() {
         </article>
 
         {/* PREMIUM */}
-        <article className="flex min-h-[520px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
-          <div className="px-6 py-7 text-center text-white" style={{ background: "linear-gradient(180deg,#183a8a 0%, #1e3a8a 60%, #ffffff 60%)" }}>
-            <h3 className="text-3xl font-extrabold">Premium</h3>
+        <article className="flex min-h-[560px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+          <div className="px-6 py-7 text-white bg-gradient-to-b from-[#0f2f75] to-[#123a8c]">
+            <h3 className="text-4xl font-extrabold">Premium</h3>
             <p className="mt-2 text-4xl font-black">
               R$ 99,90 <span className="text-base font-semibold opacity-90">/ mês</span>
             </p>
@@ -116,14 +115,13 @@ export default function PlanosPage() {
           </div>
 
           <div className="flex grow flex-col px-6 py-6">
-            <ul className="space-y-4">{premium.map((t) => <Check key={t}>{t}</Check>)}</ul>
+            <ul className="space-y-4 mb-6">{premium.map((t) => <Check key={t}>{t}</Check>)}</ul>
 
             <a
               href="https://mpago.la/1Xu1tTU"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-base font-extrabold shadow-lg transition hover:opacity-95 active:translate-y-[2px]"
-              style={{ backgroundColor: "#0f2a6b", color: "#ffffff" }}
+              className="mt-auto inline-flex w-full items-center justify-center rounded-xl bg-[#0f2f75] px-4 py-3 text-base font-extrabold text-white shadow-lg hover:bg-[#123a8c] active:translate-y-[1px] transition"
             >
               Assinar Agora
             </a>
