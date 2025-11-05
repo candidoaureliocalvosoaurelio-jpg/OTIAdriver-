@@ -58,7 +58,7 @@ export default function PlanosPage() {
       {/* Cards — alturas niveladas e conteúdo centralizado no topo colorido */}
       <section className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3 items-stretch">
         {/* BÁSICO (topo cinza) */}
-        <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+        <article className="flex min-h-[600px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
           {/* Topo */}
           <div className="bg-gradient-to-b from-slate-200 to-slate-100 px-6 py-7 text-center">
             <h3 className="text-3xl font-extrabold text-slate-800">Básico</h3>
@@ -89,7 +89,7 @@ export default function PlanosPage() {
         </article>
 
         {/* PRO (teal) com selo RECOMENDADO e destaque de borda) */}
-        <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-300 md:scale-[1.02]">
+        <article className="relative flex min-h-[650px] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl ring-2 ring-emerald-300 md:scale-[1.02]">
           {/* Selo */}
           <div className="absolute left-1/2 -top-3 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-xs font-black tracking-wide text-white shadow">
             RECOMENDADO
@@ -125,7 +125,7 @@ export default function PlanosPage() {
         </article>
 
         {/* PREMIUM (azul escuro) */}
-        <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+        <article className="flex min-h-[600px] flex-col overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
           {/* Topo */}
           <div className="px-6 py-7 text-center text-white" style={{ background: "linear-gradient(180deg,#123D83 0%,#0F2F68 100%)" }}>
             <h3 className="text-3xl font-extrabold">Premium</h3>
