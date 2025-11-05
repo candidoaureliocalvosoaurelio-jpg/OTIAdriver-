@@ -122,3 +122,25 @@
     background-color: #4CAF50; /* Verde/Ciano do PRO */
     color: #fff;
 }
+/* MOBILE AJUSTES */
+@media (max-width: 768px) {
+  .card {
+    width: 90% !important;
+    min-height: 430px !important;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .preco .valor {
+    font-size: 2.7em !important;
+  }
+
+  .preco .cifra,
+  .preco .periodo {
+    font-size: 1em !important;
+  }
+
+  h2 {
+    font-size: 1.8rem !important;
+  }
+}
