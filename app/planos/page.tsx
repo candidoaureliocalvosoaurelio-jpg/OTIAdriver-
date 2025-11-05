@@ -1,118 +1,71 @@
-// app/planos/page.tsx
-import styles from "./Planos.module.css";
+// Seu código PlanosPage.tsx (INÍCIO DO ARQUIVO)
 
-export const metadata = {
-  title: "Planos | OTIAdriver",
-  description: "Conheça os planos da plataforma OTIAdriver",
-};
-
-const basic = ["Fichas Técnicas Essenciais", "Acesso à Galeria", "Suporte Básico por Chat"];
-const pro = [
-  "Fichas Técnicas COMPLETAS",
-  "Suporte Técnico IA Ilimitado",
-  "Análise de Imagem (5/mês)",
-  "Checklists de Viagem",
-];
-const premium = [
-  "Todos os Recursos PRO",
-  "Análise de Imagem ILIMITADA",
-  "Treinamento IA Personalizado",
-  "Acesso a Dados Históricos",
-  "Suporte Prioritário",
-];
-
-function Price({ value, period = "/ mês" }: { value: string; period?: string }) {
-  return (
-    <div className={styles.preco} aria-label={`Preço ${value} por mês`}>
-      <span className={styles.cifra}>R$ </span>
-      <span className={styles.valor}>{value}</span>
-      <span className={styles.periodo}> {period}</span>
-    </div>
-  );
-}
+// 1. IMPORTAR OS ESTILOS:
+import styles from './Planos.module.css'; 
+// OBS: 'styles' será um objeto com todas as classes CSS
 
 export default function PlanosPage() {
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
-      {/* Título e subtítulo iguais ao mock */}
-      <h1 className="text-center text-3xl md:text-4xl font-extrabold tracking-tight">
-        Escolha o Plano Certo para Você
-      </h1>
-      <p className="mt-3 text-center text-base md:text-lg text-slate-600">
-        Encontre a solução perfeita da <span className="font-semibold text-blue-700">OTIAdriver</span> para suas
-        necessidades, seja para uso pessoal ou profissional exigente.
-      </p>
+    return (
+        // 2. USAR AS CLASSES IMPORTADAS:
+        <main className={styles.containerPlanos}>
 
-      {/* GRID DOS CARDS */}
-      <section className={styles.planosGrid}>
-        {/* BÁSICO */}
-        <article className={`${styles.card} ${styles.planoBasico}`} role="region" aria-label="Plano Básico">
-          <h2 className="m-0 text-2xl font-extrabold">Básico</h2>
-          <Price value="29,90" />
-          <p className="mt-1 mb-5 text-sm text-slate-600">Ideal para uso pessoal.</p>
+            {/* ... header ... */}
 
-          <ul className={styles.recursos}>
-            {basic.map((item) => (
-              <li key={item}>✅ {item}</li>
-            ))}
-          </ul>
+            {/* Seção de Cards de Planos (Layout de Colunas) */}
+            <section className={styles.planosGrid}>
 
-          <a
-            href="https://mpago.la/131Yx5T"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.btn} ${styles["btn-basico"]}`}
-          >
-            Assinar Agora
-          </a>
-        </article>
+                {/* Card 1: BÁSICO (R$ 29,90) */}
+                <div className={`${styles.card} ${styles.planoBasico}`}>
+                    <h2>Básico</h2>
+                    <p className={styles.idealPara}>Ideal para Uso Pessoal</p>
+                    <div className={styles.preco}>
+                        <span className={styles.cifra}>R$</span>
+                        <span className={styles.valor}>29,90</span> {/* PREÇO CORRIGIDO */}
+                        <span className={styles.periodo}>/ mês</span>
+                    </div>
+                    <ul className={styles.recursos}>
+                        <li>✔️ Fichas Técnicas Essenciais</li>
+                        {/* ... outros recursos ... */}
+                    </ul>
+                    <a href="#link-checkout-basico" className={`${styles.btn} ${styles.btnBasico}`}>ASSINAR AGORA (R$ 29,90)</a>
+                </div>
 
-        {/* PRO — RECOMENDADO (fundo turquesa e selo central) */}
-        <article className={`${styles.card} ${styles.planoPro}`} role="region" aria-label="Plano PRO">
-          <div className={styles.seloRecomendado}>RECOMENDADO</div>
+                {/* Card 2: PRO (R$ 49,90) - DESTAQUE! */}
+                <div className={`
+                    ${styles.card} 
+                    ${styles.planoPro} 
+                    ${styles.destaque}
+                `}>
+                    <span className={styles.seloRecomendado}>RECOMENDADO</span>
+                    <h2>PRO</h2>
+                    <p className={styles.idealPara}>Ideal para Profissionais Exigentes</p>
+                    <div className={styles.preco}>
+                        <span className={styles.cifra}>R$</span>
+                        <span className={styles.valor}>49,90</span> {/* PREÇO CORRIGIDO */}
+                        <span className={styles.periodo}>/ mês</span>
+                    </div>
+                    <ul className={styles.recursos}>
+                        {/* ... recursos ... */}
+                    </ul>
+                    <a href="#link-checkout-pro" className={`${styles.btn} ${styles.btnPro}`}>ASSINAR AGORA (RECOMENDADO)</a>
+                </div>
+                
+                {/* Card 3: PREMIUM (R$ 99,90) */}
+                <div className={`${styles.card} ${styles.planoPremium}`}>
+                    <h2>Premium</h2>
+                    <p className={styles.idealPara}>Ideal para Uso Profissional Ilimitado</p>
+                    <div className={styles.preco}>
+                        <span className={styles.cifra}>R$</span>
+                        <span className={styles.valor}>99,90</span> {/* PREÇO CORRIGIDO */}
+                        <span className={styles.periodo}>/ mês</span>
+                    </div>
+                    {/* ... recursos e botão ... */}
+                    <a href="#link-checkout-premium" className={`${styles.btn} ${styles.btnPremium}`}>ASSINAR AGORA (R$ 99,90)</a>
+                </div>
 
-          <h2 className="m-0 text-2xl font-extrabold">PRO</h2>
-          <Price value="49,90" />
-          <p className="mt-1 mb-5 text-sm text-slate-700">Ideal para Profissionais Exigentes.</p>
-
-          <ul className={styles.recursos}>
-            {pro.map((item) => (
-              <li key={item}>✅ {item}</li>
-            ))}
-          </ul>
-
-          <a
-            href="https://mpago.la/1KhUK3d"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.btn} ${styles["btn-pro"]}`}
-          >
-            Assinar Agora
-          </a>
-        </article>
-
-        {/* PREMIUM — azul escuro */}
-        <article className={`${styles.card} ${styles.planoPremium}`} role="region" aria-label="Plano Premium">
-          <h2 className="m-0 text-2xl font-extrabold">Premium</h2>
-          <Price value="99,90" />
-          <p className="mt-1 mb-5 text-sm">Ideal para Uso Profissional Ilimitado.</p>
-
-          <ul className={styles.recursos}>
-            {premium.map((item) => (
-              <li key={item}>✅ {item}</li>
-            ))}
-          </ul>
-
-          <a
-            href="https://mpago.la/1Xu1tTU"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${styles.btn} ${styles["btn-premium"]}`}
-          >
-            Assinar Agora
-          </a>
-        </article>
-      </section>
-    </main>
-  );
+            </section>
+            
+            {/* ... Seção FAQ ... */}
+        </main>
+    );
 }
