@@ -1,1 +1,124 @@
+/* Planos.module.css */
 
+/* --- LAYOUT DE COLUNAS --- */
+.planosGrid {
+    display: flex; /* Habilita o layout de colunas */
+    gap: 30px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza o bloco */
+    flex-wrap: wrap; 
+    margin-top: 50px;
+}
+
+/* --- ESTILO GERAL DO CARD --- */
+.card {
+    border-radius: 12px;
+    padding: 30px;
+    width: 300px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+    min-height: 480px; /* Ajuda a alinhar a altura */
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- CORES DOS PLANOS --- */
+.planoBasico {
+    background-color: #f0f3f5; /* Cinza claro da imagem */
+    color: #444;
+}
+.planoPremium {
+    background-color: #1a237e; /* Azul Escuro do Premium */
+    color: #fff;
+}
+.planoPremium h2,
+.planoPremium .preco .valor,
+.planoPremium .preco .cifra,
+.planoPremium .preco .periodo,
+.planoPremium li {
+    color: #fff; /* Garante que o texto seja branco no fundo escuro */
+}
+.planoPremium .btn {
+    background-color: #273385; /* Azul ligeiramente mais claro para o botão */
+}
+.planoPremium .btn:hover {
+    background-color: #0d1252;
+}
+
+
+/* --- DESTAQUE DO PRO --- */
+.planoPro {
+    background-color: #e0f7f3; /* Fundo ciano claro */
+    border: 3px solid #1a9688; /* Borda ciano/verde para destaque */
+    transform: scale(1.05); 
+    box-shadow: 0 8px 25px rgba(26, 150, 136, 0.4); 
+    z-index: 10;
+}
+.seloRecomendado {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #FFC107; /* Amarelo */
+    color: #333;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+
+/* --- PREÇOS E TEXTOS --- */
+.preco {
+    margin: 15px 0 25px;
+    line-height: 1;
+}
+.preco .valor {
+    font-size: 3.5em; /* Tamanho grande para o valor */
+    font-weight: 700;
+}
+.preco .cifra, .preco .periodo {
+    font-size: 1.2em;
+    color: #666;
+}
+.planoPremium .preco .cifra, .planoPremium .preco .periodo {
+    color: #ccc; /* Cor clara para texto secundário no Premium */
+}
+
+/* Recursos (Lista) */
+.recursos {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 30px;
+    flex-grow: 1; /* Faz a lista crescer para preencher o espaço */
+}
+.recursos li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.planoPremium .recursos li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Botões */
+.btn {
+    display: block;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: auto; 
+    transition: background-color 0.2s;
+    /* Linha abaixo garante que o botão fique no final do card */
+}
+
+.btn-basico, .btn-premium {
+    background-color: #1a237e; /* Azul Escuro Padrão */
+    color: #fff;
+}
+.btn-pro {
+    background-color: #4CAF50; /* Verde/Ciano do PRO */
+    color: #fff;
+}
