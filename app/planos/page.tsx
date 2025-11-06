@@ -70,11 +70,9 @@ export default function PlanosPage() {
             ))}
           </ul>
 
-          {/* Botão */}
+          {/* Botão → checkout dinâmico */}
           <a
-            href="https://mpago.la/131Yx5T"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/checkout?plan=basico"
             className={`${styles.btn} ${styles["btn-basico"]}`}
           >
             Assinar Agora
@@ -108,9 +106,7 @@ export default function PlanosPage() {
           </ul>
 
           <a
-            href="https://mpago.la/1KhUK3d"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/checkout?plan=pro"
             className={`${styles.btn} ${styles["btn-pro"]}`}
           >
             Assinar Agora
@@ -140,9 +136,7 @@ export default function PlanosPage() {
           </ul>
 
           <a
-            href="https://mpago.la/1Xu1tTU"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/checkout?plan=premium"
             className={`${styles.btn} ${styles["btn-premium"]}`}
           >
             Assinar Agora
@@ -152,4 +146,3 @@ export default function PlanosPage() {
     </main>
   );
 }
-
