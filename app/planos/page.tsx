@@ -10,7 +10,6 @@ export const metadata = {
   description: "Conheça os planos da plataforma OTIAdriver",
 };
 
-// Listas de recursos
 const basic = [
   "Fichas Técnicas Essenciais",
   "Acesso à Galeria",
@@ -35,7 +34,6 @@ const premium = [
 export default function PlanosPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
-      {/* Título e subtítulo (iguais ao mock) */}
       <h1 className="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
         Escolha o Plano Certo para Você
       </h1>
@@ -45,16 +43,11 @@ export default function PlanosPage() {
         suas necessidades, seja para uso pessoal ou profissional exigente.
       </p>
 
-      {/* GRID DE CARDS */}
       <section className={styles.planosGrid}>
-        {/* === BÁSICO === */}
-        <article
-          className={`${styles.card} ${styles.planoBasico}`}
-          style={{ height: 520 }}
-        >
+        {/* básico */}
+        <article className={`${styles.card} ${styles.planoBasico}`} style={{ height: 520 }}>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Básico</h2>
 
-          {/* Preço */}
           <div className={styles.preco}>
             <span className={styles.cifra}>R$&nbsp;</span>
             <span className={styles.valor}>29,90</span>
@@ -63,14 +56,13 @@ export default function PlanosPage() {
 
           <p className="text-sm text-slate-600 m-0">Ideal para uso pessoal.</p>
 
-          {/* Lista de recursos */}
           <ul className={styles.recursos}>
             {basic.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
 
-          {/* Botão → checkout dinâmico */}
+          {/* CORRIGIDO */}
           <a
             href="/checkout?plan=basico"
             className={`${styles.btn} ${styles["btn-basico"]}`}
@@ -79,16 +71,12 @@ export default function PlanosPage() {
           </a>
         </article>
 
-        {/* === PRO (RECOMENDADO) === */}
-        <article
-          className={`${styles.card} ${styles.planoPro}`}
-          style={{ height: 520 }}
-        >
+        {/* PRO */}
+        <article className={`${styles.card} ${styles.planoPro}`} style={{ height: 520 }}>
           <div className={styles.seloRecomendado}>RECOMENDADO</div>
 
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">PRO</h2>
 
-          {/* Preço */}
           <div className={styles.preco}>
             <span className={styles.cifra}>R$&nbsp;</span>
             <span className={styles.valor}>49,90</span>
@@ -105,6 +93,7 @@ export default function PlanosPage() {
             ))}
           </ul>
 
+          {/* CORRIGIDO */}
           <a
             href="/checkout?plan=pro"
             className={`${styles.btn} ${styles["btn-pro"]}`}
@@ -113,14 +102,10 @@ export default function PlanosPage() {
           </a>
         </article>
 
-        {/* === PREMIUM === */}
-        <article
-          className={`${styles.card} ${styles.planoPremium}`}
-          style={{ height: 520 }}
-        >
+        {/* PREMIUM */}
+        <article className={`${styles.card} ${styles.planoPremium}`} style={{ height: 520 }}>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Premium</h2>
 
-          {/* Preço */}
           <div className={styles.preco}>
             <span className={styles.cifra}>R$&nbsp;</span>
             <span className={styles.valor}>99,90</span>
@@ -135,6 +120,7 @@ export default function PlanosPage() {
             ))}
           </ul>
 
+          {/* CORRIGIDO */}
           <a
             href="/checkout?plan=premium"
             className={`${styles.btn} ${styles["btn-premium"]}`}
