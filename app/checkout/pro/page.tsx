@@ -1,4 +1,3 @@
-// app/checkout/pro/page.tsx
 import Link from "next/link";
 
 export const metadata = {
@@ -6,7 +5,7 @@ export const metadata = {
   description: "Finalize sua assinatura PRO com renovação mensal automática.",
 };
 
-function Chip({ children }: { children: React.ReactNode }) {
+function Check({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-center gap-2">
       <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 shadow">
@@ -14,7 +13,7 @@ function Chip({ children }: { children: React.ReactNode }) {
           <path d="M20 6 9 17l-5-5" />
         </svg>
       </span>
-      <span className="text-slate-800"> {children} </span>
+      <span className="text-slate-800">{children}</span>
     </li>
   );
 }
@@ -28,7 +27,7 @@ export default function CheckoutPro() {
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
-      {/* título da página */}
+      {/* título */}
       <header className="mt-6 mb-2 text-center">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Finalizar Assinatura</h1>
         <p className="mt-1 text-slate-600">
@@ -38,7 +37,7 @@ export default function CheckoutPro() {
 
       {/* GRID */}
       <section className="mt-6 grid gap-6 md:grid-cols-2">
-        {/* COLUNA ESQUERDA — CARD DO PLANO */}
+        {/* ESQUERDA — PLANO */}
         <article className="rounded-2xl bg-white shadow ring-1 ring-black/5">
           <div className="px-6 py-7 bg-teal-500 text-white rounded-t-2xl">
             <div className="inline-block -mt-4 mb-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-black tracking-wide text-emerald-700 shadow">
@@ -53,18 +52,16 @@ export default function CheckoutPro() {
 
           <div className="px-6 py-6">
             <ul className="space-y-3">
-              <Chip>Fichas Técnicas COMPLETAS</Chip>
-              <Chip>Suporte Técnico IA ilimitado</Chip>
-              <Chip>Análise de Imagem (5/mês)</Chip>
-              <Chip>Checklists de Viagem</Chip>
-              <Chip>Sistema de Pontuação de Performance Inteligente</Chip>
-              <Chip>Alertas de Pneus Inteligentes e GPS Inteligente</Chip>
+              <Check>Fichas Técnicas COMPLETAS</Check>
+              <Check>Suporte Técnico IA ilimitado</Check>
+              <Check>Análise de Imagem (5/mês)</Check>
+              <Check>Checklists de Viagem</Check>
+              <Check>Sistema de Pontuação de Performance Inteligente</Check>
+              <Check>Alertas de Pneus Inteligentes e GPS Inteligente</Check>
             </ul>
 
             <div className="mt-6 rounded-xl bg-slate-50 p-4 text-sm text-slate-700 ring-1 ring-slate-200">
-              <p className="font-bold">
-                Plano mensal com renovação automática a cada 30 dias.
-              </p>
+              <p className="font-bold">Plano mensal com renovação automática a cada 30 dias.</p>
               <p className="mt-1">
                 A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra.
                 Você pode cancelar a renovação a qualquer momento antes da próxima cobrança.
@@ -80,7 +77,7 @@ export default function CheckoutPro() {
           </div>
         </article>
 
-        {/* COLUNA DIREITA — RESUMO + BOTÃO */}
+        {/* DIREITA — RESUMO + BOTÃO */}
         <aside className="rounded-2xl bg-white shadow ring-1 ring-black/5">
           <div className="rounded-t-2xl bg-[#0b2a6b] px-6 py-7 text-white">
             <p className="text-xs/5 opacity-80">Plano selecionado</p>
@@ -110,9 +107,7 @@ export default function CheckoutPro() {
             <div className="mt-6 rounded-xl bg-slate-50 p-4 text-xs text-slate-600 ring-1 ring-slate-200">
               <p>
                 Dúvidas? Fale com a gente:
-                <a href="mailto:otiadriver@gmail.com" className="ml-1 underline">
-                  otiadriver@gmail.com
-                </a>
+                <a href="mailto:otiadriver@gmail.com" className="ml-1 underline">otiadriver@gmail.com</a>
               </p>
             </div>
           </div>
