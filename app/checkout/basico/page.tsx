@@ -20,10 +20,8 @@ function Check({ children }: { children: React.ReactNode }) {
 export default function CheckoutBasico() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      {/* Esconde o hero global só nesta página */}
-      <style jsx global>{`
-        #site-hero { display: none !important; }
-      `}</style>
+      {/* Esconde o hero global só nesta página (sem styled-jsx) */}
+      <style>{`#site-hero { display: none !important; }`}</style>
 
       {/* trilha + selo */}
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
