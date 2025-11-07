@@ -1,6 +1,10 @@
 // app/checkout/page.tsx
 import Link from "next/link";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
+
 export const metadata = {
   title: "Checkout | OTIAdriver",
   description: "Finalize sua assinatura mensal recorrente da OTIAdriver.",
@@ -14,7 +18,7 @@ type Plan = {
   price: string;
   mpLink: string;
   features: string[];
-  headerColor: string;     // cor do cabeçalho do card
+  headerColor: string;
   badge?: "RECOMENDADO" | "MAIS VENDIDO";
 };
 
@@ -23,18 +27,13 @@ const plans: Record<PlanKey, Plan> = {
     name: "Básico",
     price: "R$ 29,90 / mês",
     mpLink: "https://mpago.la/131Yx5T",
-    features: [
-      "Fichas Técnicas Essenciais",
-      "Acesso à Galeria",
-      "Suporte Básico por Chat",
-    ],
+    features: ["Fichas Técnicas Essenciais", "Acesso à Galeria", "Suporte Básico por Chat"],
     headerColor: "bg-slate-100 text-slate-900",
   },
   pro: {
     name: "PRO",
     price: "R$ 49,90 / mês",
     mpLink: "https://mpago.la/1KhUK3d",
-    // ✅ 6 itens do PRO
     features: [
       "Fichas Técnicas COMPLETAS",
       "Suporte Técnico IA Ilimitado",
@@ -61,7 +60,7 @@ const plans: Record<PlanKey, Plan> = {
   },
 };
 
-// Ícone check
+// ícone de check
 function Check() {
   return (
     <span className="mt-1 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-emerald-500">
@@ -75,10 +74,12 @@ function Check() {
 export default function CheckoutPage({
   searchParams,
 }: {
-  searchParams: { plan?: PlanKey };
+  // aceita qualquer string para não travar
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const key = (searchParams.plan ?? "basico") as PlanKey;
-  const plan = plans[key] ?? plans.basico;
+  const raw = (searchParams?.plan ?? "pro") as string;
+  const key = (Array.isArray(raw) ? raw[0] : raw)?.toLowerCase() as PlanKey;
+  const plan = plans[key] ?? plans.pro; // fallback PRO para evitar tela travada
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
@@ -93,11 +94,10 @@ export default function CheckoutPage({
         Finalizar Assinatura
       </h1>
       <p className="mt-2 text-center text-slate-600">
-        Você selecionou o plano{" "}
-        <span className="font-bold">{plan.name}</span>.
+        Você selecionou o plano <span className="font-bold">{plan.name}</span>.
       </p>
 
-      {/* Card do plano (layout vertical – opção B) */}
+      {/* Card vertical */}
       <section className="mt-8 overflow-hidden rounded-2xl bg-white shadow ring-1 ring-black/5">
         {/* cabeçalho colorido */}
         <div className={`px-6 py-5 ${plan.headerColor}`}>
@@ -109,9 +109,7 @@ export default function CheckoutPage({
               </span>
             )}
           </div>
-          <p className="mt-1 text-xl md:text-2xl font-black">
-            {plan.price}
-          </p>
+          <p className="mt-1 text-xl md:text-2xl font-black">{plan.price}</p>
         </div>
 
         {/* corpo */}
@@ -127,9 +125,7 @@ export default function CheckoutPage({
 
           {/* aviso de recorrência */}
           <div className="mt-6 rounded-xl bg-slate-50 px-4 py-4 text-sm leading-relaxed text-slate-700">
-            <p className="font-semibold">
-              Plano mensal com renovação automática a cada 30 dias.
-            </p>
+            <p className="font-semibold">Plano mensal com renovação automática a cada 30 dias.</p>
             <p className="mt-1">
               A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra.
               Você pode cancelar a renovação a qualquer momento antes da próxima cobrança.
