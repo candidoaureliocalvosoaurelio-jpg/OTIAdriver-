@@ -1,12 +1,11 @@
-:global(:root) {
-    --brand-blue:#0F2454;          /* azul escuro OTIA */
-    --brand-blue-2:#0d1252;        /* azul + escuro */
-    --pro-green:#22a06b;
-    --pro-green-2:#198655;
-    --shadow-md:0 8px 24px rgba(2,8,23,.08);
-    --shadow-lg:0 24px 60px rgba(2,8,23,.18);
-    --radius:16px;
-  }
+:global(:root){
+  --brand-blue:#0F2454;         /* azul escuro OTIA */
+  --brand-blue-2:#0d1252;       /* azul + escuro */
+  --pro-green:#22a06b;          /* verde principal PRO */
+  --pro-green-2:#198655;        /* hover/borda PRO */
+  --shadow-md: 0 8px 24px rgba(2,8,23,.08);
+  --shadow-lg: 0 24px 60px rgba(2,8,23,.18);
+  --radius:16px;
 }
 
 /* layout principal */
@@ -26,85 +25,158 @@
   .grid { grid-template-columns: 1fr; }
 }
 
-/* cards */
+/* CARD (esquerda) */
 .card {
-  background:#fff;
+  background: #ffffff;
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
-  overflow:hidden;
+  padding: 28px;
+}
+.card h1{
+  font-size: 24px;
+  margin:0 0 6px 0;
+  font-weight: 900;
+}
+.price{
+  font-size: 40px;
+  font-weight: 900;
+  margin: 4px 0 14px;
+}
+.price small{
+  font-size: 16px;
+  font-weight: 700;
+}
+.subtitle{
+  margin: 0 0 14px 0;
+  color: #475569;
+  font-weight: 600;
+}
+.list{
+  margin: 8px 0 18px 0;
+  padding: 0 0 0 0;
+  list-style: none;
+}
+.list li{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(2,8,23,.08);
+}
+.check{
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  display:inline-grid;
+  place-items:center;
+  font-weight:900;
+  color:#fff;
+  background:#16a34a;
 }
 
-/* conteúdo padrão do card */
-.cardIn { padding: 28px; }
-
-.title { font-weight: 900; letter-spacing:.2px; }
-
-/* preço grande */
-.priceBig { font-weight: 900; font-size: 30px; }
-.priceBig small { font: 600 14px/1 system-ui; opacity:.8; }
-
-/* lista de checks */
-.list { list-style:none; margin:16px 0 0; padding:0; }
-.li { display:flex; gap:10px; align-items:flex-start; margin:10px 0; }
-.check {
-  width:22px; height:22px; flex:0 0 22px;
-  display:inline-flex; align-items:center; justify-content:center;
-  border-radius:999px; background:#10b981; color:#fff;
-  font:900 12px/1 system-ui;
+/* bloco termos */
+.terms{
+  background:#f1f5f9;
+  border-radius:12px;
+  padding:14px;
+  font-size:14px;
+  color:#0f172a;
+  line-height:1.3;
+  margin-top:10px;
 }
 
-/* bloco de termos do plano */
-.notice {
-  margin-top:18px;
+/* rodapé card */
+.footerNote{
+  margin-top:10px;
+  font-size:12px;
+  color:#475569;
+}
+
+/* ASIDE (direita) */
+.aside{
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  padding: 22px;
+  color:#0b1220;
+  background:#ffffff;
+}
+
+/* bloco selecionado (varia por plano) */
+.selected {
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.btn{
+  width:100%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 900;
+  text-decoration:none;
+  color:#fff;
+  box-shadow: 0 14px 30px rgba(0,0,0,.12);
+  transition: transform .05s ease, filter .15s ease;
+}
+.btn:active{ transform: translateY(1px); }
+.bullets{
+  margin: 14px 0 0 0;
+  padding:0 0 0 18px;
+  color:#0b1220;
+}
+.help{
+  margin-top:16px;
   background:#f8fafc;
   border-radius:12px;
-  padding:14px 16px;
-  font: 500 13px/1.5 system-ui;
-  color:#334155;
+  padding:14px;
+  font-size:14px;
+  color:#0b1220;
+}
+.help a{
+  text-decoration:underline;
+  color:#2563eb; /* e-mail azul */
 }
 
-/* aside do plano selecionado (direita) */
-.asideHeader {
-  padding: 22px;
-  background: #0ea5e9;         /* ficará override por plano */
+/* selo “recomendado” no PRO */
+.badge{
+  position:absolute;
+  top: -18px;
+  left: 24px;
+  background:#fbbf24;
+  color:#1f2937;
+  padding:8px 16px;
+  border-radius:999px;
+  font-weight:900;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+}
+
+/* VARIAÇÕES DE TEMA */
+.proCard{
+  position: relative;
+}
+.proAside{
+  background: linear-gradient(180deg, #16a34a, #0f9d58);
   color:#fff;
 }
-.asideBody { padding: 22px; background:#fff; }
+.proSelected{ background: rgba(255,255,255,.10); color:#fff; }
+.proBtn{ background:#16a34a; }
+.proBtn:hover{ filter: brightness(0.95); }
 
-/* botão principal */
-.btn {
-  display:flex; align-items:center; justify-content:center;
-  width:100%;
-  padding:14px 18px;
-  font: 900 16px/1.1 system-ui;
-  border-radius:12px;
-  color:#fff; text-decoration:none;
-  box-shadow: var(--shadow-lg);
-  transition: transform .04s ease, filter .2s ease;
+.premiumAside{
+  background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2));
+  color:#fff;
 }
-.btn:active { transform: translateY(1px); }
+.premiumSelected{ background: rgba(255,255,255,.10); color:#fff; }
+.premiumBtn{ background: var(--brand-blue); }
+.premiumBtn:hover{ filter: brightness(0.95); }
 
-/* variações por plano */
-.proAside { background: linear-gradient(180deg, var(--pro-green), var(--pro-green-2)); }
-.proBtn   { background: var(--pro-green); }
-.proBtn:hover { filter: brightness(0.95); }
-
-.premiumAside { background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2)); }
-.premiumBtn   { background: var(--brand-blue); }
-.premiumBtn:hover { filter: brightness(0.95); }
-
-.basicAside { background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2)); }
-.basicBtn   { background: var(--brand-blue); }
-.basicBtn:hover { filter: brightness(0.95); }
-
-/* selo recomendado */
-.badge {
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:6px 14px; border-radius:999px;
-  background:#ffc107; color:#222; font:800 12px/1 system-ui;
-  box-shadow:0 10px 22px rgba(0,0,0,.15);
+.basicAside{
+  background: #e9eef6;
+  color:#0b1220;
 }
-
-/* rodapé de dicas no aside */
-.bullets { margin:14px 0 0; padding:0 0 0 18px; color:#334155; }
-.mail { color:#2563eb; text-decoration:underline; }
+.basicSelected{ background:#dde7f7; color:#0b1220; }
+.basicBtn{ background: var(--brand-blue); }
+.basicBtn:hover{ filter: brightness(0.95); }
