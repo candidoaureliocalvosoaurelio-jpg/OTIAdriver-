@@ -37,7 +37,7 @@ export default function CheckoutBasico() {
         </section>
 
         {/* ASIDE */}
-        <aside className={s.aside}>
+        <aside className={`${s.aside} ${s.basicAsideYellow}`}>
           <div className={s.selected}>
             Plano selecionado<br/><strong>Básico</strong><br/>R$ 29,90 / mês
           </div>
