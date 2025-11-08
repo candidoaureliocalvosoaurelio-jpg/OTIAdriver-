@@ -16,6 +16,7 @@ export default function CheckoutBasico() {
       <div className={s.grid}>
         {/* CARD */}
         <section className={s.card}>
+          <span className={s.badge}>Essencial</span>
           <h1>Básico</h1>
           <div className={s.price}>R$ 29,90 <small>/ mês</small></div>
           <p className={s.subtitle}>Ideal para uso pessoal.</p>
