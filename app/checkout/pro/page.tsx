@@ -1,10 +1,19 @@
-import Link from "next/link";
-import HideHero from "../../components/HideHero";
-import s from "../Checkout.module.css";
+import React from 'react';
 
-// A exportação de metadata foi removida daqui e movida para o layout.tsx.
-export default function CheckoutPro() {
-  return (
+// A exportação 'metadata' é permitida aqui porque layout.tsx é um Componente Servidor por padrão.
+export const metadata = {
+  title: "Checkout PRO | OTIAdriver",
+  description: "Finalize sua assinatura do plano PRO.",
+};
+
+export default function CheckoutProLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  // Este layout apenas envolve a página, passando o seu conteúdo (children).
+  return <>{children}</>;
+}
     <main className={s.wrap}>
       <HideHero />
 
