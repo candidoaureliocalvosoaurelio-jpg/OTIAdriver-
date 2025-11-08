@@ -1,28 +1,22 @@
 // app/checkout/premium/page.tsx
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
 export const metadata = {
   title: "Checkout • Premium | OTIAdriver",
   description: "Finalize sua assinatura mensal recorrente (Plano Premium).",
 };
 
-function Check({ children }: { children: React.ReactNode }) {
-  return (
-    <li className="flex items-start gap-2 text-slate-900">
-      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
-      <span>{children}</span>
-    </li>
-  );
-}
+const It = ({ children }: { children: React.ReactNode }) => (
+  <li className="flex items-start gap-2">
+    <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
+    <span>{children}</span>
+  </li>
+);
 
 export default function CheckoutPremium() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      <style dangerouslySetInnerHTML={{ __html: "#site-hero{display:none!important}" }} />
+      <style jsx global>{`#site-hero { display: none !important; }`}</style>
 
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
         <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
@@ -37,28 +31,23 @@ export default function CheckoutPremium() {
       <section className="grid grid-cols-1 gap-5 md:grid-cols-[1.8fr_1.2fr]">
         <article className="rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
           <div className="p-6 md:p-7">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl md:text-2xl font-black">Premium</h2>
-            </div>
+            <h2 className="text-xl md:text-2xl font-black">Premium</h2>
 
             <div className="mt-2 text-2xl md:text-3xl font-black">
               R$ 99,90 <span className="text-base font-semibold text-slate-600">/ mês</span>
             </div>
-            <p className="mt-2 text-slate-600">Ideal para Uso Profissional Ilimitado.</p>
+            <p className="mt-2 text-slate-600">Ideal para Uso Profissional ilimitado.</p>
 
             <ul className="mt-4 space-y-3 text-sm md:text-base">
-              <Check>Todos os Recursos PRO</Check>
-              <Check>Análise de Imagem ILIMITADA</Check>
-              <Check>Treinamento IA Personalizado</Check>
-              <Check>Acesso a Dados Históricos</Check>
-              <Check>Suporte Prioritário</Check>
+              <It>Todos os Recursos PRO</It>
+              <It>Análise de Imagem ILIMITADA</It>
+              <It>Treinamento IA Personalizado</It>
+              <It>Acesso a Dados Históricos</It>
+              <It>Suporte Prioritário</It>
             </ul>
 
             <div className="mt-5 rounded-xl bg-slate-50 text-slate-700 p-4 text-sm leading-relaxed">
-              <strong>Plano mensal com renovação automática a cada 30 dias.</strong> A cobrança será
-              realizada no mesmo método de pagamento utilizado na primeira compra. Você pode cancelar
-              a renovação a qualquer momento antes da próxima cobrança. Ao cancelar, o acesso
-              permanece ativo até o fim do período já pago.
+              <strong>Plano mensal com renovação automática a cada 30 dias.</strong> A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra. Você pode cancelar a renovação antes da próxima cobrança. Ao cancelar, o acesso permanece ativo até o fim do período já pago.
             </div>
 
             <p className="mt-3 text-[12px] text-slate-400">
@@ -79,7 +68,7 @@ export default function CheckoutPremium() {
 
           <div className="p-6">
             <a
-              href="https://mpago.la/1Xu1tTU"
+              href="https://mpago.la/131Yx5T" // troque para o link do Premium quando tiver
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center rounded-xl bg-[#0F2454] px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
@@ -96,7 +85,7 @@ export default function CheckoutPremium() {
 
             <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
               Dúvidas? Fale com a gente:{" "}
-              <a href="mailto:otiadriver@gmail.com" className="text-blue-600 underline hover:text-blue-700">
+              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
                 otiadriver@gmail.com
               </a>
             </div>
@@ -106,4 +95,3 @@ export default function CheckoutPremium() {
     </main>
   );
 }
-
