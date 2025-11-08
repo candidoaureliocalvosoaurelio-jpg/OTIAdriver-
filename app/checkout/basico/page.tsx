@@ -1,11 +1,7 @@
+// app/checkout/basico/page.tsx
 import Link from "next/link";
 import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
-
-export const metadata = {
-  title: "Checkout Básico | OTIAdriver",
-  description: "Finalize sua assinatura do plano Básico.",
-};
 
 export default function CheckoutBasico() {
   return (
@@ -18,6 +14,7 @@ export default function CheckoutBasico() {
       </div>
 
       <div className={s.grid}>
+        {/* CARD */}
         <section className={s.card}>
           <h1>Básico</h1>
           <div className={s.price}>R$ 29,90 <small>/ mês</small></div>
@@ -30,7 +27,7 @@ export default function CheckoutBasico() {
           </ul>
 
           <div className={s.terms}>
-            <strong>Plano mensal com renovação automática a cada 30 dias.</strong> ...
+            <strong>Plano mensal com renovação automática a cada 30 dias.</strong> …
           </div>
 
           <div className={s.footerNote}>
@@ -38,12 +35,15 @@ export default function CheckoutBasico() {
           </div>
         </section>
 
+        {/* ASIDE */}
         <aside className={s.aside}>
           <div className={s.selected}>
-            Plano selecionado<br /><strong>Básico</strong><br />R$ 29,90 / mês
+            Plano selecionado<br/><strong>Básico</strong><br/>R$ 29,90 / mês
           </div>
 
-          <a href="#" className={s.btn}>Pagar com Mercado Pago</a>
+          <a href="https://mpago.la/SEU_LINK_BASICO" className={s.btn}>
+            Pagar com Mercado Pago
+          </a>
 
           <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
@@ -51,6 +51,10 @@ export default function CheckoutBasico() {
             <li>Cancelamento livre antes da próxima cobrança</li>
             <li>Suporte ao assinante</li>
           </ul>
+
+          <div className={s.help}>
+            Dúvidas? Fale com a gente: <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
+          </div>
         </aside>
       </div>
     </main>
