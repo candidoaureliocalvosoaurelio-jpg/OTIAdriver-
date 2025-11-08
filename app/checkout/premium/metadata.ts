@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "Checkout Premium | OTIAdriver",
   description: "Finalize sua assinatura do plano Premium.",
 };
