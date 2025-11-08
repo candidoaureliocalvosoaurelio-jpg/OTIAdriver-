@@ -1,11 +1,13 @@
-:root {
-  --brand-blue:#0F2454;
-  --brand-blue-2:#0d1252;
-  --pro-green:#22a06b;
-  --pro-green-2:#198655;
-  --shadow-md:0 8px 24px rgba(2,8,23,.08);
-  --shadow-lg:0 24px 60px rgba(2,8,23,.18);
-  --radius:16px;
+:global {
+  :root {
+    --brand-blue:#0F2454;          /* azul escuro OTIA */
+    --brand-blue-2:#0d1252;        /* azul + escuro */
+    --pro-green:#22a06b;
+    --pro-green-2:#198655;
+    --shadow-md:0 8px 24px rgba(2,8,23,.08);
+    --shadow-lg:0 24px 60px rgba(2,8,23,.18);
+    --radius:16px;
+  }
 }
 
 /* layout principal */
