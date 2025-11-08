@@ -1,6 +1,6 @@
 import Link from "next/link";
-import HideHero from "../../components/HideHero";
-import s from "../Checkout.module.css";
+import HideHero from "../HideHero";         
+import s from "../Checkout.module.css";    
 
 export const metadata = {
   title: "Checkout Premium | OTIAdriver",
