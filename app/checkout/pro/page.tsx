@@ -7,7 +7,7 @@ export const metadata = {
   description: "Finalize sua assinatura do plano PRO.",
 };
 
-export default function CheckoutPro() {
+export default function CheckoutPro(){
   return (
     <main className={s.wrap}>
       <HideHero />
