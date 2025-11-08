@@ -7,7 +7,7 @@ export const metadata = {
   description: "Finalize sua assinatura do plano Básico.",
 };
 
-export default function CheckoutBasico(){
+export default function CheckoutBasico() {
   return (
     <main className={s.wrap}>
       <HideHero />
@@ -18,8 +18,7 @@ export default function CheckoutBasico(){
       </div>
 
       <div className={s.grid}>
-        {/* CARD */}
-        <section className={`${s.card}`}>
+        <section className={s.card}>
           <h1>Básico</h1>
           <div className={s.price}>R$ 29,90 <small>/ mês</small></div>
           <p className={s.subtitle}>Ideal para uso pessoal.</p>
@@ -31,10 +30,7 @@ export default function CheckoutBasico(){
           </ul>
 
           <div className={s.terms}>
-            <strong>Plano mensal com renovação automática a cada 30 dias.</strong>
-            &nbsp;A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra.
-            Você pode cancelar a renovação a qualquer momento antes da próxima cobrança.
-            Ao cancelar, o acesso permanece ativo até o fim do período já pago.
+            <strong>Plano mensal com renovação automática a cada 30 dias.</strong> ...
           </div>
 
           <div className={s.footerNote}>
@@ -42,18 +38,12 @@ export default function CheckoutBasico(){
           </div>
         </section>
 
-        {/* ASIDE */}
-        <aside className={`${s.aside} ${s.basicAside}`}>
-          <div className={`${s.selected} ${s.basicSelected}`}>
-            Plano selecionado<br/><strong>Básico</strong><br/>R$ 29,90 / mês
+        <aside className={s.aside}>
+          <div className={s.selected}>
+            Plano selecionado<br /><strong>Básico</strong><br />R$ 29,90 / mês
           </div>
 
-          <a
-            href="https://mpago.la/1Xu1tTU"
-            className={`${s.btn} ${s.basicBtn}`}
-          >
-            Pagar com Mercado Pago
-          </a>
+          <a href="#" className={s.btn}>Pagar com Mercado Pago</a>
 
           <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
@@ -61,11 +51,6 @@ export default function CheckoutBasico(){
             <li>Cancelamento livre antes da próxima cobrança</li>
             <li>Suporte ao assinante</li>
           </ul>
-
-          <div className={s.help}>
-            Dúvidas? Fale com a gente:{" "}
-            <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
-          </div>
         </aside>
       </div>
     </main>
