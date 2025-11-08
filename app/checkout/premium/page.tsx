@@ -1,24 +1,22 @@
-// app/checkout/premium/page.tsx
+// app/checkout/basico/page.tsx
 import { plans } from "@/lib/plans";
-import { CheckoutContent } from "../page"; // Importa o componente de renderização (que contém Header/Footer e Layout)
+import { CheckoutContent } from "../page"; // Importa o componente de renderização do arquivo pai
 
-// Definições estáticas (não causam erro de compilação)
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export const fetchCache = "force-no-store";
 
 export const metadata = {
-  title: "Checkout • Premium | OTIAdriver",
-  description: "Finalize sua assinatura mensal recorrente (Plano Premium).",
+  title: "Checkout • Básico | OTIAdriver",
+  description: "Finalize sua assinatura mensal recorrente (Plano Básico).",
 };
 
-export default function CheckoutPremium() {
-    // Busca o plano 'premium' diretamente do arquivo de dados
-    const premiumPlan = plans.premium;
+export default function CheckoutBasico() {
+    // Busca o plano 'basico' diretamente
+    const basicoPlan = plans.basico;
     
-    // REUTILIZAÇÃO: Passa os dados do plano 'Premium' para o componente de layout
-    // que foi definido em app/checkout/page.tsx
-    return <CheckoutContent plan={premiumPlan} />;
+    // Reutiliza o componente principal de renderização (CheckoutContent)
+    return <CheckoutContent plan={basicoPlan} />;
 }
         <span>Checkout seguro via Mercado Pago</span>
       </div>
