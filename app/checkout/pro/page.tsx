@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HideHero from "../HideHero";
+import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
 
 export const metadata = {
@@ -7,14 +7,10 @@ export const metadata = {
   description: "Finalize sua assinatura do plano PRO.",
 };
 
-export default function CheckoutPro(){
+export default function CheckoutPro() {
   return (
     <main className={s.wrap}>
       <HideHero />
-      {/* resto do código abaixo sem alterações */}
-    </main>
-  );
-}
 
       <div className="text-xs text-slate-500 mb-2 flex justify-between">
         <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
@@ -25,11 +21,8 @@ export default function CheckoutPro(){
         {/* CARD */}
         <section className={`${s.card} ${s.proCard}`}>
           <span className={s.badge}>RECOMENDADO</span>
-
           <h1>PRO</h1>
-          <div className={s.price}>
-            R$ 49,90 <small>/ mês</small>
-          </div>
+          <div className={s.price}>R$ 49,90 <small>/ mês</small></div>
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
 
           <ul className={s.list}>
@@ -49,24 +42,17 @@ export default function CheckoutPro(){
           </div>
 
           <div className={s.footerNote}>
-            Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">Termos de Uso</Link> e{" "}
-            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
+            Ao continuar, você concorda com nossos <Link href="/termos" className="underline">Termos de Uso</Link> e <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
           </div>
         </section>
 
         {/* ASIDE */}
         <aside className={`${s.aside} ${s.proAside}`}>
           <div className={`${s.selected} ${s.proSelected}`}>
-            Plano selecionado<br />
-            <strong>PRO</strong><br />
-            R$ 49,90 / mês
+            Plano selecionado<br /><strong>PRO</strong><br />R$ 49,90 / mês
           </div>
 
-          <a
-            href="https://mpago.la/131Yx5T"
-            className={`${s.btn} ${s.proBtn}`}
-          >
+          <a href="https://mpago.la/131Yx5T" className={`${s.btn} ${s.proBtn}`}>
             Pagar com Mercado Pago
           </a>
 
@@ -78,8 +64,7 @@ export default function CheckoutPro(){
           </ul>
 
           <div className={s.help}>
-            Dúvidas? Fale com a gente:{" "}
-            <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
+            Dúvidas? Fale com a gente: <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
           </div>
         </aside>
       </div>
