@@ -1,6 +1,5 @@
-// app/checkout/pro/page.tsx
 import Link from "next/link";
-import HideHero from "../../../components/HideHero";
+import HideHero from "../HideHero";
 
 export const metadata = {
   title: "Checkout • PRO | OTIAdriver",
@@ -17,8 +16,7 @@ function Check({ children }: { children: React.ReactNode }) {
 }
 
 export default function CheckoutPro() {
-  // 🔗 Troque o link se for outro para o PRO
-  const mpLink = "https://mpago.la/1Xu1tTU";
+  const mpLink = "https://mpago.la/1KhUK3d";
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
