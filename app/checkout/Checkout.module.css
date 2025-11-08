@@ -1,1 +1,109 @@
+:global(:root){
+  --brand-blue:#0F2454;         /* azul escuro OTIA */
+  --brand-blue-2:#0d1252;       /* azul + escuro */
+  --pro-green:#22a06b;
+  --pro-green-2:#198655;
+  --shadow-md:0 8px 24px rgba(2,8,23,.08);
+  --shadow-lg:0 24px 60px rgba(2,8,23,.18);
+  --radius:16px;
+}
 
+/* layout principal */
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+}
+
+/* grid com cartão esquerdo + aside direito */
+.grid {
+  display:grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 20px;
+}
+@media (max-width: 900px){
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* cards */
+.card {
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow:hidden;
+}
+
+/* conteúdo padrão do card */
+.cardIn { padding: 28px; }
+
+.title { font-weight: 900; letter-spacing:.2px; }
+
+/* preço grande */
+.priceBig { font-weight: 900; font-size: 30px; }
+.priceBig small { font: 600 14px/1 system-ui; opacity:.8; }
+
+/* lista de checks */
+.list { list-style:none; margin:16px 0 0; padding:0; }
+.li { display:flex; gap:10px; align-items:flex-start; margin:10px 0; }
+.check {
+  width:22px; height:22px; flex:0 0 22px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:999px; background:#10b981; color:#fff;
+  font:900 12px/1 system-ui;
+}
+
+/* bloco de termos do plano */
+.notice {
+  margin-top:18px;
+  background:#f8fafc;
+  border-radius:12px;
+  padding:14px 16px;
+  font: 500 13px/1.5 system-ui;
+  color:#334155;
+}
+
+/* aside do plano selecionado (direita) */
+.asideHeader {
+  padding: 22px;
+  background: #0ea5e9;         /* ficará override por plano */
+  color:#fff;
+}
+.asideBody { padding: 22px; background:#fff; }
+
+/* botão principal */
+.btn {
+  display:flex; align-items:center; justify-content:center;
+  width:100%;
+  padding:14px 18px;
+  font: 900 16px/1.1 system-ui;
+  border-radius:12px;
+  color:#fff; text-decoration:none;
+  box-shadow: var(--shadow-lg);
+  transition: transform .04s ease, filter .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+
+/* variações por plano */
+.proAside { background: linear-gradient(180deg, var(--pro-green), var(--pro-green-2)); }
+.proBtn   { background: var(--pro-green); }
+.proBtn:hover { filter: brightness(0.95); }
+
+.premiumAside { background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2)); }
+.premiumBtn   { background: var(--brand-blue); }
+.premiumBtn:hover { filter: brightness(0.95); }
+
+.basicAside { background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2)); }
+.basicBtn   { background: var(--brand-blue); }
+.basicBtn:hover { filter: brightness(0.95); }
+
+/* selo recomendado */
+.badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:6px 14px; border-radius:999px;
+  background:#ffc107; color:#222; font:800 12px/1 system-ui;
+  box-shadow:0 10px 22px rgba(0,0,0,.15);
+}
+
+/* rodapé de dicas no aside */
+.bullets { margin:14px 0 0; padding:0 0 0 18px; color:#334155; }
+.mail { color:#2563eb; text-decoration:underline; }
