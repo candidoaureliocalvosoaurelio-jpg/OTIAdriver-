@@ -41,7 +41,7 @@ export default function CheckoutPremium(){
         {/* ASIDE */}
         <aside className={`${s.aside} ${s.premiumAside}`}>
           <div className={`${s.selected} ${s.premiumSelected}`}>
-            Plano selecionado<br/><strong>Premium</strong><br/>R$ 79,90 / mês
+            Plano selecionado<br/><strong>Premium</strong><br/>R$ 99,90 / mês
           </div>
 
           <a
