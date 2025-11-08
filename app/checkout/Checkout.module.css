@@ -176,6 +176,6 @@
   background: #E0F7F3;
   color:#0b1220;
 }
-.basicSelected{ background:#BEECE7; color:#0b1220; }
+.basicSelected{ background:#fbbf24; color:#0b1220; }
 .basicBtn{ background: #0F2454; }
 .basicBtn:hover{ filter: brightness(0.95); }
