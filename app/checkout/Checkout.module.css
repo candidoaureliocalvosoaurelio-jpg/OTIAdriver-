@@ -157,27 +157,47 @@
 }
 
 /* VARIAÇÕES DE PLANO */
+/* PRO (verde) */
 .proCard{ position: relative; }
 .proAside{
   background: linear-gradient(180deg, #16a34a, #0f9d58);
   color:#fff;
 }
-.proSelected{ background: rgba(255,255,255,.10); color:#fff; }
+.proSelected{ background: rgba(255,255,255,.10); color:#fff; text-align:center; }
 .proBtn{ background:#16a34a; }
 .proBtn:hover{ filter: brightness(0.95); }
 
+/* PREMIUM (azul) */
 .premiumAside{
   background: linear-gradient(180deg, #0F2454, #0d1252);
   color:#fff;
 }
-.premiumSelected{ background: rgba(255,255,255,.10); color:#fff; }
+.premiumSelected{ background: rgba(255,255,255,.10); color:#fff; text-align:center; }
 .premiumBtn{ background: #0F2454; }
 .premiumBtn:hover{ filter: brightness(0.95); }
 
-.basicAside{
+/* BÁSICO (amarelo) */
+.basicAsideYellow{
   background: linear-gradient(180deg, #fbbf24, #f59e0b);
-  color:#1f2937;
+  color:#0b1220;
 }
-.basicSelected{ background:#fbbf24; color:#0b1220; }
-.basicBtn{ background: #0F2454; }
+.basicSelected{
+  background:#fbbf24;
+  color:#0b1220;
+  text-align:center;      /* centraliza o “Essencial” */
+}
+.basicBtn{ background: #f59e0b; color:#0b1220; }
 .basicBtn:hover{ filter: brightness(0.95); }
+
+/* Selo padrão (usado no card da esquerda) */
+.badge{
+  position:absolute;
+  top: -18px;
+  left: 24px;
+  background:#fbbf24;
+  color:#1f2937;
+  padding:8px 16px;
+  border-radius:999px;
+  font-weight:900;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+}
