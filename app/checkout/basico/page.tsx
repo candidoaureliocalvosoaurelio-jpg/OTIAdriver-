@@ -18,7 +18,7 @@ function Check({ children }: { children: React.ReactNode }) {
 
 export default function CheckoutBasico() {
   return (
-    <main>
+    <main className={s.theme}>
       <HideHero />
 
       <div className={s.wrap}>
