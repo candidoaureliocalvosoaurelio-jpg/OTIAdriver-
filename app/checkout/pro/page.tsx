@@ -1,39 +1,47 @@
-// app/checkout/pro/page.tsx
 import Link from "next/link";
+import HideHero from "@/components/HideHero";
 
 export const metadata = {
   title: "Checkout • PRO | OTIAdriver",
   description: "Finalize sua assinatura mensal recorrente (Plano PRO).",
 };
 
-const It = ({ children }: { children: React.ReactNode }) => (
-  <li className="flex items-start gap-2">
-    <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
-    <span>{children}</span>
-  </li>
-);
+function It({ children }: { children: React.ReactNode }) {
+  return (
+    <li className="flex items-start gap-2 text-slate-900">
+      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
+      <span>{children}</span>
+    </li>
+  );
+}
 
 export default function CheckoutPro() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      <style jsx global>{`#site-hero { display: none !important; }`}</style>
+      <HideHero />
 
+      {/* trilha + selo */}
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
         <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
+      {/* título */}
       <header className="text-center mb-6">
         <h1 className="text-3xl md:text-4xl font-black tracking-tight">Finalizar Assinatura</h1>
         <p className="text-slate-600 mt-1">Você selecionou o plano <strong>PRO</strong>.</p>
       </header>
 
+      {/* grid */}
       <section className="grid grid-cols-1 gap-5 md:grid-cols-[1.8fr_1.2fr]">
+        {/* card esquerda */}
         <article className="rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
           <div className="p-6 md:p-7">
             <div className="flex items-center justify-between">
               <h2 className="text-xl md:text-2xl font-black">PRO</h2>
-              <span className="rounded-full bg-amber-400/90 text-amber-900 text-xs font-black px-3 py-1 shadow-sm">RECOMENDADO</span>
+              <span className="rounded-full bg-amber-400/90 px-3 py-1 text-[11px] font-extrabold text-slate-800 shadow">
+                RECOMENDADO
+              </span>
             </div>
 
             <div className="mt-2 text-2xl md:text-3xl font-black">
@@ -51,7 +59,10 @@ export default function CheckoutPro() {
             </ul>
 
             <div className="mt-5 rounded-xl bg-slate-50 text-slate-700 p-4 text-sm leading-relaxed">
-              <strong>Plano mensal com renovação automática a cada 30 dias.</strong> A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra. Você pode cancelar a renovação antes da próxima cobrança. Ao cancelar, o acesso permanece ativo até o fim do período já pago.
+              <strong>Plano mensal com renovação automática a cada 30 dias.</strong> A cobrança será
+              realizada no mesmo método de pagamento utilizado na primeira compra. Você pode cancelar
+              a renovação a qualquer momento antes da próxima cobrança. Ao cancelar, o acesso
+              permanece ativo até o fim do período já pago.
             </div>
 
             <p className="mt-3 text-[12px] text-slate-400">
@@ -61,18 +72,17 @@ export default function CheckoutPro() {
           </div>
         </article>
 
-        <aside className="rounded-2xl border border-emerald-200 bg-white shadow-xl overflow-hidden ring-1 ring-emerald-200">
+        {/* aside direita */}
+        <aside className="rounded-2xl border border-emerald-200 bg-white shadow-2xl overflow-hidden ring-1 ring-emerald-200">
           <div className="bg-emerald-600 text-white p-6">
             <p className="text-xs opacity-90">Plano selecionado</p>
             <h3 className="text-2xl font-black mt-1">PRO</h3>
-            <p className="mt-1 text-lg font-extrabold">
-              R$ 49,90 <span className="text-white/80 text-sm font-semibold">/ mês</span>
-            </p>
+            <p className="mt-1 text-lg font-extrabold">R$ 49,90 <span className="text-white/80 text-sm font-semibold">/ mês</span></p>
           </div>
 
           <div className="p-6">
             <a
-              href="https://mpago.la/1Xu1tTU"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
@@ -89,9 +99,7 @@ export default function CheckoutPro() {
 
             <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
               Dúvidas? Fale com a gente:{" "}
-              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
-                otiadriver@gmail.com
-              </a>
+              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">otiadriver@gmail.com</a>
             </div>
           </div>
         </aside>
