@@ -96,7 +96,7 @@ export default function CheckoutBasico() {
               <li>• Suporte ao assinante</li>
             </ul>
 
-            <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
+            <div className="underline text-blue-600 hover:text-blue-700"
               Dúvidas? Fale com a gente:{" "}
               <a href="mailto:otiadriver@gmail.com" className="underline">otiadriver@gmail.com</a>
             </div>
