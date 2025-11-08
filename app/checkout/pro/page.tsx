@@ -2,12 +2,7 @@ import Link from "next/link";
 import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
 
-export const metadata = {
-  title: "Checkout PRO | OTIAdriver",
-  description: "Finalize sua assinatura do plano PRO.",
-};
-
-export default function CheckoutPro() {
+export default function CheckoutPro(){
   return (
     <main className={s.wrap}>
       <HideHero />
@@ -21,6 +16,7 @@ export default function CheckoutPro() {
         {/* CARD */}
         <section className={`${s.card} ${s.proCard}`}>
           <span className={s.badge}>RECOMENDADO</span>
+
           <h1>PRO</h1>
           <div className={s.price}>R$ 49,90 <small>/ mês</small></div>
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
@@ -31,14 +27,11 @@ export default function CheckoutPro() {
             <li><span className={s.check}>✓</span> Análise de Imagem (5/mês)</li>
             <li><span className={s.check}>✓</span> Checklists de Viagem</li>
             <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
-            <li><span className={s.check}>✓</span> Alertas de Pneus Inteligentes e GPS Inteligente</li>
+            <li><span className={s.check}>✓</span> Alertas Inteligentes e GPS Inteligente</li>
           </ul>
 
           <div className={s.terms}>
             <strong>Plano mensal com renovação automática a cada 30 dias.</strong>
-            &nbsp;A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra.
-            Você pode cancelar a renovação a qualquer momento antes da próxima cobrança.
-            Ao cancelar, o acesso permanece ativo até o fim do período já pago.
           </div>
 
           <div className={s.footerNote}>
@@ -49,10 +42,13 @@ export default function CheckoutPro() {
         {/* ASIDE */}
         <aside className={`${s.aside} ${s.proAside}`}>
           <div className={`${s.selected} ${s.proSelected}`}>
-            Plano selecionado<br /><strong>PRO</strong><br />R$ 49,90 / mês
+            Plano selecionado<br/><strong>PRO</strong><br/>R$ 49,90 / mês
           </div>
 
-          <a href="https://mpago.la/131Yx5T" className={`${s.btn} ${s.proBtn}`}>
+          <a
+            href="https://mpago.la/131Yx5T"
+            className={`${s.btn} ${s.proBtn}`}
+          >
             Pagar com Mercado Pago
           </a>
 
@@ -64,7 +60,8 @@ export default function CheckoutPro() {
           </ul>
 
           <div className={s.help}>
-            Dúvidas? Fale com a gente: <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
+            Dúvidas? Fale com a gente:{" "}
+            <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
           </div>
         </aside>
       </div>
