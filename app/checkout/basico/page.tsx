@@ -38,15 +38,14 @@ export default function CheckoutBasico() {
 
         {/* ASIDE */}
         <aside className={`${s.aside} ${s.basicAsideYellow}`}>
-          <div className={s.selected}>
-            Plano selecionado<br/><strong>Básico</strong><br/>R$ 29,90 / mês
-          </div>
+        <div className={`${s.selected} ${s.basicSelected}`}>
+         Plano selecionado<br/><strong>Básico</strong><br/>R$ 29,90 / mês
+        </div>
 
-          <a href="https://mpago.la/SEU_LINK_BASICO" className={s.btn}>
-            Pagar com Mercado Pago
-          </a>
-
-          <ul className={s.bullets}>
+         <a href="https://mpago.la/SEU_LINK_BASICO" className={`${s.btn} ${s.basicBtn}`}>
+         Pagar com Mercado Pago
+         </a>
+            <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
             <li>Renovação automática a cada 30 dias</li>
             <li>Cancelamento livre antes da próxima cobrança</li>
