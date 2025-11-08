@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Checkout PRO | OTIAdriver",
-  description: "Finalize sua assinatura do plano PRO.",
+  title: "Checkout Básico | OTIAdriver",
+  description: "Finalize sua assinatura do plano Básico.",
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
