@@ -175,8 +175,8 @@
 .premiumBtn:hover{ filter: brightness(0.95); }
 
 .basicAside{
-  background: #E0F7F3;
-  color:#0b1220;
+  background: linear-gradient(180deg, #fbbf24, #f59e0b);
+  color:#1f2937;
 }
 .basicSelected{ background:#fbbf24; color:#0b1220; }
 .basicBtn{ background: #0F2454; }
