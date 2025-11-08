@@ -1,28 +1,22 @@
 // app/checkout/pro/page.tsx
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
 export const metadata = {
   title: "Checkout • PRO | OTIAdriver",
   description: "Finalize sua assinatura mensal recorrente (Plano PRO).",
 };
 
-function Check({ children }: { children: React.ReactNode }) {
-  return (
-    <li className="flex items-start gap-2 text-slate-900">
-      <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
-      <span>{children}</span>
-    </li>
-  );
-}
+const It = ({ children }: { children: React.ReactNode }) => (
+  <li className="flex items-start gap-2">
+    <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
+    <span>{children}</span>
+  </li>
+);
 
 export default function CheckoutPro() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      <style dangerouslySetInnerHTML={{ __html: "#site-hero{display:none!important}" }} />
+      <style jsx global>{`#site-hero { display: none !important; }`}</style>
 
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
         <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
@@ -39,7 +33,7 @@ export default function CheckoutPro() {
           <div className="p-6 md:p-7">
             <div className="flex items-center justify-between">
               <h2 className="text-xl md:text-2xl font-black">PRO</h2>
-              <span className="rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1">RECOMENDADO</span>
+              <span className="rounded-full bg-amber-400/90 text-amber-900 text-xs font-black px-3 py-1 shadow-sm">RECOMENDADO</span>
             </div>
 
             <div className="mt-2 text-2xl md:text-3xl font-black">
@@ -48,19 +42,16 @@ export default function CheckoutPro() {
             <p className="mt-2 text-slate-600">Ideal para Profissionais Exigentes.</p>
 
             <ul className="mt-4 space-y-3 text-sm md:text-base">
-              <Check>Fichas Técnicas COMPLETAS</Check>
-              <Check>Suporte Técnico IA ilimitado</Check>
-              <Check>Análise de Imagem (5/mês)</Check>
-              <Check>Checklists de Viagem</Check>
-              <Check>Sistema de Pontuação de Performance Inteligente</Check>
-              <Check>Alertas de Pneus Inteligentes e GPS Inteligente</Check>
+              <It>Fichas Técnicas COMPLETAS</It>
+              <It>Suporte Técnico IA ilimitado</It>
+              <It>Análise de Imagem (5/mês)</It>
+              <It>Checklists de Viagem</It>
+              <It>Sistema de Pontuação de Performance Inteligente</It>
+              <It>Alertas de Pneus Inteligentes e GPS Inteligente</It>
             </ul>
 
             <div className="mt-5 rounded-xl bg-slate-50 text-slate-700 p-4 text-sm leading-relaxed">
-              <strong>Plano mensal com renovação automática a cada 30 dias.</strong> A cobrança será
-              realizada no mesmo método de pagamento utilizado na primeira compra. Você pode cancelar
-              a renovação a qualquer momento antes da próxima cobrança. Ao cancelar, o acesso
-              permanece ativo até o fim do período já pago.
+              <strong>Plano mensal com renovação automática a cada 30 dias.</strong> A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra. Você pode cancelar a renovação antes da próxima cobrança. Ao cancelar, o acesso permanece ativo até o fim do período já pago.
             </div>
 
             <p className="mt-3 text-[12px] text-slate-400">
@@ -70,8 +61,8 @@ export default function CheckoutPro() {
           </div>
         </article>
 
-        <aside className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
-          <div className="bg-[#0F2454] text-white p-6">
+        <aside className="rounded-2xl border border-emerald-200 bg-white shadow-xl overflow-hidden ring-1 ring-emerald-200">
+          <div className="bg-emerald-600 text-white p-6">
             <p className="text-xs opacity-90">Plano selecionado</p>
             <h3 className="text-2xl font-black mt-1">PRO</h3>
             <p className="mt-1 text-lg font-extrabold">
@@ -81,10 +72,10 @@ export default function CheckoutPro() {
 
           <div className="p-6">
             <a
-              href="https://mpago.la/1KhUK3d"
+              href="https://mpago.la/1Xu1tTU"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl bg-[#0F2454] px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
             >
               Pagar com Mercado&nbsp;Pago
             </a>
@@ -98,7 +89,7 @@ export default function CheckoutPro() {
 
             <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
               Dúvidas? Fale com a gente:{" "}
-              <a href="mailto:otiadriver@gmail.com" className="text-blue-600 underline hover:text-blue-700">
+              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
                 otiadriver@gmail.com
               </a>
             </div>
