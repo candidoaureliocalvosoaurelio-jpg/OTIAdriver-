@@ -2,9 +2,8 @@
 import Link from "next/link";
 import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
-
 export default function CheckoutPro() {
-  return (
+  
     <main className={s.wrap}>
       <HideHero />
       <div className="text-xs text-slate-500 mb-2 flex justify-between">
