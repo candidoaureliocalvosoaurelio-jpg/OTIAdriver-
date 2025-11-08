@@ -2,12 +2,7 @@ import Link from "next/link";
 import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
 
-export const metadata = {
-  title: "Checkout Premium | OTIAdriver",
-  description: "Finalize sua assinatura do plano Premium.",
-};
-
-export default function CheckoutPremium() {
+export default function CheckoutPremium(){
   return (
     <main className={s.wrap}>
       <HideHero />
@@ -18,22 +13,24 @@ export default function CheckoutPremium() {
       </div>
 
       <div className={s.grid}>
+        {/* CARD */}
         <section className={`${s.card} ${s.premiumCard}`}>
+          <span className={s.badge}>MAIS VENDIDO</span>
+
           <h1>Premium</h1>
-          <div className={s.price}>R$ 99,90 <small>/ mês</small></div>
-          <p className={s.subtitle}>Ideal para Uso Profissional ilimitado.</p>
+          <div className={s.price}>R$ 79,90 <small>/ mês</small></div>
+          <p className={s.subtitle}>Melhor custo-benefício para Profissionais.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Todos os Recursos PRO</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem ILIMITADA</li>
-            <li><span className={s.check}>✓</span> Treinamento IA Personalizado</li>
-            <li><span className={s.check}>✓</span> Acesso a Dados Históricos</li>
-            <li><span className={s.check}>✓</span> Suporte Prioritário</li>
+            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
+            <li><span className={s.check}>✓</span> Suporte Técnico IA Ilimitado</li>
+            <li><span className={s.check}>✓</span> Análise de Imagem (10/mês)</li>
+            <li><span className={s.check}>✓</span> Checklists PRO</li>
+            <li><span className={s.check}>✓</span> Assistente Inteligente de Performance</li>
           </ul>
 
           <div className={s.terms}>
             <strong>Plano mensal com renovação automática a cada 30 dias.</strong>
-            &nbsp;A cobrança será realizada no mesmo método de pagamento utilizado na primeira compra...
           </div>
 
           <div className={s.footerNote}>
@@ -41,12 +38,18 @@ export default function CheckoutPremium() {
           </div>
         </section>
 
+        {/* ASIDE */}
         <aside className={`${s.aside} ${s.premiumAside}`}>
           <div className={`${s.selected} ${s.premiumSelected}`}>
-            Plano selecionado<br /><strong>Premium</strong><br />R$ 99,90 / mês
+            Plano selecionado<br/><strong>Premium</strong><br/>R$ 79,90 / mês
           </div>
 
-          <a href="#" className={`${s.btn} ${s.premiumBtn}`}>Pagar com Mercado Pago</a>
+          <a
+            href="https://mpago.la/1Xu1tTU"
+            className={`${s.btn} ${s.premiumBtn}`}
+          >
+            Pagar com Mercado Pago
+          </a>
 
           <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
@@ -54,6 +57,11 @@ export default function CheckoutPremium() {
             <li>Cancelamento livre antes da próxima cobrança</li>
             <li>Suporte ao assinante</li>
           </ul>
+
+          <div className={s.help}>
+            Dúvidas? Fale com a gente:{" "}
+            <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
+          </div>
         </aside>
       </div>
     </main>
