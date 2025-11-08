@@ -1,10 +1,6 @@
 // app/checkout/basico/page.tsx
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
 export const metadata = {
   title: "Checkout • Básico | OTIAdriver",
   description: "Finalize sua assinatura mensal recorrente (Plano Básico).",
@@ -22,12 +18,8 @@ function Check({ children }: { children: React.ReactNode }) {
 export default function CheckoutBasico() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      {/* Esconde o hero global só nesta página (sem styled-jsx) */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: "#site-hero{display:none!important}",
-        }}
-      />
+      {/* Esconde o hero global só nesta página */}
+      <style jsx global>{`#site-hero { display: none !important; }`}</style>
 
       {/* trilha + selo */}
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
@@ -75,7 +67,7 @@ export default function CheckoutBasico() {
           </div>
         </article>
 
-        {/* aside direita */}
+        {/* aside direita (igual ao preview) */}
         <aside className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
           <div className="bg-[#0F2454] text-white p-6">
             <p className="text-xs opacity-90">Plano selecionado</p>
@@ -104,7 +96,7 @@ export default function CheckoutBasico() {
 
             <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
               Dúvidas? Fale com a gente:{" "}
-              <a href="mailto:otiadriver@gmail.com" className="text-blue-600 underline hover:text-blue-700">
+              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
                 otiadriver@gmail.com
               </a>
             </div>
@@ -114,3 +106,4 @@ export default function CheckoutBasico() {
     </main>
   );
 }
+
