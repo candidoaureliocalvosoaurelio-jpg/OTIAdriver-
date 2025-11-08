@@ -3,8 +3,8 @@
    A11y, contraste, responsivo
    ============================ */
 
-/* --- Variáveis (consistência) --- */
-:root {
+/* agora, válido em CSS Modules */
+:global(:root) {
   --azul-escuro: #1a237e;
   --azul-escuro-2: #0d1252;
   --pro-base: #e0f7f3;
