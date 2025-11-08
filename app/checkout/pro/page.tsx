@@ -1,19 +1,9 @@
-import React from 'react';
+import Link from "next/link";
+import HideHero from "../../components/HideHero";
+import s from "../Checkout.module.css";
 
-// A exportação 'metadata' é permitida aqui porque layout.tsx é um Componente Servidor por padrão.
-export const metadata = {
-  title: "Checkout PRO | OTIAdriver",
-  description: "Finalize sua assinatura do plano PRO.",
-};
-
-export default function CheckoutProLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // Este layout apenas envolve a página, passando o seu conteúdo (children).
-  return <>{children}</>;
-}
+export default function CheckoutPro(){
+  return (
     <main className={s.wrap}>
       <HideHero />
 
@@ -56,7 +46,7 @@ export default function CheckoutProLayout({
           </div>
 
           <a
-            href="[https://mpago.la/131Yx5T](https://mpago.la/131Yx5T)"
+            href="https://mpago.la/131Yx5T"
             className={`${s.btn} ${s.proBtn}`}
           >
             Pagar com Mercado Pago
@@ -77,3 +67,4 @@ export default function CheckoutProLayout({
       </div>
     </main>
   );
+}
