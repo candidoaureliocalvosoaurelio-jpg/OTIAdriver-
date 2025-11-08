@@ -1,6 +1,5 @@
-// app/checkout/basico/page.tsx
 import Link from "next/link";
-import HideHero from "../../../components/HideHero";
+import HideHero from "../HideHero"; // <— novo caminho
 
 export const metadata = {
   title: "Checkout • Básico | OTIAdriver",
@@ -17,29 +16,23 @@ function Check({ children }: { children: React.ReactNode }) {
 }
 
 export default function CheckoutBasico() {
-  // 🔗 Troque o link se for outro para o Básico
   const mpLink = "https://mpago.la/131Yx5T";
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      {/* Esconde o hero global nesta página */}
       <HideHero />
 
-      {/* trilha + selo */}
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
         <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
-      {/* título */}
       <header className="text-center mb-6">
         <h1 className="text-3xl md:text-4xl font-black tracking-tight">Finalizar Assinatura</h1>
         <p className="text-slate-600 mt-1">Você selecionou o plano <strong>Básico</strong>.</p>
       </header>
 
-      {/* grid */}
       <section className="grid grid-cols-1 gap-5 md:grid-cols-[1.8fr_1.2fr]">
-        {/* card esquerda */}
         <article className="rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
           <div className="p-6 md:p-7">
             <div className="flex items-center justify-between">
@@ -71,7 +64,6 @@ export default function CheckoutBasico() {
           </div>
         </article>
 
-        {/* aside direita */}
         <aside className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
           <div className="bg-[#0F2454] text-white p-6">
             <p className="text-xs opacity-90">Plano selecionado</p>
