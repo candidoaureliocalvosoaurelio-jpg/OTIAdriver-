@@ -1,8 +1,8 @@
-// app/checkout/pro/page.tsx
 import Link from "next/link";
 import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
 
+// A exportação de metadata foi removida daqui e movida para o layout.tsx.
 export default function CheckoutPro() {
   return (
     <main className={s.wrap}>
@@ -47,7 +47,7 @@ export default function CheckoutPro() {
           </div>
 
           <a
-            href="https://mpago.la/131Yx5T"
+            href="[https://mpago.la/131Yx5T](https://mpago.la/131Yx5T)"
             className={`${s.btn} ${s.proBtn}`}
           >
             Pagar com Mercado Pago
@@ -68,4 +68,3 @@ export default function CheckoutPro() {
       </div>
     </main>
   );
-}
