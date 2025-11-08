@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HideHero from "../HideHero";
+import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
 
 export const metadata = {
