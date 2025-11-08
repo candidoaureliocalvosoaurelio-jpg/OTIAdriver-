@@ -1,25 +1,25 @@
 // app/checkout/premium/page.tsx
-import Link from "next/link";
+import { plans } from "@/lib/plans";
+import { CheckoutContent } from "../page"; // Importa o componente de renderização (que contém Header/Footer e Layout)
+
+// Definições estáticas (não causam erro de compilação)
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 export const metadata = {
   title: "Checkout • Premium | OTIAdriver",
   description: "Finalize sua assinatura mensal recorrente (Plano Premium).",
 };
 
-const It = ({ children }: { children: React.ReactNode }) => (
-  <li className="flex items-start gap-2">
-    <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white text-xs font-black">✓</span>
-    <span>{children}</span>
-  </li>
-);
-
 export default function CheckoutPremium() {
-  return (
-    <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      <style jsx global>{`#site-hero { display: none !important; }`}</style>
-
-      <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
-        <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
+    // Busca o plano 'premium' diretamente do arquivo de dados
+    const premiumPlan = plans.premium;
+    
+    // REUTILIZAÇÃO: Passa os dados do plano 'Premium' para o componente de layout
+    // que foi definido em app/checkout/page.tsx
+    return <CheckoutContent plan={premiumPlan} />;
+}
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
