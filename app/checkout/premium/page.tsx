@@ -1,6 +1,5 @@
-// app/checkout/premium/page.tsx
 import Link from "next/link";
-import HideHero from "../../../components/HideHero";
+import HideHero from "../HideHero";
 
 export const metadata = {
   title: "Checkout • Premium | OTIAdriver",
@@ -17,8 +16,7 @@ function Check({ children }: { children: React.ReactNode }) {
 }
 
 export default function CheckoutPremium() {
-  // 🔗 Coloque aqui o link correto do Premium (temporário: mesmo do PRO/Básico enquanto você gera o do MP)
-  const mpLink = "https://mpago.la/131Yx5T";
+  const mpLink = "https://mpago.la/1Xu1tTU";
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
