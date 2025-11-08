@@ -1,3 +1,4 @@
+// app/checkout/pro/page.tsx
 import Link from "next/link";
 import HideHero from "../../components/HideHero";
 import s from "../Checkout.module.css";
