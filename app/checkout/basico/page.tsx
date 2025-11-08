@@ -18,8 +18,11 @@ function Check({ children }: { children: React.ReactNode }) {
 export default function CheckoutBasico() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-6 md:py-8">
-      {/* Esconde o hero global só nesta página */}
-      <style>{`#site-hero { display: none !important; }`}</style>
+      {/* Esconde o hero global só nesta página (sem styled-jsx) */}
+      <style
+        // @ts-ignore
+        dangerouslySetInnerHTML={{ __html: `#site-hero{display:none !important;}` }}
+      />
 
       {/* trilha + selo */}
       <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
@@ -68,14 +71,11 @@ export default function CheckoutBasico() {
         </article>
 
         {/* aside direita */}
-        <aside className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden flex flex-col">
-          {/* FAIXA AZUL: forçamos a cor com style para evitar falha de classe */}
-          <div className="p-6 text-white" style={{ background: "#0F2454" }}>
+        <aside className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
+          <div className="bg-[#0F2454] text-white p-6">
             <p className="text-xs opacity-90">Plano selecionado</p>
             <h3 className="text-2xl font-black mt-1">Básico</h3>
-            <p className="mt-1 text-lg font-extrabold">
-              R$ 29,90 <span className="text-white/80 text-sm font-semibold">/ mês</span>
-            </p>
+            <p className="mt-1 text-lg font-extrabold">R$ 29,90 <span className="text-white/80 text-sm font-semibold">/ mês</span></p>
           </div>
 
           <div className="p-6">
@@ -83,8 +83,7 @@ export default function CheckoutBasico() {
               href="https://mpago.la/131Yx5T"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
-              style={{ background: "#0F2454" }}  // botão azul garantido
+              className="inline-flex w-full items-center justify-center rounded-xl bg-[#0F2454] px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
             >
               Pagar com Mercado&nbsp;Pago
             </a>
@@ -96,9 +95,11 @@ export default function CheckoutBasico() {
               <li>• Suporte ao assinante</li>
             </ul>
 
-            <div className="underline text-blue-600 hover:text-blue-700"
+            <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
               Dúvidas? Fale com a gente:{" "}
-              <a href="mailto:otiadriver@gmail.com" className="underline">otiadriver@gmail.com</a>
+              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
+                otiadriver@gmail.com
+              </a>
             </div>
           </div>
         </aside>
