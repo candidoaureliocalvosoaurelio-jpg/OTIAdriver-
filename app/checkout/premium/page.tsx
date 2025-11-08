@@ -18,7 +18,7 @@ export default function CheckoutPremium(){
           <span className={s.badge}>MAIS VENDIDO</span>
 
           <h1>Premium</h1>
-          <div className={s.price}>R$ 79,90 <small>/ mês</small></div>
+          <div className={s.price}>R$ 99,90 <small>/ mês</small></div>
           <p className={s.subtitle}>Melhor custo-benefício para Profissionais.</p>
 
           <ul className={s.list}>
