@@ -71,37 +71,40 @@ export default function CheckoutPro() {
         </article>
 
         <aside className="rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden">
-          <div className="bg-green-700 text-white p-6">
-            <p className="text-xs opacity-90">Plano selecionado</p>
-            <h3 className="text-2xl font-black mt-1">PRO</h3>
-            <p className="mt-1 text-lg font-extrabold">R$ 49,90 <span className="text-white/80 text-sm font-semibold">/ mês</span></p>
-          </div>
+  <div className="bg-emerald-600 text-white p-6">
+    <p className="text-xs opacity-90">Plano selecionado</p>
+    <h3 className="text-2xl font-black mt-1">PRO</h3>
+    <p className="mt-1 text-lg font-extrabold">
+      R$ 49,90 <span className="text-white/80 text-sm font-semibold">/ mês</span>
+    </p>
+  </div>
 
-          <div className="p-6">
-            <a
-              href={mpLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center rounded-xl bg-green-700 px-5 py-3 text-white font-black shadow-lg hover:opacity-95 active:translate-y-[1px] transition"
-            >
-              Pagar com Mercado&nbsp;Pago
-            </a>
+  <div className="p-6">
+    <a
+      href="https://mpago.la/1Xu1tTU"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex w-full items-center justify-center rounded-xl bg-emerald-600 px-5 py-3 text-white font-black shadow-lg hover:bg-emerald-700 active:translate-y-[1px] transition"
+    >
+      Pagar com Mercado&nbsp;Pago
+    </a>
 
-            <ul className="mt-4 text-sm text-slate-600 space-y-1">
-              <li>• Pagamento 100% seguro via Mercado Pago</li>
-              <li>• Renovação automática a cada 30 dias</li>
-              <li>• Cancelamento livre antes da próxima cobrança</li>
-              <li>• Suporte ao assinante</li>
-            </ul>
+    <ul className="mt-4 text-sm text-slate-600 space-y-1">
+      <li>• Pagamento 100% seguro via Mercado Pago</li>
+      <li>• Renovação automática a cada 30 dias</li>
+      <li>• Cancelamento livre antes da próxima cobrança</li>
+      <li>• Suporte ao assinante</li>
+    </ul>
 
-            <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
-              Dúvidas? Fale com a gente:{" "}
-              <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
-                otiadriver@gmail.com
-              </a>
-            </div>
-          </div>
-        </aside>
+    <div className="mt-4 rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
+      Dúvidas? Fale com a gente:{" "}
+      <a href="mailto:otiadriver@gmail.com" className="underline text-blue-600 hover:text-blue-700">
+        otiadriver@gmail.com
+      </a>
+    </div>
+  </div>
+</aside>
+
       </section>
     </main>
   );
