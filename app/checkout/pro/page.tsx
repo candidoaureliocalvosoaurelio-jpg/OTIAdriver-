@@ -1,6 +1,6 @@
 import Link from "next/link";
-import HideHero from "../HideHero";         
-import s from "../Checkout.module.css";     
+import HideHero from "../HideHero";
+import s from "../Checkout.module.css";
 
 export const metadata = {
   title: "Checkout PRO | OTIAdriver",
@@ -11,6 +11,10 @@ export default function CheckoutPro(){
   return (
     <main className={s.wrap}>
       <HideHero />
+      {/* resto do código abaixo sem alterações */}
+    </main>
+  );
+}
 
       <div className="text-xs text-slate-500 mb-2 flex justify-between">
         <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
