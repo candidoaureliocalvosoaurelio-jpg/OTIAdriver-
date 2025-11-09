@@ -63,16 +63,3 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      {/* ========================================= */}
-      {/* RODAPÉ                  */}
-      {/* ========================================= */}
-      <footer className="bg-gradient-to-r from-blue-900 to-green-600 text-white py-4 text-center mt-10 rounded-xl">
-        <p className="text-sm">
-          Termos e Condições • Política de Privacidade <br />
-          © 2025 <span className="font-bold">OTIAdriver</span> | Conhecimento Inteligente para Motoristas
-        </p>
-      </footer>
-    </main>
-  );
-            }
