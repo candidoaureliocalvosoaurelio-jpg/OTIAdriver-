@@ -40,13 +40,3 @@ export default function MissaoVisaoValores() {
           </ul>
         </div>
       </div>
-
-      <div className="text-center mt-10">
-        <h3 className="text-2xl font-extrabold text-blue-700">OTIAdriver</h3>
-        <p className="text-gray-600">
-          Conhecimento Inteligente para Motoristas
-        </p>
-      </div>
-    </section>
-  );
-}
