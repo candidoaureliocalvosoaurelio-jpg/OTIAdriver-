@@ -193,11 +193,13 @@
 .badge{
   position:absolute;
   top: -18px;
-  left: 24px;
+  left: 50%;
+  transform: translateX(-50%); 
   background:#fbbf24;
   color:#1f2937;
   padding:8px 16px;
   border-radius:999px;
   font-weight:900;
   box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  text-align:center; /* só pra garantir */
 }
