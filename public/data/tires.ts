@@ -34,12 +34,11 @@ export const tireCategories: TireCategory[] = [
     blurb:
       "Projetado para rolagem leve e estabilidade lateral. Verifique balanceamento, alinhamento e pressão para evitar arraste e aquecimento.",
   },
-];
-{
+  {
   slug: "implemento",
   title: "Implemento / Livre",
   subtitle: "Eixos livres – estabilidade",
   image: "/images/tires/implemento.jpg",
   blurb: "Ideal para carretas e implementos com máxima estabilidade.",
 },
-
+];
