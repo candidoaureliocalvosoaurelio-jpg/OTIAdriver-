@@ -31,8 +31,9 @@ export default function RootLayout({
             <nav className="flex space-x-6 text-sm md:text-base font-medium">
               <Link href="/" className="hover:underline">Início</Link>
               <Link href="/proposito" className="hover:underline">Propósito</Link>
-              <Link href="/caminhoes-eletricos" className="hover:underline">Elétricos ⚡</Link>
+              <Link href="/caminhoes-eletricos" className="hover:underline">Caminhões Elétricos ⚡</Link>
               <Link href="/planos" className="hover:underline">Planos</Link>
+              <Link href="/pneus" className="hover:underline">Pneus</Link>
               <Link href="/contato" className="hover:underline">Contato</Link>
             </nav>
           </div>
