@@ -13,14 +13,23 @@ export default function HomePage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
       
-      {/* ========================================= */}
-      {/* SEÇÃO DE CAMINHÕES          */}
-      {/* ========================================= */}
-      <TruckGrid /> 
+    <main className="mx-auto max-w-6xl px-4 py-10">
 
-      {/* ========================================= */}
-      {/* BLOCO DE PROPÓSITO          */}
-      {/* ========================================= */}
+  <div className="flex items-center justify-center gap-3 mb-8">
+    <Image
+      src="/otiadriver-logo.png"
+      alt="OTIAdriver Logo"
+      width={60}
+      height={60}
+    />
+    <h1 className="text-5xl font-extrabold text-center">
+      OTIAdriver
+    </h1>
+  </div>
+
+  <h2 className="text-xl md:text-2xl font-semibold text-center mb-12">
+    Conhecimento Inteligente para Motoristas
+  </h2>
       <section className="mt-16 border-t border-blue-100 rounded-2xl p-8 bg-blue-50">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Nosso Propósito 🎯</h2>
         
