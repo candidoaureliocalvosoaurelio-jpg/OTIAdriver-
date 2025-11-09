@@ -23,8 +23,8 @@ export default function CheckoutPremium(){
 
           <ul className={s.list}>
             <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico IA Ilimitado</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem (10/mês)</li>
+            <li><span className={s.check}>✓</span> Suporte Técnico IA</li>
+            <li><span className={s.check}>✓</span> Análise de Imagem </li>
             <li><span className={s.check}>✓</span> Checklists PRO</li>
             <li><span className={s.check}>✓</span> Assistente Inteligente de Performance</li>
           </ul>
