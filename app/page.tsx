@@ -11,9 +11,7 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      
-    <main className="mx-auto max-w-6xl px-4 py-10">
+   <main className="mx-auto max-w-6xl px-4 py-10">
 
   <div className="flex items-center justify-center gap-3 mb-8">
     <Image
