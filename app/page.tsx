@@ -15,7 +15,7 @@ export default function HomePage() {
       {/* ========================== */}
       {/* SEÇÃO DO PROPÓSITO */}
       {/* ========================== */}
-      <section className="mt-6 border-t border-blue-100 rounded-2xl pt-4 pb-2 bg-blue-50">
+      <section className="mt-6 w-full bg-blue-50 border-t border-blue-100 pt-6 pb-2">
         <div className="px-4">
 
           <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
