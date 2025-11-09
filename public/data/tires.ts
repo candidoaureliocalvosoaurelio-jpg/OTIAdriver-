@@ -1,9 +1,11 @@
 // data/tires.ts
+export type TireSlug = "direcional" | "tracao" | "implemento";
+
 export type TireCategory = {
-  slug: "direcional" | "tracao" | "implemento";
+  slug: TireSlug;
   title: string;
   subtitle: string;
-  image: string;
+  image: string;   // caminho em /public
   blurb: string;
 };
 
@@ -11,25 +13,26 @@ export const tireCategories: TireCategory[] = [
   {
     slug: "direcional",
     title: "Direcional",
-    subtitle: "Eixo dianteiro",
+    subtitle: "Dianteiro • Guia/Controle",
     image: "/images/tires/direcional.jpg",
     blurb:
-      "Pneus para eixo dianteiro, focados em dirigibilidade, estabilidade e segurança em pista molhada.",
+      "Aplicado no eixo dianteiro: estabilidade direcional, drenagem de água e resposta de direção. Inflagem correta e inspeção de desgaste irregular são essenciais.",
   },
   {
     slug: "tracao",
     title: "Tração",
-    subtitle: "Eixo de tração",
+    subtitle: "Eixos motrizes • Aderência",
     image: "/images/tires/tracao.jpg",
     blurb:
-      "Desenho robusto para transferir potência ao solo, com aderência em subidas, chuva e pisos mistos.",
+      "Desenho com blocos para força de tração e frenagem. Calibragem conforme carga e operação aumenta a durabilidade e reduz consumo de combustível.",
   },
   {
     slug: "implemento",
     title: "Implemento / Livre",
-    subtitle: "Carretas e eixos livres",
+    subtitle: "Eixos livres • Reboque/Carreta",
     image: "/images/tires/implemento.jpg",
     blurb:
-      "Feitos para suportar carga e rodar frio, reduzindo desgaste irregular e consumo de combustível.",
+      "Projetado para rolagem leve e estabilidade lateral. Verifique balanceamento, alinhamento e pressão para evitar arraste e aquecimento.",
   },
 ];
+
