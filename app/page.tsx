@@ -5,7 +5,7 @@ import { TruckGrid } from "@/components/TruckGrid";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-7xl px-2 py-10">
 
       {/* ========================== */}
       {/* SEÇÃO DE CAMINHÕES */}
@@ -66,6 +66,7 @@ export default function HomePage() {
 
         </div>
       </section>
+      <style>{`#site-hero { display:none !important; }`}</style>
     </main>
   );
 }
