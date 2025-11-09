@@ -45,8 +45,8 @@ export default function CheckoutPro() {
             Plano selecionado<br/><strong>PRO</strong><br/>R$ 49,90 / mês
           </div>
 
-          <a href="https://mpago.la/131Yx5T" className={`${s.btn} ${s.proBtn}`}>
-            Pagar com Mercado Pago
+          <a href="https://mpago.la/1KhUK3d" className={`${s.btn} ${s.proBtn}`}>
+           Pagar com Mercado Pago
           </a>
 
           <ul className={s.bullets}>
