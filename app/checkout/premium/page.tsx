@@ -22,11 +22,11 @@ export default function CheckoutPremium(){
           <p className={s.subtitle}>Melhor custo-benefício para Profissionais.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico IA</li>
+            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li> 
+            <li><span className={s.check}>✓</span> Suporte Técnico IA </li>
             <li><span className={s.check}>✓</span> Análise de Imagem </li>
-            <li><span className={s.check}>✓</span> Checklists PRO</li>
-            <li><span className={s.check}>✓</span> Assistente Inteligente de Performance</li>
+            <li><span className={s.check}>✓</span> Checklists PRO </li>
+            <li><span className={s.check}>✓</span> Assistente Inteligente de Performance </li>
           </ul>
 
           <div className={s.terms}>
