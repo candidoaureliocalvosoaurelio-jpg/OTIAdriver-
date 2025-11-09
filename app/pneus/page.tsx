@@ -13,9 +13,8 @@ export default function PneusPage() {
             Pneus
           </h1>
           <p className="mt-3 text-gray-700 max-w-2xl mx-auto">
-            Escolha a categoria certa para seu veículo. A calibragem adequada e
-            o tipo correto por eixo fazem toda a diferença em segurança,
-            consumo e durabilidade.
+            Escolha a categoria correta por eixo. A calibragem adequada e a aplicação
+            certa elevam a segurança, reduzem o consumo e aumentam a vida útil do pneu.
           </p>
         </div>
 
@@ -34,12 +33,14 @@ export default function PneusPage() {
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    priority
                   />
                 </div>
 
                 <div className="p-4">
                   <h2 className="text-xl font-bold text-gray-900">
-                    {t.title} <span className="text-sm text-gray-500">• {t.subtitle}</span>
+                    {t.title}{" "}
+                    <span className="text-sm text-gray-500">• {t.subtitle}</span>
                   </h2>
                   <p className="mt-2 text-sm text-gray-600">{t.blurb}</p>
 
