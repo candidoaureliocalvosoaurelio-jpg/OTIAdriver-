@@ -43,15 +43,16 @@ export default function RootLayout({
         <div className="h-[56px]" />
 
         {/* Cabeçalho principal (Hero) */}
-        <header id="site-hero" className="w-full flex flex-col items-center justify-center py-6 mt-2">
+         {/* HERO global, aparece em todas as páginas */}
+         <header id="site-hero" className="w-full flex flex-col items-center justify-center py-6 mt-2">
           <h1 className="text-center leading-none tracking-tight font-extrabold text-4xl md:text-6xl">
-            <span className="text-[#1F6FEB]">OTIA</span>
+          <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
-          </h1>
-          <p className="mt-4 text-center font-extrabold text-black text-lg md:text-2xl">
-            Conhecimento Inteligente para Motoristas
+           </h1>
+        <p className="mt-4 text-center font-extrabold text-black text-lg md:text-2xl">
+        Conhecimento Inteligente para Motoristas
           </p>
-        </header>
+       </header>
 
         {/* Conteúdo principal (flex-1 para empurrar o footer para baixo) */}
         <main className="flex-1 w-full max-w-7xl mx-auto px-4">
