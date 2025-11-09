@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { tireCategories } from "@/data/tires";
 
@@ -7,8 +8,19 @@ export default function PneusPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto max-w-6xl px-4">
         {tireCategories.map((t) => (
           <div key={t.slug} className="text-center">
-            <img src={t.image} className="mx-auto w-full mb-4" />
-            <h2 className="text-xl font-bold">{t.title}</h2>
+
+            {/* BOX PADRÃO DE TAMANHO */}
+            <div className="relative w-full h-[340px] bg-white">
+              <Image
+                src={t.image}
+                alt={t.title}
+                fill
+                className="object-contain p-4"
+                sizes="(max-width:768px) 100vw, 300px"
+              />
+            </div>
+
+            <h2 className="text-xl font-bold mt-3">{t.title}</h2>
             <p className="text-sm text-slate-600">{t.subtitle}</p>
 
             <Link href={`/pneus/${t.slug}`}>
@@ -22,4 +34,3 @@ export default function PneusPage() {
     </main>
   );
 }
-
