@@ -1,3 +1,4 @@
+// app/pneus/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { tireCategories } from "@/data/tires";
@@ -10,7 +11,7 @@ export default function PneusPage() {
           <div key={t.slug} className="text-center">
 
             {/* BOX PADRÃO DE TAMANHO */}
-            <div className="relative w-full h-[340px] bg-white">
+            <div className="relative w-full h-[420px] bg-white">
               <Image
                 src={t.image}
                 alt={t.title}
