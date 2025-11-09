@@ -197,3 +197,19 @@
   .btn { padding: 14px; }
   .card { padding: 22px; }
 }
+/* Texto das bullets em branco no PREMIUM e no PRO */
+.premiumAside .bullets,
+.premiumAside .bullets li {
+  color: #fff;
+}
+
+.proAside .bullets,
+.proAside .bullets li {
+  color: #fff;
+}
+
+/* (opcional) se houver linha de separação nas bullets, deixa clarinha no fundo escuro */
+.premiumAside .bullets li,
+.proAside .bullets li {
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
