@@ -41,7 +41,7 @@ export default function CheckoutPro() {
 
         {/* ASIDE */}
         <aside className={`${s.aside} ${s.proAside}`}>
-          <div className={`${s.selected} ${s.proSelected}`}>
+          <div className={`${s.selected} ${s.selectedTopBox}`}>
             Plano selecionado<br/><strong>PRO</strong><br/>R$ 49,90 / mês
           </div>
 
