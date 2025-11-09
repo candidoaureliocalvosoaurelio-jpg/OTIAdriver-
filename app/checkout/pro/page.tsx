@@ -25,7 +25,7 @@ export default function CheckoutPro() {
             <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
             <li><span className={s.check}>✓</span> Suporte Técnico IA </li>
             <li><span className={s.check}>✓</span> Análise de Imagem </li>
-            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
+            <li><span className={s.check}>✓</span> Checklists de Viagem </li>
             <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
             <li><span className={s.check}>✓</span> Alertas Inteligentes e GPS Inteligente</li>
           </ul>
