@@ -1,179 +1,227 @@
-:root{
-  --radius:20px;
-  --shadow-md:0 4px 14px rgba(0,0,0,.08);
-  --shadow-lg:0 8px 34px rgba(0,0,0,.12);
+/* =========================
+   Checkout.module.css  (MODELO B)
+   ========================= */
+
+/* ---------- Variáveis de tema ---------- */
+:root {
+  --brand-blue: #0F2454;
+  --brand-blue-2: #0d1252;
+
+  --mint-100: #DDF4F0;   /* topo do aside: box “Plano selecionado” */
+  --mint-200: #E0F7F3;   /* alternativa se quiser mais claro */
+
+  --pro-green-1: #16a34a;
+  --pro-green-2: #0f9d58;
+
+  --basic-y-1: #fbbf24;  /* amarelo principal */
+  --basic-y-2: #f59e0b;  /* amarelo mais escuro p/ gradiente */
+
+  --text-dark: #0b1220;
+  --text-muted: #475569;
+  --card-bg: #ffffff;
+
+  --radius: 20px;
+  --shadow-sm: 0 6px 16px rgba(0,0,0,.08);
+  --shadow-md: 0 10px 26px rgba(0,0,0,.10);
+  --shadow-lg: 0 16px 44px rgba(0,0,0,.18);
 }
 
-/* layout principal */
+/* ---------- Layout principal ---------- */
 .wrap {
   max-width: 1120px;
   margin: 0 auto;
   padding: 24px 16px 56px;
 }
 
-/* grid com cartão esquerdo + aside direito */
+/* grid: card à esquerda + aside à direita */
 .grid {
-  display:grid;
+  display: grid;
   grid-template-columns: 1.8fr 1.2fr;
   gap: 20px;
 }
-@media (max-width: 900px){
+@media (max-width: 900px) {
   .grid { grid-template-columns: 1fr; }
 }
 
-/* CARD (esquerda) */
+/* ---------- CARD (esquerda) ---------- */
 .card {
-  background: #ffffff;
+  position: relative;
+  background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   padding: 28px;
 }
-.card h1{
+.card h1 {
   font-size: 24px;
-  margin:0 0 6px 0;
+  margin: 0 0 6px 0;
   font-weight: 900;
 }
-.price{
+.price {
   font-size: 40px;
   font-weight: 900;
   margin: 4px 0 14px;
 }
-.price small{
+.price small {
   font-size: 16px;
   font-weight: 700;
 }
-.subtitle{
+.subtitle {
   margin: 0 0 14px 0;
-  color: #475569;
+  color: var(--text-muted);
   font-weight: 600;
 }
-.list{
+.list {
   margin: 8px 0 18px 0;
   padding: 0;
   list-style: none;
 }
-.list li{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 8px 0;
   border-bottom: 1px solid rgba(2,8,23,.08);
 }
-.check{
+.check {
   width: 22px;
   height: 22px;
   border-radius: 999px;
-  display:inline-grid;
-  place-items:center;
-  font-weight:900;
-  color:#fff;
-  background:#16a34a;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 900;
+  color: #fff;
+  background: #16a34a;
 }
 
 /* bloco termos */
-.terms{
-  background:#f1f5f9;
-  border-radius:12px;
-  padding:14px;
-  font-size:14px;
-  color:#0f172a;
-  line-height:1.3;
-  margin-top:10px;
+.terms {
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 14px;
+  color: #0f172a;
+  line-height: 1.3;
+  margin-top: 10px;
 }
-
 /* rodapé card */
-.footerNote{
-  margin-top:10px;
-  font-size:12px;
-  color:#475569;
+.footerNote {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
-/* ASIDE (direita) */
-.aside{
-  border-radius: 20px;
+/* ---------- ASIDE (direita) ---------- */
+.aside {
+  border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   padding: 22px;
-  color:#0b1220;
-  background:#ffffff;
+  color: var(--text-dark);
+  background: var(--card-bg);
 }
 
-/* topo selecionado */
-.selectedTopBox{
-  background:#E0F7F3 !important;
-  padding:18px;
-  border-radius:14px;
-  text-align:center;
-  font-weight:900;
+/* topo do aside: “Plano selecionado / preço” */
+.selectedTopBox {
+  background: var(--mint-100) !important; /* mint em todos os planos */
+  color: var(--text-dark);
+  border-radius: 14px;
+  padding: 18px 16px;
+  text-align: center;  /* centraliza o conteúdo */
+  font-weight: 800;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
 }
 
-/* padrão botão */
-.btn{
-  width:100%;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+/* botão grande */
+.btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 16px;
   border-radius: 14px;
   font-weight: 900;
-  text-decoration:none;
-  color:#fff;
+  text-decoration: none;
+  color: #fff;
   box-shadow: 0 14px 30px rgba(0,0,0,.12);
   transition: transform .05s ease, filter .15s ease;
 }
-.btn:active{ transform: translateY(1px); }
+.btn:active { transform: translateY(1px); }
 
-.bullets{
+/* bullets do aside */
+.bullets {
   margin: 14px 0 0 0;
-  padding:0 0 0 18px;
-  color:#0b1220;
+  padding: 0 0 0 18px;
+  color: var(--text-dark);
 }
-.help{
-  margin-top:16px;
-  background:#f8fafc;
-  border-radius:12px;
-  padding:14px;
-  font-size:14px;
-  color:#0b1220;
+/* ajuda/contato */
+.help {
+  margin-top: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 14px;
+  color: var(--text-dark);
 }
-.help a{
-  text-decoration:underline;
-  color:#2563eb;
+.help a {
+  text-decoration: underline;
+  color: #2563eb; /* e-mail azul */
 }
 
+/* ---------- Selo/badge no CARD (ex.: Essencial / Recomendado / Mais vendido) ---------- */
+.badge {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);   /* centraliza horizontal */
+  background: var(--basic-y-1);  /* cor padrão amarelo; pode ser sobrescrita por plano */
+  color: #1f2937;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  box-shadow: 0 8px 22px rgba(0,0,0,.18);
+  text-align: center; /* garantia */
+}
 
-/* PRO */
-.proAside{
-  background: linear-gradient(180deg, #16a34a, #0f9d58);
-  color:#fff;
-}
-.proAside .selectedTopBox{
-  background:#e0ffe6 !important;
-  color:#003314;
-}
-.proBtn{ background:#16a34a; }
-.proBtn:hover{ filter: brightness(0.95); }
+/* =========================
+   VARIAÇÕES POR PLANO
+   ========================= */
 
-/* PREMIUM */
-.premiumAside{
-  background: linear-gradient(180deg, #0F2454, #0d1252);
-  color:#fff;
+/* -------- PRO (verde) -------- */
+.proAside {
+  background: linear-gradient(180deg, var(--pro-green-1), var(--pro-green-2));
+  color: #fff;
 }
-.premiumAside .selectedTopBox{
-  background:#d8ecff !important;
-  color:#001d34;
-}
-.premiumBtn{ background: #0F2454; }
-.premiumBtn:hover{ filter: brightness(0.95); }
+.proSelected { background: rgba(255,255,255,.10); color:#fff; }
+.proBtn { background: var(--pro-green-1); }
+.proBtn:hover { filter: brightness(0.95); }
 
-/* BASICO */
-.basicAside{
-  background:#E0F7F3;
-  color:#0b1220;
+/* -------- PREMIUM (azul – Opção 2) -------- */
+.premiumAside {
+  background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2));
+  color: #fff;
 }
-.basicAside .selectedTopBox{
-  background:#F9F9E0 !important;
-  color:#0b1220;
-}
-.basicBtn{ background: #0F2454; }
-.basicBtn:hover{ filter: brightness(0.95); }
+.premiumSelected { background: rgba(255,255,255,.10); color:#fff; }
+.premiumBtn { background: var(--brand-blue); }
+.premiumBtn:hover { filter: brightness(0.95); }
 
+/* -------- BÁSICO (amarelo) -------- */
+.basicAside {
+  background: linear-gradient(180deg, var(--basic-y-1), var(--basic-y-2));
+  color: var(--text-dark);
+}
+/* Alias mantido caso o JSX use .basicAsideYellow */
+.basicAsideYellow {
+  background: linear-gradient(180deg, var(--basic-y-1), var(--basic-y-2));
+  color: var(--text-dark);
+}
+.basicSelected { background: var(--basic-y-1); color: var(--text-dark); }
+.basicBtn { background: var(--brand-blue); }
+.basicBtn:hover { filter: brightness(0.95); }
+
+/* ---------- Responsividade suave ---------- */
+@media (max-width: 640px) {
+  .price { font-size: 34px; }
+  .selectedTopBox { padding: 16px 12px; }
+  .btn { padding: 14px; }
+  .card { padding: 22px; }
+}
