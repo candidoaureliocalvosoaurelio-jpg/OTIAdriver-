@@ -44,11 +44,8 @@ export default function CheckoutPremium(){
             Plano selecionado<br/><strong>Premium</strong><br/>R$ 99,90 / mês
           </div>
 
-          <a
-            href="https://mpago.la/1Xu1tTU"
-            className={`${s.btn} ${s.premiumBtn}`}
-          >
-            Pagar com Mercado Pago
+          <a href="https://mpago.la/1Xu1tTU" className={`${s.btn} ${s.premiumBtn}`}>
+           Pagar com Mercado Pago
           </a>
 
           <ul className={s.bullets}>
