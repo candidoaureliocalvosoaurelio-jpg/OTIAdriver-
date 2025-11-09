@@ -1,4 +1,5 @@
 // data/tires.ts
+
 export type TireSlug = "direcional" | "tracao" | "implemento";
 
 export type TireCategory = {
@@ -34,11 +35,10 @@ export const tireCategories: TireCategory[] = [
     blurb:
       "Projetado para rolagem leve e estabilidade lateral. Verifique balanceamento, alinhamento e pressão para evitar arraste e aquecimento.",
   },
-  {
-  slug: "implemento",
-  title: "Implemento / Livre",
-  subtitle: "Eixos livres – estabilidade",
-  image: "/images/tires/implemento.jpg",
-  blurb: "Ideal para carretas e implementos com máxima estabilidade.",
-},
 ];
+
+// função util para os detalhes
+export function getTireBySlug(slug: TireSlug) {
+  return tireCategories.find((t) => t.slug === slug);
+}
+
