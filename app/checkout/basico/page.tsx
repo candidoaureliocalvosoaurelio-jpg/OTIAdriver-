@@ -42,8 +42,8 @@ export default function CheckoutBasico() {
          Plano selecionado<br/><strong>Básico</strong><br/>R$ 29,90 / mês
         </div>
 
-         <a href="https://mpago.la/SEU_LINK_BASICO" className={`${s.btn} ${s.basicBtn}`}>
-         Pagar com Mercado Pago
+         <a href="https://mpago.la/131Yx5T" className={`${s.btn} ${s.basicBtn}`}>
+           Pagar com Mercado Pago
          </a>
             <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
