@@ -1,7 +1,9 @@
 export default function MissaoVisaoValores() {
   return (
     <section className="max-w-6xl mx-auto bg-[#D7F1FB] text-gray-800 rounded-2xl p-8 leading-relaxed">
+
       <div className="grid md:grid-cols-3 gap-8">
+
         {/* Missão */}
         <div>
           <h2 className="text-xl font-semibold mb-3">🚀 Missão</h2>
@@ -39,4 +41,8 @@ export default function MissaoVisaoValores() {
             <li>Excelência humana e ética profissional.</li>
           </ul>
         </div>
+
       </div>
+    </section>
+  );
+}
