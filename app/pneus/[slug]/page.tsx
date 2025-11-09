@@ -2,39 +2,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { TireSlug } from "../../../data/tires";
-import { getTireBySlug } from "@/data/tires";
+import { type TireSlug, getTireBySlug, tireCategories } from "@/data/tires";
 
 // -------------------------
 // Dados específicos da página
 // -------------------------
 
-// Medidas por categoria (pode ajustar à vontade depois)
+// Medidas por categoria
 const sizeMap: Record<TireSlug, string[]> = {
-  direcional: [
-    "295/80 R22.5 ⭐",
-    "295/85 R22.5",
-    "275/80 R22.5",
-    "255/70 R22.5",
-    "315/80 R22.5",
-  ],
-  tracao: [
-    "295/80 R22.5 ⭐",
-    "295/85 R22.5",
-    "275/80 R22.5",
-    "285/75 R24.5",
-    "315/80 R22.5",
-  ],
-  implemento: [
-    "295/80 R22.5 ⭐",
-    "275/80 R22.5",
-    "255/70 R22.5",
-    "235/75 R17.5",
-    "385/65 R22.5",
-  ],
+  direcional: ["295/80 R22.5 ⭐", "295/85 R22.5", "275/80 R22.5", "255/70 R22.5", "315/80 R22.5"],
+  tracao:     ["295/80 R22.5 ⭐", "295/85 R22.5", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
+  implemento: ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "235/75 R17.5", "385/65 R22.5"],
 };
 
-// Operações/Aplicações (texto exibido em chips)
+// Operações/Aplicações
 const operationMap: Record<TireSlug, string[]> = {
   direcional: ["Rodoviário", "Misto", "Urbano — Todos"],
   tracao: ["Rodoviário", "Misto", "Urbano — Todos"],
@@ -68,23 +49,25 @@ const careItems = [
     code: "C3",
     title: "Como prolongar a vida útil do pneu (melhor performance)",
     text:
-      "Cheque pressão semanalmente; alinhe/equilibre a cada troca de pneus e após impactos; " +
-      "gire pneus conforme recomendação (frente ↔ traseira/implemento quando aplicável); " +
-      "evite sobrecarga e acelerações/frenagens bruscas; mantenha rolamentos e freios revisados.",
+      "Cheque pressão semanalmente; alinhe/equilibre a cada troca e após impactos; " +
+      "gire pneus conforme recomendação; evite sobrecarga e frenagens bruscas; " +
+      "mantenha rolamentos e freios revisados.",
   },
 ];
+
+// Geração estática das rotas /pneus/[slug]
+export function generateStaticParams() {
+  return tireCategories.map((t) => ({ slug: t.slug }));
+}
 
 // -------------------------
 // Página
 // -------------------------
-type Props = {
-  params: { slug: string };
-};
+type Props = { params: { slug: string } };
 
 export default function TireDetailPage({ params }: Props) {
   const slug = params.slug as TireSlug;
-  const cat = tireCategories.find((c) => c.slug === slug);
-
+  const cat = getTireBySlug(slug);
   if (!cat) return notFound();
 
   const sizes = sizeMap[slug];
@@ -94,17 +77,12 @@ export default function TireDetailPage({ params }: Props) {
     <main className="mx-auto max-w-6xl px-4 py-8">
       {/* Breadcrumbs */}
       <nav className="text-sm text-slate-500 mb-4">
-        <Link href="/" className="hover:underline">
-          Início
-        </Link>{" "}
-        /{" "}
-        <Link href="/pneus" className="hover:underline">
-          Pneus
-        </Link>{" "}
-        / <span className="text-slate-700">{cat.title}</span>
+        <Link href="/" className="hover:underline">Início</Link> /{" "}
+        <Link href="/pneus" className="hover:underline">Pneus</Link> /{" "}
+        <span className="text-slate-700">{cat.title}</span>
       </nav>
 
-      {/* Cabeçalho da categoria */}
+      {/* Cabeçalho */}
       <header className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 mb-8">
         <div className="relative w-full md:w-[420px] bg-gray-50 rounded-2xl">
           <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border">
@@ -189,22 +167,17 @@ export default function TireDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Cuidados operacionais */}
+      {/* Cuidados */}
       <section className="mt-10">
         <h2 className="text-xl font-bold text-slate-900 mb-3">
           Cuidados operacionais (segurança & estabilidade)
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
           {careItems.map((c) => (
-            <article
-              key={c.code}
-              className="rounded-2xl border bg-white p-4 shadow-sm"
-            >
+            <article key={c.code} className="rounded-2xl border bg-white p-4 shadow-sm">
               <div className="text-xs font-semibold text-slate-500">{c.code}</div>
               <h3 className="mt-1 font-bold text-slate-900">{c.title}</h3>
-              <p className="mt-2 text-slate-700 text-sm leading-relaxed">
-                {c.text}
-              </p>
+              <p className="mt-2 text-slate-700 text-sm leading-relaxed">{c.text}</p>
             </article>
           ))}
         </div>
