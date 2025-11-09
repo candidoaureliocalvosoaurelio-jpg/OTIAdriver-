@@ -20,16 +20,16 @@ const basic = [
 
 const pro = [
   "Fichas Técnicas COMPLETAS",
-  "Suporte Técnico IA Ilimitado",
-  "Análise de Imagem (5/mês)",
+  "Suporte Técnico IA",
+  "Análise de Imagem",
   "Checklists de Viagem",
   "Sistema de Pontuação de Performance Inteligente",
-  "Alertas de Pneus Inteligentes e GPS Inteligente",
+  "GPS Inteligente",
 ];
 
 const premium = [
   "Todos os Recursos PRO",
-  "Análise de Imagem ILIMITADA",
+  "Análise de Imagem",
   "Treinamento IA Personalizado",
   "Acesso a Dados Históricos",
   "Suporte Prioritário",
