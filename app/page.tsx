@@ -66,7 +66,6 @@ export default function HomePage() {
 
         </div>
       </section>
-      <style>{`#site-hero { display:none !important; }`}</style>
-    </main>
+     </main>
   );
 }
