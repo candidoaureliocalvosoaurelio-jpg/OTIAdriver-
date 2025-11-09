@@ -11,23 +11,16 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-   <main className="mx-auto max-w-6xl px-4 py-10">
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      
+      {/* ========================================= */}
+      {/* SEÇÃO DE CAMINHÕES          */}
+      {/* ========================================= */}
+      <TruckGrid /> 
 
-  <div className="flex items-center justify-center gap-3 mb-8">
-    <Image
-      src="/otiadriver-logo.png"
-      alt="OTIAdriver Logo"
-      width={60}
-      height={60}
-    />
-    <h1 className="text-5xl font-extrabold text-center">
-      OTIAdriver
-    </h1>
-  </div>
-
-  <h2 className="text-xl md:text-2xl font-semibold text-center mb-12">
-    Conhecimento Inteligente para Motoristas
-  </h2>
+      {/* ========================================= */}
+      {/* BLOCO DE PROPÓSITO          */}
+      {/* ========================================= */}
       <section className="mt-16 border-t border-blue-100 rounded-2xl p-8 bg-blue-50">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Nosso Propósito 🎯</h2>
         
@@ -43,7 +36,7 @@ export default function HomePage() {
           
           {/* Visão */}
           <div className="rounded-xl bg-white border p-6 shadow-sm">
-            <h3 className="font-semibold text-lg mb-2">👁️ Visão</h3>
+            <h3 className="font-semibold text-lg mb-2">👁 Visão</h3>
             <p>
               Ser a plataforma de IA número 1 do mundo na capacitação de motoristas, reconhecida por transformar o transporte em uma experiência inteligente, segura e sustentável.
             </p>
@@ -82,4 +75,4 @@ export default function HomePage() {
       </footer>
     </main>
   );
-            }
+            }
