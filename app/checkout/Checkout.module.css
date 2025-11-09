@@ -181,9 +181,10 @@
   background: linear-gradient(180deg, #fbbf24, #f59e0b);
   color:#0b1220;
 }
-.basicSelected{
-  background:#E0F7F3;
+.selectedTopBox {
+  background:#E0F7F3 !important;
   color:#0b1220;
+}
   text-align:center;      /* centraliza o “Essencial” */
 }
 .basicBtn{ background: #f59e0b; color:#0b1220; }
