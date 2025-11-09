@@ -6,17 +6,7 @@ export default function PneusPage() {
   return (
     <main className="min-h-screen w-full py-10">
 
-      {/* HERO PADRÃO OTIAdriver */}
-      <h1 className="text-center text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
-        <span className="text-[#0D2D60]">OTIA</span>
-        <span className="text-[#2DD4C4]">driver</span>
-      </h1>
-      <p className="text-center text-lg md:text-xl text-slate-800 font-semibold mt-2">
-        Conhecimento Inteligente para Motoristas
-      </p>
-
-
-      {/* GRID DOS PNEUS */}
+     {/* GRID DOS PNEUS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto max-w-6xl px-4 mt-12">
         {tireCategories.map((t) => (
           <div key={t.slug} className="text-center">
