@@ -1,3 +1,9 @@
+:root{
+  --radius:20px;
+  --shadow-md:0 4px 14px rgba(0,0,0,.08);
+  --shadow-lg:0 8px 34px rgba(0,0,0,.12);
+}
+
 /* layout principal */
 .wrap {
   max-width: 1120px;
@@ -18,10 +24,9 @@
 /* CARD (esquerda) */
 .card {
   background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.10);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
   padding: 28px;
-  position: relative;
 }
 .card h1{
   font-size: 24px;
@@ -44,7 +49,7 @@
 }
 .list{
   margin: 8px 0 18px 0;
-  padding: 0 0 0 0;
+  padding: 0;
   list-style: none;
 }
 .list li{
@@ -86,21 +91,22 @@
 /* ASIDE (direita) */
 .aside{
   border-radius: 20px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.14);
+  box-shadow: var(--shadow-lg);
   padding: 22px;
   color:#0b1220;
-  background:#E0F7F3;
+  background:#ffffff;
 }
 
-/* bloco selecionado (varia por plano) */
-.selected {
-  border-radius: 14px;
-  padding: 16px 18px;
-  font-weight: 800;
-  margin-bottom: 14px;
+/* topo selecionado */
+.selectedTopBox{
+  background:#E0F7F3 !important;
+  padding:18px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:900;
 }
 
-/* botão principal */
+/* padrão botão */
 .btn{
   width:100%;
   display:inline-flex;
@@ -115,19 +121,12 @@
   transition: transform .05s ease, filter .15s ease;
 }
 .btn:active{ transform: translateY(1px); }
-.btn:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 3px rgba(59,130,246,.35);
-}
 
-/* bullets do aside */
 .bullets{
   margin: 14px 0 0 0;
   padding:0 0 0 18px;
   color:#0b1220;
 }
-
-/* bloco help */
 .help{
   margin-top:16px;
   background:#f8fafc;
@@ -138,69 +137,43 @@
 }
 .help a{
   text-decoration:underline;
-  color:#2563eb; /* e-mail azul */
+  color:#2563eb;
 }
 
-/* selo “recomendado” do PRO */
-.badge{
-  position:absolute;
-  top: -18px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#fbbf24;
-  color:#1f2937;
-  padding:8px 16px;
-  border-radius:999px;
-  font-weight:900;
-  box-shadow: 0 8px 22px rgba(0,0,0,.18);
-  text-align:center;
-}
 
-/* VARIAÇÕES DE PLANO */
-/* PRO (verde) */
-.proCard{ position: relative; }
+/* PRO */
 .proAside{
   background: linear-gradient(180deg, #16a34a, #0f9d58);
   color:#fff;
 }
-.proSelected{ background: rgba(255,255,255,.10); color:#fff; text-align:center; }
+.proAside .selectedTopBox{
+  background:#e0ffe6 !important;
+  color:#003314;
+}
 .proBtn{ background:#16a34a; }
 .proBtn:hover{ filter: brightness(0.95); }
 
-/* PREMIUM (azul) */
+/* PREMIUM */
 .premiumAside{
   background: linear-gradient(180deg, #0F2454, #0d1252);
   color:#fff;
 }
-.premiumSelected{ background: rgba(255,255,255,.10); color:#fff; text-align:center; }
+.premiumAside .selectedTopBox{
+  background:#d8ecff !important;
+  color:#001d34;
+}
 .premiumBtn{ background: #0F2454; }
 .premiumBtn:hover{ filter: brightness(0.95); }
 
-/* BÁSICO (amarelo) */
-.basicAsideYellow{
-  background: linear-gradient(180deg, #fbbf24, #f59e0b);
+/* BASICO */
+.basicAside{
+  background:#E0F7F3;
   color:#0b1220;
 }
-.selectedTopBox {
-  background:#E0F7F3 !important;
+.basicAside .selectedTopBox{
+  background:#F9F9E0 !important;
   color:#0b1220;
 }
-  text-align:center;      /* centraliza o “Essencial” */
-}
-.basicBtn{ background: #f59e0b; color:#0b1220; }
+.basicBtn{ background: #0F2454; }
 .basicBtn:hover{ filter: brightness(0.95); }
 
-/* Selo padrão (usado no card da esquerda) */
-.badge{
-  position:absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%); 
-  background:#fbbf24;
-  color:#1f2937;
-  padding:8px 16px;
-  border-radius:999px;
-  font-weight:900;
-  box-shadow: 0 8px 22px rgba(0,0,0,.18);
-  text-align:center; /* só pra garantir */
-}
