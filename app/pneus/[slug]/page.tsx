@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { TireSlug } from "../../../data/tires";
-import { tireCategories } from "../../../data/tires";
+import { getTireBySlug } from "@/data/tires";
 
 // -------------------------
 // Dados específicos da página
