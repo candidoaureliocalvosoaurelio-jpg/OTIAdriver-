@@ -21,7 +21,7 @@ export default function HomePage() {
       {/* ========================================= */}
       {/* BLOCO DE PROPÓSITO          */}
       {/* ========================================= */}
-      <section className="mt-16 border-t border-blue-100 rounded-2xl p-8 bg-blue-50">
+      <section className="mt-12 border-t border-blue-100 rounded-2xl p-6 bg-blue-50">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Nosso Propósito 🎯</h2>
         
         <div className="grid md:grid-cols-3 gap-6 text-gray-700">
