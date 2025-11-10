@@ -17,8 +17,7 @@ export default function PneusPage() {
                 width={900}
                 height={600}
                 className="object-contain p-4 w-full h-auto"
-                priority={idx === 0}
-              />
+             />
             </div>
 
             {/* TÍTULO */}
