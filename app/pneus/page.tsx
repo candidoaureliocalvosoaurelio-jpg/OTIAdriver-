@@ -40,6 +40,7 @@ export default function PneusPage() {
         ))}
       </div>
 
+      
       {/* NOVA SEÇÃO – Manual de Cuidados Operacionais */}
       <div className="max-w-6xl mx-auto px-4 mt-0 mb-[100px] text-center">
         <div className="bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white rounded-2xl shadow-md py-12 px-8">
