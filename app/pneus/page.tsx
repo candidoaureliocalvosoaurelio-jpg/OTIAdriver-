@@ -7,7 +7,7 @@ export default function PneusPage() {
   return (
     <main className="min-h-screen w-full py-10">
       {/* GRID DE PNEUS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto max-w-6xl px-4 mt-8 mb-24">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto max-w-6xl px-4 mt-8 mb-32">
         {pneus.map((p) => (
           <div key={p.slug} className="text-center">
             {/* IMAGEM (3:2, responsiva) */}
@@ -40,7 +40,6 @@ export default function PneusPage() {
         ))}
       </div>
 
-      
       {/* NOVA SEÇÃO – Manual de Cuidados Operacionais */}
       <div className="max-w-6xl mx-auto px-4 mt-0 mb-[100px] text-center">
         <div className="bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white rounded-2xl shadow-md py-12 px-8">
