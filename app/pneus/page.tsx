@@ -27,11 +27,16 @@ export default function PneusPage() {
             <h2 className="text-xl font-bold mt-3">{p.title}</h2>
 
             {/* BOTÃO PRETO GARANTIDO */}
-            <Link href={`/pneus/${p.slug}`} className="group mt-4 inline-block">
-              <span className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold shadow-sm select-none bg-black text-white hover:bg-black/90 active:translate-y-px transition">
-                Ver Pneus
-              </span>
-            </Link>
+            {/* BOTÃO PRETO GARANTIDO */}
+<Link href={`/pneus/${p.slug}`} className="mt-4 inline-block">
+  <span
+    className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold shadow-sm select-none bg-black text-white hover:bg-black/90 active:translate-y-px transition"
+    style={{ backgroundColor: "#000", color: "#fff" }}
+  >
+    Ver Pneus
+  </span>
+</Link>
+
           </div>
         ))}
       </div>
