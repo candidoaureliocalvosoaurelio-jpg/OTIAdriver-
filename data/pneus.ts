@@ -1,11 +1,4 @@
-// data/pneus.ts
-export type Pneu = {
-  slug: string;
-  name: string;
-  file: string;
-};
-
-export const pneus: Pneu[] = [
+export const pneus = [
   {
     slug: "direcional-liso",
     name: "Direcional Liso",
