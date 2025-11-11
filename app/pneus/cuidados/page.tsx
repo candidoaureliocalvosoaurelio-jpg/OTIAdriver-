@@ -5,13 +5,13 @@ import Link from "next/link";
 export const metadata = {
   title: "Pneus | Cuidados Operacionais | OTIAdriver",
   description:
-    "Manual visual com os cuidados operacionais de pneus: calibragem, pressão ideal, inspeção, sulco, desgaste, alinhamento/balanceamento, rodízio e recapagem.",
+    "Manual visual de cuidados operacionais dos pneus: calibragem, pressão ideal, inspeção, profundidade do sulco, controle de desgaste, alinhamento, rodízio e recapagem.",
 };
 
 type Care = {
   slug: string;
   title: string;
-  img: string; // caminho dentro de /public
+  img: string;  // caminho dentro de /public
   alt: string;
   text: string;
 };
@@ -21,65 +21,65 @@ const cares: Care[] = [
     slug: "calibragem-correta",
     title: "Calibragem Correta",
     img: "/images/pneus/cuidados/calibragem.jpg",
-    alt: "Mecânico medindo pressão com calibrador digital no pneu de caminhão",
+    alt: "Mecânico medindo a pressão do pneu de caminhão com calibrador digital",
     text:
-      "Calibre os pneus sempre frios (parados há pelo menos 2 h). Consulte o valor indicado pelo fabricante. A calibragem adequada evita aquecimento excessivo e aumenta a vida útil.",
+      "Calibre sempre com pneus frios (parados ≥ 2 h). Use o valor indicado pelo fabricante para evitar aquecimento e prolongar a vida útil.",
   },
   {
     slug: "pressao-ideal",
     title: "Pressão Ideal e Impactos",
     img: "/images/pneus/cuidados/pressao-ideal.jpg",
-    alt: "Comparação visual de pneu subcalibrado e supercalibrado",
+    alt: "Dois pneus lado a lado mostrando diferença de subcalibrado e supercalibrado",
     text:
-      "Baixa pressão: aumenta consumo e desgaste nos ombros. Alta pressão: reduz aderência e desgasta o centro da banda. Ajuste conforme carga e tipo de operação.",
+      "Baixa pressão: mais consumo e desgaste nos ombros. Alta pressão: menor aderência e desgaste no centro. Ajuste conforme carga e operação.",
   },
   {
     slug: "inspecao-visual",
     title: "Inspeção Visual Regular",
     img: "/images/pneus/cuidados/inspecao-visual.jpg",
-    alt: "Técnico inspecionando banda de rodagem e laterais do pneu",
+    alt: "Técnico inspecionando a banda de rodagem e a lateral do pneu",
     text:
-      "Faça inspeção semanal de bandas, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
+      "Faça inspeções semanais: banda, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
   },
   {
     slug: "profundidade-sulco",
     title: "Profundidade do Sulco",
     img: "/images/pneus/cuidados/profundidade-sulco.jpg",
-    alt: "Paquímetro medindo a profundidade do sulco do pneu",
+    alt: "Paquímetro digital medindo a profundidade do sulco do pneu",
     text:
-      "Substitua pneus com sulco abaixo de 1,6 mm (mínimo legal). Sulcos rasos comprometem drenagem e elevam o risco de aquaplanagem.",
+      "Substitua pneus com sulco abaixo de 1,6 mm. Sulco raso reduz drenagem e aumenta o risco de aquaplanagem.",
   },
   {
     slug: "controle-desgaste",
     title: "Controle de Desgaste",
     img: "/images/pneus/cuidados/controle-desgaste.jpg",
-    alt: "Checklist/planilha com anotações de quilometragem e posição dos pneus",
+    alt: "Prancheta com checklist/planilha de controle de desgaste de pneus",
     text:
-      "Registre quilometragem, posição e data de cada inspeção. Planeje revisões e rodízios para otimizar o rendimento do jogo de pneus.",
+      "Registre quilometragem, posição e data de cada inspeção. Use checklist para planejar revisões e rodízios.",
   },
   {
     slug: "alinhamento-balanceamento",
-    title: "Alinhamento e Balanceamento",
+    title: "Alinhamento a Laser",
     img: "/images/pneus/cuidados/alinhamento-balanceamento.jpg",
     alt: "Caminhão em plataforma de alinhamento a laser na oficina",
     text:
-      "Alinhe e balanceie a cada 10.000 km ou após impactos. Reduz vibrações, desgaste irregular e consumo de combustível.",
+      "Realize alinhamento e balanceamento a cada 10.000 km ou após impactos. Reduz vibrações e desgaste irregular.",
   },
   {
     slug: "rodizio",
     title: "Rodízio de Pneus",
     img: "/images/pneus/cuidados/rodizio.jpg",
-    alt: "Esquema com setas indicando troca de posição entre eixos",
+    alt: "Esquema visual de rodízio de pneus entre eixos de caminhão",
     text:
-      "Realize rodízio periódico conforme tipo de tração e carga. Garante desgaste uniforme e melhor aproveitamento do conjunto.",
+      "Siga o rodízio indicado para o seu arranjo de eixos e tipo de tração. Promove desgaste uniforme do conjunto.",
   },
   {
     slug: "recapagem",
     title: "Gestão de Carcaça e Recapagem",
     img: "/images/pneus/cuidados/recapagem.jpg",
-    alt: "Pneu sendo inspecionado para processo de recapagem",
+    alt: "Técnico inspecionando a carcaça do pneu para recapagem",
     text:
-      "Carcaças bem conservadas podem ser recapadas com segurança. Mantenha histórico de cada pneu e envie apenas cascos em bom estado.",
+      "Conserve as carcaças: limpeza, pressão correta e inspeções. Recape apenas cascos aprovados e com histórico registrado.",
   },
 ];
 
@@ -97,7 +97,7 @@ export default function CuidadosPneusPage() {
           Cuidados Operacionais dos Pneus
         </h1>
         <p className="mt-2 text-slate-600 max-w-3xl">
-          Guia prático e visual para aumentar segurança, rendimento e vida útil dos pneus do seu caminhão.
+          Manual visual para aumentar segurança, rendimento e vida útil dos pneus do seu caminhão.
         </p>
       </header>
 
@@ -128,12 +128,12 @@ export default function CuidadosPneusPage() {
 
       {/* CTA secundário */}
       <aside className="mt-10 rounded-2xl border border-slate-200 p-5 bg-slate-50">
-        <h3 className="text-base font-semibold">Próximo passo</h3>
+        <h3 className="text-base font-semibold">Ver também</h3>
         <p className="mt-1 text-slate-700">
-          Veja também os tipos e aplicações de pneus por eixo:
-          {" "}
+          Tipos e aplicações por eixo:{" "}
           <Link href="/pneus/direcional" className="text-blue-700 hover:underline">Direcional</Link>,{" "}
-          <Link href="/pneus/implemento" className="text-blue-700 hover:underline">Implemento/Livre</Link> e{" "}
+          <Link href="/pneus/implemento" className="text-blue-700 hover:underline">Implemento/Livre</Link>{" "}
+          e{" "}
           <Link href="/pneus/tracao" className="text-blue-700 hover:underline">Tração</Link>.
         </p>
       </aside>
