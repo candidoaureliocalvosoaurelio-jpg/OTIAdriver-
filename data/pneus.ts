@@ -1,4 +1,4 @@
-// data/pneus.ts
+// data/pneus.ts 
 
 export type TireSlug = 'direcional-liso' | 'implementos' | 'tracao' | 'tracao-plus';
 
