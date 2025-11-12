@@ -77,7 +77,7 @@ export default function Header() {
             Pneus
           </Link>
           <Link href="/Inspeção e Manutenção" className="block" onClick={() => setMenuOpen(false)}>
-            Contato
+            Inspeção e Manutenção
           </Link>
         </nav>
       )}
