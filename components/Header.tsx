@@ -7,7 +7,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20">
+    <header className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow-lg">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-2">
@@ -30,13 +30,21 @@ export default function Header() {
 
         {/* MENU DESKTOP */}
         <nav className="hidden md:flex items-center gap-6 font-medium">
-          <Link href="/" className="hover:underline">Início</Link>
-          <Link href="/proposito" className="hover:underline">Propósito</Link>
+          <Link href="/" className="hover:underline">
+            Início
+          </Link>
+          <Link href="/proposito" className="hover:underline">
+            Propósito
+          </Link>
           <Link href="/caminhoes-eletricos" className="hover:underline">
             Caminhões Elétricos ⚡
           </Link>
-          <Link href="/planos" className="hover:underline">Planos</Link>
-          <Link href="/pneus" className="hover:underline">Pneus</Link>
+          <Link href="/planos" className="hover:underline">
+            Planos
+          </Link>
+          <Link href="/pneus" className="hover:underline">
+            Pneus
+          </Link>
           <Link href="/inspecao-manutencao" className="hover:underline">
             Inspeção e Manutenção
           </Link>
