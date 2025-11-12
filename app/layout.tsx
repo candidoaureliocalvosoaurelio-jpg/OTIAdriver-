@@ -1,8 +1,8 @@
-// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
-import Header from "@/components/Header"; // ✅ usa o export default Header
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -17,11 +17,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* ✅ Cabeçalho principal */}
         <Header />
-
-        {/* Conteúdo principal */}
         <main className="flex-1 mt-[70px]">{children}</main>
+        <Footer />
       </body>
     </html>
   );
