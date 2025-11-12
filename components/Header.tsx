@@ -37,7 +37,9 @@ export default function Header() {
           </Link>
           <Link href="/planos" className="hover:underline">Planos</Link>
           <Link href="/pneus" className="hover:underline">Pneus</Link>
-          <Link href="/contato" className="hover:underline">Contato</Link>
+          <Link href="/inspecao-manutencao" className="hover:underline">
+            Inspeção e Manutenção
+          </Link>
         </nav>
 
         {/* BOTÃO MOBILE */}
@@ -53,7 +55,12 @@ export default function Header() {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
       </div>
@@ -76,7 +83,7 @@ export default function Header() {
           <Link href="/pneus" className="block" onClick={() => setMenuOpen(false)}>
             Pneus
           </Link>
-          <Link href="/Inspeção e Manutenção" className="block" onClick={() => setMenuOpen(false)}>
+          <Link href="/inspecao-manutencao" className="block" onClick={() => setMenuOpen(false)}>
             Inspeção e Manutenção
           </Link>
         </nav>
