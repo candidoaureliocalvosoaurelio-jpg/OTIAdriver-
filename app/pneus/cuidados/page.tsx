@@ -5,13 +5,13 @@ import Link from "next/link";
 export const metadata = {
   title: "Pneus | Cuidados Operacionais | OTIAdriver",
   description:
-    "Manual visual de cuidados operacionais dos pneus: calibragem, pressão ideal, inspeção, profundidade do sulco, controle de desgaste, alinhamento, rodízio e recapagem.",
+    "Manual visual de cuidados operacionais dos pneus: calibragem, pressão ideal, inspeção visual, profundidade do sulco, controle de desgaste, alinhamento, rodízio e recapagem.",
 };
 
 type Care = {
   slug: string;
   title: string;
-  img: string;  // caminho dentro de /public
+  img: string;
   alt: string;
   text: string;
 };
@@ -23,45 +23,45 @@ const cares: Care[] = [
     img: "/images/pneus/cuidados/calibragem.jpg",
     alt: "Mecânico medindo a pressão do pneu de caminhão com calibrador digital",
     text:
-      "Calibre sempre com pneus frios (parados ≥ 2 h). Use o valor indicado pelo fabricante para evitar aquecimento e prolongar a vida útil.",
+      "Calibre sempre com pneus frios (parados por pelo menos 2 horas). Use o valor indicado pelo fabricante para evitar aquecimento e prolongar a vida útil.",
   },
   {
     slug: "pressao-ideal",
     title: "Pressão Ideal e Impactos",
     img: "/images/pneus/cuidados/pressao-ideal.jpg",
-    alt: "Dois pneus lado a lado mostrando diferença de subcalibrado e supercalibrado",
+    alt: "Comparação visual entre pneu subcalibrado e supercalibrado",
     text:
-      "Baixa pressão: mais consumo e desgaste nos ombros. Alta pressão: menor aderência e desgaste no centro. Ajuste conforme carga e operação.",
+      "Baixa pressão: aumenta consumo e desgaste nos ombros. Alta pressão: reduz aderência e desgasta o centro. Ajuste conforme carga e operação.",
   },
   {
     slug: "inspecao-visual",
     title: "Inspeção Visual Regular",
     img: "/images/pneus/cuidados/inspecao-visual.jpg",
-    alt: "Técnico inspecionando a banda de rodagem e a lateral do pneu",
+    alt: "Técnico examinando a banda de rodagem e a lateral do pneu",
     text:
-      "Faça inspeções semanais: banda, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
+      "Inspecione semanalmente bandas, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
   },
   {
     slug: "profundidade-sulco",
     title: "Profundidade do Sulco",
     img: "/images/pneus/cuidados/profundidade-sulco.jpg",
-    alt: "Paquímetro digital medindo a profundidade do sulco do pneu",
+    alt: "Paquímetro digital medindo profundidade de sulco do pneu",
     text:
-      "Substitua pneus com sulco abaixo de 1,6 mm. Sulco raso reduz drenagem e aumenta o risco de aquaplanagem.",
+      "Substitua pneus com sulco abaixo de 1,6 mm. Sulco raso compromete drenagem e aumenta o risco de aquaplanagem.",
   },
   {
     slug: "controle-desgaste",
     title: "Controle de Desgaste",
     img: "/images/pneus/cuidados/controle-desgaste.jpg",
-    alt: "Prancheta com checklist/planilha de controle de desgaste de pneus",
+    alt: "Prancheta com checklist de controle de desgaste",
     text:
       "Registre quilometragem, posição e data de cada inspeção. Use checklist para planejar revisões e rodízios.",
   },
   {
     slug: "alinhamento-balanceamento",
-    title: "Alinhamento a Laser",
+    title: "Alinhamento e Balanceamento",
     img: "/images/pneus/cuidados/alinhamento-balanceamento.jpg",
-    alt: "Caminhão em plataforma de alinhamento a laser na oficina",
+    alt: "Caminhão em plataforma de alinhamento a laser",
     text:
       "Realize alinhamento e balanceamento a cada 10.000 km ou após impactos. Reduz vibrações e desgaste irregular.",
   },
@@ -69,9 +69,9 @@ const cares: Care[] = [
     slug: "rodizio",
     title: "Rodízio de Pneus",
     img: "/images/pneus/cuidados/rodizio.jpg",
-    alt: "Esquema visual de rodízio de pneus entre eixos de caminhão",
+    alt: "Esquema de rodízio de pneus entre eixos de caminhão",
     text:
-      "Siga o rodízio indicado para o seu arranjo de eixos e tipo de tração. Promove desgaste uniforme do conjunto.",
+      "Siga o rodízio indicado para seu arranjo de eixos e tipo de tração. Promove desgaste uniforme do conjunto.",
   },
   {
     slug: "recapagem",
@@ -88,12 +88,14 @@ export default function CuidadosPneusPage() {
     <main className="w-full max-w-6xl mx-auto px-4 py-10">
       {/* breadcrumb */}
       <div className="mb-6 text-sm text-slate-500">
-        <Link href="/pneus" className="hover:underline">← Voltar aos Pneus</Link>
+        <Link href="/pneus" className="hover:underline">
+          ← Voltar aos Pneus
+        </Link>
       </div>
 
       {/* título */}
-      <header className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
+      <header className="mb-8 text-center md:text-left">
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#1F6FEB]">
           Cuidados Operacionais dos Pneus
         </h1>
         <p className="mt-2 text-slate-600 max-w-3xl">
@@ -106,16 +108,15 @@ export default function CuidadosPneusPage() {
         {cares.map((c) => (
           <article
             key={c.slug}
-            className="rounded-2xl overflow-hidden bg-white shadow hover:shadow-lg transition-shadow"
+            className="rounded-2xl overflow-hidden bg-white shadow hover:shadow-lg transition-shadow border border-slate-200"
           >
-            <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
+            <div className="relative w-full bg-gray-100" style={{ aspectRatio: "3 / 2" }}>
               <Image
                 src={c.img}
                 alt={c.alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority
               />
             </div>
             <div className="p-5">
@@ -125,18 +126,6 @@ export default function CuidadosPneusPage() {
           </article>
         ))}
       </section>
-
-      {/* CTA secundário */}
-      <aside className="mt-10 rounded-2xl border border-slate-200 p-5 bg-slate-50">
-        <h3 className="text-base font-semibold">Ver também</h3>
-        <p className="mt-1 text-slate-700">
-          Tipos e aplicações por eixo:{" "}
-          <Link href="/pneus/direcional" className="text-blue-700 hover:underline">Direcional</Link>,{" "}
-          <Link href="/pneus/implemento" className="text-blue-700 hover:underline">Implemento/Livre</Link>{" "}
-          e{" "}
-          <Link href="/pneus/tracao" className="text-blue-700 hover:underline">Tração</Link>.
-        </p>
-      </aside>
     </main>
   );
 }
