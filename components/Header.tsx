@@ -1,43 +1,98 @@
-// components/Header.tsx
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
-// Exportação nomeada é mais robusta, então removemos o 'default' para usar no layout.tsx
-export function Header() { 
+export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    // 'sticky' fixa o cabeçalho no topo da tela ao rolar
-    <header className="sticky top-0 bg-zinc-900/95 backdrop-blur-sm z-50">
-      <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between border-b border-white/10">
-        
-        {/* Logo e Título (Link para Home) */}
-        <Link href="/" className="flex items-center gap-1">
-          {/* USANDO NEXT/IMAGE COM DIMENSÕES */}
+    <header className="w-full fixed top-0 left-0 z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow-lg">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/images/logo-otia.png"
             alt="Logo OTIAdriver"
-            width={32} 
-            height={32}
-            className="h-8 w-auto"
+            width={42}
+            height={42}
+            className="object-contain"
           />
-          {/* O seu Título estilizado, agora em tamanho de Topbar */}
-          <span className="text-lg font-extrabold tracking-tight">
-            <span className="text-[#003F9A]">OTIA</span>
-            <span className="text-[#15B8B2]">driver</span>
-          </span>
+          <div className="leading-tight">
+            <span className="font-extrabold text-xl tracking-tight">
+              OTIAdriver
+            </span>
+            <div className="text-[11px] text-white/90">
+              Conhecimento Inteligente para Motoristas
+            </div>
+          </div>
         </Link>
-        
-        {/* Navegação Principal */}
-        <nav className="flex items-center gap-6 text-sm text-white/70 font-medium">
-          <Link href="/caminhoes-eletricos" className="hover:text-white transition">
+
+        {/* MENU DESKTOP */}
+        <nav className="hidden md:flex items-center gap-6 font-medium">
+          <Link href="/" className="hover:underline">
+            Início
+          </Link>
+          <Link href="/caminhoes-eletricos" className="hover:underline">
             Caminhões Elétricos
           </Link>
-          <Link href="/planos" className="hover:text-white transition">
+          <Link href="/planos" className="hover:underline">
             Planos
           </Link>
-          {/* Adicione outros links se houver */}
+          <Link href="/inspecao-manutencao" className="hover:underline">
+            Inspeção e Manutenção
+          </Link>
+          <Link href="/contato" className="hover:underline">
+            Contato
+          </Link>
         </nav>
-        
+
+        {/* BOTÃO MOBILE */}
+        <button
+          className="md:hidden p-2 rounded-md hover:bg-white/10"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Abrir menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </div>
+
+      {/* MENU MOBILE */}
+      {menuOpen && (
+        <nav className="md:hidden bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] px-6 py-4 space-y-3 text-white font-medium border-t border-white/20">
+          <Link href="/" className="block" onClick={() => setMenuOpen(false)}>
+            Início
+          </Link>
+          <Link
+            href="/caminhoes-eletricos"
+            className="block"
+            onClick={() => setMenuOpen(false)}
+          >
+            Caminhões Elétricos
+          </Link>
+          <Link href="/planos" className="block" onClick={() => setMenuOpen(false)}>
+            Planos
+          </Link>
+          <Link
+            href="/inspecao-manutencao"
+            className="block"
+            onClick={() => setMenuOpen(false)}
+          >
+            Inspeção e Manutenção
+          </Link>
+          <Link href="/contato" className="block" onClick={() => setMenuOpen(false)}>
+            Contato
+          </Link>
+        </nav>
+      )}
     </header>
   );
 }
