@@ -1,12 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
-// Cabeçalho fixo com tema escuro e blur elegante
 export function Header() {
   return (
     <header className="sticky top-0 bg-zinc-900/95 backdrop-blur-sm z-50">
       <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between border-b border-white/10">
-        
         {/* LOGO + TÍTULO */}
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -33,11 +31,7 @@ export function Header() {
           <Link href="/inspecao-manutencao" className="hover:text-white transition">
             Inspeção e Manutenção
           </Link>
-          <Link href="/contato" className="hover:text-white transition">
-            Contato
-          </Link>
         </nav>
-
       </div>
     </header>
   );
