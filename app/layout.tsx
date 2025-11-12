@@ -2,7 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
-import { Header } from "@/components/Header"; // ✅ importa o Header certo
+import Header from "@/components/Header"; // ✅ usa o export default Header
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* ✅ Usa o Header importado */}
+        {/* ✅ Cabeçalho principal */}
         <Header />
 
         {/* Conteúdo principal */}
