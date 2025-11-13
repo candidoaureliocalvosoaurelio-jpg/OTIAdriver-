@@ -74,48 +74,64 @@ export default function Header() {
       </div>
 
       {/* MENU MOBILE ABERTO */}
-      {menuOpen && (
-        <nav className="md:hidden px-6 pb-4 text-sm font-medium bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] border-t border-white/20">
-          <Link href="/" className="block py-2" onClick={() => setMenuOpen(false)}>
-            Início
-          </Link>
-          <Link
-            href="/proposito"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Propósito
-          </Link>
-          <Link
-            href="/caminhoes-eletricos"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Caminhões Elétricos <span aria-hidden>⚡</span>
-          </Link>
-          <Link
-            href="/planos"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Planos
-          </Link>
-          <Link
-            href="/pneus"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Pneus
-          </Link>
-          <Link
-            href="/inspecao-manutencao"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Inspeção e Manutenção
-          </Link>
-        </nav>
-      )}
-    </header>
-  );
-}
+     {menuOpen && (
+  <nav
+    className="
+      md:hidden 
+      px-6 pb-4 pt-2 
+      text-base font-semibold
+      bg-white/10 
+      backdrop-blur-md 
+      border-t border-white/20 
+      shadow-lg
+    "
+  >
+    <Link
+      href="/"
+      className="block py-2.5 border-b border-white/10"
+      onClick={() => setMenuOpen(false)}
+    >
+      Início
+    </Link>
+
+    <Link
+      href="/proposito"
+      className="block py-2.5 border-b border-white/10"
+      onClick={() => setMenuOpen(false)}
+    >
+      Propósito
+    </Link>
+
+    <Link
+      href="/caminhoes-eletricos"
+      className="block py-2.5 border-b border-white/10"
+      onClick={() => setMenuOpen(false)}
+    >
+      Caminhões Elétricos <span aria-hidden>⚡</span>
+    </Link>
+
+    <Link
+      href="/planos"
+      className="block py-2.5 border-b border-white/10"
+      onClick={() => setMenuOpen(false)}
+    >
+      Planos
+    </Link>
+
+    <Link
+      href="/pneus"
+      className="block py-2.5 border-b border-white/10"
+      onClick={() => setMenuOpen(false)}
+    >
+      Pneus
+    </Link>
+
+    <Link
+      href="/inspecao-manutencao"
+      className="block py-2.5"
+      onClick={() => setMenuOpen(false)}
+    >
+      Inspeção e Manutenção
+    </Link>
+  </nav>
+)}
