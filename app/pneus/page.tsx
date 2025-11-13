@@ -43,11 +43,11 @@ export default function PneusPage() {
       {/* SPACER para garantir respiro no mobile */}
       <div className="h-10 md:h-14"></div>
 
-      {/* NOVA SEÇÃO – Manual de Cuidados Operacionais */}
+      {/* NOVA SEÇÃO –Cuidados Operacionais */}
       <div className="max-w-6xl mx-auto px-4 mt-0 mb-[100px] text-center">
         <div className="bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white rounded-2xl shadow-md py-12 px-8">
           <h2 className="text-2xl font-extrabold mb-3">
-            Manual de Cuidados Operacionais
+            Cuidados Operacionais
           </h2>
           <p className="text-white/90 mb-6 max-w-2xl mx-auto">
             Aprenda a manter seus pneus em perfeito estado, aumentar a
