@@ -25,7 +25,7 @@ export default function RootLayout({
 
         {/* HERO PADRÃO DO SITE (aparece em TODAS as páginas) */}
         <div id="site-hero" className="max-w-7xl mx-auto px-4 pt-6 pb-2 text-center">
-          <h1 className="text-[44px] md:text-6xl font-extrabold tracking-tight leading-tight">
+          <h1 className="text-[56px] md:text-6xl font-extrabold tracking-tight leading-tight">
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
           </h1>
