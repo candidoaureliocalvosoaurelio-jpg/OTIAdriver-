@@ -17,7 +17,7 @@ export default function Header() {
             alt="Logomarca OTIAdriver"
             width={80}
             height={80}
-            className="h-10 w-auto"
+            className="h-16 w-auto"
           />
           <span className="text-xs sm:text-sm md:text-base font-semibold leading-tight">
             <span className="mr-1">🌐</span>
