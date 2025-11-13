@@ -13,13 +13,13 @@ export default function Header() {
         {/* LOGOMARCA + TEXTO 🌐 Plataforma Oficial OTIAdriver */}
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/images/logo-otia.png" // ajuste se o nome do arquivo for diferente
+            src="/images/logo-otia.png" // caminho da logo no /public/images
             alt="Logomarca OTIAdriver"
             width={40}
             height={40}
             className="h-10 w-auto"
           />
-          <span className="text-xs sm:text-sm md:text-base font-semibold">
+          <span className="text-xs sm:text-sm md:text-base font-semibold leading-tight">
             <span className="mr-1" aria-hidden>
               🌐
             </span>
@@ -28,8 +28,8 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* MENU DESKTOP */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-bold">
+        {/* MENU DESKTOP – PREMIUM ++ */}
+        <nav className="hidden md:flex items-center gap-8 text-sm md:text-base font-bold">
           <Link href="/" className="hover:underline">
             Início
           </Link>
@@ -73,65 +73,68 @@ export default function Header() {
         </button>
       </div>
 
-      {/* MENU MOBILE ABERTO */}
-     {menuOpen && (
-  <nav
-    className="
-      md:hidden 
-      px-6 pb-4 pt-2 
-      text-base font-semibold
-      bg-white/10 
-      backdrop-blur-md 
-      border-t border-white/20 
-      shadow-lg
-    "
-  >
-    <Link
-      href="/"
-      className="block py-2.5 border-b border-white/10"
-      onClick={() => setMenuOpen(false)}
-    >
-      Início
-    </Link>
+      {/* MENU MOBILE – GLASS EFFECT PREMIUM */}
+      {menuOpen && (
+        <nav
+          className="
+            md:hidden 
+            px-6 pb-4 pt-2 
+            text-base font-semibold
+            bg-white/10 
+            backdrop-blur-md 
+            border-t border-white/20 
+            shadow-lg
+          "
+        >
+          <Link
+            href="/"
+            className="block py-2.5 border-b border-white/10"
+            onClick={() => setMenuOpen(false)}
+          >
+            Início
+          </Link>
 
-    <Link
-      href="/proposito"
-      className="block py-2.5 border-b border-white/10"
-      onClick={() => setMenuOpen(false)}
-    >
-      Propósito
-    </Link>
+          <Link
+            href="/proposito"
+            className="block py-2.5 border-b border-white/10"
+            onClick={() => setMenuOpen(false)}
+          >
+            Propósito
+          </Link>
 
-    <Link
-      href="/caminhoes-eletricos"
-      className="block py-2.5 border-b border-white/10"
-      onClick={() => setMenuOpen(false)}
-    >
-      Caminhões Elétricos <span aria-hidden>⚡</span>
-    </Link>
+          <Link
+            href="/caminhoes-eletricos"
+            className="block py-2.5 border-b border-white/10"
+            onClick={() => setMenuOpen(false)}
+          >
+            Caminhões Elétricos <span aria-hidden>⚡</span>
+          </Link>
 
-    <Link
-      href="/planos"
-      className="block py-2.5 border-b border-white/10"
-      onClick={() => setMenuOpen(false)}
-    >
-      Planos
-    </Link>
+          <Link
+            href="/planos"
+            className="block py-2.5 border-b border-white/10"
+            onClick={() => setMenuOpen(false)}
+          >
+            Planos
+          </Link>
 
-    <Link
-      href="/pneus"
-      className="block py-2.5 border-b border-white/10"
-      onClick={() => setMenuOpen(false)}
-    >
-      Pneus
-    </Link>
+          <Link
+            href="/pneus"
+            className="block py-2.5 border-b border-white/10"
+            onClick={() => setMenuOpen(false)}
+          >
+            Pneus
+          </Link>
 
-    <Link
-      href="/inspecao-manutencao"
-      className="block py-2.5"
-      onClick={() => setMenuOpen(false)}
-    >
-      Inspeção e Manutenção
-    </Link>
-  </nav>
-)}
+          <Link
+            href="/inspecao-manutencao"
+            className="block py-2.5"
+            onClick={() => setMenuOpen(false)}
+          >
+            Inspeção e Manutenção
+          </Link>
+        </nav>
+      )}
+    </header>
+  );
+}
