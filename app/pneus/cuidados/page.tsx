@@ -99,7 +99,7 @@ export default function CuidadosPneusPage() {
           Cuidados Operacionais dos Pneus
         </h1>
         <p className="mt-2 text-slate-600 max-w-3xl">
-          Cuidados para aumentar segurança, rendimento e vida útil dos pneus do seu caminhão.
+          Cuidados para aumentar a segurança, rendimento e vida útil dos pneus do seu caminhão.
         </p>
       </header>
 
