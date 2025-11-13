@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Pneus | Cuidados Operacionais | OTIAdriver",
   description:
-    "Manual visual de cuidados operacionais dos pneus: calibragem, pressão ideal, inspeção visual, profundidade do sulco, controle de desgaste, alinhamento, rodízio e recapagem.",
+    "Cuidados operacionais dos pneus: calibragem, pressão ideal, inspeção visual, profundidade do sulco, controle de desgaste, alinhamento, rodízio e recapagem.",
 };
 
 type Care = {
