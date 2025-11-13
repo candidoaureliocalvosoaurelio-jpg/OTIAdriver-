@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-8">
         {/* Título à esquerda (sem 2ª linha) */}
         <Link href="/" className="font-semibold text-sm md:text-base tracking-tight">
           🌐 Plataforma Oficial <span className="font-extrabold">OTIAdriver</span>
