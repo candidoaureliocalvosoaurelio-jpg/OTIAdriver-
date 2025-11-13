@@ -55,7 +55,7 @@ export default function PneusPage() {
           </p>
           <Link href="/pneus/cuidados">
             <span className="inline-flex items-center justify-center px-8 py-3 rounded-lg font-bold shadow-sm bg-black text-white hover:bg-black/90 active:translate-y-px transition">
-              Acessar Manual
+              Acessar as Informações
             </span>
           </Link>
         </div>
