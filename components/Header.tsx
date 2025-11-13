@@ -14,7 +14,7 @@ export default function Header() {
         </Link>
 
         {/* Menu desktop */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
           <Link href="/" className="hover:underline">Início</Link>
           <Link href="/proposito" className="hover:underline">Propósito</Link>
           <Link href="/caminhoes-eletricos" className="hover:underline">Caminhões Elétricos <span aria-hidden>⚡</span></Link>
