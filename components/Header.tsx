@@ -8,22 +8,31 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-2">
-        {/* TÍTULO ESQUERDA (sem logo) */}
-        <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="text-sm md:text-base">🌐 Plataforma Oficial <span className="font-extrabold">OTIAdriver</span></span>
+        {/* BLOCO ESQUERDO: Título + Slogan */}
+        <Link href="/" className="flex items-center gap-2">
+          <div className="leading-tight">
+            <div className="font-semibold tracking-tight text-sm md:text-base">
+              🌐 Plataforma Oficial <span className="font-extrabold">OTIAdriver</span>
+            </div>
+            <div className="text-[11px] md:text-xs text-white/85">
+              <span className="font-semibold">OTIAdriver</span> • Conhecimento Inteligente para Motoristas
+            </div>
+          </div>
         </Link>
 
         {/* MENU DESKTOP */}
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           <Link href="/" className="hover:underline">Início</Link>
           <Link href="/proposito" className="hover:underline">Propósito</Link>
-          <Link href="/caminhoes-eletricos" className="hover:underline">Caminhões Elétricos <span aria-hidden>⚡</span></Link>
+          <Link href="/caminhoes-eletricos" className="hover:underline">
+            Caminhões Elétricos <span aria-hidden>⚡</span>
+          </Link>
           <Link href="/planos" className="hover:underline">Planos</Link>
           <Link href="/pneus" className="hover:underline">Pneus</Link>
           <Link href="/inspecao-manutencao" className="hover:underline">Inspeção e Manutenção</Link>
         </nav>
 
-        {/* MENU MOBILE (hambúrguer) */}
+        {/* MENU MOBILE */}
         <button
           className="md:hidden p-2 rounded hover:bg-white/10"
           aria-label="Abrir menu"
