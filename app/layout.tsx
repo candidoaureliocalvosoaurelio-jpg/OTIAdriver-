@@ -29,7 +29,7 @@ export default function RootLayout({
           id="site-hero"
           className="max-w-7xl mx-auto px-4 pt-6 pb-6 md:pb-8 text-center"
         >
-          <h1 className="text-[44px] md:text-6xl font-extrabold tracking-tight leading-tight">
+          <h1 className="text-[52px] md:text-6xl font-extrabold tracking-tight leading-tight">
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
           </h1>
