@@ -13,7 +13,7 @@ export default function Header() {
         {/* LOGO + TEXTO */}
         <Link href="/" className="flex items-center gap-3">
           <Image
-            src="/images/logo-otia.png"
+            src="/images/logo/otiadriver-logo.png"
             alt="Logomarca OTIAdriver"
             width={40}
             height={40}
