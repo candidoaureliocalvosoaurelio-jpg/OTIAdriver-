@@ -10,17 +10,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
-        {/* LOGO + TEXTO MARCA */}
-        <Link href="/" className="flex items-center gap-3">
-          <Image
-            src="/images/logo/otiadriver-logo.png" // <--- caminho da logo
-            alt="Logomarca OTIAdriver"
-            width={56}
-            height={56}
-            className="h-12 w-auto"
-          />
-
-          <div className="leading-tight">
+        <div className="leading-tight">
             {/* Linha 1 – Plataforma Oficial */}
             <span className="text-[11px] sm:text-xs md:text-sm font-semibold">
               <span className="mr-1" aria-hidden>
