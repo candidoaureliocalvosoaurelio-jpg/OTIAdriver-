@@ -23,7 +23,7 @@ export default function Header() {
           <div className="leading-tight">
             {/* Linha 1 – Plataforma Oficial */}
             <span className="text-[11px] sm:text-xs md:text-sm font-semibold">
-              <span className="mr-1" aria-hidden>
+              <span className="mr-1 text-2xl" aria-hidden>
                 🌐
               </span>
               Plataforma Oficial
