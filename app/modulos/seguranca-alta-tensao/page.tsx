@@ -2,7 +2,7 @@
 import React from "react";
 
 export const metadata = {
-  title: "Cabos Laranjas e 800 Volts — Segurança Alta Tensão | OTIAdriver",
+  title: "Cabos Laranjas e 800 Volts – Segurança Alta Tensão | OTIAdriver",
   description:
     "Módulo de treinamento sobre identificação de riscos de alta tensão, procedimentos de emergência e inspeção visual em caminhões elétricos.",
 };
@@ -22,82 +22,40 @@ export default function SegurancaAltaTensaoPage() {
       </header>
 
       <section className="prose max-w-none">
-        <p>
-          O caminhão elétrico elimina a fumaça, mas introduz um novo risco
-          invisível: <strong>a eletricidade de alta tensão (HV)</strong>. Entender
-          onde essa energia está e como ela é sinalizada é a primeira regra de
-          segurança do motorista de VE.
-        </p>
-
         <h2>1. Onde está a Alta Tensão?</h2>
         <p>
           Os sistemas de alta tensão operam tipicamente entre <strong>400V e
-          800V</strong>, energia suficiente para ser fatal. Os principais
-          componentes que devem ser observados:
+          800V</strong>, energia suficiente para ser fatal.
         </p>
+
         <ul>
-          <li>
-            <strong>Baterias:</strong> o principal reservatório, geralmente no
-            chassi ou sob a cabine.
-          </li>
-          <li>
-            <strong>Cabos de Alta Tensão:</strong> linhas grossas com isolamento
-            laranja que conectam baterias, motor e sistema de carregamento.
-          </li>
-          <li>
-            <strong>Motor Elétrico:</strong> onde a energia é convertida em
-            movimento.
-          </li>
+          <li><strong>Baterias:</strong> principal reservatório, geralmente no chassi ou sob a cabine.</li>
+          <li><strong>Cabos de Alta Tensão:</strong> linhas grossas que conectam baterias ao motor e ao sistema de carregamento.</li>
+          <li><strong>Motor Elétrico:</strong> onde a energia é convertida em movimento.</li>
         </ul>
 
-        <blockquote>
-          <strong>⚠️ Regra Crucial OTIAdriver:</strong> no transporte elétrico,
-          <em> o laranja é o novo vermelho</em>. Nunca tocar, cortar ou
-          interferir em componentes com isolamento laranja.
+        <blockquote className="border-l-4 pl-4 italic">
+          ⚠️ <strong>Regra Crucial da OTIAdriver:</strong> no transporte elétrico o <em>laranja</em> sinaliza alta tensão. Nunca toque, corte ou interfira em componentes laranja.
         </blockquote>
 
         <h2>2. Procedimentos de Inspeção Visual (Checklist Diário)</h2>
-        <p>
-          Antes de iniciar a jornada, inclua estes itens na inspeção visual:
-        </p>
+        <p>Antes de sair, o motorista deve checar:</p>
         <ol>
-          <li>
-            <strong>Integridade do chassi:</strong> verifique impactos ou
-            deformações.
-          </li>
-          <li>
-            <strong>Cabos laranjas:</strong> procure fios soltos, rachaduras,
-            isolamento rompido.
-          </li>
-          <li>
-            <strong>Vazamentos de fluido:</strong> fluido perto da caixa da
-            bateria pode indicar dano sério.
-          </li>
-          <li>
-            <strong>Sinalização no painel:</strong> atente-se a luzes/alertas do
-            sistema HV.
-          </li>
+          <li><strong>Integridade do chassi:</strong> procurar impactos ou deformações.</li>
+          <li><strong>Cabos laranjas:</strong> verificar se estão soltos, rachados ou com o isolamento danificado.</li>
+          <li><strong>Vazamentos:</strong> fluidos perto da caixa da bateria são sinal de problema.</li>
+          <li><strong>Sinalização no painel:</strong> qualquer luz de advertência ligada deve ser investigada.</li>
         </ol>
 
         <h2>3. Ação Imediata em Caso de Acidente</h2>
         <ul>
-          <li>
-            <strong>Mantenha distância:</strong> em caso de fumaça, fogo ou
-            vazamento, fique a pelo menos <strong>15 metros</strong>.
-          </li>
-          <li>
-            <strong>Chame emergência e o fabricante:</strong> informe que é um
-            veículo elétrico de alta tensão.
-          </li>
-          <li>
-            <strong>Nunca desconecte cabos:</strong> somente resgatistas treinados
-            ou técnicos qualificados devem desenergizar o sistema.
-          </li>
+          <li><strong>Mantenha distância segura:</strong> em caso de fumaça/fogo, ficar a pelo menos 15 metros.</li>
+          <li><strong>Chame a emergência e o fabricante:</strong> informe que é veículo elétrico de alta tensão.</li>
+          <li><strong>Nunca tente desconectar cabos:</strong> somente resgate treinado ou técnicos qualificados podem desenergizar.</li>
         </ul>
 
-        <h3>Referência rápida</h3>
-        <p>
-          Tags: <em>elétrico · alta-tensão · segurança</em>
+        <p className="mt-4 text-sm text-gray-700">
+          Conteúdo criado por <strong>Equipe Técnica OTIAdriver</strong>.
         </p>
       </section>
     </main>
