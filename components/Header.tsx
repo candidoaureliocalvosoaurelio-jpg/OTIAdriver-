@@ -9,14 +9,19 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
-        {/* TEXTO: 🌐 Plataforma Oficial OTIAdriver */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-xs sm:text-sm md:text-base font-semibold">
-            <span
-              className="mr-2 text-lg sm:text-xl md:text-2xl align-middle"
-              aria-hidden
-            >
-              🌐
+        <div className="leading-tight">
+            {/* Linha 1 – Plataforma Oficial */}
+            <span className="text-[11px] sm:text-xs md:text-sm font-semibold">
+              <span className="mr-1" aria-hidden>
+                🌐
+              </span>
+              Plataforma Oficial
+            </span>
+
+            {/* Linha 2 – OTIAdriver com cores de marca */}
+            <span className="block text-sm sm:text-base md:text-lg font-extrabold tracking-tight">
+              <span className="text-[#003F9A]">OTIA</span>
+              <span className="text-[#15B8B2]">driver</span>
             </span>
             Plataforma Oficial{" "}
             <span className="font-extrabold">OTIAdriver</span>
