@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 
 export default function Header() {
@@ -24,7 +23,9 @@ export default function Header() {
               <span className="text-[#003F9A]">OTIA</span>
               <span className="text-[#15B8B2]">driver</span>
             </span>
-          </div>
+            Plataforma Oficial{" "}
+            <span className="font-extrabold">OTIAdriver</span>
+          </span>
         </Link>
 
         {/* MENU DESKTOP */}
