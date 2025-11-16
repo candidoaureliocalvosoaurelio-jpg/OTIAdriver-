@@ -8,30 +8,29 @@ import matter from 'gray-matter';
 import { notFound } from 'next/navigation';
 import { cache } from 'react'; // Importação recomendada pelo Next.js
 
-// 1. CORREÇÃO DO CAMINHO: Usa path.resolve para garantir que o Vercel encontre o arquivo
 const getContent = cache(async () => {
+    // Usa path.resolve para criar um caminho absoluto a partir da raiz do projeto
     const CONTENT_PATH = path.resolve(process.cwd(), 'content', 'modulos', 'seguranca-alta-tensao.md');
     
     let content;
 
     try {
-        // Tenta ler o arquivo de conteúdo do disco
+        // Tenta ler o arquivo de conteúdo
         content = await fs.readFile(CONTENT_PATH, 'utf-8');
     } catch (error) {
-        // Se o arquivo não for encontrado, exibe a página 404
-        console.error("Erro ao ler arquivo Markdown:", error);
-        notFound();
+        // Registra o erro e retorna nulo para evitar o crash do build
+        console.error("ERRO CRÍTICO DE BUILD: Não foi possível ler o arquivo Markdown:", CONTENT_PATH, error);
+        return null;
     }
 
-    // 2. Separa o Frontmatter (metadados) do conteúdo
+    // Se o conteúdo for lido com sucesso:
     const { data: frontmatter, content: mdxContent } = matter(content);
 
-    // 3. Serializa o conteúdo MDX para ser renderizado com segurança
+    // Finaliza a serialização
     const source = await serialize(mdxContent, { parseFrontmatter: true });
 
     return { source, data: frontmatter };
 });
-
 
 // 4. Componente Principal (agora usando a função cacheada)
 export default async function SegurancaAltaTensaoPage() {
