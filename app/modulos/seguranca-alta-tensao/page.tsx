@@ -9,16 +9,24 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 const getContent = cache(async () => {
-  const CONTENT_PATH = path.join(
-    process.cwd(),
-    "content",
-    "modulos",
-    "seguranca-alta-tensao.md"
-  );
+    // Usa path.resolve para criar um caminho absoluto a partir da raiz do projeto
+    const CONTENT_PATH = path.resolve(process.cwd(), 'content', 'modulos', 'seguranca-alta-tensao.md');
+    
+    let content;
 
-  try {
-    const raw = await fs.readFile(CONTENT_PATH, "utf-8");
-    const { data: frontmatter, content: mdxContent } = matter(raw);
+    try {
+        // Tenta ler o arquivo de conteúdo
+        content = await fs.readFile(CONTENT_PATH, 'utf-8');
+    } catch (error) {
+        // Registra o erro e retorna nulo para evitar o crash do build
+        console.error("ERRO CRÍTICO DE BUILD: Não foi possível ler o arquivo Markdown:", CONTENT_PATH, error);
+        return null;
+    }
+
+    // Se o conteúdo for lido com sucesso:
+    const { data: frontmatter, content: mdxContent } = matter(content);
+
+    // Finaliza a serialização
     const source = await serialize(mdxContent, { parseFrontmatter: true });
     return { source, data: frontmatter };
   } catch (error) {
@@ -28,6 +36,7 @@ const getContent = cache(async () => {
   }
 });
 
+// 4. Componente Principal (agora usando a função cacheada)
 export default async function SegurancaAltaTensaoPage() {
   const result = await getContent();
   if (!result) {
