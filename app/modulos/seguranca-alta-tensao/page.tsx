@@ -1,12 +1,12 @@
 // app/modulos/seguranca-alta-tensao/page.tsx
 
-import { promises as fs } from 'fs';
+import promises as fs from 'fs';
 import path from 'path';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
+import serialize from 'next-mdx-remote/serialize';
+import MDXRemote from 'next-mdx-remote';
 import matter from 'gray-matter';
-import { notFound } from 'next/navigation';
-import { cache } from 'react'; // Importação recomendada pelo Next.js
+import notFound from 'next/navigation';
+import cache from 'react'; // Importação recomendada pelo Next.js
 
 // 1. CORREÇÃO DO CAMINHO: Usa path.resolve para garantir que o Vercel encontre o arquivo
 const getContent = cache(async () => {
