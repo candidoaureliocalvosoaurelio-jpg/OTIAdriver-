@@ -1,7 +1,7 @@
 // app/caminhoes-eletricos/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { electricTrucks } from "@/data/electricTrucks";
+import { electricTrucks } from "@/data/electricTrucks"; // Presume que este import é necessário
 
 export const metadata = {
   title: "Caminhões Elétricos ⚡ | OTIAdriver",
@@ -9,37 +9,49 @@ export const metadata = {
     "Galeria oficial dos caminhões elétricos — inovação, energia limpa e inteligência OTIAdriver.",
 };
 
-// Dados estruturados para o NOVO ÍNDICE DE MÓDULOS DE TREINAMENTO (MÓDULOS 1-5)
+// DADOS ESTRUTURADOS FINAIS PARA O ÍNDICE DE MÓDULOS (MÓDULOS 1-7)
 const trainingModules = [
   {
     title: "Módulo 01: Segurança com Alta Tensão (NR 10)",
     description: "Protocolos essenciais para manuseio de alta tensão e emergências.",
     slug: "seguranca-alta-tensao",
-    color: "border-red-600 bg-red-50 hover:bg-red-100", // Risco / Obrigatório
+    color: "border-red-600 bg-red-50 hover:bg-red-100",
   },
   {
     title: "Módulo 02: Carregamento e Maximização de Autonomia",
     description: "Condução ecológica (Eco-Driving) e Protocolos de Recarga Segura.",
     slug: "carregamento-eficiente",
-    color: "border-green-600 bg-green-50 hover:bg-green-100", // Eficiência / Economia
+    color: "border-green-600 bg-green-50 hover:bg-green-100",
   },
   {
     title: "Módulo 03: Inspeção, Diagnóstico e Telemetria",
     description: "Check-list de Bateria (SoH), Freios e Leitura de Telemetria.",
     slug: "inspecao-diagnostico-ev",
-    color: "border-blue-600 bg-blue-50 hover:bg-blue-100", // Tecnologia / Diagnóstico
+    color: "border-blue-600 bg-blue-50 hover:bg-blue-100",
   },
   {
     title: "Módulo 04: Legislação e Conformidade Regulatória",
     description: "Requisitos legais, CNH para VEs e Documentação de Cargas.",
     slug: "conformidade-legal",
-    color: "border-yellow-600 bg-yellow-50 hover:bg-yellow-100", // Legal / Conformidade
+    color: "border-yellow-600 bg-yellow-50 hover:bg-yellow-100",
   },
   {
     title: "Módulo 05: Fator Humano e Dirigibilidade Defensiva",
     description: "Gestão de fadiga, estresse e desafios da condução de VEs silenciosos.",
-    slug: "fator-humano-dirigibilidade", // <-- MÓDULO FINAL
-    color: "border-purple-600 bg-purple-50 hover:bg-purple-100", // Pessoal / Habilidade
+    slug: "fator-humano-dirigibilidade",
+    color: "border-purple-600 bg-purple-50 hover:bg-purple-100",
+  },
+  {
+    title: "Módulo 06: Eficiência em Frotas a Diesel (Transição)",
+    description: "Técnicas de Eco-Driving, RPM e manutenção para economia de diesel.",
+    slug: "eficiencia-diesel",
+    color: "border-gray-600 bg-gray-100 hover:bg-gray-200",
+  },
+  {
+    title: "Módulo 07: TCO, Análise Financeira e Sustentabilidade",
+    description: "Compreensão do TCO, ROI de VEs e impacto da frota nos relatórios ESG.",
+    slug: "analise-tco-sustentabilidade",
+    color: "border-teal-600 bg-teal-100 hover:bg-teal-200",
   },
 ];
 
