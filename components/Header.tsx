@@ -9,10 +9,11 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
-        
-        {/* CORREÇÃO DA SINTAXE E ANINHAMENTO DO LOGO */}
-        {/* Abrir o Link que faltava, envolvendo todo o título */}
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+        {/* LOGO / MARCA */}
+        <Link
+          href="/"
+          className="flex items-center hover:opacity-80 transition-opacity"
+        >
           <div className="leading-tight">
             {/* Linha 1 – Plataforma Oficial */}
             <span className="text-[11px] sm:text-xs md:text-sm font-semibold">
@@ -27,10 +28,8 @@ export default function Header() {
               <span className="text-[#003F9A]">OTIA</span>
               <span className="text-[#15B8B2]">driver</span>
             </span>
-            {/* Texto extra do logo (removido para evitar erro de aninhamento) */}
           </div>
         </Link>
-        {/* O fechamento do Link está agora correto */}
 
         {/* MENU DESKTOP */}
         <nav className="hidden md:flex items-center gap-8 text-[15px] font-bold">
@@ -57,7 +56,7 @@ export default function Header() {
         {/* BOTÃO MENU MOBILE */}
         <button
           className="md:hidden p-2 rounded hover:bg-white/10"
-          aria-label="Abrir menu"
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <svg
@@ -68,11 +67,11 @@ export default function Header() {
             stroke="currentColor"
           >
             <path
-             strokeLinecap="round"
-             strokeLinejoin="round"
-             strokeWidth={2}
-             d="M4 6h16M4 12h16M4 18h16"
-             />
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
         </button>
       </div>
@@ -80,7 +79,11 @@ export default function Header() {
       {/* MENU MOBILE ABERTO */}
       {menuOpen && (
         <nav className="md:hidden px-6 pb-4 text-sm font-semibold bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] border-t border-white/20">
-          <Link href="/" className="block py-2" onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/"
+            className="block py-2"
+            onClick={() => setMenuOpen(false)}
+          >
             Início
           </Link>
           <Link
