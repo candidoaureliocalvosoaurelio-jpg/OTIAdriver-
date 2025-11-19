@@ -1,4 +1,4 @@
----
+import { promises as fs } from 'fs';
 # Bloco de Informação do Artigo (Frontmatter)
 title: "Cabos Laranjas e 800 Volts: Guia de Segurança com Alta Tensão para Motoristas de VE"
 description: "Módulo de treinamento essencial sobre identificação de riscos de alta tensão, procedimentos de emergência e inspeção visual em caminhões elétricos."
@@ -9,7 +9,6 @@ tags:
   - eletrico
   - alta-tensao
   - seguranca
----
 
 # ⚡ Módulo 1A: Segurança com Alta Tensão (O Risco Invisível)
 
