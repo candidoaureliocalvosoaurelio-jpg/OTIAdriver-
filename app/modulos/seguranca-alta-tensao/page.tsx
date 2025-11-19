@@ -1,43 +1,53 @@
----
-# Bloco de Informação do Artigo (Frontmatter)
-title: "Cabos Laranjas e 800 Volts: Guia de Segurança com Alta Tensão para Motoristas de VE"
-description: "Módulo de treinamento essencial sobre identificação de riscos de alta tensão, procedimentos de emergência e inspeção visual em caminhões elétricos."
-author: "Equipe Técnica OTIAdriver"
-date: 2025-11-15
-category: Segurança Elétrica
-tags:
-  - eletrico
-  - alta-tensao
-  - seguranca
----
+// app/modulos/seguranca-alta-tensao/page.tsx
+// ESTE CÓDIGO FINAL E COMPLETO CORRIGE A SINTAXE E O BUILD
 
-# ⚡ Módulo 1A: Segurança com Alta Tensão (O Risco Invisível)
+import { promises as fs } from 'fs';
+import path from 'path';
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
+import matter from 'gray-matter';
+import { notFound } from 'next/navigation';
+import { cache } from 'react';
 
-O caminhão elétrico elimina a fumaça, mas introduz um novo risco invisível: **a eletricidade de alta tensão (HV)**. Entender onde essa energia está e como ela é sinalizada é a primeira regra de segurança do motorista de VE.
+// Define o caminho para o arquivo .md
+const getContent = cache(async () => {
+    // Usa path.resolve para garantir o caminho absoluto no servidor
+    const CONTENT_PATH = path.resolve(process.cwd(), 'content', 'modulos', 'seguranca-alta-tensao.md');
+    
+    let content;
 
-## 1. Onde está a Alta Tensão?
+    try {
+        content = await fs.readFile(CONTENT_PATH, 'utf-8');
+    } catch (error) {
+        // Se o arquivo não for encontrado, exibe a página 404
+        console.error("Erro ao ler arquivo Markdown:", CONTENT_PATH, error);
+        notFound();
+    }
 
-Os sistemas de alta tensão operam tipicamente entre **400V e 800V**, energia suficiente para ser fatal.
+    const { data: frontmatter, content: mdxContent } = matter(content);
+    const source = await serialize(mdxContent, { parseFrontmatter: true });
 
-* **Baterias:** O principal reservatório, localizado geralmente no chassi ou sob a cabine.
-* **Cabos de Alta Tensão:** Linhas de energia grossas que conectam as baterias ao motor e ao sistema de carregamento.
-* **Motor Elétrico:** Onde a energia é convertida em movimento.
+    return { source, data: frontmatter };
+});
 
-> **⚠️ Regra Crucial da OTIAdriver:** No transporte elétrico, o **laranja é o novo vermelho**. Qualquer componente ou fiação coberta por um isolamento laranja indica que contém eletricidade de alta tensão. O motorista **nunca** deve tocar, cortar ou interferir nesses componentes.
 
-## 2. Procedimentos de Inspeção Visual (Checklist Diário)
+export default async function SegurancaAltaTensaoPage() {
+    const result = await getContent();
+    
+    if (!result) {
+        return notFound();
+    }
 
-Antes de iniciar a jornada, o motorista deve incluir os seguintes itens na inspeção visual:
+    const { source, data } = result;
 
-1.  **Integridade do Chassi:** Verificar se houve qualquer impacto na estrutura do caminhão.
-2.  **Cabos Laranjas:** Verificar se há cabos laranjas soltos, danificados, rachados ou com isolamento rompido.
-3.  **Vazamentos de Fluido:** Vazamentos incomuns de fluido perto da caixa da bateria podem indicar danos graves e risco de choque.
-4.  **Sinalização no Painel:** Ficar atento a qualquer luz de advertência relacionada ao sistema de alta tensão.
-
-## 3. Ação Imediata em Caso de Acidente
-
-Em caso de colisão ou evento que possa ter danificado o sistema HV:
-
-* **Mantenha a Distância Segura:** Em caso de fumaça, fogo ou vazamento visível, **mantenha-se a pelo menos 15 metros de distância**.
-* **Chame a Emergência e o Fabricante:** Ligue para os serviços de emergência (193/Bombeiros) e informe que se trata de um veículo elétrico de alta tensão.
-* **Nunca Tente Desconectar Cabos:** Somente pessoal de resgate treinado ou técnicos qualificados devem tentar desenergizar o sistema. Priorize a própria segurança e a sinalização do local.
+    return (
+        <div className="container mx-auto p-8 max-w-4xl">
+            <h1 className="text-4xl font-bold mb-4">{data?.title || "Módulo de Segurança"}</h1>
+            <p className="text-gray-500 mb-8">Por: {data?.author || "OTIAdriver"} | Data: {data?.date || "—"}</p>
+            
+            <article className="prose lg:prose-xl">
+                <MDXRemote {...source} />
+            </article>
+        </div>
+    );
+}
