@@ -1,5 +1,3 @@
-// app/modulos/introducao/page.jsx
-
 export default function IntroducaoPage() {
   return (
     <main style={{ padding: 32 }}>
@@ -8,8 +6,13 @@ export default function IntroducaoPage() {
       </h1>
 
       <p style={{ fontSize: 18, marginBottom: 12 }}>
-        Esta é uma página extremamente simples só para confirmar que a rota
-        <code> /modulos/introducao </code> está funcionando.
+        Esta é a página estática do módulo <strong>Introdução</strong>.
+      </p>
+
+      <p style={{ fontSize: 16 }}>
+        Se você está vendo esta página em{" "}
+        <code>/modulos/introducao</code>, significa que tudo está funcionando
+        corretamente.
       </p>
     </main>
   );
