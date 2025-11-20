@@ -11,8 +11,8 @@ export default function IntroducaoPage() {
 
       <p style={{ fontSize: 16 }}>
         Se você está vendo esta página em{" "}
-        <code>/modulos/introducao</code>, significa que tudo está funcionando
-        corretamente.
+        <code>/modulos/introducao</code>, significa que a rota está configurada
+        corretamente e o Next.js está encontrando o componente React desta página.
       </p>
     </main>
   );
