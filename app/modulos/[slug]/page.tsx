@@ -8,52 +8,21 @@ type ModuloPageProps = {
   params: { slug: string };
 };
 
-const MODULOS_DIR = path.join(process.cwd(), "content", "modulos");
-
-// Gera as rotas estáticas com base nos arquivos .md em content/modulos
-export async function generateStaticParams() {
-  const exists = fs.existsSync(MODULOS_DIR);
-  const files = exists ? fs.readdirSync(MODULOS_DIR) : [];
-
-  console.log("generateStaticParams -> MODULOS_DIR =", MODULOS_DIR);
-  console.log("generateStaticParams -> exists      =", exists);
-  console.log("generateStaticParams -> files       =", files);
-
-  return files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => ({
-      slug: file.replace(".md", ""),
-    }));
-}
-
 export default function ModuloPage({ params }: ModuloPageProps) {
-  const filePath = path.join(MODULOS_DIR, `${params.slug}.md`);
-  const exists = fs.existsSync(filePath);
+  const filePath = path.join(
+    process.cwd(),
+    "content",
+    "modulos",
+    `${params.slug}.md`
+  );
 
-  console.log("ModuloPage -> MODULOS_DIR =", MODULOS_DIR);
-  console.log("ModuloPage -> filePath    =", filePath);
-  console.log("ModuloPage -> exists      =", exists);
-
-  // Em vez de mandar 404, vamos mostrar debug na tela se não achar
-  if (!exists) {
+  // Se o arquivo .md não existir, mostra mensagem amigável
+  if (!fs.existsSync(filePath)) {
     return (
       <main style={{ padding: 32 }}>
-        <h1>DEBUG – Arquivo não encontrado</h1>
-        <p>
-          <strong>Slug:</strong> {params.slug}
-        </p>
-        <p>
-          <strong>MODULOS_DIR:</strong> {MODULOS_DIR}
-        </p>
-        <p>
-          <strong>filePath:</strong> {filePath}
-        </p>
-        <p>
-          <strong>fs.existsSync(filePath):</strong> {String(exists)}
-        </p>
-        <p>
-          Verifique se esse caminho existe exatamente no Windows Explorer.
-        </p>
+        <h1>Módulo não encontrado</h1>
+        <p>Slug: {params.slug}</p>
+        <p>Esperado em: {filePath}</p>
       </main>
     );
   }
@@ -69,7 +38,7 @@ export default function ModuloPage({ params }: ModuloPageProps) {
       </h1>
 
       {data.description && (
-        <p className="text-gray-600 mb-6">{data.description}</p>
+        <p className="text-gray-700 mb-6">{data.description}</p>
       )}
 
       <article
