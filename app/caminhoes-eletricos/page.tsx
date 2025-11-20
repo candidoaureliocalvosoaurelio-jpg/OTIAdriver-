@@ -49,15 +49,17 @@ const trainingModules = [
     slug: "analise-tco-sustentabilidade",
   },
   {
-    title: "Módulo 08: Logística de Risco e Carga de Baterias",
-    description: "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
-    slug: "logistica-risco-baterias",
-  },
-  {
-    title: "Módulo 09: IA Embarcada e Copiloto Digital",
-    description: "Uso do copiloto OTIAdriver, análise de dados em tempo real e suporte à tomada de decisão na operação.",
-    slug: "copiloto-digital-otia",
-  },
+  title: "Módulo 08: Logística de Risco e Carga de Baterias",
+  description:
+    "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
+  slug: "logistica-de-risco-e-carga-de-baterias",
+},
+{
+  title: "Módulo 09: Cuidados Operacionais e Conformidade EURO 6",
+  description:
+    "Guia sobre ARLA 32, filtragem, lubrificação e conformidade ambiental EURO 6.",
+  slug: "cuidados-operacionais-e-conformidade-euro-6",
+},
 ];
 
 export default function ElectricTrucksPage() {
