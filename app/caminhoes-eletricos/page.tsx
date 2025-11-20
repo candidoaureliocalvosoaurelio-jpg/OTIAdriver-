@@ -9,61 +9,54 @@ export const metadata = {
     "Galeria oficial dos caminhões elétricos — inovação, energia limpa e inteligência OTIAdriver.",
 };
 
-// DADOS ESTRUTURADOS FINAIS PARA O ÍNDICE DE MÓDULOS (MÓDULOS 1-9)
+// ÍNDICE DE MÓDULOS (MÓDULOS 1-9)
 const trainingModules = [
   {
     title: "Módulo 01: Segurança com Alta Tensão (NR 10)",
-    description: "Protocolos essenciais para manuseio de alta tensão e emergências.",
+    description:
+      "Protocolos essenciais para manuseio de alta tensão e emergências.",
     slug: "seguranca-alta-tensao",
-    color: "border-red-600 bg-red-50 hover:bg-red-100",
   },
   {
     title: "Módulo 02: Carregamento e Maximização de Autonomia",
-    description: "Condução ecológica (Eco-Driving) e Protocolos de Recarga Segura.",
+    description:
+      "Condução ecológica (Eco-Driving) e Protocolos de Recarga Segura.",
     slug: "carregamento-eficiente",
-    color: "border-green-600 bg-green-50 hover:bg-green-100",
   },
   {
     title: "Módulo 03: Inspeção, Diagnóstico e Telemetria",
     description: "Check-list de Bateria (SoH), Freios e Leitura de Telemetria.",
     slug: "inspecao-diagnostico-ev",
-    color: "border-blue-600 bg-blue-50 hover:bg-blue-100",
   },
   {
     title: "Módulo 04: Legislação e Conformidade Regulatória",
     description: "Requisitos legais, CNH para VEs e Documentação de Cargas.",
     slug: "conformidade-legal",
-    color: "border-yellow-600 bg-yellow-50 hover:bg-yellow-100",
   },
   {
     title: "Módulo 05: Fator Humano e Dirigibilidade Defensiva",
     description: "Gestão de fadiga, estresse e desafios da condução de VEs silenciosos.",
     slug: "fator-humano-dirigibilidade",
-    color: "border-purple-600 bg-purple-50 hover:bg-purple-100",
   },
   {
     title: "Módulo 06: Eficiência em Frotas a Diesel (Transição)",
     description: "Técnicas de Eco-Driving, RPM e manutenção para economia de diesel.",
     slug: "eficiencia-diesel",
-    color: "border-gray-600 bg-gray-100 hover:bg-gray-200",
   },
   {
     title: "Módulo 07: TCO, Análise Financeira e Sustentabilidade",
     description: "Compreensão do TCO, ROI de VEs e impacto da frota nos relatórios ESG.",
     slug: "analise-tco-sustentabilidade",
-    color: "border-teal-600 bg-teal-100 hover:bg-teal-200",
   },
   {
     title: "Módulo 08: Logística de Risco e Carga de Baterias",
     description: "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
     slug: "logistica-risco-baterias",
-    color: "border-orange-600 bg-orange-50 hover:bg-orange-100",
   },
   {
     title: "Módulo 09: IA Embarcada e Copiloto Digital",
     description: "Uso do copiloto OTIAdriver, análise de dados em tempo real e suporte à tomada de decisão na operação.",
     slug: "copiloto-digital-otia",
-    color: "border-indigo-600 bg-indigo-50 hover:bg-indigo-100",
   },
 ];
 
@@ -81,7 +74,7 @@ export default function ElectricTrucksPage() {
         </p>
       </div>
 
-      {/* ÍNDICE DE MÓDULOS DE TREINAMENTO (PORTAL DE CONHECIMENTO) */}
+      {/* ÍNDICE DE MÓDULOS DE TREINAMENTO */}
       <section className="mb-12 p-6 md:p-10 bg-gray-50 rounded-xl shadow-2xl shadow-gray-200">
         <h2 className="text-3xl font-bold text-gray-900 mb-6 border-b pb-2">
           📚 Portal de Certificação OTIAdriver
@@ -91,19 +84,23 @@ export default function ElectricTrucksPage() {
           frotas elétricas.
         </p>
 
-        {/* Lista de Módulos Responsiva (Grid 1 coluna em mobile, 3 colunas em desktop) */}
+        {/* Grid responsivo dos módulos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trainingModules.map((module) => (
             <Link
               key={module.slug}
               href={`/modulos/${module.slug}`}
-              className={`group block rounded-lg p-5 transition-all duration-300 transform border-l-8 ${module.color} shadow-md hover:shadow-lg hover:scale-[1.02]`}
+              className="group block rounded-2xl border border-blue-100 bg-blue-50
+                         hover:bg-blue-100 transition-all duration-300 transform
+                         hover:-translate-y-1 hover:shadow-lg p-5"
             >
-              <h3 className="text-xl font-extrabold text-gray-800 mb-2">
+              <h3 className="text-xl font-extrabold text-gray-900 mb-2">
                 {module.title}
               </h3>
-              <p className="text-sm text-gray-600">{module.description}</p>
-              <span className="mt-3 inline-block text-sm font-semibold text-blue-700 group-hover:underline">
+              <p className="text-sm text-gray-700 mb-3">
+                {module.description}
+              </p>
+              <span className="mt-1 inline-block text-sm font-semibold text-blue-700 group-hover:underline">
                 Acessar Módulo &rarr;
               </span>
             </Link>
@@ -111,7 +108,7 @@ export default function ElectricTrucksPage() {
         </div>
       </section>
 
-      {/* Grid dos caminhões elétricos (conteúdo original) */}
+      {/* Grid dos caminhões elétricos */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {electricTrucks.map((truck) => (
           <Link
@@ -121,7 +118,7 @@ export default function ElectricTrucksPage() {
           >
             <div className="rounded-2xl overflow-hidden shadow bg-white transition-transform group-hover:scale-[1.02]">
               <div
-                className="relativew-full bg-gray-50"
+                className="relative w-full bg-gray-50"
                 style={{ aspectRatio: "3 / 2" }}
               >
                 <Image
