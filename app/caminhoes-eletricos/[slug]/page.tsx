@@ -1,80 +1,75 @@
 // app/caminhoes-eletricos/[slug]/page.tsx
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { electricTrucks } from "@/data/electricTrucks";
 
-type Props = {
-  params: {
-    slug: string;
-  };
+type PageProps = {
+  params: { slug: string };
 };
 
-export default function ElectricTruckPage({ params }: Props) {
-  // procura o caminhão elétrico pelo slug
-  const truck = electricTrucks.find((t) => t.slug === params.slug);
+const DIR = path.join(process.cwd(), "content", "caminhoes-eletricos");
 
-  if (!truck) return notFound();
+export async function generateStaticParams() {
+  const files = fs.readdirSync(DIR);
+
+  return files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => ({
+      slug: file.replace(/\.md$/, ""),
+    }));
+}
+
+export default async function TruckPage({ params }: PageProps) {
+  const { slug } = params;
+
+  const filePath = path.join(DIR, `${slug}.md`);
+
+  if (!fs.existsSync(filePath)) {
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <h1 className="text-red-700 font-bold text-2xl">Página não encontrada</h1>
+        <p>O caminhão solicitado não possui conteúdo markdown.</p>
+
+        <Link href="/caminhoes-eletricos" className="text-blue-600 underline mt-6 block">
+          ← Voltar
+        </Link>
+      </main>
+    );
+  }
+
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const { data, content } = matter(fileContent);
+
+  const processed = await remark().use(html).process(content);
+  const htmlContent = processed.toString();
 
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      {/* Voltar */}
-      <Link
-        href="/caminhoes-eletricos"
-        className="text-sm text-blue-700 hover:underline"
-      >
-        ← Voltar à lista
-      </Link>
+    <main className="mx-auto max-w-4xl px-4 py-10">
+      <article className="prose prose-slate max-w-none">
+        <h1>{data.title}</h1>
 
-      {/* Nome do caminhão */}
-      <h1 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">
-        {truck.name}
-      </h1>
-
-      {/* Imagem */}
-      <div className="mt-6 rounded-2xl overflow-hidden shadow bg-white">
-        <div
-          className="relative w-full bg-gray-50"
-          style={{ aspectRatio: "3 / 2" }}
-        >
-          <Image
-            src={truck.file}
-            alt={truck.name}
-            fill
-            className="object-contain p-4"
-            sizes="(max-width: 768px) 100vw, 50vw"
-          />
-        </div>
-      </div>
-
-      {/* Descrição */}
-      {truck.description && (
-        <p className="mt-6 text-gray-700 text-lg leading-relaxed">
-          {truck.description}
-        </p>
-      )}
-
-      {/* Especificações */}
-      {truck.specs && (
-        <div className="mt-8 bg-white shadow rounded-2xl overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
-            <h2 className="text-xl font-semibold text-gray-800">
-              Ficha Técnica ⚡
-            </h2>
+        {data.image && (
+          <div className="w-full mb-6">
+            <Image
+              src={data.image}
+              alt={data.title}
+              width={900}
+              height={500}
+              className="rounded-xl"
+            />
           </div>
-          <dl className="divide-y divide-gray-100">
-            {Object.entries(truck.specs).map(([key, value]) => (
-              <div
-                key={key}
-                className="flex justify-between px-6 py-3 text-gray-700"
-              >
-                <dt className="font-medium">{key}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      )}
+        )}
+
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      </article>
+
+      <Link href="/caminhoes-eletricos" className="block mt-10 text-blue-600 underline">
+        ← Voltar para caminhões
+      </Link>
     </main>
   );
-      }
+}
