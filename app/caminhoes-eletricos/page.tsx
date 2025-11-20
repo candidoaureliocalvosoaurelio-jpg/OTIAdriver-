@@ -54,7 +54,21 @@ const trainingModules = [
     color: "border-teal-600 bg-teal-100 hover:bg-teal-200",
   },
 ];
-
+{
+    title: "Módulo 08: Logística de Risco e Carga de Baterias",
+    description:
+      "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
+    slug: "logistica-risco-baterias",
+    color: "border-orange-600 bg-orange-50 hover:bg-orange-100",
+  },
+  {
+    title: "Módulo 09: Cuidados Operacionais e Conformidade EURO 6",
+    description:
+      "Gestão de ARLA 32, filtragem, lubrificação e conformidade ambiental Proconve P-8 (Euro 6).",
+    slug: "operacao-euro6",
+    color: "border-indigo-600 bg-indigo-50 hover:bg-indigo-100",
+  },
+];
 export default function ElectricTrucksPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
