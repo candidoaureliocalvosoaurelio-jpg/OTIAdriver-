@@ -1,78 +1,81 @@
+// app/caminhoes-eletricos/[slug]/page.tsx
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { trucks, getTruckBySlug } from "@/data/trucks";
+import { electricTrucks } from "@/data/electricTrucks";
 
-type Props = { params: { slug: string } };
+type PageProps = {
+  params: { slug: string };
+};
 
-// SEO dinâmico por slug
-export function generateMetadata({ params }: Props): Metadata {
-  const truck = trucks.find((t) => t.slug === params.slug);
-  if (!truck) {
-    return {
-      title: "Caminhão não encontrado — OTIAdriver",
-      description: "A página solicitada não foi encontrada.",
-    };
-  }
-  return {
-    title: `${truck.name} — OTIAdriver`,
-    description: `Ficha técnica e imagem do ${truck.name}.`,
-  };
+// Gera as rotas estáticas com base nos slugs do array electricTrucks
+export function generateStaticParams() {
+  return electricTrucks.map((truck) => ({
+    slug: truck.slug,
+  }));
 }
 
-// Página do caminhão
-export default function TruckPage({ params }: Props) {
-  const truck = trucks.find((t) => t.slug === params.slug);
+export default function TruckDetailPage({ params }: PageProps) {
+  const { slug } = params;
 
-  if (!truck) return notFound();
+  const truck = electricTrucks.find((t) => t.slug === slug);
 
-  // ⬇️ IMPORTANTE: todo JSX precisa estar dentro de um return (...)
+  if (!truck) {
+    // Se não achar o caminhão, retorna 404
+    notFound();
+  }
+
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      {/* Título e Navegação */}
-      <div className="mb-8">
-        <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm">
-          ← Voltar para Galeria
+    <main className="mx-auto max-w-5xl px-4 py-10">
+      <div className="mb-6">
+        <Link
+          href="/caminhoes-eletricos"
+          className="text-sm text-blue-600 hover:underline"
+        >
+          ← Voltar para a galeria de caminhões elétricos
         </Link>
-        <h1 className="mt-2 text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-          {truck.name}
-        </h1>
       </div>
 
-      {/* Grid: Imagem | Ficha técnica */}
-      <div className="grid md:grid-cols-2 gap-10">
-        {/* Imagem */}
-        <div
-          className="relative w-full bg-white rounded-2xl shadow-lg"
-          style={{ aspectRatio: "4 / 3" }}
-        >
-          <Image
-            src={truck.file}
-            alt={truck.name}
-            fill
-            className="object-contain p-4"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
-          />
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Imagem do caminhão */}
+        <div className="w-full bg-gray-50 rounded-2xl shadow p-4">
+          <div
+            className="relative w-full"
+            style={{ aspectRatio: "3 / 2" }}
+          >
+            <Image
+              src={truck.file}
+              alt={truck.name}
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
         </div>
 
-        {/* Ficha técnica */}
-        <section>
-          <h2 className="text-2xl font-bold mb-4 text-white">Ficha Técnica</h2>
-          {truck.specs ? (
-            <ul className="space-y-2 text-gray-200">
-              {Object.entries(truck.specs).map(([key, value]) => (
-                <li key={key}>
-                  <span className="font-semibold">{key}:</span> {value}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-300">Especificações em breve.</p>
+        {/* Dados principais */}
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-3">
+            {truck.name}
+          </h1>
+
+          {truck.description && (
+            <p className="text-gray-700 mb-4">{truck.description}</p>
           )}
-        </section>
-      </div>
+
+          {/* Exemplo: se você tiver mais campos no electricTrucks, pode exibir aqui */}
+          {truck.range && (
+            <p className="text-sm text-gray-600">
+              Autonomia estimada: <strong>{truck.range}</strong>
+            </p>
+          )}
+          {truck.battery && (
+            <p className="text-sm text-gray-600">
+              Capacidade da bateria: <strong>{truck.battery}</strong>
+            </p>
+          )}
+        </div>
+      </section>
     </main>
   );
 }
