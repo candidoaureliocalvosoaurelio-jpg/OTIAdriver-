@@ -1,7 +1,7 @@
 // app/caminhoes-eletricos/page.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { electricTrucks } from "@/data/electricTrucks"; // Presume que este import é necessário
+import { electricTrucks } from "@/data/electricTrucks";
 
 export const metadata = {
   title: "Caminhões Elétricos ⚡ | OTIAdriver",
@@ -9,7 +9,7 @@ export const metadata = {
     "Galeria oficial dos caminhões elétricos — inovação, energia limpa e inteligência OTIAdriver.",
 };
 
-// DADOS ESTRUTURADOS FINAIS PARA O ÍNDICE DE MÓDULOS (MÓDULOS 1-7)
+// DADOS ESTRUTURADOS FINAIS PARA O ÍNDICE DE MÓDULOS (MÓDULOS 1-9)
 const trainingModules = [
   {
     title: "Módulo 01: Segurança com Alta Tensão (NR 10)",
@@ -53,6 +53,18 @@ const trainingModules = [
     slug: "analise-tco-sustentabilidade",
     color: "border-teal-600 bg-teal-100 hover:bg-teal-200",
   },
+  {
+    title: "Módulo 08: Logística de Risco e Carga de Baterias",
+    description: "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
+    slug: "logistica-risco-baterias",
+    color: "border-orange-600 bg-orange-50 hover:bg-orange-100",
+  },
+  {
+    title: "Módulo 09: IA Embarcada e Copiloto Digital",
+    description: "Uso do copiloto OTIAdriver, análise de dados em tempo real e suporte à tomada de decisão na operação.",
+    slug: "copiloto-digital-otia",
+    color: "border-indigo-600 bg-indigo-50 hover:bg-indigo-100",
+  },
 ];
 
 export default function ElectricTrucksPage() {
@@ -69,29 +81,28 @@ export default function ElectricTrucksPage() {
         </p>
       </div>
 
-      {/* NOVO - ÍNDICE DE MÓDULOS DE TREINAMENTO (PORTAL DE CONHECIMENTO) */}
+      {/* ÍNDICE DE MÓDULOS DE TREINAMENTO (PORTAL DE CONHECIMENTO) */}
       <section className="mb-12 p-6 md:p-10 bg-gray-50 rounded-xl shadow-2xl shadow-gray-200">
         <h2 className="text-3xl font-bold text-gray-900 mb-6 border-b pb-2">
           📚 Portal de Certificação OTIAdriver
         </h2>
         <p className="text-lg text-gray-700 mb-8">
-            Acesse os módulos essenciais para a operação segura e eficiente de frotas elétricas.
+          Acesse os módulos essenciais para a operação segura e eficiente de
+          frotas elétricas.
         </p>
-        
+
         {/* Lista de Módulos Responsiva (Grid 1 coluna em mobile, 3 colunas em desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trainingModules.map((module) => (
             <Link
               key={module.slug}
               href={`/modulos/${module.slug}`}
-              className={`block rounded-lg p-5 transition-all duration-300 transform border-l-8 ${module.color} shadow-md hover:shadow-lg hover:scale-[1.02]`}
+              className={`group block rounded-lg p-5 transition-all duration-300 transform border-l-8 ${module.color} shadow-md hover:shadow-lg hover:scale-[1.02]`}
             >
               <h3 className="text-xl font-extrabold text-gray-800 mb-2">
                 {module.title}
               </h3>
-              <p className="text-sm text-gray-600">
-                {module.description}
-              </p>
+              <p className="text-sm text-gray-600">{module.description}</p>
               <span className="mt-3 inline-block text-sm font-semibold text-blue-700 group-hover:underline">
                 Acessar Módulo &rarr;
               </span>
@@ -100,7 +111,7 @@ export default function ElectricTrucksPage() {
         </div>
       </section>
 
-      {/* Grid dos caminhões elétricos (CONTEÚDO ORIGINAL ABAIXO) */}
+      {/* Grid dos caminhões elétricos (conteúdo original) */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {electricTrucks.map((truck) => (
           <Link
@@ -110,7 +121,7 @@ export default function ElectricTrucksPage() {
           >
             <div className="rounded-2xl overflow-hidden shadow bg-white transition-transform group-hover:scale-[1.02]">
               <div
-                className="relative w-full bg-gray-50"
+                className="relativew-full bg-gray-50"
                 style={{ aspectRatio: "3 / 2" }}
               >
                 <Image
