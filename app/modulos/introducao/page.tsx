@@ -1,5 +1,3 @@
-// app/modulos/introducao/page.tsx
-
 export default function IntroducaoPage() {
   return (
     <main style={{ padding: 32 }}>
@@ -12,10 +10,8 @@ export default function IntroducaoPage() {
       </p>
 
       <p style={{ fontSize: 16 }}>
-        Se você está vendo esta página em{" "}
-        <code>/modulos/introducao</code>, significa que a rota está
-        configurada corretamente e o Next.js está encontrando o componente
-        React desta página.
+        Se você está vendo esta página em <code>/modulos/introducao</code>,
+        a rota está funcionando corretamente.
       </p>
     </main>
   );
