@@ -7,17 +7,24 @@ type ModuloPageProps = {
   params: { slug: string };
 };
 
-// Gera as rotas estáticas com base nos arquivos .md em content/modulos
-export async function generateStaticParams() {
-  const dir = path.join(process.cwd(), 'content', 'modulos');
-  const files = fs.readdirSync(dir);
+// Slugs disponíveis (cada um corresponde a um .md em content/modulos)
+const MODULO_SLUGS = [
+  'carregamento-eficiente',
+  'analise-tco-sustentabilidade',
+  'conformidade-legal',
+  'eficiencia-diesel',
+  'fator-humano-dirigibilidade',
+  'inspecao-diagnostico-ev',
+  'seguranca-alta-tensao',
+];
 
-  return files
-    .filter((file) => file.endsWith('.md'))
-    .map((file) => ({
-      slug: file.replace('.md', ''),
-    }));
+// Gera as rotas estáticas /modulos/[slug]
+export async function generateStaticParams() {
+  return MODULO_SLUGS.map((slug) => ({ slug }));
 }
+
+// (opcional) Diz ao Next que só existem esses slugs
+export const dynamicParams = false;
 
 export default function ModuloPage({ params }: ModuloPageProps) {
   const filePath = path.join(
@@ -29,11 +36,16 @@ export default function ModuloPage({ params }: ModuloPageProps) {
 
   // Se não achar o arquivo .md, mostra mensagem amigável
   if (!fs.existsSync(filePath)) {
+    console.error(
+      `Arquivo de módulo não encontrado: ${filePath} (slug: ${params.slug})`
+    );
+
     return (
       <main style={{ padding: '2rem' }}>
         <h1>Módulo não encontrado</h1>
         <p>
-          Não encontramos o conteúdo para o módulo: <strong>{params.slug}</strong>
+          Não encontramos o conteúdo para o módulo:{' '}
+          <strong>{params.slug}</strong>
         </p>
       </main>
     );
