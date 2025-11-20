@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
-import { notFound } from "next/navigation";
 
 type ModuloPageProps = {
   params: { slug: string };
@@ -13,7 +12,12 @@ const MODULOS_DIR = path.join(process.cwd(), "content", "modulos");
 
 // Gera as rotas estáticas com base nos arquivos .md em content/modulos
 export async function generateStaticParams() {
-  const files = fs.readdirSync(MODULOS_DIR);
+  const exists = fs.existsSync(MODULOS_DIR);
+  const files = exists ? fs.readdirSync(MODULOS_DIR) : [];
+
+  console.log("generateStaticParams -> MODULOS_DIR =", MODULOS_DIR);
+  console.log("generateStaticParams -> exists      =", exists);
+  console.log("generateStaticParams -> files       =", files);
 
   return files
     .filter((file) => file.endsWith(".md"))
@@ -24,10 +28,34 @@ export async function generateStaticParams() {
 
 export default function ModuloPage({ params }: ModuloPageProps) {
   const filePath = path.join(MODULOS_DIR, `${params.slug}.md`);
+  const exists = fs.existsSync(filePath);
 
-  // Se não achar o arquivo .md, manda para 404
-  if (!fs.existsSync(filePath)) {
-    notFound();
+  console.log("ModuloPage -> MODULOS_DIR =", MODULOS_DIR);
+  console.log("ModuloPage -> filePath    =", filePath);
+  console.log("ModuloPage -> exists      =", exists);
+
+  // Em vez de mandar 404, vamos mostrar debug na tela se não achar
+  if (!exists) {
+    return (
+      <main style={{ padding: 32 }}>
+        <h1>DEBUG – Arquivo não encontrado</h1>
+        <p>
+          <strong>Slug:</strong> {params.slug}
+        </p>
+        <p>
+          <strong>MODULOS_DIR:</strong> {MODULOS_DIR}
+        </p>
+        <p>
+          <strong>filePath:</strong> {filePath}
+        </p>
+        <p>
+          <strong>fs.existsSync(filePath):</strong> {String(exists)}
+        </p>
+        <p>
+          Verifique se esse caminho existe exatamente no Windows Explorer.
+        </p>
+      </main>
+    );
   }
 
   const fileContent = fs.readFileSync(filePath, "utf-8");
