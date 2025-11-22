@@ -1,3 +1,4 @@
+// app/pneus/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { pneus } from "@/data/pneus";
@@ -5,14 +6,14 @@ import { pneus } from "@/data/pneus";
 export default function PneusPage() {
   return (
     <main className="min-h-screen w-full py-10">
-
+      {/* GRID DE PNEUS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto max-w-6xl px-4 mt-8 mb-32">
         {pneus.map((p) => (
           <div key={p.slug} className="text-center">
-
+            {/* IMAGEM (3:2, responsiva) */}
             <div
               className="relative mx-auto overflow-hidden rounded-2xl bg-white border shadow-sm w-full"
-              style={{ aspectRatio: "3/2" }}
+              style={{ aspectRatio: "3 / 2" }}
             >
               <Image
                 src={p.image}
@@ -20,21 +21,19 @@ export default function PneusPage() {
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-contain p-4"
+                priority={p.slug === "direcional-liso"}
               />
             </div>
 
+            {/* TÍTULO */}
             <h2 className="text-xl font-bold mt-3">{p.title}</h2>
 
-            {/* BOTÃO AZUL CLARO */}
-            <Link href={`/pneus/${p.slug}`} className="block mt-4">
+            {/* BOTÃO "VER PNEUS" – FUNDO AZUL CLARO, TEXTO PRETO */}
+            <Link href={`/pneus/${p.slug}`} className="mt-4 inline-block w-full">
               <span
-                className="
-                  w-full inline-flex items-center justify-center
-                  px-6 py-3 rounded-xl font-bold
-                  bg-[#1F6FEB] text-white
-                  shadow-sm transition-all duration-200
-                  hover:bg-[#1A5FCC] active:scale-95
-                "
+                className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl font-bold
+                           bg-[#E5F1FF] text-black shadow-sm transition-all duration-200
+                           hover:bg-[#D0E4FF] active:scale-95"
               >
                 Ver Pneus
               </span>
@@ -43,23 +42,26 @@ export default function PneusPage() {
         ))}
       </div>
 
+      {/* ESPAÇAMENTO */}
+      <div className="h-10 md:h-14"></div>
+
+      {/* SEÇÃO – Cuidados Operacionais */}
       <div className="max-w-6xl mx-auto px-4 mt-0 mb-[100px] text-center">
         <div className="bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white rounded-2xl shadow-md py-12 px-8">
-          <h2 className="text-2xl font-extrabold mb-3">Cuidados Operacionais</h2>
-
+          <h2 className="text-2xl font-extrabold mb-3">
+            Cuidados Operacionais
+          </h2>
           <p className="text-white/90 mb-6 max-w-2xl mx-auto">
             Aprenda a manter seus pneus em perfeito estado, aumentar a
             durabilidade e dirigir com máxima segurança.
           </p>
-
           <Link href="/pneus/cuidados">
-            <span className="inline-flex items-center justify-center px-8 py-3 rounded-lg font-bold bg-black text-white hover:bg-black/90">
+            <span className="inline-flex items-center justify-center px-8 py-3 rounded-lg font-bold shadow-sm bg-black text-white hover:bg-black/90 active:translate-y-px transition">
               Acessar as Informações
             </span>
           </Link>
         </div>
       </div>
-
     </main>
   );
 }
