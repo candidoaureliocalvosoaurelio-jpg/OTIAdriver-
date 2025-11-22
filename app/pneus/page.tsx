@@ -6,10 +6,12 @@ import { pneus } from "@/data/pneus";
 export default function PneusPage() {
   return (
     <main className="min-h-screen w-full py-10">
+
       {/* GRID DE PNEUS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-auto max-w-6xl px-4 mt-8 mb-32">
         {pneus.map((p) => (
           <div key={p.slug} className="text-center">
+
             {/* IMAGEM (3:2, responsiva) */}
             <div
               className="relative mx-auto overflow-hidden rounded-2xl bg-white border shadow-sm w-full"
@@ -25,13 +27,15 @@ export default function PneusPage() {
               />
             </div>
 
+            {/* TÍTULO */}
             <h2 className="text-xl font-bold mt-3">{p.title}</h2>
 
-            {/* BOTÃO PRETO "VER PNEUS" */}
-            <Link href={`/pneus/${p.slug}`} className="mt-4 inline-block">
+            {/* BOTÃO "VER PNEUS" (AZUL, RESPONSIVO, CORRIGIDO) */}
+            <Link href={`/pneus/${p.slug}`} className="mt-4 inline-block w-full">
               <span
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold shadow-sm select-none
-                           !bg-black !text-white hover:!bg-black/90 active:translate-y-px transition"
+                className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl font-bold 
+                           bg-[#1F6FEB] text-white shadow-sm transition-all duration-200 
+                           hover:bg-[#1A5FCC] active:scale-95"
               >
                 Ver Pneus
               </span>
@@ -40,7 +44,7 @@ export default function PneusPage() {
         ))}
       </div>
 
-      {/* SPACER para garantir respiro no mobile */}
+      {/* ESPAÇAMENTO */}
       <div className="h-10 md:h-14"></div>
 
       {/* SEÇÃO – Cuidados Operacionais */}
@@ -49,17 +53,21 @@ export default function PneusPage() {
           <h2 className="text-2xl font-extrabold mb-3">
             Cuidados Operacionais
           </h2>
+
           <p className="text-white/90 mb-6 max-w-2xl mx-auto">
             Aprenda a manter seus pneus em perfeito estado, aumentar a
             durabilidade e dirigir com máxima segurança.
           </p>
+
           <Link href="/pneus/cuidados">
-            <span className="inline-flex items-center justify-center px-8 py-3 rounded-lg font-bold shadow-sm bg-black text-white hover:bg-black/90 active:translate-y-px transition">
+            <span className="inline-flex items-center justify-center px-8 py-3 rounded-lg font-bold shadow-sm 
+                             bg-black text-white hover:bg-black/90 active:translate-y-px transition">
               Acessar as Informações
             </span>
           </Link>
         </div>
       </div>
+
     </main>
   );
 }
