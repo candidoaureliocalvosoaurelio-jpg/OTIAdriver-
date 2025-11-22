@@ -1,6 +1,7 @@
 // app/simbolos-painel/page.tsx
 
 import Image from "next/image";
+import { painelSymbols } from "@/data/simbolosPainel";
 
 type PainelSymbol = {
   id: string;
