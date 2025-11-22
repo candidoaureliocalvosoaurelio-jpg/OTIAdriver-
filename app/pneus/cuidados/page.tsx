@@ -2,128 +2,141 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Pneus | Cuidados Operacionais | OTIAdriver",
-  description:
-    "Cuidados operacionais dos pneus: calibragem, pressão ideal, inspeção visual, profundidade do sulco, controle de desgaste, alinhamento, rodízio e recapagem.",
-};
-
-type Care = {
-  slug: string;
+type TireCareModule = {
   title: string;
-  img: string;
-  alt: string;
-  text: string;
+  subtitle: string;
+  description: string;
+  slug: string;
+  image: string;
 };
 
-const cares: Care[] = [
+const tireCareModules: TireCareModule[] = [
   {
-    slug: "calibragem-correta",
     title: "Calibragem Correta",
-    img: "/images/pneus/cuidados/calibragem.jpg",
-    alt: "Mecânico medindo a pressão do pneu de caminhão com calibrador digital",
-    text:
-      "Calibre sempre com pneus frios (parados por pelo menos 2 horas). Use o valor indicado pelo fabricante para evitar aquecimento e prolongar a vida útil.",
+    subtitle: "Pressão a frio e valor correto",
+    description:
+      "Calibre sempre com pneus frios (parados por pelo menos 2 horas) e use a pressão indicada pelo fabricante.",
+    slug: "calibragem-correta",
+    // AJUSTE este caminho para o da imagem que você já usa nesse card
+    image: "/images/pneus/calibragem-correta.jpg",
   },
   {
-    slug: "pressao-ideal",
     title: "Pressão Ideal e Impactos",
-    img: "/images/pneus/cuidados/pressao-ideal.jpg",
-    alt: "Comparação visual entre pneu subcalibrado e supercalibrado",
-    text:
-      "Baixa pressão: aumenta consumo e desgaste nos ombros. Alta pressão: reduz aderência e desgasta o centro. Ajuste conforme carga e operação.",
+    subtitle: "Ajuste conforme carga e operação",
+    description:
+      "Baixa pressão aumenta consumo e desgaste nos ombros. Alta pressão reduz aderência e desgasta o centro.",
+    slug: "pressao-ideal",
+    image: "/images/pneus/pressao-ideal.jpg",
   },
   {
-    slug: "inspecao-visual",
     title: "Inspeção Visual Regular",
-    img: "/images/pneus/cuidados/inspecao-visual.jpg",
-    alt: "Técnico examinando a banda de rodagem e a lateral do pneu",
-    text:
-      "Inspecione semanalmente bandas, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
+    subtitle: "Checklist diário",
+    description:
+      "Inspecione bandas, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
+    slug: "inspecao-visual-regular",
+    image: "/images/pneus/inspecao-visual.jpg",
   },
   {
-    slug: "profundidade-sulco",
     title: "Profundidade do Sulco",
-    img: "/images/pneus/cuidados/profundidade-sulco.jpg",
-    alt: "Paquímetro digital medindo profundidade de sulco do pneu",
-    text:
-      "Substitua pneus com sulco abaixo de 1,6 mm. Sulco raso compromete drenagem e aumenta o risco de aquaplanagem.",
+    subtitle: "TWI e aquaplanagem",
+    description:
+      "Monitore a profundidade do sulco, respeite o TWI e retire o pneu no ponto certo para preservar a carcaça.",
+    slug: "profundidade-do-sulco",
+    image: "/images/pneus/profundidade-sulco.jpg",
   },
   {
-    slug: "controle-desgaste",
     title: "Controle de Desgaste",
-    img: "/images/pneus/cuidados/controle-desgaste.jpg",
-    alt: "Prancheta com checklist de controle de desgaste",
-    text:
-      "Registre quilometragem, posição e data de cada inspeção. Use checklist para planejar revisões e rodízios.",
+    subtitle: "Diagnóstico visual",
+    description:
+      "Leia os padrões de desgaste para identificar problemas de calibragem, alinhamento, balanceamento e suspensão.",
+    slug: "controle-de-desgaste",
+    image: "/images/pneus/controle-desgaste.jpg",
   },
   {
-    slug: "alinhamento-balanceamento",
     title: "Alinhamento e Balanceamento",
-    img: "/images/pneus/cuidados/alinhamento-balanceamento.jpg",
-    alt: "Caminhão em plataforma de alinhamento a laser",
-    text:
-      "Realize alinhamento e balanceamento a cada 10.000 km ou após impactos. Reduz vibrações e desgaste irregular.",
+    subtitle: "Precisão e conforto",
+    description:
+      "Corrija a geometria e elimine vibrações para reduzir o CPK e aumentar a segurança.",
+    slug: "alinhamento-e-balanceamento",
+    image: "/images/pneus/alinhamento-balanceamento.jpg",
   },
   {
-    slug: "rodizio",
     title: "Rodízio de Pneus",
-    img: "/images/pneus/cuidados/rodizio.jpg",
-    alt: "Esquema de rodízio de pneus entre eixos de caminhão",
-    text:
-      "Siga o rodízio indicado para seu arranjo de eixos e tipo de tração. Promove desgaste uniforme do conjunto.",
+    subtitle: "Uniformidade de desgaste",
+    description:
+      "Planeje o rodízio entre eixos e posições (interno/externo) para ganhar até 30% de vida útil.",
+    slug: "rodizio-de-pneus",
+    image: "/images/pneus/rodizio-pneus.jpg",
   },
   {
-    slug: "recapagem",
     title: "Gestão de Carcaça e Recapagem",
-    img: "/images/pneus/cuidados/recapagem.jpg",
-    alt: "Técnico inspecionando a carcaça do pneu para recapagem",
-    text:
-      "Conserve as carcaças: limpeza, pressão correta e inspeções. Recape apenas cascos aprovados e com histórico registrado.",
+    subtitle: "Ativo financeiro da frota",
+    description:
+      "Proteja a carcaça, aumente o número de recapagens e reduza drasticamente o custo por quilômetro.",
+    slug: "gestao-de-carcaca-e-recapagem",
+    image: "/images/pneus/gestao-carcaca.jpg",
   },
 ];
 
-export default function CuidadosPneusPage() {
-  return (
-    <main className="w-full max-w-6xl mx-auto px-4 py-10">
-      {/* breadcrumb */}
-      <div className="mb-6 text-sm text-slate-500">
-        <Link href="/pneus" className="hover:underline">
-          ← Voltar aos Pneus
-        </Link>
-      </div>
+export const metadata = {
+  title: "Cuidados Operacionais dos Pneus | OTIAdriver",
+  description:
+    "Cuidados para aumentar a segurança, rendimento e vida útil dos pneus de caminhões, com foco em calibragem, inspeção, rodízio e gestão de carcaças.",
+};
 
-      {/* título */}
-      <header className="mb-8 text-center md:text-left">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#1F6FEB]">
+export default function TireCareVisualPage() {
+  return (
+    <main className="mx-auto max-w-6xl px-4 py-10">
+      {/* Cabeçalho */}
+      <header className="mb-10 text-center">
+        <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">
           Cuidados Operacionais dos Pneus
         </h1>
-        <p className="mt-2 text-slate-600 max-w-3xl">
-          Cuidados para aumentar a segurança, rendimento e vida útil dos pneus do seu caminhão.
+        <p className="mt-3 text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+          Cuidados para aumentar a segurança, rendimento e vida útil dos pneus
+          do seu caminhão. Clique em cada card para acessar o conteúdo completo
+          do módulo OTIAdriver.
         </p>
       </header>
 
-      {/* grid de cards */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cares.map((c) => (
-          <article
-            key={c.slug}
-            className="rounded-2xl overflow-hidden bg-white shadow hover:shadow-lg transition-shadow border border-slate-200"
+      {/* Grid de cards com FOTO + LINK */}
+      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {tireCareModules.map((module) => (
+          <Link
+            key={module.slug}
+            href={`/pneus/cuidados/${module.slug}`}
+            className="group block rounded-3xl bg-white shadow-md hover:shadow-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
           >
-            <div className="relative w-full bg-gray-100" style={{ aspectRatio: "3 / 2" }}>
+            {/* Imagem */}
+            <div className="relative w-full h-56 md:h-60 lg:h-64">
               <Image
-                src={c.img}
-                alt={c.alt}
+                src={module.image}
+                alt={module.title}
                 fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
               />
             </div>
-            <div className="p-5">
-              <h2 className="text-lg font-semibold">{c.title}</h2>
-              <p className="mt-2 text-slate-700">{c.text}</p>
+
+            {/* Texto */}
+            <div className="p-5 md:p-6">
+              <h2 className="text-lg md:text-xl font-semibold text-gray-900 mb-1">
+                {module.title}
+              </h2>
+              <p className="text-sm text-sky-700 font-semibold mb-2">
+                {module.subtitle}
+              </p>
+              <p className="text-sm md:text-[0.95rem] text-gray-700">
+                {module.description}
+              </p>
+              <span className="mt-3 inline-flex items-center text-sm font-semibold text-sky-600 group-hover:text-sky-700">
+                Acessar conteúdo
+                <span className="ml-1 group-hover:translate-x-0.5 transition-transform">
+                  →
+                </span>
+              </span>
             </div>
-          </article>
+          </Link>
         ))}
       </section>
     </main>
