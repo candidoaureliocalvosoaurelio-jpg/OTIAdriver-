@@ -17,7 +17,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Calibre sempre com pneus frios (parados por pelo menos 2 horas) e use a pressão indicada pelo fabricante.",
     slug: "calibragem-correta",
-    image: "/assets/images/pneus/cuidados/calibragem.jpg",
+    image: "/images/pneus/cuidados/calibragem.jpg",
   },
   {
     title: "Pressão Ideal e Impactos",
@@ -25,7 +25,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Baixa pressão aumenta consumo e desgaste nos ombros. Alta pressão reduz aderência e desgasta o centro.",
     slug: "pressao-ideal",
-    image: "/assets/images/pneus/cuidados/pressao-ideal.jpg",
+    image: "/images/pneus/cuidados/pressao-ideal.jpg",
   },
   {
     title: "Inspeção Visual Regular",
@@ -33,7 +33,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Inspecione bandas, ombros e talões. Procure cortes, bolhas, objetos presos e desgaste irregular.",
     slug: "inspecao-visual-regular",
-    image: "/assets/images/pneus/cuidados/inspecao-visual.jpg",
+    image: "/images/pneus/cuidados/inspecao-visual.jpg",
   },
   {
     title: "Profundidade do Sulco",
@@ -41,7 +41,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Monitore a profundidade do sulco, respeite o TWI e retire o pneu no ponto certo para preservar a carcaça.",
     slug: "profundidade-do-sulco",
-    image: "/assets/images/pneus/cuidados/profundidade-sulco.jpg",
+    image: "/images/pneus/cuidados/profundidade-sulco.jpg",
   },
   {
     title: "Controle de Desgaste",
@@ -49,7 +49,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Leia os padrões de desgaste para identificar problemas de calibragem, alinhamento, balanceamento e suspensão.",
     slug: "controle-de-desgaste",
-    image: "/assets/images/pneus/cuidados/controle-desgaste.jpg",
+    image: "/images/pneus/cuidados/controle-desgaste.jpg",
   },
   {
     title: "Alinhamento e Balanceamento",
@@ -57,7 +57,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Corrija a geometria e elimine vibrações para reduzir o CPK e aumentar a segurança.",
     slug: "alinhamento-e-balanceamento",
-    image: "/assets/images/pneus/cuidados/alinhamento-balanceamento.jpg",
+    image: "/images/pneus/cuidados/alinhamento-balanceamento.jpg",
   },
   {
     title: "Rodízio de Pneus",
@@ -65,7 +65,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Planeje o rodízio entre eixos e posições (interno/externo) para ganhar até 30% de vida útil.",
     slug: "rodizio-de-pneus",
-    image: "/assets/images/pneus/cuidados/rodizio.jpg",
+    image: "/images/pneus/cuidados/rodizio.jpg",
   },
   {
     title: "Gestão de Carcaça e Recapagem",
@@ -73,7 +73,7 @@ const tireCareModules: TireCareModule[] = [
     description:
       "Proteja a carcaça, aumente o número de recapagens e reduza drasticamente o custo por quilômetro.",
     slug: "gestao-de-carcaca-e-recapagem",
-    image: "/assets/images/pneus/cuidados/recapagem.jpg",
+    image: "/images/pneus/cuidados/recapagem.jpg",
   },
 ];
 
