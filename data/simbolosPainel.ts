@@ -74,7 +74,7 @@ export const painelSymbols: PainelSymbol[] = [
   },
   {
     id: "indicador-de-direcao-a-direita",
-    icon: "",
+    icon: "/simbolos/simbolo-13.png",
     titulo: "Indicador de direção à direita",
     paragrafos: [],
   },
@@ -309,6 +309,12 @@ export const painelSymbols: PainelSymbol[] = [
   {
     id: "atencao-aviso-geral-de-perigo",
     icon: "/simbolos/simbolo-50.png",
+    titulo: "Atenção: Aviso geral de perigo",
+    paragrafos: [],
+  },
+  {
+    id: "atencao-aviso-geral-de-perigo-triangulo",
+    icon: "/simbolos/simbolo-51.png",
     titulo: "Atenção: Aviso geral de perigo",
     paragrafos: [],
   },
