@@ -1,17 +1,32 @@
+// app/simbolos-painel/page.tsx
 import fs from "fs";
 import path from "path";
 import Image from "next/image";
 
-// Função para listar arquivos dentro da pasta /public/simbolos
+// Lê os arquivos da pasta /public/simbolos,
+// ignorando o que não for imagem (.png, .jpg, .jpeg, .webp, .svg)
 function getSymbols() {
   const dir = path.join(process.cwd(), "public", "simbolos");
-  const files = fs.readdirSync(dir);
+  const allFiles = fs.readdirSync(dir);
 
-  // Retorna cada item com path e título automático
-  return files.map((file) => ({
+  const imageFiles = allFiles.filter((file) => {
+    const lower = file.toLowerCase();
+    return (
+      lower.endsWith(".png") ||
+      lower.endsWith(".jpg") ||
+      lower.endsWith(".jpeg") ||
+      lower.endsWith(".webp") ||
+      lower.endsWith(".svg")
+    );
+  });
+
+  return imageFiles.map((file) => ({
     file,
     path: "/simbolos/" + file,
-    title: file.replace(/\.(png|jpg|jpeg|webp)$/i, "").replace(/-/g, " "),
+    title: file
+      .replace(/\.(png|jpg|jpeg|webp|svg)$/i, "")
+      .replace(/-/g, " ")
+      .trim(),
   }));
 }
 
@@ -20,7 +35,7 @@ export default function SimbolosPainelPage() {
 
   return (
     <main className="w-full bg-white">
-      <section className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
         <header className="mb-10">
           <h1 className="text-2xl font-semibold text-gray-900 sm:text-3xl">
             Símbolos do Painel
@@ -30,27 +45,30 @@ export default function SimbolosPainelPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* grid 2 colunas no desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {icons.map((icon) => (
             <div
               key={icon.file}
               className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm"
             >
-              <div className="relative w-14 h-14 flex-shrink-0">
+              {/* QUADRO DO SÍMBOLO – AGORA BEM MAIOR */}
+              <div className="relative w-20 h-20 flex-shrink-0 bg-white rounded-md border border-gray-200 flex items-center justify-center">
                 <Image
                   src={icon.path}
                   alt={icon.title}
                   fill
-                  className="object-contain"
+                  className="object-contain p-2"
                 />
               </div>
 
+              {/* TEXTO */}
               <div>
-                <h2 className="text-lg font-medium text-gray-900 capitalize">
+                <h2 className="text-base font-semibold text-gray-900">
                   {icon.title}
                 </h2>
                 <p className="text-sm text-gray-600">
-                  (adicione uma descrição se quiser)
+                  (adicione uma descrição técnica deste símbolo, se quiser)
                 </p>
               </div>
             </div>
