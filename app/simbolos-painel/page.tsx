@@ -1,89 +1,149 @@
+// app/simbolos-painel/page.tsx
+import fs from "fs";
+import path from "path";
 import Image from "next/image";
 
+// Lê os arquivos da pasta /public/simbolos,
+// ignorando o que não for arquivo de imagem.
+function getSymbols() {
+  const dir = path.join(process.cwd(), "public", "simbolos");
+
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  const imageFiles = entries
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name)
+    .filter((file) => {
+      const lower = file.toLowerCase();
+      return (
+        lower.endsWith(".png") ||
+        lower.endsWith(".jpg") ||
+        lower.endsWith(".jpeg") ||
+        lower.endsWith(".webp") ||
+        lower.endsWith(".svg")
+      );
+    });
+
+  return imageFiles.map((file) => ({
+    file,
+    path: "/simbolos/" + file,
+    title: file
+      .replace(/\.(png|jpg|jpeg|webp|svg)$/i, "")
+      .replace(/-/g, " ")
+      .trim(),
+  }));
+}
+
 export default function SimbolosPainelPage() {
+  const icons = getSymbols();
+
   return (
     <main className="w-full bg-white">
       <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* ====================== TABELA DE CORES ====================== */}
+        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl mb-6">
+          Classificação por Cor das Luzes de Aviso
+        </h1>
 
-        {/* ---------------------------------------------------- */}
-        {/* CLASSIFICAÇÃO POR COR DAS LUZES DE AVISO — NOVO */}
-        {/* ---------------------------------------------------- */}
-        <header className="mb-12">
-          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl mb-4">
-            Classificação por Cor das Luzes de Aviso
-          </h1>
+        <div className="overflow-hidden rounded-xl border bg-gray-50 shadow-sm mb-12">
+          <table className="w-full text-left text-gray-800">
+            <thead className="bg-white border-b">
+              <tr>
+                <th className="py-3 px-4 font-semibold">Cor</th>
+                <th className="py-3 px-4 font-semibold">Significado</th>
+                <th className="py-3 px-4 font-semibold">Ação Recomendada</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Vermelho */}
+              <tr className="border-b">
+                <td className="py-4 px-4 font-semibold flex items-center gap-2">
+                  Vermelho <span className="text-lg">🔴</span>
+                </td>
+                <td className="py-4 px-4">
+                  Emergência/Falha Grave. Risco imediato à segurança ou danos ao
+                  veículo.
+                </td>
+                <td className="py-4 px-4">
+                  Parada Imediata em local seguro e desligamento do motor.
+                  Necessidade de reparo urgente.
+                </td>
+              </tr>
 
-          <p className="text-gray-700 mb-6">
-            As cores indicam a <strong>urgência</strong> e a <strong>gravidade</strong> do problema
-            ou a <strong>função</strong> acionada:
+              {/* Amarelo / Laranja */}
+              <tr className="border-b">
+                <td className="py-4 px-4 font-semibold flex items-center gap-2">
+                  Amarelo/Laranja <span className="text-lg">🟡</span>
+                </td>
+                <td className="py-4 px-4">
+                  Advertência/Falha Moderada. Indica um problema que requer
+                  atenção, mas que não impede a continuação da viagem, embora a
+                  falha deva ser corrigida na primeira oportunidade.
+                </td>
+                <td className="py-4 px-4">
+                  Verificar a situação. Pode-se continuar a dirigir com cautela
+                  até um local seguro ou oficina.
+                </td>
+              </tr>
+
+              {/* Verde / Azul / Branco */}
+              <tr>
+                <td className="py-4 px-4 font-semibold flex items-center gap-2">
+                  Verde/Azul/Branco{" "}
+                  <span className="text-lg">🟢 🔵 ⚪</span>
+                </td>
+                <td className="py-4 px-4">
+                  Informativo/Funcionalidade Ativa. Indica que um sistema está
+                  ligado (faróis, setas, etc.) ou ativo.
+                </td>
+                <td className="py-4 px-4">
+                  Não requer ação de emergência, apenas confirmação do
+                  acionamento ou estado do sistema.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* ====================== SÍMBOLOS DO PAINEL ====================== */}
+        <header className="mb-10">
+          <h2 className="text-xl font-semibold text-gray-900">
+            Símbolos do Painel
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Indicadores de segurança, sistemas e alertas do veículo.
           </p>
-
-          <div className="bg-gray-50 rounded-xl p-6 shadow-sm border">
-
-            {/* LINHA 1 - Vermelho */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4 border-b">
-              <div className="flex items-center gap-3">
-                <span className="text-gray-900 font-semibold">Vermelho</span>
-                <span className="h-4 w-4 rounded-full bg-red-600 inline-block"></span>
-              </div>
-              <p className="text-gray-800">
-                <strong>Emergência / Falha Grave.</strong> Risco imediato à segurança ou danos ao veículo.
-              </p>
-              <p className="text-gray-800">
-                <strong>Parada Imediata</strong> em local seguro e desligamento do motor.
-                Necessidade de reparo urgente.
-              </p>
-            </div>
-
-            {/* LINHA 2 - Amarelo */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4 border-b">
-              <div className="flex items-center gap-3">
-                <span className="text-gray-900 font-semibold">Amarelo / Laranja</span>
-                <span className="h-4 w-4 rounded-full bg-yellow-500 inline-block"></span>
-              </div>
-              <p className="text-gray-800">
-                <strong>Advertência / Falha Moderada.</strong> Indica um problema que requer
-                atenção, mas que não impede a condução.
-              </p>
-              <p className="text-gray-800">
-                Verificar a situação e dirigir com cautela até local seguro ou oficina.
-              </p>
-            </div>
-
-            {/* LINHA 3 - Verde/Azul/Branco */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4">
-              <div className="flex items-center gap-3">
-                <span className="text-gray-900 font-semibold">Verde / Azul / Branco</span>
-                <span className="h-4 w-4 rounded-full bg-green-500 inline-block"></span>
-                <span className="h-4 w-4 rounded-full bg-blue-500 inline-block"></span>
-                <span className="h-4 w-4 rounded-full bg-gray-300 inline-block"></span>
-              </div>
-              <p className="text-gray-800">
-                <strong>Informativo / Funcionalidade Ativa.</strong> Indica que um sistema está ligado,
-                como faróis, setas ou funções do veículo.
-              </p>
-              <p className="text-gray-800">
-                Não requer ação de emergência. Apenas confirmação do funcionamento.
-              </p>
-            </div>
-          </div>
         </header>
 
-        {/* ---------------------------------------------------- */}
-        {/* LISTA DE SÍMBOLOS EXISTENTE */}
-        {/* ---------------------------------------------------- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {icons.map((icon) => (
+            <div
+              key={icon.file}
+              className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm"
+            >
+              {/* QUADRO DO SÍMBOLO */}
+              <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
+                <Image
+                  src={icon.path}
+                  alt={icon.title}
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
 
-        <h2 className="text-xl font-semibold text-gray-900 mb-3">
-          Símbolos do Painel
-        </h2>
-
-        <p className="text-gray-600 mb-8">
-          Indicadores de segurança, sistemas e alertas do veículo.
-        </p>
-
-        {/* AQUI ENTRAM OS SEUS SÍMBOLOS EXISTENTES */}
-        {/* O BLOCO DE SÍMBOLOS CONTINUA IGUAL — NÃO ALTEREI */}
-
+              {/* TEXTO */}
+              <div>
+                <h3 className="text-base font-semibold text-gray-900">
+                  {icon.title}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  (adicione uma descrição técnica deste símbolo, se quiser)
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </main>
   );
