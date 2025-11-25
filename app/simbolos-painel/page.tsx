@@ -1,41 +1,10 @@
 // app/simbolos-painel/page.tsx
-import fs from "fs";
-import path from "path";
 import Image from "next/image";
-
-// Lê os arquivos da pasta /public/simbolos,
-// ignorando o que não for arquivo de imagem.
-function getSymbols() {
-  const dir = path.join(process.cwd(), "public", "simbolos");
-
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-  const imageFiles = entries
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .filter((file) => {
-      const lower = file.toLowerCase();
-      return (
-        lower.endsWith(".png") ||
-        lower.endsWith(".jpg") ||
-        lower.endsWith(".jpeg") ||
-        lower.endsWith(".webp") ||
-        lower.endsWith(".svg")
-      );
-    });
-
-  return imageFiles.map((file) => ({
-    file,
-    path: "/simbolos/" + file,
-    title: file
-      .replace(/\.(png|jpg|jpeg|webp|svg)$/i, "")
-      .replace(/-/g, " ")
-      .trim(),
-  }));
-}
+import Link from "next/link";
+import { getAllSymbols } from "./symbolData";
 
 export default function SimbolosPainelPage() {
-  const icons = getSymbols();
+  const icons = getAllSymbols();
 
   return (
     <main className="w-full bg-white">
@@ -106,7 +75,7 @@ export default function SimbolosPainelPage() {
         </div>
 
         {/* ====================== SÍMBOLOS DO PAINEL ====================== */}
-        <header className="mb-10">
+        <header className="mb-10" id="topo-simbolos">
           <h2 className="text-xl font-semibold text-gray-900">
             Símbolos do Painel
           </h2>
@@ -115,36 +84,35 @@ export default function SimbolosPainelPage() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* GRID RESPONSIVO (1 coluna no mobile, 2 no desktop) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {icons.map((icon) => (
-            <div
-              key={icon.file}
-              className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm"
+            <Link
+              key={icon.id}
+              href={`/simbolos-painel/${icon.id}`}
+              className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 hover:shadow-md transition"
             >
-              {/* QUADRO DO SÍMBOLO */}
               <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
                 <Image
-                  src={icon.path}
+                  src={icon.imagePath}
                   alt={icon.title}
                   width={64}
                   height={64}
                   className="object-contain"
                 />
               </div>
-
-              {/* TEXTO */}
               <div>
                 <h3 className="text-base font-semibold text-gray-900">
                   {icon.title}
                 </h3>
-                <p className="text-sm text-gray-600">
-                  (adicione uma descrição técnica deste símbolo, se quiser)
+                <p className="text-xs text-gray-500">
+                  Toque para ver o significado técnico.
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
-    </main>
-  );
+    </main>
+  );
 }
