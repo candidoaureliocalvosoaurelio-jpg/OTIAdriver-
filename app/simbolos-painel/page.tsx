@@ -118,42 +118,33 @@ export default function SimbolosPainelPage() {
 
         {/* GRID RESPONSIVO (1 coluna no mobile, 2 no desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {icons.map((icon) => {
-            const meta = symbolData.find((s) => s.file === icon.file);
-            const label = meta?.title ?? icon.baseName;
-            const id = meta?.id ?? icon.baseName;
+         {icons.map((icon) => {
+  const meta = symbolData.find((s) => s.filename === icon.file);
+  const label = meta?.title ?? icon.title;
+  const id = meta?.id ?? icon.title;
 
-            return (
-              <Link
-                key={icon.file}
-                href={`/simbolos-painel/${id}`}
-                className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 hover:shadow-md transition"
-              >
-                {/* QUADRO DO SÍMBOLO */}
-                <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
-                  <Image
-                    src={icon.path}
-                    alt={label}
-                    width={64}
-                    height={64}
-                    className="object-contain"
-                  />
-                </div>
+  return (
+    <Link
+      key={icon.file}
+      href={`/simbolos-painel/${id}`}
+      className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition"
+    >
+      <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
+        <Image
+          src={icon.path}
+          alt={label}
+          width={64}
+          height={64}
+          className="object-contain"
+        />
+      </div>
 
-                {/* TEXTO */}
-                <div>
-                  <h3 className="text-base font-semibold text-gray-900">
-                    {label}
-                  </h3>
-                  <p className="text-xs text-gray-500">
-                    Toque para ver o significado técnico.
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-    </main>
+      <div>
+        <h3 className="text-base font-semibold text-gray-900">{label}</h3>
+        <p className="text-sm text-gray-600">
+          Toque para ver o significado técnico.
+        </p>
+      </div>
+    </Link>
   );
-}
+})}
