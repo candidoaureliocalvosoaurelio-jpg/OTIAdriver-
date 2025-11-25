@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { symbolData } from "./symbolData";
 
-// Lê os arquivos da pasta /public/simbolos,
-// ignorando o que não for arquivo de imagem.
+// Lê os arquivos da pasta /public/simbolos
 function getSymbols() {
   const dir = path.join(process.cwd(), "public", "simbolos");
 
@@ -27,11 +26,9 @@ function getSymbols() {
     });
 
   return imageFiles.map((file) => ({
-    file,
+    file,                                     // ex: simbolo-20.png
     path: "/simbolos/" + file,
-    baseName: file
-      .replace(/\.(png|jpg|jpeg|webp|svg)$/i, "")
-      .trim(),
+    baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(), // simbolo-20
   }));
 }
 
@@ -90,8 +87,7 @@ export default function SimbolosPainelPage() {
               {/* Verde / Azul / Branco */}
               <tr>
                 <td className="py-4 px-4 font-semibold flex items-center gap-2">
-                  Verde/Azul/Branco{" "}
-                  <span className="text-lg">🟢 🔵 ⚪</span>
+                  Verde/Azul/Branco <span className="text-lg">🟢 🔵 ⚪</span>
                 </td>
                 <td className="py-4 px-4">
                   Informativo/Funcionalidade Ativa. Indica que um sistema está
@@ -116,12 +112,13 @@ export default function SimbolosPainelPage() {
           </p>
         </header>
 
-        {/* GRID RESPONSIVO (1 coluna no mobile, 2 no desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {icons.map((icon) => {
-            const meta = symbolData.find((s) => s.file === icon.file);
+            // Procura metadados pelo slug (sem extensão)
+            const meta = symbolData.find((s) => s.filename === icon.file);
+
             const label = meta?.title ?? icon.baseName;
-            const id = meta?.id ?? icon.baseName;
+            const id = meta ? String(meta.id) : icon.baseName;
 
             return (
               <Link
@@ -129,7 +126,6 @@ export default function SimbolosPainelPage() {
                 href={`/simbolos-painel/${id}`}
                 className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 hover:shadow-md transition"
               >
-                {/* QUADRO DO SÍMBOLO */}
                 <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
                   <Image
                     src={icon.path}
@@ -140,7 +136,6 @@ export default function SimbolosPainelPage() {
                   />
                 </div>
 
-                {/* TEXTO */}
                 <div>
                   <h3 className="text-base font-semibold text-gray-900">
                     {label}
