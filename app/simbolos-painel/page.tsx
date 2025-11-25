@@ -1,4 +1,3 @@
-// app/simbolos-painel/page.tsx
 import fs from "fs";
 import path from "path";
 import Image from "next/image";
@@ -26,9 +25,9 @@ function getSymbols() {
     });
 
   return imageFiles.map((file) => ({
-    file,                                     // ex: simbolo-20.png
+    file, // ex: simbolo-20.png
     path: "/simbolos/" + file,
-    baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(), // simbolo-20
+    baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(), // ex: simbolo-20
   }));
 }
 
@@ -59,12 +58,10 @@ export default function SimbolosPainelPage() {
                   Vermelho <span className="text-lg">🔴</span>
                 </td>
                 <td className="py-4 px-4">
-                  Emergência/Falha Grave. Risco imediato à segurança ou danos ao
-                  veículo.
+                  Emergência/Falha Grave. Risco imediato à segurança ou danos ao veículo.
                 </td>
                 <td className="py-4 px-4">
-                  Parada Imediata em local seguro e desligamento do motor.
-                  Necessidade de reparo urgente.
+                  Parada Imediata em local seguro e desligamento do motor. Necessidade de reparo urgente.
                 </td>
               </tr>
 
@@ -74,13 +71,10 @@ export default function SimbolosPainelPage() {
                   Amarelo/Laranja <span className="text-lg">🟡</span>
                 </td>
                 <td className="py-4 px-4">
-                  Advertência/Falha Moderada. Indica um problema que requer
-                  atenção, mas que não impede a continuação da viagem, embora a
-                  falha deva ser corrigida na primeira oportunidade.
+                  Advertência/Falha Moderada. Indica um problema que requer atenção, mas que não impede a continuação da viagem.
                 </td>
                 <td className="py-4 px-4">
-                  Verificar a situação. Pode-se continuar a dirigir com cautela
-                  até um local seguro ou oficina.
+                  Verificar a situação. Pode-se continuar a dirigir com cautela até um local seguro ou oficina.
                 </td>
               </tr>
 
@@ -90,23 +84,19 @@ export default function SimbolosPainelPage() {
                   Verde/Azul/Branco <span className="text-lg">🟢 🔵 ⚪</span>
                 </td>
                 <td className="py-4 px-4">
-                  Informativo/Funcionalidade Ativa. Indica que um sistema está
-                  ligado (faróis, setas, etc.) ou ativo.
+                  Informativo/Funcionalidade Ativa. Indica que um sistema está ligado ou ativo.
                 </td>
                 <td className="py-4 px-4">
-                  Não requer ação de emergência, apenas confirmação do
-                  acionamento ou estado do sistema.
+                  Não requer ação de emergência, apenas confirmação do acionamento.
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        {/* ====================== SÍMBOLOS DO PAINEL ====================== */}
+        {/* ====================== LISTA DE SÍMBOLOS ====================== */}
         <header className="mb-10" id="topo-simbolos">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Símbolos do Painel
-          </h2>
+          <h2 className="text-xl font-semibold text-gray-900">Símbolos do Painel</h2>
           <p className="mt-2 text-sm text-gray-600">
             Indicadores de segurança, sistemas e alertas do veículo.
           </p>
@@ -114,8 +104,8 @@ export default function SimbolosPainelPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {icons.map((icon) => {
-            // Procura metadados pelo slug (sem extensão)
-            const meta = symbolData.find((s) => s.filename === icon.file);
+            // Encontra título correto pelo slug
+            const meta = symbolData.find((s) => s.slug === icon.baseName);
 
             const label = meta?.title ?? icon.baseName;
             const id = meta ? String(meta.id) : icon.baseName;
@@ -137,12 +127,8 @@ export default function SimbolosPainelPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-base font-semibold text-gray-900">
-                    {label}
-                  </h3>
-                  <p className="text-xs text-gray-500">
-                    Toque para ver o significado técnico.
-                  </p>
+                  <h3 className="text-base font-semibold text-gray-900">{label}</h3>
+                  <p className="text-xs text-gray-500">Toque para ver o significado técnico.</p>
                 </div>
               </Link>
             );
