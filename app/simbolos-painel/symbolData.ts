@@ -1,63 +1,97 @@
 // app/simbolos-painel/symbolData.ts
+import fs from "fs";
+import path from "path";
 
-export type SymbolInfo = {
-  id: string;              // ex: "1"
-  file: string;            // ex: "simbolo-01.png"
-  title: string;           // nome técnico (aparece na página)
-  description: string;     // descrição técnica detalhada
+export const symbolTitles: Record<number, string> = {
+  1: "Controle de Estabilidade do Veículo",
+  2: "ASR – Advertência do Painel de Instrumentos piscando",
+  3: "LDWS – Sistema de aviso de saída da faixa",
+  4: "ASR – Desativado",
+  5: "AEBS – Desativado",
+  6: "Catalisador SCR",
+  7: "Advertência geral",
+  8: "Bloqueio do diferencial entre eixos (longitudinal)",
+  9: "Bloqueio do diferencial entre rodas (eixo cruzado)",
+  10: "Tomada de Força (PTO)",
+  11: "Indicador de direção à esquerda",
+  12: "Indicador de direção à direita",
+  13: "Falha de lâmpada",
+  14: "Farol principal – luz alta",
+  15: "Faróis de neblina dianteiros",
+  16: "Advertência do airbag",
+  17: "Lembrete do cinto de segurança",
+  18: "Auxílio de partida em aclives",
+  19: "ABS do caminhão",
+  20: "ABS do reboque / carreta",
+  21: "Advertência geral da carroçaria",
+  22: "Freio motor ativo",
+  23: "Freio de estacionamento",
+  24: "Freios com baixo desempenho",
+  25: "Faróis de neblina traseiros",
+  26: "Indicador de avaria",
+  27: "Alta temperatura do sistema de escapamento",
+  28: "Chassi fora da altura de direção normal",
+  29: "Pré-aquecedor da admissão do motor",
+  30: "Advertência do tacógrafo",
+  31: "Travamento da cabine está aberto",
+  32: "ARLA32 incorreto / mau funcionamento",
+  33: "Advertência EAS – limite de velocidade 20 km/h",
+  34: "Nível do líquido de arrefecimento muito baixo",
+  35: "Temperatura do líquido de arrefecimento muito alta",
+  36: "Advertência do alternador",
+  37: "Nível de óleo do motor baixo",
+  38: "Advertência do motor",
+  39: "Advertência da transmissão",
+  40: "Controlador central do veículo – Falha VICE",
+  41: "Nível do óleo: alto / baixo (corrigir nível)",
+  42: "Sobrecarga ou desgaste da embreagem",
+  43: "Desgaste na lona do freio",
+  44: "Advertência vermelha – adicionar óleo",
+  45: "Advertência do sistema ACC",
+  46: "Nível de combustível baixo",
+  47: "Nível de ARLA32 baixo",
+  48: "Filtro de partículas cheio",
+  49: "Drenar pré-filtro de combustível",
+  50: "Luz de trabalho",
+  51: "Aviso geral de perigo",
 };
 
-// Lista oficial dos significados dos 51 símbolos
-export const symbolData: SymbolInfo[] = [
-  { id: "1", file: "simbolo-01.png", title: "Controle de Estabilidade do Veículo", description: "" },
-  { id: "2", file: "simbolo-02.png", title: "ASR – Advertência do Painel de Instrumentos piscando", description: "" },
-  { id: "3", file: "simbolo-03.png", title: "LDWS – Sistema de aviso de saída da faixa", description: "" },
-  { id: "4", file: "simbolo-04.png", title: "ASR – Desativado", description: "" },
-  { id: "5", file: "simbolo-05.png", title: "AEBS – Desativado", description: "" },
-  { id: "6", file: "simbolo-06.png", title: "Catalisador SCR", description: "" },
-  { id: "7", file: "simbolo-07.png", title: "Advertência geral", description: "" },
-  { id: "8", file: "simbolo-08.png", title: "Bloqueio do diferencial entre eixos (longitudinal)", description: "" },
-  { id: "9", file: "simbolo-09.png", title: "Bloqueio do diferencial entre rodas (eixo cruzado)", description: "" },
-  { id: "10", file: "simbolo-10.png", title: "Tomada de Força (PTO)", description: "" },
-  { id: "11", file: "simbolo-11.png", title: "Indicador de direção à esquerda", description: "" },
-  { id: "12", file: "simbolo-12.png", title: "Indicador de direção à direita", description: "" },
-  { id: "13", file: "simbolo-13.png", title: "Falha de lâmpada", description: "" },
-  { id: "14", file: "simbolo-14.png", title: "Farol principal – luz alta", description: "" },
-  { id: "15", file: "simbolo-15.png", title: "Faróis de neblina dianteiros", description: "" },
-  { id: "16", file: "simbolo-16.png", title: "Advertência do airbag", description: "" },
-  { id: "17", file: "simbolo-17.png", title: "Lembrete do cinto de segurança", description: "" },
-  { id: "18", file: "simbolo-18.png", title: "Auxílio de partida em aclives", description: "" },
-  { id: "19", file: "simbolo-19.png", title: "ABS do caminhão", description: "" },
-  { id: "20", file: "simbolo-20.png", title: "ABS do reboque / carreta", description: "" },
-  { id: "21", file: "simbolo-21.png", title: "Advertência geral da carroçaria", description: "" },
-  { id: "22", file: "simbolo-22.png", title: "Freio motor ativo", description: "" },
-  { id: "23", file: "simbolo-23.png", title: "Freio de estacionamento", description: "" },
-  { id: "24", file: "simbolo-24.png", title: "Freios com baixo desempenho", description: "" },
-  { id: "25", file: "simbolo-25.png", title: "Faróis de neblina traseiros", description: "" },
-  { id: "26", file: "simbolo-26.png", title: "Indicador de avaria", description: "" },
-  { id: "27", file: "simbolo-27.png", title: "Alta temperatura do sistema de escapamento", description: "" },
-  { id: "28", file: "simbolo-28.png", title: "Chassi fora da altura de direção normal", description: "" },
-  { id: "29", file: "simbolo-29.png", title: "Pré-aquecedor da admissão do motor", description: "" },
-  { id: "30", file: "simbolo-30.png", title: "Advertência do tacógrafo", description: "" },
-  { id: "31", file: "simbolo-31.png", title: "Travamento da cabine está aberto", description: "" },
-  { id: "32", file: "simbolo-32.png", title: "ARLA32 incorreto / mau funcionamento", description: "" },
-  { id: "33", file: "simbolo-33.png", title: "Advertência EAS – limite de velocidade 20 km/h", description: "" },
-  { id: "34", file: "simbolo-34.png", title: "Nível do líquido de arrefecimento muito baixo", description: "" },
-  { id: "35", file: "simbolo-35.png", title: "Temperatura do líquido de arrefecimento muito alta", description: "" },
-  { id: "36", file: "simbolo-36.png", title: "Advertência do alternador", description: "" },
-  { id: "37", file: "simbolo-37.png", title: "Nível de óleo do motor baixo", description: "" },
-  { id: "38", file: "simbolo-38.png", title: "Advertência do motor", description: "" },
-  { id: "39", file: "simbolo-39.png", title: "Advertência da transmissão", description: "" },
-  { id: "40", file: "simbolo-40.png", title: "Controlador central do veículo – Falha VICE", description: "" },
-  { id: "41", file: "simbolo-41.png", title: "Nível do óleo: alto / baixo (corrigir nível)", description: "" },
-  { id: "42", file: "simbolo-42.png", title: "Sobrecarga ou desgaste da embreagem", description: "" },
-  { id: "43", file: "simbolo-43.png", title: "Desgaste na lona do freio", description: "" },
-  { id: "44", file: "simbolo-44.png", title: "Advertência vermelha – adicionar óleo", description: "" },
-  { id: "45", file: "simbolo-45.png", title: "Advertência do sistema ACC", description: "" },
-  { id: "46", file: "simbolo-46.png", title: "Nível de combustível baixo", description: "" },
-  { id: "47", file: "simbolo-47.png", title: "Nível de ARLA32 baixo", description: "" },
-  { id: "48", file: "simbolo-48.png", title: "Filtro de partículas cheio", description: "" },
-  { id: "49", file: "simbolo-49.png", title: "Drenar pré-filtro de combustível", description: "" },
-  { id: "50", file: "simbolo-50.png", title: "Luz de trabalho", description: "" },
-  { id: "51", file: "simbolo-51.png", title: "Aviso geral de perigo", description: "" },
-];
+export type SymbolInfo = {
+  id: number;
+  title: string;
+  imagePath: string;
+};
+
+export function getAllSymbols(): SymbolInfo[] {
+  const dir = path.join(process.cwd(), "public", "simbolos");
+
+  const entries = fs
+    .readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isFile())
+    .map((e) => e.name)
+    .filter((name) =>
+      /^simbolo-\d+\.(png|jpe?g|webp|svg)$/i.test(name)
+    );
+
+  return entries
+    .map((file) => {
+      const match = file.match(/^simbolo-(\d+)\.(png|jpe?g|webp|svg)$/i);
+      if (!match) return null;
+
+      const id = Number(match[1]);
+      const title = symbolTitles[id] ?? `Símbolo ${id}`;
+
+      return {
+        id,
+        title,
+        imagePath: "/simbolos/" + file,
+      } as SymbolInfo;
+    })
+    .filter(Boolean) as SymbolInfo[]
+    .sort((a, b) => a.id - b.id);
+}
+
+export function getSymbolById(id: number): SymbolInfo | undefined {
+  const all = getAllSymbols();
+  return all.find((s) => s.id === id);
+}
