@@ -65,10 +65,75 @@ const trainingModules = [
   },
 ];
 
+// Definição das seções por REGIÃO e relação com os slugs
+const regions = [
+  {
+    id: "brasil",
+    title: "Caminhões Elétricos — Brasil",
+    subtitle:
+      "Modelos em operação ou desenvolvimento no mercado brasileiro, focados em distribuição urbana e rotas regionais.",
+    slugs: [
+      "volvo-fm-electric-2025",
+      "volkswagen-e-delivery-2025",
+      "foton-iblue-electric-2025",
+      "mercedes-e-accelo-2025",
+      "byd-etm-2025",
+      "agrale-electric-2025",
+    ],
+  },
+  {
+    id: "europa",
+    title: "Caminhões Elétricos — Europa",
+    subtitle:
+      "Plataformas rodoviárias para transporte pesado regional e internacional, com foco em zero emissões.",
+    slugs: [
+      "mercedes-eactros-600-2025",
+      "volvo-fh-electric-2025",
+      "scania-bev-2025",
+      "daf-xf-electric-2025",
+      "man-etgx-2025",
+      "renault-e-tech-t-2025",
+      "iveco-s-way-electric-2050",
+      "mercedes-eactros-400-2025",
+    ],
+  },
+  {
+    id: "asia",
+    title: "Caminhões Elétricos — Ásia",
+    subtitle:
+      "Modelos asiáticos com forte foco em alta densidade de bateria, tecnologia embarcada e aplicações urbanas e rodoviárias.",
+    slugs: [
+      "byd-etm-asia-2050",
+      "jac-iev1200t-2050",
+      "sany-electric-2050",
+      "hino-z-ev-2050",
+      "isuzu-giga-electric-2050",
+    ],
+  },
+  {
+    id: "americas",
+    title: "Caminhões Elétricos — Américas",
+    subtitle:
+      "Plataformas norte-americanas para longas distâncias, integrando IA avançada e alta autonomia.",
+    slugs: [
+      "tesla-semi-2050",
+      "nikola-tre-electric-2050",
+      "freightliner-ecascadia-2050",
+    ],
+  },
+  {
+    id: "future",
+    title: "Futuro e Conceituais — 2050+",
+    subtitle:
+      "Conceitos de alta autonomia com baterias de estado sólido, hidrogênio e direção autônoma em alto nível.",
+    slugs: ["volvo-fh-aero-electric-2050", "man-hydrogen-electric-2050"],
+  },
+];
+
 export default function ElectricTrucksPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
-      {/* Título */}
+      {/* Título geral */}
       <div className="text-center mb-10">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
           Caminhões Elétricos ⚡
@@ -76,6 +141,10 @@ export default function ElectricTrucksPage() {
         <p className="mt-3 text-lg text-gray-600">
           A nova era do transporte começa com energia limpa e inteligência{" "}
           <span className="font-semibold text-teal-600">OTIAdriver</span>.
+        </p>
+        <p className="mt-1 text-sm text-gray-500">
+          Visualize os modelos por região e aprofunde-se nas fichas técnicas
+          completas de cada veículo.
         </p>
       </div>
 
@@ -86,7 +155,8 @@ export default function ElectricTrucksPage() {
         </h2>
         <p className="text-lg text-gray-700 mb-8">
           Acesse os módulos essenciais para a operação segura e eficiente de
-          frotas elétricas.
+          frotas elétricas. Utilize estes conteúdos em conjunto com as fichas
+          técnicas dos caminhões para treinar motoristas e gestores de frota.
         </p>
 
         {/* Grid responsivo dos módulos */}
@@ -113,42 +183,65 @@ export default function ElectricTrucksPage() {
         </div>
       </section>
 
-      {/* Grid dos caminhões elétricos */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {electricTrucks.map((truck) => (
-          <Link
-            key={truck.slug}
-            href={`/caminhoes-eletricos/${truck.slug}`}
-            className="group"
-          >
-            <div className="rounded-2xl overflow-hidden shadow bg-white transition-transform group-hover:scale-[1.02]">
-              <div
-                className="relative w-full bg-gray-50"
-                style={{ aspectRatio: "3 / 2" }}
-              >
-                <Image
-                  src={truck.file}
-                  alt={truck.name}
-                  fill
-                  className="object-contain p-4 group-hover:scale-105 transition-transform"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-              </div>
+      {/* SEÇÕES POR REGIÃO */}
+      <div className="space-y-10">
+        {regions.map((region) => {
+          const regionTrucks = electricTrucks.filter((truck) =>
+            region.slugs.includes(truck.slug)
+          );
 
-              <div className="p-4 text-center">
-                <h2 className="font-semibold text-lg text-gray-800">
-                  {truck.name}
+          if (regionTrucks.length === 0) return null;
+
+          return (
+            <section key={region.id}>
+              <header className="mb-4">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {region.title}
                 </h2>
-                {truck.description && (
-                  <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                    {truck.description}
-                  </p>
-                )}
+                <p className="mt-1 text-sm text-gray-600">
+                  {region.subtitle}
+                </p>
+              </header>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {regionTrucks.map((truck) => (
+                  <Link
+                    key={truck.slug}
+                    href={`/caminhoes-eletricos/${truck.slug}`}
+                    className="group"
+                  >
+                    <div className="rounded-2xl overflow-hidden shadow bg-white transition-transform group-hover:scale-[1.02]">
+                      <div
+                        className="relative w-full bg-gray-50"
+                        style={{ aspectRatio: "3 / 2" }}
+                      >
+                        <Image
+                          src={truck.file}
+                          alt={truck.name}
+                          fill
+                          className="object-contain p-4 group-hover:scale-105 transition-transform"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      </div>
+
+                      <div className="p-4 text-center">
+                        <h3 className="font-semibold text-lg text-gray-800">
+                          {truck.name}
+                        </h3>
+                        {truck.description && (
+                          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                            {truck.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
-            </div>
-          </Link>
-        ))}
-      </section>
+            </section>
+          );
+        })}
+      </div>
 
       {/* Rodapé informativo */}
       <div className="text-center mt-12 text-gray-600">
