@@ -35,31 +35,34 @@ const trainingModules = [
   },
   {
     title: "Módulo 05: Fator Humano e Dirigibilidade Defensiva",
-    description: "Gestão de fadiga, estresse e desafios da condução de VEs silenciosos.",
+    description:
+      "Gestão de fadiga, estresse e desafios da condução de VEs silenciosos.",
     slug: "fator-humano-dirigibilidade",
   },
   {
     title: "Módulo 06: Eficiência em Frotas a Diesel (Transição)",
-    description: "Técnicas de Eco-Driving, RPM e manutenção para economia de diesel.",
+    description:
+      "Técnicas de Eco-Driving, RPM e manutenção para economia de diesel.",
     slug: "eficiencia-diesel",
   },
   {
     title: "Módulo 07: TCO, Análise Financeira e Sustentabilidade",
-    description: "Compreensão do TCO, ROI de VEs e impacto da frota nos relatórios ESG.",
+    description:
+      "Compreensão do TCO, ROI de VEs e impacto da frota nos relatórios ESG.",
     slug: "analise-tco-sustentabilidade",
   },
   {
-  title: "Módulo 08: Logística de Risco e Carga de Baterias",
-  description:
-    "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
-  slug: "logistica-de-risco-e-carga-de-baterias",
-},
-{
-  title: "Módulo 09: Cuidados Operacionais e Conformidade EURO 6",
-  description:
-    "Guia sobre ARLA 32, filtragem, lubrificação e conformidade ambiental EURO 6.",
-  slug: "cuidados-operacionais-e-conformidade-euro-6",
-},
+    title: "Módulo 08: Logística de Risco e Carga de Baterias",
+    description:
+      "Classificação MOPP, riscos de transporte de baterias de lítio e fundamentos do Vehicle-to-Grid (V2G).",
+    slug: "logistica-de-risco-e-carga-de-baterias",
+  },
+  {
+    title: "Módulo 09: Cuidados Operacionais e Conformidade EURO 6",
+    description:
+      "Guia sobre ARLA 32, filtragem, lubrificação e conformidade ambiental EURO 6.",
+    slug: "cuidados-operacionais-e-conformidade-euro-6",
+  },
 ];
 
 export default function ElectricTrucksPage() {
