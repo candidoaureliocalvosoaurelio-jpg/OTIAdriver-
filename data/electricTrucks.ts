@@ -1,180 +1,120 @@
 // data/electricTrucks.ts
-// Banco de dados dos caminhões elétricos — OTIAdriver ⚡
 
 export type ElectricTruck = {
   slug: string;
   name: string;
-  file: string; // Caminho da imagem em /public/images/trucks-eletricos/
+  file: string;
   description?: string;
   specs?: Record<string, string>;
 };
 
 export const electricTrucks: ElectricTruck[] = [
+  // ... seus modelos atuais ...
+
+  // ==== NOVOS MODELOS DA FICHA TÉCNICA ====
   {
-    slug: "volvo-fh-electric-2025",
-    name: "Volvo FH Electric 2025",
-    file: "/images/trucks-eletricos/volvo-fh-electric.jpg",
+    slug: "volvo-fm-electric",
+    name: "Volvo FM Electric",
+    file: "/images/trucks-eletricos/volvo-fm-electric.jpg",
     description:
-      "Caminhão elétrico pesado da Volvo, ideal para longas distâncias com emissão zero e alta eficiência energética.",
-    specs: {
-      Potência: "490 kW (660 cv)",
-      Autonomia: "300 km",
-      Bateria: "540 kWh",
-      Torque: "2400 Nm",
-    },
+      "Caminhão elétrico pesado da Volvo para transporte urbano e regional, conforme ficha técnica OTIAdriver.",
   },
   {
-    slug: "daf-xf-electric-2025",
-    name: "DAF XF Electric 2025",
-    file: "/images/trucks-eletricos/daf-xf-electric.jpg",
+    slug: "foton-iblue-electric",
+    name: "Foton iBlue Electric",
+    file: "/images/trucks-eletricos/foton-iblue-electric.jpg",
     description:
-      "Modelo elétrico premium com design aerodinâmico, baixo ruído e performance otimizada.",
-    specs: {
-      Potência: "480 kW",
-      Autonomia: "320 km",
-      Bateria: "525 kWh",
-      Torque: "2300 Nm",
-    },
+      "Modelo elétrico Foton iBlue para operação urbana, com foco em entregas e serviços, conforme ficha técnica OTIAdriver.",
   },
   {
-    slug: "mercedes-eactros-2025",
-    name: "Mercedes eActros 2025",
-    file: "/images/trucks-eletricos/mercedes-eactros.jpg",
+    slug: "mercedes-e-accelo",
+    name: "Mercedes-Benz e-Accelo",
+    file: "/images/trucks-eletricos/mercedes-e-accelo.jpg",
     description:
-      "O eActros é o caminhão elétrico de alto desempenho da Mercedes-Benz, voltado ao transporte urbano e regional.",
-    specs: {
-      Potência: "400 kW (536 cv)",
-      Autonomia: "400 km",
-      Bateria: "600 kWh",
-      Torque: "2400 Nm",
-    },
+      "Versão elétrica do consagrado Accelo, voltada à distribuição urbana sustentável.",
   },
   {
-    slug: "volkswagen-e-delivery-2025",
-    name: "Volkswagen e-Delivery 2025",
-    file: "/images/trucks-eletricos/vw-e-delivery.jpg",
+    slug: "byd-etm",
+    name: "BYD ETM",
+    file: "/images/trucks-eletricos/byd-etm.jpg",
     description:
-      "Produzido no Brasil, o VW e-Delivery é referência em sustentabilidade e eficiência urbana.",
-    specs: {
-      Potência: "300 kW (408 cv)",
-      Autonomia: "250 km",
-      Bateria: "350 kWh",
-      Torque: "2200 Nm",
-    },
+      "Caminhão elétrico BYD ETM, focado em transporte urbano e regional limpo e silencioso.",
   },
   {
-    slug: "iveco-s-way-electric-2025",
-    name: "Iveco S-Way Electric 2025",
-    file: "/images/trucks-eletricos/iveco-sway-electric.jpg",
+    slug: "agrale-electric",
+    name: "Agrale Electric",
+    file: "/images/trucks-eletricos/agrale-electric.jpg",
     description:
-      "A Iveco aposta em potência e conforto no transporte pesado 100% elétrico.",
-    specs: {
-      Potência: "490 kW (660 cv)",
-      Autonomia: "350 km",
-      Bateria: "560 kWh",
-      Torque: "2400 Nm",
-    },
+      "Agrale Electric para aplicações urbanas, utilitárias e serviços públicos com emissão zero.",
   },
   {
-    slug: "scania-super-electric-2025",
-    name: "Scania Super Electric 2025",
-    file: "/images/trucks-eletricos/scania-super-electric.jpg",
+    slug: "mercedes-eactros-600-longhaul",
+    name: "Mercedes-Benz eActros 600 (LongHaul)",
+    file: "/images/trucks-eletricos/mercedes-eactros-600-longhaul.jpg",
     description:
-      "O novo Scania elétrico combina força, autonomia e conectividade total para o transporte sustentável.",
-    specs: {
-      Potência: "500 kW (680 cv)",
-      Autonomia: "350 km",
-      Bateria: "600 kWh",
-      Torque: "2500 Nm",
-    },
+      "eActros 600 LongHaul, caminhão elétrico pesado para longas distâncias na Europa.",
   },
   {
-    slug: "hino-z-ev-2025",
-    name: "Hino Z EV 2025",
-    file: "/images/trucks-eletricos/hino-z-ev.jpg",
+    slug: "scania-bev",
+    name: "Scania BEV",
+    file: "/images/trucks-eletricos/scania-bev.jpg",
     description:
-      "Caminhão elétrico japonês voltado ao transporte urbano de alta eficiência e baixo custo operacional.",
-    specs: {
-      Potência: "360 kW",
-      Autonomia: "280 km",
-      Bateria: "420 kWh",
-    },
+      "Plataforma BEV da Scania para transporte pesado elétrico com foco em eficiência e conectividade.",
   },
   {
-    slug: "ud-quester-electric-2025",
-    name: "UD Quester Electric 2025",
-    file: "/images/trucks-eletricos/ud-quester-electric.jpg",
+    slug: "man-etgx",
+    name: "MAN eTGX",
+    file: "/images/trucks-eletricos/man-etgx.jpg",
     description:
-      "Com design robusto e tecnologia Nissan, o UD Quester elétrico entrega força e sustentabilidade.",
-    specs: {
-      Potência: "380 kW",
-      Autonomia: "300 km",
-      Bateria: "450 kWh",
-    },
+      "Caminhão elétrico MAN eTGX, ideal para distribuição regional e rodoviária.",
   },
   {
-    slug: "dongfeng-electric-2025",
-    name: "Dongfeng Electric 2025",
-    file: "/images/trucks-eletricos/dongfeng-electric.jpg",
+    slug: "renault-e-tech-t",
+    name: "Renault E-Tech T",
+    file: "/images/trucks-eletricos/renault-e-tech-t.jpg",
     description:
-      "O gigante chinês aposta na mobilidade elétrica com foco em transporte de carga pesada e autonomia estendida.",
-    specs: {
-      Potência: "450 kW",
-      Autonomia: "350 km",
-      Bateria: "500 kWh",
-    },
+      "Renault E-Tech T, caminhão elétrico europeu para longa distância com emissão zero.",
   },
   {
-    slug: "freightliner-ecascadia-2025",
-    name: "Freightliner eCascadia 2025",
-    file: "/images/trucks-eletricos/freightliner-ecascadia.jpg",
+    slug: "byd-etm-2050",
+    name: "BYD ETM 2050",
+    file: "/images/trucks-eletricos/byd-etm-2050.jpg",
     description:
-      "Símbolo da eletrificação nos EUA, o eCascadia é referência em potência e conforto para longas rotas.",
-    specs: {
-      Potência: "470 kW (630 cv)",
-      Autonomia: "400 km",
-      Bateria: "550 kWh",
-    },
+      "Versão futurizada BYD ETM 2050, com foco em autonomia ampliada e telemetria avançada.",
   },
   {
-    slug: "byd-8tt-2025",
-    name: "BYD 8TT 2025",
-    file: "/images/trucks-eletricos/byd-8tt.jpg",
+    slug: "jac-iev1200t-2050",
+    name: "JAC iEV1200T 2050",
+    file: "/images/trucks-eletricos/jac-iev1200t-2050.jpg",
     description:
-      "O BYD 8TT se destaca pela confiabilidade e autonomia — líder mundial em caminhões elétricos.",
-    specs: {
-      Potência: "430 kW",
-      Autonomia: "350 km",
-      Bateria: "500 kWh",
-    },
+      "JAC iEV1200T 2050, caminhão elétrico asiático voltado para distribuição urbana e serviços.",
   },
   {
-    slug: "tesla-semi-2025",
-    name: "Tesla Semi 2025",
-    file: "/images/trucks-eletricos/tesla-semi.jpg",
+    slug: "sany-electric-2050",
+    name: "SANY Electric 2050",
+    file: "/images/trucks-eletricos/sany-electric-2050.jpg",
     description:
-      "Com design futurista, o Tesla Semi redefine o transporte pesado com performance de supercarro.",
-    specs: {
-      Potência: "820 kW (1100 cv)",
-      Autonomia: "800 km",
-      Bateria: "900 kWh",
-    },
+      "SANY Electric 2050, solução asiática para transporte pesado elétrico com foco em automação.",
   },
   {
-    slug: "nikola-tre-bev-2025",
-    name: "Nikola Tre BEV 2025",
-    file: "/images/trucks-eletricos/nikola-tre-bev.jpg",
+    slug: "isuzu-giga-electric-2050",
+    name: "Isuzu Giga Electric 2050",
+    file: "/images/trucks-eletricos/isuzu-giga-electric-2050.jpg",
     description:
-      "O Nikola Tre é movido por energia limpa e equipado com tecnologias de direção autônoma.",
-    specs: {
-      Potência: "645 kW",
-      Autonomia: "530 km",
-      Bateria: "753 kWh",
-    },
+      "Isuzu Giga Electric 2050, caminhão japonês de alta tecnologia com condução assistida.",
+  },
+  {
+    slug: "man-hydrogen-electric-2050",
+    name: "MAN Hydrogen-Electric 2050",
+    file: "/images/trucks-eletricos/man-hydrogen-electric-2050.jpg",
+    description:
+      "Projeto híbrido MAN Hydrogen-Electric 2050, combinando célula de hidrogênio e tração elétrica.",
+  },
+  {
+    slug: "mercedes-eactros-400",
+    name: "Mercedes-Benz eActros 400",
+    file: "/images/trucks-eletricos/mercedes-eactros-400.jpg",
+    description:
+      "Mercedes-Benz eActros 400, variante elétrica para operações urbanas e regionais na Europa.",
   },
 ];
-
-// Função auxiliar
-export function getElectricTruckBySlug(slug: string) {
-  return electricTrucks.find((t) => t.slug === slug);
-}
