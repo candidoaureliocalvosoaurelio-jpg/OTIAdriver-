@@ -14,7 +14,7 @@ export const electricTrucks: ElectricTruck[] = [
   // BRASIL
   // =========================================================
   {
-    slug: "volvo-fm-electric-2025",
+    slug: "volvo-fm-electric",
     name: "Volvo FM Electric 2025",
     file: "/images/trucks-eletricos/volvo-fm-electric.jpg",
     description:
@@ -37,7 +37,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "volkswagen-e-delivery-2025",
+    slug: "volkswagen-e-delivery",
     name: "Volkswagen e-Delivery 2025",
     file: "/images/trucks-eletricos/vw-e-delivery.jpg",
     description:
@@ -60,7 +60,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "foton-iblue-electric-2025",
+    slug: "foton-iblue-electric",
     name: "Foton iBlue Electric 2025",
     file: "/images/trucks-eletricos/foton-iblue-electric.jpg",
     description:
@@ -83,7 +83,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "mercedes-e-accelo-2025",
+    slug: "mercedes-e-accelo",
     name: "Mercedes-Benz e-Accelo 2025",
     file: "/images/trucks-eletricos/mercedes-e-accelo.jpg",
     description:
@@ -106,7 +106,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "byd-etm-2025",
+    slug: "byd-etm",
     name: "BYD ETM 2025",
     file: "/images/trucks-eletricos/byd-etm.jpg",
     description:
@@ -129,7 +129,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "agrale-electric-2025",
+    slug: "agrale-electric",
     name: "Agrale Electric 2025",
     file: "/images/trucks-eletricos/agrale-electric.jpg",
     description:
@@ -156,7 +156,7 @@ export const electricTrucks: ElectricTruck[] = [
   // EUROPA
   // =========================================================
   {
-    slug: "mercedes-eactros-600-2025",
+    slug: "mercedes-eactros-600",
     name: "Mercedes-Benz eActros 600 LongHaul 2025",
     file: "/images/trucks-eletricos/mercedes-eactros-600.jpg",
     description:
@@ -179,7 +179,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "volvo-fh-electric-2025",
+    slug: "volvo-fh-electric",
     name: "Volvo FH Electric 2025",
     file: "/images/trucks-eletricos/volvo-fh-electric.jpg",
     description:
@@ -202,7 +202,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "scania-bev-2025",
+    slug: "scania-bev",
     name: "Scania BEV 2025",
     file: "/images/trucks-eletricos/scania-bev.jpg",
     description:
@@ -225,7 +225,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "daf-xf-electric-2025",
+    slug: "daf-xf-electric",
     name: "DAF XF Electric 2025",
     file: "/images/trucks-eletricos/daf-xf-electric.jpg",
     description:
@@ -248,7 +248,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "man-etgx-2025",
+    slug: "man-etgx",
     name: "MAN eTGX 2025",
     file: "/images/trucks-eletricos/man-etgx.jpg",
     description:
@@ -271,7 +271,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "renault-e-tech-t-2025",
+    slug: "renault-e-tech-t",
     name: "Renault E-Tech T 2025",
     file: "/images/trucks-eletricos/renault-e-tech-t.jpg",
     description:
@@ -294,7 +294,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "iveco-s-way-electric-2050",
+    slug: "iveco-s-way-electric",
     name: "IVECO S-Way Electric 2050",
     file: "/images/trucks-eletricos/iveco-sway-electric.jpg",
     description:
@@ -318,7 +318,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "mercedes-eactros-400-2025",
+    slug: "mercedes-eactros-400",
     name: "Mercedes-Benz eActros 400 2025",
     file: "/images/trucks-eletricos/mercedes-eactros-400.jpg",
     description:
@@ -348,7 +348,7 @@ export const electricTrucks: ElectricTruck[] = [
   // ÁSIA
   // =========================================================
   {
-    slug: "byd-etm-asia-2050",
+    slug: "byd-etm-asia",
     name: "BYD ETM 2050 (Ásia)",
     file: "/images/trucks-eletricos/byd-etm-asia.jpg",
     description:
@@ -372,7 +372,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "jac-iev1200t-2050",
+    slug: "jac-iev1200t",
     name: "JAC iEV1200T 2050",
     file: "/images/trucks-eletricos/jac-iev1200t.jpg",
     description:
@@ -396,7 +396,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "sany-electric-2050",
+    slug: "sany-electric",
     name: "SANY Electric 2050",
     file: "/images/trucks-eletricos/sany-electric.jpg",
     description:
@@ -422,7 +422,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "hino-z-ev-2050",
+    slug: "hino-z-ev",
     name: "Hino Z EV 2050",
     file: "/images/trucks-eletricos/hino-z-ev.jpg",
     description:
@@ -446,7 +446,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "isuzu-giga-electric-2050",
+    slug: "isuzu-giga-electric",
     name: "Isuzu Giga Electric 2050",
     file: "/images/trucks-eletricos/isuzu-giga-electric.jpg",
     description:
@@ -476,7 +476,7 @@ export const electricTrucks: ElectricTruck[] = [
   // AMÉRICAS
   // =========================================================
   {
-    slug: "tesla-semi-2050",
+    slug: "tesla-semi",
     name: "Tesla Semi 2050",
     file: "/images/trucks-eletricos/tesla-semi.jpg",
     description:
@@ -503,7 +503,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "nikola-tre-electric-2050",
+    slug: "nikola-tre-electric",
     name: "Nikola Tre Electric 2050",
     file: "/images/trucks-eletricos/nikola-tre-electric.jpg",
     description:
@@ -529,7 +529,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "freightliner-ecascadia-2050",
+    slug: "freightliner-ecascadia",
     name: "Freightliner eCascadia 2050",
     file: "/images/trucks-eletricos/freightliner-ecascadia.jpg",
     description:
@@ -559,7 +559,7 @@ export const electricTrucks: ElectricTruck[] = [
   // FUTURO / CONCEITUAIS
   // =========================================================
   {
-    slug: "volvo-fh-aero-electric-2050",
+    slug: "volvo-fh-aero-electric",
     name: "Volvo FH Aero Electric 2050",
     file: "/images/trucks-eletricos/volvo-fh-aero-electric.jpg",
     description:
@@ -585,7 +585,7 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "man-hydrogen-electric-2050",
+    slug: "man-hydrogen-electric",
     name: "MAN Hydrogen-Electric 2050",
     file: "/images/trucks-eletricos/man-hydrogen-electric.jpg",
     description:
