@@ -65,7 +65,7 @@ const trainingModules = [
   },
 ];
 
-// Definição das seções por REGIÃO e relação com os slugs
+// SEÇÕES POR REGIÃO – usando os MESMOS slugs de data/electricTrucks.ts
 const regions = [
   {
     id: "brasil",
@@ -73,12 +73,12 @@ const regions = [
     subtitle:
       "Modelos em operação ou desenvolvimento no mercado brasileiro, focados em distribuição urbana e rotas regionais.",
     slugs: [
-      "volvo-fm-electric",
-      "volkswagen-e-delivery",
-      "foton-iblue-electric",
-      "mercedes-e-accelo",
-      "byd-etm",
-      "agrale-electric",
+      "volvo-fm-electric-2025",
+      "volkswagen-e-delivery-2025",
+      "foton-iblue-electric-2025",
+      "mercedes-e-accelo-2025",
+      "byd-etm-2025",
+      "agrale-electric-2025",
     ],
   },
   {
@@ -87,14 +87,14 @@ const regions = [
     subtitle:
       "Plataformas rodoviárias para transporte pesado regional e internacional, com foco em zero emissões.",
     slugs: [
-      "mercedes-eactros-600",
-      "volvo-fh-electric",
-      "scania-bev",
-      "daf-xf-electric",
-      "man-etgx",
-      "renault-e-tech-t",
-      "iveco-s-way-electric",
-      "mercedes-eactros-400",
+      "mercedes-eactros-600-2025",
+      "volvo-fh-electric-2025",
+      "scania-bev-2025",
+      "daf-xf-electric-2025",
+      "man-etgx-2025",
+      "renault-e-tech-t-2025",
+      "iveco-s-way-electric-2050",
+      "mercedes-eactros-400-2025",
     ],
   },
   {
@@ -103,11 +103,11 @@ const regions = [
     subtitle:
       "Modelos asiáticos com forte foco em alta densidade de bateria, tecnologia embarcada e aplicações urbanas e rodoviárias.",
     slugs: [
-      "byd-etm-asia",
-      "jac-iev1200t",
-      "sany-electric",
-      "hino-z-ev",
-      "isuzu-giga-electric",
+      "byd-etm-asia-2050",
+      "jac-iev1200t-2050",
+      "sany-electric-2050",
+      "hino-z-ev-2050",
+      "isuzu-giga-electric-2050",
     ],
   },
   {
@@ -116,9 +116,9 @@ const regions = [
     subtitle:
       "Plataformas norte-americanas para longas distâncias, integrando IA avançada e alta autonomia.",
     slugs: [
-      "tesla-semi",
-      "nikola-tre-electric",
-      "freightliner-ecascadia",
+      "tesla-semi-2050",
+      "nikola-tre-electric-2050",
+      "freightliner-ecascadia-2050",
     ],
   },
   {
@@ -126,7 +126,7 @@ const regions = [
     title: "Futuro e Conceituais",
     subtitle:
       "Conceitos de alta autonomia com baterias de estado sólido, hidrogênio e direção autônoma em alto nível.",
-    slugs: ["volvo-fh-aero-electric", "man-hydrogen-electric"],
+    slugs: ["volvo-fh-aero-electric-2050", "man-hydrogen-electric-2050"],
   },
 ];
 
@@ -159,7 +159,6 @@ export default function ElectricTrucksPage() {
           técnicas dos caminhões para treinar motoristas e gestores de frota.
         </p>
 
-        {/* Grid responsivo dos módulos */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {trainingModules.map((module) => (
             <Link
