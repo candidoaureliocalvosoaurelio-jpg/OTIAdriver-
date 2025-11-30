@@ -14,8 +14,8 @@ export const electricTrucks: ElectricTruck[] = [
   // BRASIL
   // =========================================================
   {
-    slug: "volvo-fm-electric",
-    name: "Volvo FM Electric 2025",
+    slug: "volvo-fm-electric-2025",
+    name: "Volvo FM Electric",
     file: "/images/trucks-eletricos/volvo-fm-electric.jpg",
     description:
       "Caminhão elétrico pesado voltado ao transporte urbano e regional, com alta autonomia e operação livre de emissões locais.",
@@ -37,8 +37,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "volkswagen-e-delivery",
-    name: "Volkswagen e-Delivery 2025",
+    slug: "volkswagen-e-delivery-2025",
+    name: "Volkswagen e-Delivery",
     file: "/images/trucks-eletricos/vw-e-delivery.jpg",
     description:
       "Referência em distribuição urbana sustentável, produzido no Brasil para operações silenciosas e eficientes.",
@@ -60,8 +60,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "foton-iblue-electric",
-    name: "Foton iBlue Electric 2025",
+    slug: "foton-iblue-electric-2025",
+    name: "Foton iBlue Electric",
     file: "/images/trucks-eletricos/foton-iblue-electric.jpg",
     description:
       "Modelo elétrico voltado a entregas urbanas e serviços, com foco em eficiência e baixo custo operacional.",
@@ -83,8 +83,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "mercedes-e-accelo",
-    name: "Mercedes-Benz e-Accelo 2025",
+    slug: "mercedes-e-accelo-2025",
+    name: "Mercedes-Benz e-Accelo",
     file: "/images/trucks-eletricos/mercedes-e-accelo.jpg",
     description:
       "Caminhão leve elétrico ideal para operações urbanas de distribuição, com alta confiabilidade Mercedes-Benz.",
@@ -106,8 +106,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "byd-etm",
-    name: "BYD ETM 2025",
+    slug: "byd-etm-2025",
+    name: "BYD ETM",
     file: "/images/trucks-eletricos/byd-etm.jpg",
     description:
       "Modelo médio da BYD com baterias LFP, ideal para transporte regional com custo reduzido por quilômetro.",
@@ -129,8 +129,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "agrale-electric",
-    name: "Agrale Electric 2025",
+    slug: "agrale-electric-2025",
+    name: "Agrale Electric",
     file: "/images/trucks-eletricos/agrale-electric.jpg",
     description:
       "Caminhão nacional voltado a operações urbanas, serviços públicos e utilidades com propulsão 100% elétrica.",
@@ -156,8 +156,8 @@ export const electricTrucks: ElectricTruck[] = [
   // EUROPA
   // =========================================================
   {
-    slug: "mercedes-eactros-600",
-    name: "Mercedes-Benz eActros 600 LongHaul 2025",
+    slug: "mercedes-eactros-600-2025",
+    name: "Mercedes-Benz eActros 600 LongHaul",
     file: "/images/trucks-eletricos/mercedes-eactros-600.jpg",
     description:
       "Plataforma de longa distância da Mercedes-Benz para transporte pesado totalmente elétrico em rotas rodoviárias.",
@@ -179,8 +179,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "volvo-fh-electric",
-    name: "Volvo FH Electric 2025",
+    slug: "volvo-fh-electric-2025",
+    name: "Volvo FH Electric",
     file: "/images/trucks-eletricos/volvo-fh-electric.jpg",
     description:
       "Versão elétrica do consagrado FH, voltada ao transporte pesado regional e internacional.",
@@ -202,8 +202,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "scania-bev",
-    name: "Scania BEV 2025",
+    slug: "scania-bev-2025",
+    name: "Scania BEV",
     file: "/images/trucks-eletricos/scania-bev.jpg",
     description:
       "Plataforma elétrica Scania para operações pesadas com foco em conectividade e eficiência.",
@@ -225,8 +225,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "daf-xf-electric",
-    name: "DAF XF Electric 2025",
+    slug: "daf-xf-electric-2025",
+    name: "DAF XF Electric",
     file: "/images/trucks-eletricos/daf-xf-electric.jpg",
     description:
       "Modelo premium da DAF com foco em conforto, aerodinâmica e emissões zero.",
@@ -248,8 +248,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "man-etgx",
-    name: "MAN eTGX 2025",
+    slug: "man-etgx-2025",
+    name: "MAN eTGX",
     file: "/images/trucks-eletricos/man-etgx.jpg",
     description:
       "Caminhão elétrico da MAN voltado a rotas de média e longa distância com alto desempenho energético.",
@@ -271,8 +271,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "renault-e-tech-t",
-    name: "Renault E-Tech T 2025",
+    slug: "renault-e-tech-t-2025",
+    name: "Renault E-Tech T",
     file: "/images/trucks-eletricos/renault-e-tech-t.jpg",
     description:
       "Plataforma elétrica da Renault Trucks voltada a logística pesada regional.",
@@ -294,13 +294,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "iveco-s-way-electric",
-    name: "IVECO S-Way Electric 2050",
+    slug: "iveco-s-way-electric-2050",
+    name: "IVECO S-Way Electric",
     file: "/images/trucks-eletricos/iveco-sway-electric.jpg",
     description:
       "Conceito de longo curso 100% elétrico da IVECO com foco em autonomia e conforto.",
     specs: {
-      "Marca / Modelo": "IVECO S-Way Electric 2050",
+      "Marca / Modelo": "IVECO S-Way Electric",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "500 km (carga total)",
       Bateria: "740 kWh – Íons de Lítio (NMC)",
@@ -318,8 +318,8 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "mercedes-eactros-400",
-    name: "Mercedes-Benz eActros 400 2025",
+    slug: "mercedes-eactros-400-2025",
+    name: "Mercedes-Benz eActros 400",
     file: "/images/trucks-eletricos/mercedes-eactros-400.jpg",
     description:
       "Versão de menor PBT da família eActros, focada em distribuição regional e urbana.",
@@ -348,13 +348,13 @@ export const electricTrucks: ElectricTruck[] = [
   // ÁSIA
   // =========================================================
   {
-    slug: "byd-etm-asia",
-    name: "BYD ETM 2050 (Ásia)",
+    slug: "byd-etm-asia-2050",
+    name: "BYD ETM (Ásia)",
     file: "/images/trucks-eletricos/byd-etm-asia.jpg",
     description:
       "Versão asiática do BYD ETM com tecnologia Blade, voltada a frotas regionais elétricas.",
     specs: {
-      "Marca / Modelo": "BYD ETM 2050",
+      "Marca / Modelo": "BYD ETM",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "280–320 km (carga média)",
       Bateria:
@@ -372,13 +372,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "jac-iev1200t",
-    name: "JAC iEV1200T 2050",
+    slug: "jac-iev1200t-2050",
+    name: "JAC iEV1200T",
     file: "/images/trucks-eletricos/jac-iev1200t.jpg",
     description:
       "Caminhão elétrico leve-médio da JAC Motors, ideal para entregas urbanas e serviços.",
     specs: {
-      "Marca / Modelo": "JAC iEV1200T 2050",
+      "Marca / Modelo": "JAC iEV1200T",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "250–280 km (ciclo urbano)",
       Bateria: "142 kWh – Lítio-Ferro-Fosfato (LFP)",
@@ -396,13 +396,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "sany-electric",
-    name: "SANY Electric 2050",
+    slug: "sany-electric-2050",
+    name: "SANY Electric",
     file: "/images/trucks-eletricos/sany-electric.jpg",
     description:
       "Caminhão superpesado elétrico para mineração e logística extremamente exigente.",
     specs: {
-      "Marca / Modelo": "SANY Electric 2050",
+      "Marca / Modelo": "SANY Electric",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "500–600 km (plena carga)",
       Bateria: "800 kWh – Lítio-Ferro-Fosfato (LFP) de alta densidade",
@@ -422,13 +422,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "hino-z-ev",
-    name: "Hino Z EV 2050",
+    slug: "hino-z-ev-2050",
+    name: "Hino Z EV",
     file: "/images/trucks-eletricos/hino-z-ev.jpg",
     description:
       "Caminhão elétrico japonês com foco em tecnologia embarcada e operação inteligente.",
     specs: {
-      "Marca / Modelo": "Hino Z EV 2050",
+      "Marca / Modelo": "Hino Z EV",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "400–450 km (ciclo combinado)",
       Bateria: "480 kWh – Íons de Lítio (NMC)",
@@ -446,13 +446,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "isuzu-giga-electric",
-    name: "Isuzu Giga Electric 2050",
+    slug: "isuzu-giga-electric-2050",
+    name: "Isuzu Giga Electric",
     file: "/images/trucks-eletricos/isuzu-giga-electric.jpg",
     description:
       "Plataforma pesada da Isuzu para rotas de longa distância totalmente elétricas.",
     specs: {
-      "Marca / Modelo": "Isuzu Giga Electric 2050",
+      "Marca / Modelo": "Isuzu Giga Electric",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "500 km (modo carga total)",
       Bateria: "620 kWh – Íons de Lítio (NMC)",
@@ -476,13 +476,13 @@ export const electricTrucks: ElectricTruck[] = [
   // AMÉRICAS
   // =========================================================
   {
-    slug: "tesla-semi",
-    name: "Tesla Semi 2050",
+    slug: "tesla-semi-2050",
+    name: "Tesla Semi",
     file: "/images/trucks-eletricos/tesla-semi.jpg",
     description:
       "Cavalo-mecânico elétrico de alto desempenho, com grande autonomia e integração de IA para rotas rodoviárias.",
     specs: {
-      "Marca / Modelo": "Tesla Semi 2050",
+      "Marca / Modelo": "Tesla Semi",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "800 km (modo longo alcance)",
       Bateria: "900 kWh – Lítio-Níquel-Manganês-Cobalto (NMC)",
@@ -503,13 +503,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "nikola-tre-electric",
-    name: "Nikola Tre Electric 2050",
+    slug: "nikola-tre-electric-2050",
+    name: "Nikola Tre Electric",
     file: "/images/trucks-eletricos/nikola-tre-electric.jpg",
     description:
       "Plataforma elétrica da Nikola para rotas rodoviárias de média e longa distância nas Américas.",
     specs: {
-      "Marca / Modelo": "Nikola Tre Electric 2050",
+      "Marca / Modelo": "Nikola Tre Electric",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "720 km (modo highway)",
       Bateria: "733 kWh – Íons de Lítio (NMC)",
@@ -529,13 +529,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "freightliner-ecascadia",
-    name: "Freightliner eCascadia 2050",
+    slug: "freightliner-ecascadia-2050",
+    name: "Freightliner eCascadia",
     file: "/images/trucks-eletricos/freightliner-ecascadia.jpg",
     description:
       "Ícone da eletrificação pesada nos EUA, ideal para rotas regionais e distribuição de alta capacidade.",
     specs: {
-      "Marca / Modelo": "Freightliner eCascadia 2050",
+      "Marca / Modelo": "Freightliner eCascadia",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "400–500 km (carga total)",
       Bateria: "475–550 kWh – Íons de Lítio (NMC)",
@@ -559,13 +559,13 @@ export const electricTrucks: ElectricTruck[] = [
   // FUTURO / CONCEITUAIS
   // =========================================================
   {
-    slug: "volvo-fh-aero-electric",
-    name: "Volvo FH Aero Electric 2050",
+    slug: "volvo-fh-aero-electric-2050",
+    name: "Volvo FH Aero Electric",
     file: "/images/trucks-eletricos/volvo-fh-aero-electric.jpg",
     description:
       "Conceito aerodinâmico de longa distância da Volvo, com baterias de estado sólido e IA avançada.",
     specs: {
-      "Marca / Modelo": "Volvo FH Aero Electric 2050",
+      "Marca / Modelo": "Volvo FH Aero Electric",
       "Tipo de Propulsão": "100% Elétrico (BEV)",
       Autonomia: "650–700 km (modo Highway Pro GII)",
       Bateria: "800 kWh – Íons de Lítio Sólido (Solid-State)",
@@ -585,13 +585,13 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
   {
-    slug: "man-hydrogen-electric",
-    name: "MAN Hydrogen-Electric 2050",
+    slug: "man-hydrogen-electric-2050",
+    name: "MAN Hydrogen-Electric",
     file: "/images/trucks-eletricos/man-hydrogen-electric.jpg",
     description:
       "Conceito híbrido hidrogênio + elétrico, voltado a rotas intercontinentais com máxima autonomia.",
     specs: {
-      "Marca / Modelo": "MAN Hydrogen-Electric 2050",
+      "Marca / Modelo": "MAN Hydrogen-Electric",
       "Tipo de Propulsão":
         "Híbrido: Célula de Hidrogênio + Motor Elétrico",
       Autonomia: "1.000 km (modo combinado)",
