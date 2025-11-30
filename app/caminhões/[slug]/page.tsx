@@ -1,40 +1,40 @@
-import Image from "next/image";
+// app/caminhoes-eletricos/[slug]/page.tsx
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { trucks, getTruckBySlug } from "@/data/trucks";
+import { electricTrucks, getElectricTruckBySlug } from "@/data/electricTrucks";
 
 type Props = {
   params: { slug: string };
 };
 
-// Geração estática das rotas com base nos slugs em `trucks`
+// Gera as rotas estáticas com base nos slugs dos caminhões elétricos
 export function generateStaticParams() {
-  return trucks.map((truck) => ({
+  return electricTrucks.map((truck) => ({
     slug: truck.slug,
   }));
 }
 
-// SEO dinâmico por slug
+// SEO dinâmico por slug (caminhões elétricos)
 export function generateMetadata({ params }: Props): Metadata {
-  const truck = getTruckBySlug(params.slug);
+  const truck = getElectricTruckBySlug(params.slug);
 
   if (!truck) {
     return {
-      title: "Caminhão não encontrado — OTIAdriver",
+      title: "Caminhão elétrico não encontrado — OTIAdriver",
       description: "A página solicitada não foi encontrada.",
     };
   }
 
   return {
-    title: `${truck.name} — OTIAdriver`,
-    description: `Ficha técnica e imagem do ${truck.name}.`,
+    title: `${truck.name} — Caminhão Elétrico — OTIAdriver`,
+    description: `Ficha técnica do caminhão elétrico ${truck.name}.`,
   };
 }
 
-// Página do caminhão
-export default function TruckPage({ params }: Props) {
-  const truck = getTruckBySlug(params.slug);
+// Página do caminhão elétrico
+export default function ElectricTruckPage({ params }: Props) {
+  const truck = getElectricTruckBySlug(params.slug);
 
   if (!truck) {
     notFound();
@@ -45,38 +45,31 @@ export default function TruckPage({ params }: Props) {
       {/* Título e Navegação */}
       <div className="mb-8">
         <Link
-          href="/"
+          href="/caminhoes-eletricos"
           className="text-blue-400 hover:text-blue-300 text-sm"
         >
-          ← Voltar para Galeria
+          ← Voltar para caminhões elétricos
         </Link>
         <h1 className="mt-2 text-4xl md:text-5xl font-extrabold tracking-tight text-white">
           {truck.name}
         </h1>
       </div>
 
-      {/* Grid: Imagem | Ficha técnica */}
+      {/* Grid: (futuramente imagem) | Ficha técnica */}
       <div className="grid md:grid-cols-2 gap-10">
-        {/* Imagem */}
-        <div
-          className="relative w-full bg-white rounded-2xl shadow-lg"
-          style={{ aspectRatio: "4 / 3" }}
-        >
-          <Image
-            src={truck.file}
-            alt={truck.name}
-            fill
-            className="object-contain p-4"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
-          />
+        {/* Coluna da esquerda: placeholder para imagem ou gráfico */}
+        <div className="relative w-full bg-white rounded-2xl shadow-lg flex items-center justify-center p-6">
+          <p className="text-center text-gray-700 text-sm">
+            Área reservada para imagem, diagrama ou ilustração do caminhão
+            elétrico <span className="font-semibold">{truck.name}</span>.
+          </p>
         </div>
 
         {/* Ficha técnica */}
         <section>
           <h2 className="text-2xl font-bold mb-4 text-white">Ficha Técnica</h2>
 
-          {truck.specs ? (
+          {truck.specs && Object.keys(truck.specs).length > 0 ? (
             <ul className="space-y-2 text-gray-200">
               {Object.entries(truck.specs).map(([key, value]) => (
                 <li key={key}>
