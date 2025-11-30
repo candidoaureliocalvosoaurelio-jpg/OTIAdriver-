@@ -38,6 +38,16 @@ export function generateMetadata({ params }: Props): Metadata {
   };
 }
 
+// Função para limpar emojis/bandeiras e deixar a exibição mais técnica
+function sanitizeValue(value: string): string {
+  return value
+    .replace(
+      /[\u{1F1E6}-\u{1F1FF}\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}]/gu,
+      ""
+    )
+    .trim();
+}
+
 // Página técnica do caminhão elétrico
 export default function ElectricTruckPage({ params }: Props) {
   const truck = getElectricTruckBySlug(params.slug);
@@ -52,7 +62,47 @@ export default function ElectricTruckPage({ params }: Props) {
   const destaqueKeys = ["Potência", "Autonomia", "Bateria", "Torque"];
   const destaques = destaqueKeys
     .filter((key) => specs[key])
-    .map((key) => ({ key, value: specs[key] as string }));
+    .map((key) => ({
+      key,
+      value: sanitizeValue(specs[key] as string),
+    }));
+
+  // Ordem fixa dos campos no detalhamento técnico
+  const detalhamentoOrder = [
+    "Marca / Modelo",
+    "Tipo de Propulsão",
+    "Autonomia",
+    "Bateria",
+    "Célula de Combustível",
+    "Potência Total Combinada",
+    "Potência",
+    "Torque",
+    "Peso Bruto Total (PBT)",
+    "Configuração",
+    "Capacidade de Carga",
+    "Recarga + Reabastecimento H₂",
+    "Tempo Total de Reabastecimento",
+    "País de Origem",
+    "Uso Ideal",
+    "IA Integrada",
+  ];
+
+  // Monta lista ordenada de [key, value]
+  const orderedSpecsEntries: [string, string][] = [];
+
+  // 1) Primeiro, insere na ordem desejada
+  detalhamentoOrder.forEach((field) => {
+    if (specs[field]) {
+      orderedSpecsEntries.push([field, specs[field] as string]);
+    }
+  });
+
+  // 2) Depois, adiciona qualquer campo extra que exista em specs
+  Object.entries(specs).forEach(([key, value]) => {
+    if (!detalhamentoOrder.includes(key)) {
+      orderedSpecsEntries.push([key, value as string]);
+    }
+  });
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-10">
@@ -154,7 +204,7 @@ export default function ElectricTruckPage({ params }: Props) {
       </section>
 
       {/* Ficha técnica completa */}
-      {specs && Object.keys(specs).length > 0 && (
+      {orderedSpecsEntries.length > 0 && (
         <section className="mt-10">
           <div className="flex items-center justify-between gap-3 mb-4">
             <h2 className="text-xl md:text-2xl font-bold text-slate-900">
@@ -167,7 +217,7 @@ export default function ElectricTruckPage({ params }: Props) {
 
           <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200">
             <dl className="divide-y divide-slate-100">
-              {Object.entries(specs).map(([key, value], index) => (
+              {orderedSpecsEntries.map(([key, value], index) => (
                 <div
                   key={key}
                   className={`flex flex-col md:flex-row md:items-center gap-1 md:gap-4 px-4 md:px-6 py-3 md:py-3.5 ${
@@ -178,7 +228,7 @@ export default function ElectricTruckPage({ params }: Props) {
                     {key}
                   </dt>
                   <dd className="md:flex-1 text-sm text-slate-900">
-                    {value}
+                    {sanitizeValue(value)}
                   </dd>
                 </div>
               ))}
