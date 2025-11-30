@@ -2,7 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { electricTrucks } from "@/data/electricTrucks";
+import type { Metadata } from "next";
+import {
+  electricTrucks,
+  getElectricTruckBySlug,
+} from "@/data/electricTrucks";
 
 type Props = {
   params: {
@@ -10,9 +14,34 @@ type Props = {
   };
 };
 
+// Geração estática das rotas com base nos slugs em `electricTrucks`
+export function generateStaticParams() {
+  return electricTrucks.map((truck) => ({
+    slug: truck.slug,
+  }));
+}
+
+// SEO dinâmico por slug
+export function generateMetadata({ params }: Props): Metadata {
+  const truck = getElectricTruckBySlug(params.slug);
+
+  if (!truck) {
+    return {
+      title: "Caminhão elétrico não encontrado — OTIAdriver",
+      description: "A página solicitada não foi encontrada.",
+    };
+  }
+
+  return {
+    title: `${truck.name} — Caminhão Elétrico | OTIAdriver`,
+    description: `Ficha técnica e informações do caminhão elétrico ${truck.name}.`,
+  };
+}
+
+// Página do caminhão elétrico
 export default function ElectricTruckPage({ params }: Props) {
   // procura o caminhão elétrico pelo slug
-  const truck = electricTrucks.find((t) => t.slug === params.slug);
+  const truck = getElectricTruckBySlug(params.slug);
 
   if (!truck) return notFound();
 
@@ -77,4 +106,4 @@ export default function ElectricTruckPage({ params }: Props) {
       )}
     </main>
   );
-      }
+}
