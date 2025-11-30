@@ -3,10 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  electricTrucks,
-  getElectricTruckBySlug,
-} from "@/data/electricTrucks";
+import { electricTrucks } from "@/data/electricTrucks";
+import { electricTruckSpecs } from "@/data/electricTruckSpecs";
 
 type Props = {
   params: {
@@ -23,7 +21,7 @@ export function generateStaticParams() {
 
 // SEO dinâmico por slug
 export function generateMetadata({ params }: Props): Metadata {
-  const truck = getElectricTruckBySlug(params.slug);
+  const truck = electricTrucks.find((t) => t.slug === params.slug);
 
   if (!truck) {
     return {
@@ -34,16 +32,20 @@ export function generateMetadata({ params }: Props): Metadata {
 
   return {
     title: `${truck.name} — Caminhão Elétrico | OTIAdriver`,
-    description: `Ficha técnica e informações do caminhão elétrico ${truck.name}.`,
+    description: `Ficha técnica e informações completas do caminhão elétrico ${truck.name}.`,
   };
 }
 
 // Página do caminhão elétrico
 export default function ElectricTruckPage({ params }: Props) {
   // procura o caminhão elétrico pelo slug
-  const truck = getElectricTruckBySlug(params.slug);
+  const truck = electricTrucks.find((t) => t.slug === params.slug);
 
   if (!truck) return notFound();
+
+  // Ficha técnica detalhada: se existir no mapa, usa; senão, usa specs básicas do próprio truck
+  const specs: Record<string, string> =
+    electricTruckSpecs[truck.slug] ?? (truck.specs ?? {});
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10">
@@ -83,8 +85,8 @@ export default function ElectricTruckPage({ params }: Props) {
         </p>
       )}
 
-      {/* Especificações */}
-      {truck.specs && (
+      {/* Ficha Técnica */}
+      {specs && Object.keys(specs).length > 0 && (
         <div className="mt-8 bg-white shadow rounded-2xl overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
             <h2 className="text-xl font-semibold text-gray-800">
@@ -92,13 +94,13 @@ export default function ElectricTruckPage({ params }: Props) {
             </h2>
           </div>
           <dl className="divide-y divide-gray-100">
-            {Object.entries(truck.specs).map(([key, value]) => (
+            {Object.entries(specs).map(([key, value]) => (
               <div
                 key={key}
-                className="flex justify-between px-6 py-3 text-gray-700"
+                className="flex justify-between gap-4 px-6 py-3 text-gray-700"
               >
                 <dt className="font-medium">{key}</dt>
-                <dd>{value}</dd>
+                <dd className="text-right flex-1">{value}</dd>
               </div>
             ))}
           </dl>
