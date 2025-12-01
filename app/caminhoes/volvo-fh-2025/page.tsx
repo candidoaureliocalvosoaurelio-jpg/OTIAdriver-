@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Volvo FH 2025 | OTIAdriver",
+  title: "Volvo | OTIAdriver",
   description:
-    "Ficha técnica completa do Volvo FH 2025: motores D13C, transmissão I-Shift, eixos traseiros, conforto de cabine Globetrotter XL e aplicações rodoviárias.",
+    "Ficha técnica completa do Volvo FH: motores D13C, transmissão I-Shift, eixos traseiros, conforto de cabine Globetrotter XL e aplicações rodoviárias.",
 };
 
 type TableRow = {
@@ -255,7 +255,7 @@ export default function VolvoFH2025Page() {
               Ficha Técnica • Rodoviário Pesado
             </p>
             <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-              Volvo FH 2025
+              Volvo FH 
               <span className="block text-sky-500">
                 desempenho, conforto e segurança em alto nível.
               </span>
@@ -275,7 +275,7 @@ export default function VolvoFH2025Page() {
                   Faixa de potência
                 </p>
                 <p className="mt-1 text-xl font-bold text-slate-900">
-                  420 – 540 cv
+                  420cv 460cv 500cv 540 cv
                 </p>
                 <p className="text-xs text-slate-600">
                   Motores D13C com freio-motor VEB/VEB+ integrado.
@@ -310,7 +310,7 @@ export default function VolvoFH2025Page() {
           <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border bg-slate-100 shadow-sm">
             <Image
               src="/images/trucks/volvo-fh-2025.jpg"
-              alt="Volvo FH 2025 em configuração rodoviária"
+              alt="Volvo FH em configuração rodoviária"
               fill
               priority
               sizes="(max-width: 768px) 100vw, 40vw"
