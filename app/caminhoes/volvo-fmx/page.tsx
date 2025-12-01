@@ -138,7 +138,7 @@ export default function VolvoFmxPage() {
               Potência
             </p>
             <p className="mt-1 text-lg font-extrabold text-slate-900">
-              460–540 cv
+              420cv 460cv 500cv 540cv
             </p>
             <p className="mt-1 text-xs text-slate-600">
               Motores D13C com freio-motor VEB/VEB+ integrado.
