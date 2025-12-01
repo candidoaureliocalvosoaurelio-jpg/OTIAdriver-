@@ -1,4 +1,3 @@
-
 export type Truck = {
   slug: string;
   name: string;
@@ -10,7 +9,7 @@ export type Truck = {
 export const trucks: Truck[] = [
   {
     slug: "volvo-fh-2025",
-    name: "Volvo",
+    name: "Volvo FH",
     file: "/images/trucks/volvo.jpg",
     specs: {
       Motor: "D13K 540",
@@ -19,10 +18,24 @@ export const trucks: Truck[] = [
       PesoBruto: "45 t",
     },
   },
+
+  // ⭐ NOVO — VOLVO FMX
+  {
+    slug: "volvo-fmx",
+    name: "Volvo FMX",
+    file: "/images/trucks/volvo-fmx.jpg",
+    specs: {
+      Motor: "D13K 500",
+      Potência: "500 cv",
+      Transmissão: "I-Shift Off-Road",
+      PesoBruto: "58 t",
+    },
+  },
+
   {
     slug: "daf-xf-2025",
-    name: "DAF",
-    file: "/images/trucks/daf_brasil_blue.jpg", // ✅ nome real
+    name: "DAF XF",
+    file: "/images/trucks/daf_brasil_blue.jpg",
     specs: {
       Motor: "PACCAR MX-13",
       Potência: "530 cv",
@@ -42,11 +55,10 @@ export const trucks: Truck[] = [
     },
   },
 
-  // ➕ NOVOS (aparecem na home)
   {
     slug: "volkswagen-meteor-2025",
     name: "Volkswagen Caminhões",
-    file: "/images/trucks/meteor.jpg", // ✅ nome real
+    file: "/images/trucks/meteor.jpg",
     specs: {
       Motor: "MAN D26",
       Potência: "520 cv",
@@ -81,4 +93,4 @@ export const trucks: Truck[] = [
 // Helper opcional
 export function getTruckBySlug(slug: string) {
   return trucks.find((t) => t.slug === slug);
-  }
+}
