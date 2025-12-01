@@ -31,9 +31,11 @@ export default function PneusPage() {
             {/* BOTÃO "VER PNEUS" – FUNDO AZUL CLARO, TEXTO PRETO */}
             <Link href={`/pneus/${p.slug}`} className="mt-4 inline-block w-full">
               <span
-                className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl font-bold
-             bg-[#1F6FEB] text-white shadow-md transition-all duration-200
-             hover:bg-[#1554b3] active:scale-95"
+                className="inline-flex items-center justify-center w-full px-6 py-3
+             rounded-xl font-semibold text-[#1F6FEB]
+             bg-white border border-[#1F6FEB]/30 shadow-sm
+             hover:bg-[#1F6FEB]/10 hover:border-[#1F6FEB]/50
+             transition-all duration-200 active:scale-95"
               >
                 Ver Pneus
               </span>
