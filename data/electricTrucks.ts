@@ -39,7 +39,7 @@ export const electricTrucks: ElectricTruck[] = [
   {
     slug: "volkswagen-e-delivery-2025",
     name: "Volkswagen e-Delivery",
-    file: "/images/trucks-eletricos/vw-e-delivery.jpg",
+    file: "/images/trucks-eletricos/volkswagen-e-delivery.jpg",
     description:
       "Referência em distribuição urbana sustentável, produzido no Brasil para operações silenciosas e eficientes.",
     specs: {
@@ -296,7 +296,7 @@ export const electricTrucks: ElectricTruck[] = [
   {
     slug: "iveco-s-way-electric-2050",
     name: "IVECO S-Way Electric",
-    file: "/images/trucks-eletricos/iveco-sway-electric.jpg",
+    file: "/images/trucks-eletricos/iveco-s-way-electric.jpg",
     description:
       "Conceito de longo curso 100% elétrico da IVECO com foco em autonomia e conforto.",
     specs: {
