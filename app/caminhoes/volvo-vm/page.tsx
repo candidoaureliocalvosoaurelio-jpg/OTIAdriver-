@@ -292,7 +292,7 @@ export default function VolvoVmPage() {
             {/* Chips de destaque */}
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-800">
-                Motores D8K 270–380 cv
+                Motores D8K 270cv 330cv 380cv
               </span>
               <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
                 I-Shift VM 12 marchas
@@ -310,17 +310,7 @@ export default function VolvoVmPage() {
                 href="/"
                 className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 transition"
               >
-                Voltar para a lista de caminhões
-              </Link>
-              <Link
-                href="#ficha-tecnica"
-                className="inline-flex items-center justify-center rounded-xl border border-sky-200 bg-white px-5 py-2.5 text-sm font-semibold text-sky-800 hover:bg-sky-50 transition"
-              >
-                Ir direto para a ficha técnica
-              </Link>
-            </div>
-          </div>
-
+               
           {/* Hero image */}
           <div className="relative h-56 w-full flex-1 md:h-72">
             <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-sky-100 via-white to-emerald-50 shadow-lg" />
@@ -347,7 +337,7 @@ export default function VolvoVmPage() {
               Potência
             </p>
             <p className="mt-1 text-lg font-bold text-slate-900">
-              270–380 cv
+              270cv 330cv 380cv
             </p>
             <p className="mt-1 text-xs text-slate-600">
               Motores D8K/D8C eficientes para cidades, rodovias leves e uso
