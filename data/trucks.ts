@@ -10,7 +10,7 @@ export const trucks: Truck[] = [
   {
     slug: "volvo-fh-2025",
     name: "Volvo FH",
-    file: "/images/trucks/volvo.jpg",
+    file: "/images/trucks/volvo-fh.jpg",
     specs: {
       Motor: "D13K 540",
       Potência: "540 cv",
