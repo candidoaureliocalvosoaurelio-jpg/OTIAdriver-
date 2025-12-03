@@ -31,7 +31,17 @@ export const trucks: Truck[] = [
       PesoBruto: "58 t",
     },
   },
-
+  {
+    slug: "volvo-vm",
+    name: "Volvo VM / VMX",
+    file: "/images/trucks/volvo-vm.jpg", // ✅ coloque essa imagem em /public/images/trucks/
+    specs: {
+      Motor: "D8K / D8C",
+      Potência: "270–380 cv",
+      Transmissão: "I-Shift VM 12 marchas",
+      PesoBruto: "até 32 t (conforme versão)",
+    },
+  },
   {
     slug: "daf-xf-2025",
     name: "DAF XF",
