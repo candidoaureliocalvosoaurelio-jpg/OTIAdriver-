@@ -10,11 +10,11 @@ export type Truck = {
 };
 
 export const trucks: Truck[] = [
-  // 1) VOLVO FH – topo da vitrine
+  // 1) VOLVO FH
   {
     slug: "volvo-fh-2025",
     name: "Volvo FH",
-    file: "/images/trucks/volvo-fh.jpg", // ajuste se o nome for diferente
+    file: "/images/trucks/volvo-fh.jpg",
     description:
       "Plataforma rodoviária premium da Volvo para longa distância, focada em segurança, conforto e baixo consumo.",
     specs: {
@@ -25,7 +25,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 2) VOLVO FMX – fora de estrada / construção
+  // 2) VOLVO FMX
   {
     slug: "volvo-fmx",
     name: "Volvo FMX",
@@ -40,22 +40,22 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 3) VOLVO VM / VMX – distribuição e aplicações regionais
+  // 3) VOLVO VM / VMX
   {
     slug: "volvo-vm-vmx",
     name: "Volvo VM / VMX",
-    file: "/images/trucks/volvo-vm-vmx.jpg", // crie a imagem quando estiver pronto
+    file: "/images/trucks/volvo-vm.jpg",
     description:
       "Linha versátil da Volvo para distribuição urbana, regional e aplicações vocacionais customizadas.",
     specs: {
-      Motor: "D8K / D11K (conforme versão)",
-      Potência: "até ~360 cv (aplicações típicas)",
-      Transmissão: "I-Shift (automatizada) ou manual",
+      Motor: "D8K / D11K",
+      Potência: "até ~360 cv",
+      Transmissão: "I-Shift ou manual",
       Aplicação: "Distribuição, betoneira, coleta de resíduos, serviços",
     },
   },
 
-  // 4) SCANIA SUPER – novo conteúdo
+  // 4) SCANIA SUPER
   {
     slug: "scania-super",
     name: "Scania Super",
@@ -66,8 +66,8 @@ export const trucks: Truck[] = [
       Motor: "Scania Super 13L",
       Potência: "420–560 hp",
       Torque: "2.300–2.800 Nm",
-      Transmissão: "Opticruise (automatizada)",
-      Aplicação: "Longa distância, regional e cargas pesadas",
+      Transmissão: "Opticruise",
+      Aplicação: "Longa distância e cargas pesadas",
     },
   },
 
@@ -77,26 +77,26 @@ export const trucks: Truck[] = [
     name: "DAF XF",
     file: "/images/trucks/daf_brasil_blue.jpg",
     description:
-      "Caminhão rodoviário de longa distância com foco em aerodinâmica, conforto e alta eficiência de combustível.",
+      "Caminhão rodoviário de longa distância com foco em aerodinâmica, conforto e eficiência.",
     specs: {
       Motor: "PACCAR MX-13",
       Potência: "até 530 cv",
-      Transmissão: "TraXon 12v automatizada",
+      Transmissão: "TraXon 12v",
       Aplicação: "Transporte rodoviário nacional e internacional",
     },
   },
 
-  // 6) MERCEDES-BENZ ACTROS
+  // 6) MERCEDES ACTROS
   {
     slug: "mercedes-actros-2025",
     name: "Mercedes-Benz Actros",
     file: "/images/trucks/mercedes.jpg",
     description:
-      "Linha premium da Mercedes-Benz para longa distância, com tecnologia avançada de segurança e conectividade.",
+      "Linha premium da Mercedes-Benz para longa distância, com tecnologia avançada e segurança ativa.",
     specs: {
       Motor: "OM 471",
       Potência: "até 530 cv",
-      Transmissão: "Powershift (automatizada)",
+      Transmissão: "Powershift",
       Aplicação: "Longa distância / logística pesada",
     },
   },
@@ -107,12 +107,12 @@ export const trucks: Truck[] = [
     name: "Volkswagen Meteor",
     file: "/images/trucks/meteor.jpg",
     description:
-      "Cavalo-mecânico extrapesado da VW Caminhões, projetado para alta produtividade e robustez.",
+      "Cavalo-mecânico extrapesado da VW, projetado para robustez e produtividade.",
     specs: {
       Motor: "MAN D26",
       Potência: "até 520 cv",
       Transmissão: "Automatizada",
-      Aplicação: "Transporte rodoviário de carga geral",
+      Aplicação: "Rodoviário – carga geral",
     },
   },
 
@@ -122,27 +122,12 @@ export const trucks: Truck[] = [
     name: "Iveco S-Way",
     file: "/images/trucks/iveco.jpg",
     description:
-      "Caminhão rodoviário Iveco com foco em design aerodinâmico, conforto de cabine e economia.",
+      "Linha rodoviária da Iveco com foco em aerodinâmica, economia e conforto.",
     specs: {
       Motor: "Cursor 13",
       Potência: "até 570 cv",
-      Transmissão: "Hi-Tronix 12v",
+      Transmissão: "Hi-Tronix",
       Aplicação: "Longa distância e regional",
-    },
-  },
-
-  // 9) SCANIA GENÉRICO (linha S/R/XT) — se você ainda quiser manter
-  {
-    slug: "scania-2025",
-    name: "Scania (S/R/XT)",
-    file: "/images/trucks/scania.jpg",
-    description:
-      "Geração modular Scania para aplicações rodoviárias e vocacionais, com motores de 13L e V8 de alto desempenho.",
-    specs: {
-      Motor: "D13 / DC16 (V8)",
-      Potência: "420–770 cv (conforme versão)",
-      Transmissão: "Opticruise",
-      Aplicação: "Longa distância, pesado indivisível, vocacional XT",
     },
   },
 ];
