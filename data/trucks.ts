@@ -42,7 +42,7 @@ export const trucks: Truck[] = [
 
   // 3) VOLVO VM / VMX
   {
-    slug: "volvo-vm-vmx",
+    slug: "volvo-vm",
     name: "Volvo VM / VMX",
     file: "/images/trucks/volvo-vm.jpg",
     description:
