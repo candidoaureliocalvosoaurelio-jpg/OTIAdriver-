@@ -6,53 +6,55 @@ import Link from "next/link";
 export default function ScaniaSuperPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO */}
-      <section className="w-full bg-gradient-to-r from-[#111827] via-[#1f2937] to-[#111827] text-white">
+      {/* HERO – padrão claro OTIAdriver */}
+      <section className="w-full bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
           {/* Texto principal */}
           <div>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-300 mb-3">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Linha Pesada Premium
             </p>
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               Scania Super
-              <span className="block text-sky-300 text-xl md:text-2xl mt-1">
-                A nova referência em eficiência e tecnologia
+              <span className="block text-sky-600 text-xl md:text-2xl mt-1">
+                Nova referência em eficiência e tecnologia
               </span>
             </h1>
-            <p className="text-sm md:text-base text-slate-100/80 mb-6 max-w-xl">
+            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
               O Scania Super de 13 litros foi projetado para entregar até{" "}
               <strong>8% de economia de combustível</strong>, alto torque em
-              baixa rotação e um trem de força totalmente integrado. Ideal para
-              frotas que buscam o menor Custo Total de Operação (TCO) com
-              máxima confiabilidade.
+              baixa rotação e um trem de força totalmente integrado. Ideal
+              para frotas que buscam o menor Custo Total de Operação (TCO)
+              com máxima confiabilidade.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-sky-700">
                   Potência
                 </p>
-                <p className="text-lg font-bold">420–560 hp</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">420–560 hp</p>
+                <p className="text-[11px] text-slate-600">
                   Motor Scania Super 13L
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-sky-700">
                   Torque
                 </p>
-                <p className="text-lg font-bold">2.300–2.800 Nm</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">
+                  2.300–2.800 Nm
+                </p>
+                <p className="text-[11px] text-slate-600">
                   Alto torque em baixa rotação
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-emerald-700">
                   Economia
                 </p>
-                <p className="text-lg font-bold">até +8%</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">até +8%</p>
+                <p className="text-[11px] text-slate-600">
                   Redução de consumo de diesel
                 </p>
               </div>
@@ -60,14 +62,14 @@ export default function ScaniaSuperPage() {
 
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-400 text-black hover:bg-sky-300 transition"
+                href="/caminhoes"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
               >
                 Voltar para Caminhões
               </Link>
               <Link
                 href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-white/40 text-white hover:bg-white/10 transition"
+                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-slate-300 text-slate-800 hover:bg-slate-100 transition"
               >
                 Ver ficha técnica completa
               </Link>
@@ -76,7 +78,7 @@ export default function ScaniaSuperPage() {
 
           {/* Imagem do caminhão */}
           <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-900/5 border border-slate-200">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
                   src="/images/trucks/scania-super.jpg"
@@ -87,8 +89,8 @@ export default function ScaniaSuperPage() {
                 />
               </div>
             </div>
-            <div className="mt-3 text-[11px] text-slate-300 text-center">
-              Imagem ilustrativa Scania Super — catálogo rodoviário pesado.
+            <div className="mt-3 text-[11px] text-slate-500 text-center">
+              Imagem ilustrativa Scania Super — aplicação rodoviária pesada.
             </div>
           </div>
         </div>
@@ -104,14 +106,15 @@ export default function ScaniaSuperPage() {
             </h2>
             <p className="text-sm md:text-base text-slate-700 mb-3">
               O Scania Super representa a geração mais avançada de motores
-              diesel da marca. Com a nova família de 13 litros, o conjunto
-              foi projetado para maximizar a eficiência energética, reduzir
-              emissões e suportar operações rodoviárias de alta exigência.
+              diesel da marca. Com a nova família de 13 litros, o conjunto foi
+              projetado para maximizar a eficiência energética, reduzir emissões
+              e suportar operações rodoviárias de alta exigência.
             </p>
             <p className="text-sm md:text-base text-slate-700">
-              A arquitetura atende à norma <strong>Proconve P8 / Euro 6</strong>,
-              com foco em robustez, alta durabilidade e compatibilidade com
-              combustíveis alternativos como <strong>HVO (diesel renovável)</strong>.
+              A arquitetura atende à norma{" "}
+              <strong>Proconve P8 / Euro 6</strong>, com foco em robustez,
+              alta durabilidade e compatibilidade com combustíveis alternativos
+              como <strong>HVO (diesel renovável)</strong>.
             </p>
           </div>
 
@@ -183,14 +186,14 @@ export default function ScaniaSuperPage() {
                 combustíveis renováveis.
               </p>
               <p>
-                O objetivo é oferecer alta performance sem abrir mão do TCO
+                O objetivo é oferecer alta performance sem abrir mão de um TCO
                 competitivo em frotas de grande porte.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Bloco 3 – Tecnologias de trem de força e conectividade */}
+        {/* Bloco 3 – Trem de força e conectividade */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Trem de força inteligente e conectividade Scania
@@ -252,7 +255,7 @@ export default function ScaniaSuperPage() {
           </div>
         </section>
 
-        {/* Bloco 4 – Cabines, segurança e ergonomia */}
+        {/* Bloco 4 – Cabines e segurança */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Cabines S, R e XT — segurança e conforto para o motorista
@@ -326,7 +329,7 @@ export default function ScaniaSuperPage() {
                     Motor
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Scania Super 13L – 6 cilindros em linha, projeção para
+                    Scania Super 13L – 6 cilindros em linha, projetado para
                     maior eficiência térmica e emissões reduzidas.
                   </td>
                 </tr>
@@ -335,7 +338,8 @@ export default function ScaniaSuperPage() {
                     Potência
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Faixa típica de 420 hp a 560 hp (conforme versão e aplicação).
+                    Faixa típica de 420 hp a 560 hp (conforme versão e
+                    aplicação).
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
@@ -361,8 +365,8 @@ export default function ScaniaSuperPage() {
                     Emissões
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Atende à norma Proconve P8 / Euro 6, com sistema Twin SCR
-                    e foco em redução de NOx e particulados.
+                    Atende à norma Proconve P8 / Euro 6, com sistema Twin SCR e
+                    foco em redução de NOx e particulados.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
@@ -370,8 +374,8 @@ export default function ScaniaSuperPage() {
                     Configurações
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Eixos 4x2, 6x2, 6x4 e 8x4, dependendo da aplicação
-                    (rodoviária, regional ou vocacional pesada).
+                    Eixos 4x2, 6x2, 6x4 e 8x4, conforme aplicação (rodoviária,
+                    regional ou vocacional pesada).
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
@@ -379,8 +383,8 @@ export default function ScaniaSuperPage() {
                     Cabines
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    S (piso plano), R (conforto rodoviário) e variantes XT
-                    vocacionais reforçadas.
+                    S (piso plano), R (rodoviária) e variantes XT vocacionais
+                    reforçadas.
                   </td>
                 </tr>
                 <tr>
