@@ -107,7 +107,7 @@ export const trucks: Truck[] = [
   {
     slug: "daf-xf-2025",
     name: "DAF XF",
-    file: "/images/trucks/daf_brasil_blue.jpg",
+    file: "/images/trucks/daf-xf.jpg",
     description:
       "Caminhão rodoviário de longa distância com foco em aerodinâmica, conforto e eficiência.",
     specs: {
