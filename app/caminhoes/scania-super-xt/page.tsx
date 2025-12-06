@@ -483,6 +483,27 @@ export default function ScaniaSuperXTPage() {
             Ver todos os caminhões a diesel
           </Link>
         </section>
+          // app/caminhoes/scania-super-xt/page.tsx
+
+<div className="mt-8 border-t pt-4">
+  <h2 className="text-xl font-semibold mb-2">
+    Ficha técnica oficial (PDF)
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-2">
+    Dados completos do Scania G 560 B8x4HZ XT Super para aplicações severas.
+  </p>
+
+  <a
+    href="/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block underline font-semibold hover:no-underline text-blue-600"
+  >
+    Abrir ficha técnica Scania G 560 XT Super (PDF)
+  </a>
+</div>
+
       </section>
     </main>
   );
