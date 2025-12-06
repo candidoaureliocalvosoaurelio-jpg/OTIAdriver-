@@ -3,10 +3,10 @@
 type FichaTecnica = {
   id: string;
   marca: "Volvo" | "Scania";
-  modelo: string;
-  descricao?: string;
+  modelo: string;         // nome técnico (ex: FH 6x4T, P320 B8x2NA)
+  linha: string;          // nome que aparece nos cards (Volvo FH, Scania Super, etc.)
   arquivo: string;        // caminho do PDF em /public/fichas-tecnicas
-  rotaCaminhao?: string;  // rota da página de informações do caminhão
+  rotaCaminhao: string;   // rota da página de informações do caminhão
 };
 
 const fichas: FichaTecnica[] = [
@@ -14,60 +14,60 @@ const fichas: FichaTecnica[] = [
   {
     id: "volvo-fh-6x4t",
     marca: "Volvo",
+    linha: "Volvo FH",
     modelo: "Volvo FH 6x4T",
-    descricao: "Cavalo mecânico 6x4 para longa distância.",
     arquivo: "/fichas-tecnicas/volvo-fh-6x4t.pdf",
-    rotaCaminhao: "/caminhoes/volvo-fh-6x4t",
+    rotaCaminhao: "/caminhoes/volvo-fh",
   },
   {
     id: "volvo-fmx-max-6x4r",
     marca: "Volvo",
+    linha: "Volvo FMX",
     modelo: "Volvo FMX MAX 6x4R",
-    descricao: "Chassi vocacional para construção e mineração.",
     arquivo: "/fichas-tecnicas/volvo-fmx-max-6x4r.pdf",
-    rotaCaminhao: "/caminhoes/volvo-fmx-max-6x4r",
+    rotaCaminhao: "/caminhoes/volvo-fmx",
   },
   {
     id: "volvo-vm-6x2r",
     marca: "Volvo",
+    linha: "Volvo VM / VMX",
     modelo: "Volvo VM 6x2R",
-    descricao: "Aplicações rodoviárias de carga geral.",
     arquivo: "/fichas-tecnicas/volvo-vm-6x2r.pdf",
-    rotaCaminhao: "/caminhoes/volvo-vm-6x2r",
+    rotaCaminhao: "/caminhoes/volvo-vm-vmx",
   },
   {
     id: "volvo-vmx-max-6x4r",
     marca: "Volvo",
+    linha: "Volvo VM / VMX",
     modelo: "Volvo VMX MAX 6x4R",
-    descricao: "Aplicações severas com suspensão reforçada.",
     arquivo: "/fichas-tecnicas/volvo-vmx-max-6x4r.pdf",
-    rotaCaminhao: "/caminhoes/volvo-vmx-max-6x4r",
+    rotaCaminhao: "/caminhoes/volvo-vm-vmx",
   },
 
   // SCANIA
   {
     id: "scania-r500-r560-a6x4nz-super",
     marca: "Scania",
+    linha: "Scania Super",
     modelo: "Scania R 500 / R 560 A6x4NZ SUPER",
-    descricao: "Linha Scania Super para operações rodoviárias 6x4.",
     arquivo: "/fichas-tecnicas/scania-r500-r560-a6x4nz-super.pdf",
-    rotaCaminhao: "/caminhoes/scania-r500-r560-a6x4nz-super",
+    rotaCaminhao: "/caminhoes/scania-super",
   },
   {
     id: "scania-g560-b8x4hz-xt-super",
     marca: "Scania",
+    linha: "Scania Super XT",
     modelo: "Scania G 560 B8x4HZ XT SUPER",
-    descricao: "Caminhão vocacional 8x4 da linha XT para mineração.",
     arquivo: "/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf",
-    rotaCaminhao: "/caminhoes/scania-g560-b8x4hz-xt-super",
+    rotaCaminhao: "/caminhoes/scania-super-xt",
   },
   {
     id: "scania-p320-b8x2na",
     marca: "Scania",
+    linha: "Scania P320 8x2",
     modelo: "Scania P 320 B8x2NA",
-    descricao: "Semipesado 8x2 ideal para distribuição e carga geral.",
     arquivo: "/fichas-tecnicas/scania-p320-b8x2na.pdf",
-    rotaCaminhao: "/caminhoes/scania-p320-b8x2na",
+    rotaCaminhao: "/caminhoes/scania-p320-8x2",
   },
 ];
 
@@ -100,13 +100,11 @@ export default function FichasTecnicasPage() {
                   key={ficha.id}
                   className="border rounded-lg p-4 flex flex-col gap-2 bg-white shadow-sm"
                 >
-                  <h3 className="font-semibold text-lg">{ficha.modelo}</h3>
+                  <p className="text-xs font-medium uppercase text-gray-500">
+                    {ficha.linha}
+                  </p>
 
-                  {ficha.descricao && (
-                    <p className="text-sm text-gray-700">
-                      {ficha.descricao}
-                    </p>
-                  )}
+                  <h3 className="font-semibold text-lg">{ficha.modelo}</h3>
 
                   <div className="mt-2 flex flex-wrap gap-3">
                     <a
@@ -118,14 +116,12 @@ export default function FichasTecnicasPage() {
                       Abrir ficha técnica (PDF)
                     </a>
 
-                    {ficha.rotaCaminhao && (
-                      <a
-                        href={ficha.rotaCaminhao}
-                        className="text-sm text-gray-700 underline hover:no-underline"
-                      >
-                        Ver página do caminhão
-                      </a>
-                    )}
+                    <a
+                      href={ficha.rotaCaminhao}
+                      className="text-sm text-gray-700 underline hover:no-underline"
+                    >
+                      Ver página do caminhão
+                    </a>
                   </div>
                 </div>
               ))}
