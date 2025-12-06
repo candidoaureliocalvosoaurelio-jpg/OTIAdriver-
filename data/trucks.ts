@@ -105,7 +105,7 @@ export const trucks: Truck[] = [
 
   // 5) DAF XF
   {
-    slug: "daf-xf-2025",
+    slug: "daf-xf",
     name: "DAF XF",
     file: "/images/trucks/daf-xf.jpg",
     description:
