@@ -70,6 +70,21 @@ export const trucks: Truck[] = [
       Aplicação: "Longa distância e cargas pesadas",
     },
   },
+// 4.1) SCANIA SUPER XT – vocacional
+{
+  slug: "scania-super-xt",
+  name: "Scania Super XT",
+  file: "/images/trucks/scania-super-xt.jpg", // coloque a imagem em /public/images/trucks/
+  description:
+    "Linha vocacional Scania SUPER XT, desenvolvida para operações severas como construção pesada, mineração e florestal, combinando trem de força Super com robustez estrutural extrema.",
+  specs: {
+    Motor: "Família Super (6L / V8)",
+    Potência: "420–770 hp",
+    Torque: "alto em baixa rotação",
+    Transmissão: "Opticruise HD (Heavy Duty)",
+    Aplicação: "Construção pesada, mineração e operações florestais",
+  },
+},
 
   // 5) DAF XF
   {
