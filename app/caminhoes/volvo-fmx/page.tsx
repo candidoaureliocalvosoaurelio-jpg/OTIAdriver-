@@ -168,7 +168,7 @@ export default function VolvoFmxPage() {
         </section>
 
         {/* BLOCO: CABINE & CONFORTO */}
-        <section className="mt-8 grid gap-8 md:grid-cols-[1.2fr,1fr]">
+        <section className="mt-8">
           <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-6 md:p-8">
             <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3">
               Cabine pensada para ambientes severos
@@ -197,24 +197,8 @@ export default function VolvoFmxPage() {
               </li>
             </ul>
           </div>
-
-          <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-4">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
-              {/* Enquanto não houver fotos internas específicas, reutilizamos a imagem externa */}
-              <Image
-                src="/images/trucks/volvo-fmx.jpg"
-                alt="Detalhe de cabine e conjunto Volvo FMX"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 40vw"
-              />
-            </div>
-            <p className="mt-2 text-[11px] text-slate-500 text-center">
-              Layout ilustrativo. Imagens internas podem variar conforme configuração de cabine.
-            </p>
-          </div>
         </section>
-
+        
         {/* TABELA – MOTORES */}
         <SpecTable
           title="Ficha técnica – Motores D13C"
