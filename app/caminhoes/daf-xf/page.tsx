@@ -6,12 +6,12 @@ import Link from "next/link";
 export default function DAFXFPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO */}
-      <section className="w-full bg-gradient-to-r from-[#020617] via-[#0f172a] to-[#020617] text-white">
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.25fr,1fr] gap-10 items-center">
+      {/* HERO – padrão claro OTIAdriver, igual FH/Scania */}
+      <section className="w-full bg-white border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
           {/* Texto principal */}
           <div>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber-300 mb-3">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Longa Distância Premium
             </p>
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
