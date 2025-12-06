@@ -416,6 +416,27 @@ export default function ScaniaSuperPage() {
             Ver todos os caminhões a diesel
           </Link>
         </section>
+        // app/caminhoes/scania-super/page.tsx
+
+<div className="mt-8 border-t pt-4">
+  <h2 className="text-xl font-semibold mb-2">
+    Ficha técnica oficial (PDF)
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-2">
+    Dados completos do Scania R 500 / R 560 A6x4NZ Super.
+  </p>
+
+  <a
+    href="/fichas-tecnicas/scania-r500-r560-a6x4nz-super.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block underline font-semibold hover:no-underline text-blue-600"
+  >
+    Abrir ficha técnica Scania R 500 / R 560 Super (PDF)
+  </a>
+</div>
+
       </section>
     </main>
   );
