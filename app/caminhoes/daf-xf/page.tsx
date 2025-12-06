@@ -6,22 +6,23 @@ import Link from "next/link";
 export default function DAFXFPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO – padrão claro OTIAdriver, igual FH/Scania */}
+      {/* HERO – padrão claro OTIAdriver */}
       <section className="w-full bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.25fr,1fr] gap-10 items-center">
           {/* Texto principal */}
           <div>
             <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Longa Distância Premium
             </p>
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               DAF XF
-              <span className="block text-amber-300 text-xl md:text-2xl mt-1">
+              <span className="block text-sky-600 text-xl md:text-2xl mt-1">
                 Conforto máximo e eficiência para o transporte rodoviário
               </span>
             </h1>
 
-            <p className="text-sm md:text-base text-slate-100/85 mb-6 max-w-xl">
+            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
               O <strong>DAF XF</strong> foi desenvolvido para o transporte de
               longa distância com foco absoluto no motorista e no{" "}
               <strong>Custo Total de Propriedade (TCO)</strong>. Combina cabine
@@ -31,30 +32,34 @@ export default function DAFXFPage() {
             </p>
 
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-sky-700">
                   Potência
                 </p>
-                <p className="text-lg font-bold">480–530 cv</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">480–530 cv</p>
+                <p className="text-[11px] text-slate-600">
                   Motor PACCAR MX-13 13L
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-sky-700">
                   Foco
                 </p>
-                <p className="text-lg font-bold">Longa distância</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">
+                  Longa distância
+                </p>
+                <p className="text-[11px] text-slate-600">
                   Alto PBTC e rotas rodoviárias
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-emerald-700">
                   Conforto
                 </p>
-                <p className="text-lg font-bold">Super Space Cab</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">
+                  Super Space Cab
+                </p>
+                <p className="text-[11px] text-slate-600">
                   Maior espaço interno da categoria
                 </p>
               </div>
@@ -63,7 +68,7 @@ export default function DAFXFPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-white/40 text-white hover:bg-white/10 transition"
+                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-slate-300 text-slate-800 hover:bg-slate-100 transition"
               >
                 Ver ficha técnica completa
               </Link>
@@ -72,10 +77,10 @@ export default function DAFXFPage() {
 
           {/* Imagem do caminhão */}
           <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-900/5 border border-slate-200">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                  src="/images/trucks/daf_brasil_blue.jpg"
+                  src="/images/trucks/daf-xf.jpg" // certifique-se de que o arquivo está em /public/images/trucks/daf-xf.jpg
                   alt="DAF XF – caminhão rodoviário de longa distância"
                   fill
                   className="object-cover"
@@ -83,7 +88,7 @@ export default function DAFXFPage() {
                 />
               </div>
             </div>
-            <div className="mt-3 text-[11px] text-slate-300 text-center">
+            <div className="mt-3 text-[11px] text-slate-500 text-center">
               Imagem ilustrativa DAF XF – configuração rodoviária para longa
               distância.
             </div>
@@ -318,8 +323,8 @@ export default function DAFXFPage() {
                     6x2 cavalo-mecânico
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Longa distância com maior capacidade legal de carga
-                    (eixos adicionais).
+                    Longa distância com maior capacidade legal de carga (eixos
+                    adicionais).
                   </td>
                   <td className="px-4 py-3 text-slate-800">
                     Otimização de carga útil por viagem, mantendo boa economia.
