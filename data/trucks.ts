@@ -85,7 +85,19 @@ export const trucks: Truck[] = [
     Aplicação: "Construção pesada, mineração e operações florestais",
   },
 },
-
+{
+  slug: "scania-p320-8x2",
+  name: "Scania P320 8x2",
+  file: "/images/trucks/scania-p320-8x2.jpg", // mesma imagem usada na página
+  description:
+    "Caminhão rígido 8x2 da Scania para distribuição regional e urbana de alto volume, com cabine P de fácil acesso, motor D9 320 hp e foco em máxima carga útil com baixo TCO.",
+  specs: {
+    Motor: "D9 – 6 cilindros",
+    Potência: "320 hp",
+    Configuração: "8x2 rígido com eixo auxiliar levantável",
+    Aplicação: "Distribuição regional/urbana de alto volume (bebidas, alimentos, baú, sider)",
+  },
+},
   // 5) DAF XF
   {
     slug: "daf-xf-2025",
