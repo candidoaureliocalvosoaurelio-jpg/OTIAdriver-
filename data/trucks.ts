@@ -118,7 +118,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 5.1) DAF XF OFF-ROAD — NOVO
+  // 5.1) DAF XF OFF-ROAD
   {
     slug: "daf-xf-offroad",
     name: "DAF XF OFF-ROAD",
@@ -131,6 +131,22 @@ export const trucks: Truck[] = [
       Tração: "6x4",
       Suspensão: "Heavy-Duty / reforçada",
       Aplicação: "Mineração, florestal, cana e operações severas off-road",
+    },
+  },
+
+  // 5.2) DAF CF Semipesado
+  {
+    slug: "daf-cf-semipesado",
+    name: "DAF CF Semipesado",
+    file: "/images/trucks/daf-cf-semipesado.jpg",
+    description:
+      "Caminhão rígido semipesado da DAF, com motor PACCAR PX-7 Euro 6 e configurações 6x2 e 8x2 para distribuição urbana, regional e aplicações vocacionais.",
+    specs: {
+      Motor: "PACCAR PX-7 6,7 L",
+      Potência: "faixas de 260–310 cv",
+      Configuração: "FAS 6x2 e FAC 8x2 rígido",
+      Aplicação:
+        "Distribuição urbana/regional, bebidas, alimentos, carga seca, materiais de construção e agro",
     },
   },
 
