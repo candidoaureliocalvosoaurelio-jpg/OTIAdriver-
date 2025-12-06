@@ -406,12 +406,7 @@ export default function DafCFSemipesadoPage() {
               <strong>DAF CF Semipesado</strong> conforme a severidade da rota e
               o tipo de carga.
             </p>
-            <Link
-              href="/caminhoes"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-            >
-              Ver todos os caminhões a diesel
-            </Link>
+            <Link                          
           </div>
         </section>
       </section>
