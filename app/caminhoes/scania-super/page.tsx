@@ -14,10 +14,10 @@ export default function ScaniaSuperPage() {
             <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Linha Pesada Premium
             </p>
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
+            <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900 mb-4">
               Scania Super
               <span className="block text-sky-600 text-xl md:text-2xl mt-1">
-                Nova referência em eficiência e tecnologia
+                nova referência em eficiência e tecnologia.
               </span>
             </h1>
             <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
@@ -316,81 +316,91 @@ export default function ScaniaSuperPage() {
           </div>
         </section>
 
-        {/* Bloco 5 – Ficha técnica resumida */}
+        {/* Bloco 5 – Ficha técnica resumida com cabeçalho azul */}
         <section id="ficha-tecnica">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Scania Super
           </h2>
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <table className="min-w-full text-sm border-collapse">
-              <tbody>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700 w-40">
-                    Motor
+            <table className="min-w-full text-sm md:text-base border-collapse">
+              <thead className="bg-sky-50">
+                <tr>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-800 w-40">
+                    Especificação
                   </th>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-800">
+                    Descrição
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-t border-slate-200 bg-white">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
+                    Motor
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Scania Super 13L – 6 cilindros em linha, projetado para
                     maior eficiência térmica e emissões reduzidas.
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-slate-50/60">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Potência
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Faixa típica de 420 hp a 560 hp (conforme versão e
                     aplicação).
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-white">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Torque
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Aproximadamente 2.300–2.800 Nm, com pico em rotações mais
                     baixas, favorecendo economia e desempenho em rampas.
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-slate-50/60">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Transmissão
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Caixa automatizada Scania Opticruise, com modos de condução
                     otimizados e integração com Active Prediction (CCAP).
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-white">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Emissões
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Atende à norma Proconve P8 / Euro 6, com sistema Twin SCR e
                     foco em redução de NOx e particulados.
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-slate-50/60">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Configurações
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Eixos 4x2, 6x2, 6x4 e 8x4, conforme aplicação (rodoviária,
                     regional ou vocacional pesada).
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-white">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Cabines
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     S (piso plano), R (rodoviária) e variantes XT vocacionais
                     reforçadas.
                   </td>
                 </tr>
-                <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                <tr className="border-t border-slate-200 bg-slate-50/60">
+                  <td className="px-4 py-3 font-semibold text-slate-900">
                     Foco operacional
-                  </th>
+                  </td>
                   <td className="px-4 py-3 text-slate-800">
                     Longa distância, operações regionais de alta exigência e
                     aplicações com alto CMT, com prioridade absoluta para
@@ -402,41 +412,34 @@ export default function ScaniaSuperPage() {
           </div>
         </section>
 
-        {/* CTA final */}
-        <section className="mt-8 flex flex-wrap gap-4 justify-between items-center">
-          <p className="text-sm text-slate-700 max-w-xl">
-            Este resumo do Scania Super foi estruturado para apoiar motoristas,
-            frotistas e instrutores técnicos na comparação de configurações e na
-            escolha do trem de força mais adequado às rotas e aplicações.
-          </p>
-          <Link
-            href="/caminhoes"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-          >
-            Ver todos os caminhões a diesel
-          </Link>
+        {/* Bloco final – cartão branco com botão azul para PDF */}
+        <section className="mt-10">
+          <div className="p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              Ficha técnica oficial – Scania R 500 / R 560 Super (PDF)
+            </h2>
+
+            <p className="text-sm md:text-base text-slate-700 max-w-2xl">
+              Acesse o documento oficial da Scania com dados completos de
+              potência, torque, consumo, configurações de eixos e dimensões
+              das versões R 500 e R 560 A6x4NZ Super.
+            </p>
+
+            <div className="mt-4">
+              <a
+                href="/fichas-tecnicas/scania-r500-r560-a6x4nz-super.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+                  PDF
+                </span>
+                Abrir ficha técnica (PDF)
+              </a>
+            </div>
+          </div>
         </section>
-        // app/caminhoes/scania-super/page.tsx
-
-<div className="mt-8 border-t pt-4">
-  <h2 className="text-xl font-semibold mb-2">
-    Ficha técnica oficial (PDF)
-  </h2>
-
-  <p className="text-sm text-gray-700 mb-2">
-    Dados completos do Scania R 500 / R 560 A6x4NZ Super.
-  </p>
-
-  <a
-    href="/fichas-tecnicas/scania-r500-r560-a6x4nz-super.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block underline font-semibold hover:no-underline text-blue-600"
-  >
-    Abrir ficha técnica Scania R 500 / R 560 Super (PDF)
-  </a>
-</div>
-
       </section>
     </main>
   );
