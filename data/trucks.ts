@@ -117,7 +117,18 @@ export const trucks: Truck[] = [
       Aplicação: "Transporte rodoviário nacional e internacional",
     },
   },
-
+{
+    id: "daf-xf-offroad",
+    slug: "daf-xf-offroad",
+    nome: "DAF XF OFF-ROAD 530 cv",
+    subtitulo: "Versão reforçada para operações severas, mineração e florestal",
+    imagem: "/images/trucks/daf-xf-offroad.jpg",
+    categorias: ["Off-Road", "Extrapesado", "Mineração"],
+    potencia: "530 cv",
+    tracao: "6x4",
+    aplicacao: "Operações severas, mineração, madeira, cana",
+    link: "/caminhoes/daf-xf-offroad",
+  }
   // 6) MERCEDES ACTROS
   {
     slug: "mercedes-actros-2025",
