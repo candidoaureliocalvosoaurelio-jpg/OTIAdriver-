@@ -395,26 +395,27 @@ export default function DafCFSemipesadoPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
             >
-              Abrir ficha técnica DAF CF Semipesado (PDF)
-            </a>
-          </div>
+              {/* BLOCO FINAL – Apenas o card do PDF */}  
+<section className="mt-8">
+  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+    <h2 className="text-xl font-semibold text-slate-900 mb-2">
+      Ficha técnica oficial (PDF)
+    </h2>
+    <p className="text-sm text-slate-700 mb-4">
+      Consulte os dados completos de dimensões, capacidades, trem de força,
+      configurações de eixos e equipamentos do <strong>DAF CF Semipesado</strong>.
+    </p>
 
-          <div className="flex-1 md:text-right">
-            <p className="text-sm text-slate-700 mb-3 md:mb-2">
-              Este resumo foi estruturado para apoiar motoristas, frotistas e
-              instrutores na escolha da configuração ideal do{" "}
-              <strong>DAF CF Semipesado</strong> conforme a severidade da rota e
-              o tipo de carga.
-            </p>
-            <Link
-              href="/caminhoes"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-            >
-              Ver todos os caminhões a diesel
-            </Link>
-          </div>
-        </section>
-      </section>
+    <a
+      href="/fichas-tecnicas/daf-cf-semipesado.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+    >
+      Abrir ficha técnica DAF CF Semipesado (PDF)
+    </a>
+  </div>
+</section>
     </main>
   );
 }
