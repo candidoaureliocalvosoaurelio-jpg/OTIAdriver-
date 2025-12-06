@@ -16,21 +16,21 @@ type SpecTableProps = {
 function SpecTable({ title, columns, rows, note }: SpecTableProps) {
   return (
     <section className="mt-10">
-      <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+      <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4">
         {title}
       </h2>
 
-      <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <table className="min-w-full text-left text-sm">
-          <thead className="bg-slate-100">
+      <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
+        <table className="min-w-full border-collapse text-sm md:text-base">
+          <thead className="bg-sky-50">
             <tr>
-              <th className="px-4 py-3 font-semibold text-slate-900 w-48">
+              <th className="px-4 py-3 border-b border-slate-200 text-left font-semibold w-48">
                 {columns[0]}
               </th>
               {columns.slice(1).map((col, idx) => (
                 <th
                   key={idx}
-                  className="px-4 py-3 font-semibold text-slate-900"
+                  className="px-4 py-3 border-b border-slate-200 text-left font-semibold"
                 >
                   {col}
                 </th>
@@ -39,17 +39,14 @@ function SpecTable({ title, columns, rows, note }: SpecTableProps) {
           </thead>
           <tbody>
             {rows.map((row, idx) => (
-              <tr
-                key={row.label}
-                className={idx % 2 === 0 ? "bg-white" : "bg-slate-50"}
-              >
-                <td className="align-top px-4 py-3 text-sm font-semibold text-slate-900">
+              <tr key={row.label} className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}>
+                <td className="align-top px-4 py-3 border-t border-slate-200 text-sm font-semibold text-slate-900">
                   {row.label}
                 </td>
                 {row.values.map((value, vIdx) => (
                   <td
                     key={vIdx}
-                    className="align-top px-4 py-3 text-sm text-slate-700"
+                    className="align-top px-4 py-3 border-t border-slate-200 text-sm text-slate-700"
                   >
                     {value}
                   </td>
@@ -71,153 +68,139 @@ function SpecTable({ title, columns, rows, note }: SpecTableProps) {
 
 export default function VolvoFmxPage() {
   return (
-    <main className="min-h-screen bg-slate-50 pb-16">
+    <main className="min-h-screen w-full bg-gradient-to-b from-sky-50 via-slate-50 to-white pb-24">
       <div className="max-w-6xl mx-auto px-4 pt-10">
-        {/* CABEÇALHO / HERO */}
-        <section className="flex flex-col gap-8 md:flex-row md:items-center mb-10">
-          {/* Texto principal */}
-          <div className="flex-1">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
-              Caminhões Volvo · Linha Fora de Estrada
-            </p>
-            <h1 className="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900">
-              Volvo FMX
-            </h1>
-            <p className="mt-4 text-base text-slate-700 leading-relaxed">
-              O Volvo FMX foi projetado especificamente para{" "}
-              <span className="font-semibold">
-                construção pesada, mineração leve e aplicações severas
-              </span>
-              . Combina robustez extrema, alto conforto de cabine e
-              inteligência embarcada para operar com segurança em cenários
-              onde a produtividade é crítica.
-            </p>
+        {/* HERO / CABEÇALHO */}
+        <section className="w-full bg-white/80 border border-slate-200 rounded-3xl shadow-sm px-4 md:px-8 py-8 md:py-10 mb-10">
+          <div className="grid gap-8 md:grid-cols-[1.2fr,1fr] items-center">
+            {/* Texto principal */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
+                Caminhões Volvo • Linha fora de estrada
+              </p>
+              <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
+                Volvo FMX
+                <span className="block text-sky-500 text-xl md:text-2xl mt-1">
+                  robustez, conforto e inteligência para obras e mineração.
+                </span>
+              </h1>
+              <p className="mt-4 text-sm md:text-base text-slate-700 max-w-xl">
+                O Volvo FMX foi projetado especificamente para{" "}
+                <span className="font-semibold">
+                  construção pesada, mineração leve e aplicações severas
+                </span>
+                . Combina robustez extrema, alto conforto de cabine e
+                inteligência embarcada para operar com segurança em cenários
+                onde a produtividade é crítica.
+              </p>
 
-            {/* Badges de destaques */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              <span className="inline-flex items-center rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-800">
-                Potência 420cv 460cv 500cv 540cv
-              </span>
-              <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
-                Motores D13C Euro 6
-              </span>
-              <span className="inline-flex items-center rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                Configurações 6x4 e 8x4
-              </span>
-              <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-800">
-                CMT até 150 t*
-              </span>
-            </div>
-          </div>
+              {/* Cards de destaque (formato semelhante ao FH/Scania) */}
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="rounded-xl bg-sky-50 border border-sky-100 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-700">
+                    Potência
+                  </p>
+                  <p className="mt-1 text-lg md:text-xl font-bold text-slate-900">
+                    420cv 460cv 500cv 540cv
+                  </p>
+                  <p className="text-[11px] text-slate-600">
+                    Motores D13C com freio-motor VEB/VEB+ integrado.
+                  </p>
+                </div>
 
-          {/* Imagem principal */}
-          <div className="flex-1">
-            <div className="relative w-full max-w-xl mx-auto overflow-hidden rounded-3xl bg-white shadow-lg border border-slate-200">
-              <div className="relative aspect-[4/3]">
-                <Image
-                  src="/images/trucks/volvo-fmx.jpg"
-                  alt="Volvo FMX em configuração fora de estrada"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
+                <div className="rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                    Transmissão
+                  </p>
+                  <p className="mt-1 text-lg md:text-xl font-bold text-slate-900">
+                    I-Shift AT/ATO 2612F
+                  </p>
+                  <p className="text-[11px] text-slate-600">
+                    Até 14 marchas à frente, versões super-reduzidas.
+                  </p>
+                </div>
+
+                <div className="rounded-xl bg-amber-50 border border-amber-100 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-amber-700">
+                    Aplicações
+                  </p>
+                  <p className="mt-1 text-lg md:text-xl font-bold text-slate-900">
+                    Construção & obras
+                  </p>
+                  <p className="text-[11px] text-slate-600">
+                    Basculantes, betoneiras, muncks e fora de estrada.
+                  </p>
+                </div>
+
+                <div className="rounded-xl bg-slate-50 border border-slate-200 px-4 py-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600">
+                    Robustez
+                  </p>
+                  <p className="mt-1 text-lg md:text-xl font-bold text-slate-900">
+                    CMT até 150 t*
+                  </p>
+                  <p className="text-[11px] text-slate-600">
+                    Eixos reforçados, redutores nos cubos e suspensões severas.
+                  </p>
+                </div>
               </div>
             </div>
-            <p className="mt-2 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa do Volvo FMX. Configurações variam conforme a
-              aplicação.
-            </p>
-          </div>
-        </section>
 
-        {/* CARDS RESUMO */}
-        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-2xl bg-white shadow-sm border border-slate-200 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Potência
-            </p>
-            <p className="mt-1 text-lg font-extrabold text-slate-900">
-              420cv 460cv 500cv 540cv
-            </p>
-            <p className="mt-1 text-xs text-slate-600">
-              Motores D13C com freio-motor VEB/VEB+ integrado.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white shadow-sm border border-slate-200 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Transmissão
-            </p>
-            <p className="mt-1 text-lg font-extrabold text-slate-900">
-              I-Shift AT/ATO 2612F
-            </p>
-            <p className="mt-1 text-xs text-slate-600">
-              Automatizada, até 14 marchas à frente com super-reduzidas.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white shadow-sm border border-slate-200 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Aplicações
-            </p>
-            <p className="mt-1 text-lg font-extrabold text-slate-900">
-              Construção & Obras
-            </p>
-            <p className="mt-1 text-xs text-slate-600">
-              Ideal para basculantes, betoneiras, muncks e aplicações fora de
-              estrada.
-            </p>
-          </div>
-
-          <div className="rounded-2xl bg-white shadow-sm border border-slate-200 px-4 py-4">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Robustez
-            </p>
-            <p className="mt-1 text-lg font-extrabold text-slate-900">
-              CMT até 150 t*
-            </p>
-            <p className="mt-1 text-xs text-slate-600">
-              Eixos traseiros reforçados, redutores nos cubos e suspensões para
-              serviço severo.
-            </p>
+            {/* Imagem principal */}
+            <div>
+              <div className="relative w-full max-w-xl mx-auto overflow-hidden rounded-3xl bg-white shadow-lg border border-slate-200">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/trucks/volvo-fmx.jpg"
+                    alt="Volvo FMX em configuração fora de estrada"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    priority
+                  />
+                </div>
+              </div>
+              <p className="mt-2 text-[11px] text-slate-500 text-center">
+                Imagem ilustrativa do Volvo FMX. Configurações variam conforme a aplicação.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* BLOCO: CABINE & CONFORTO */}
-        <section className="mt-12 grid gap-8 md:grid-cols-[1.2fr,1fr]">
+        <section className="mt-8 grid gap-8 md:grid-cols-[1.2fr,1fr]">
           <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-6 md:p-8">
-            <h2 className="text-2xl font-extrabold text-slate-900 mb-3">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3">
               Cabine pensada para ambientes severos
             </h2>
-            <p className="text-sm text-slate-700 leading-relaxed mb-4">
-              A cabine do Volvo FMX foi desenvolvida para resistir a ambientes
-              de construção e mineração, com para-choque reforçado, ângulos de
-              ataque otimizados e excelente visibilidade frontal e lateral.
+            <p className="text-sm md:text-base text-slate-700 leading-relaxed mb-4">
+              A cabine do Volvo FMX foi desenvolvida para resistir a ambientes de
+              construção e mineração, com para-choque reforçado, ângulos de ataque
+              otimizados e excelente visibilidade frontal e lateral.
             </p>
-            <ul className="space-y-2 text-sm text-slate-700">
+            <ul className="space-y-2 text-sm md:text-base text-slate-700">
               <li>
-                • Estrutura de cabine de alta resistência, preparada para
-                impactos e operação em vias irregulares.
+                • Estrutura de cabine de alta resistência, preparada para impactos e
+                operação em vias irregulares.
               </li>
               <li>
-                • Degraus e plataformas antiderrapantes para acesso seguro à
-                cabine e à parte frontal.
+                • Degraus e plataformas antiderrapantes para acesso seguro à cabine e
+                à parte frontal.
               </li>
               <li>
-                • Painel moderno com fácil leitura, ergonomia ajustada ao
-                motorista e múltiplos porta-objetos.
+                • Painel moderno com fácil leitura, ergonomia ajustada ao motorista e
+                múltiplos porta-objetos.
               </li>
               <li>
-                • Opções de leito, ar-condicionado, climatizador e preparação
-                para diversos implementos.
+                • Opções de leito, ar-condicionado, climatizador e preparação para
+                diversos implementos.
               </li>
             </ul>
           </div>
 
           <div className="rounded-3xl bg-white border border-slate-200 shadow-sm p-4">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100">
-              {/* Pode reutilizar a mesma imagem até ter fotos internas específicas */}
+              {/* Enquanto não houver fotos internas específicas, reutilizamos a imagem externa */}
               <Image
                 src="/images/trucks/volvo-fmx.jpg"
                 alt="Detalhe de cabine e conjunto Volvo FMX"
@@ -227,15 +210,14 @@ export default function VolvoFmxPage() {
               />
             </div>
             <p className="mt-2 text-[11px] text-slate-500 text-center">
-              Layout ilustrativo. Imagens internas podem variar conforme
-              configuração de cabine.
+              Layout ilustrativo. Imagens internas podem variar conforme configuração de cabine.
             </p>
           </div>
         </section>
 
         {/* TABELA – MOTORES */}
         <SpecTable
-          title="Ficha Técnica – Motores D13C"
+          title="Ficha técnica – Motores D13C"
           columns={["Motores", "D13C420", "D13C460", "D13C500", "D13C540"]}
           rows={[
             {
@@ -284,12 +266,7 @@ export default function VolvoFmxPage() {
             },
             {
               label: "Freio-motor",
-              values: [
-                "VEB410/VEB510 (opc.)",
-                "VEB410/VEB510 (opc.)",
-                "VEB510",
-                "VEB510",
-              ],
+              values: ["VEB410/VEB510 (opc.)", "VEB410/VEB510 (opc.)", "VEB510", "VEB510"],
             },
           ]}
           note="Valores de potência e torque conforme norma SAE J1349."
@@ -311,11 +288,7 @@ export default function VolvoFmxPage() {
             },
             {
               label: "Tipo",
-              values: [
-                "Automatizada",
-                "Automatizada (overdrive)",
-                "Automatizada",
-              ],
+              values: ["Automatizada", "Automatizada (overdrive)", "Automatizada"],
             },
             {
               label: "Troca de marchas",
@@ -347,7 +320,7 @@ export default function VolvoFmxPage() {
 
         {/* TABELA – EIXOS TRASEIROS */}
         <SpecTable
-          title="Eixos Traseiros – Configurações Fora de Estrada"
+          title="Eixos traseiros – configurações fora de estrada"
           columns={[
             "Eixos traseiros",
             "RSS1360",
@@ -386,10 +359,17 @@ export default function VolvoFmxPage() {
             },
             {
               label: "Tipo de carcaça",
-              values: ["Fundida", "Fundida", "Fundida", "Fundida", "Fundida", "Fundida"],
+              values: [
+                "Fundida",
+                "Fundida",
+                "Fundida",
+                "Fundida",
+                "Fundida",
+                "Fundida",
+              ],
             },
             {
-              label: "CMT (Ton.)",
+              label: "CMT (ton.)",
               values: ["60", "70", "80", "100", "100 / 130*", "100 / 150*"],
             },
             {
@@ -417,26 +397,37 @@ export default function VolvoFmxPage() {
           ]}
           note="*Capacidades de CMT e relações de redução podem variar conforme combinação de eixos e suspensão."
         />
+
+        {/* Ficha técnica oficial em PDF – bloco final, mesmo padrão do FH */}
+        <section className="mt-10">
+          <div className="p-6 rounded-2xl border shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              Ficha técnica oficial – Volvo FMX MAX 6x4R (PDF)
+            </h2>
+
+            <p className="text-sm text-slate-700">
+              Acesse o documento oficial da Volvo Trucks com todas as
+              informações de dimensões, capacidades, motor, suspensão e
+              desempenho do Volvo FMX MAX 6x4R, utilizado para dimensionamento
+              e comparação de frota.
+            </p>
+
+            <div className="mt-4">
+              <a
+                href="/fichas-tecnicas/volvo-fmx-max-6x4r.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+                  PDF
+                </span>
+                Abrir ficha técnica (PDF)
+              </a>
+            </div>
+          </div>
+        </section>
       </div>
-      <div className="mt-8 border-t pt-4">
-  <h2 className="text-xl font-semibold mb-2">
-    Ficha técnica oficial (PDF)
-  </h2>
-
-  <p className="text-sm text-gray-700 mb-2">
-    Consulte os dados completos de dimensões, capacidades, motor,
-    suspensão e desempenho do Volvo FMX MAX 6x4R.
-  </p>
-
-  <a
-    href="/fichas-tecnicas/volvo-fmx-max-6x4r.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block underline font-semibold hover:no-underline text-blue-600"
-  >
-    Abrir ficha técnica Volvo FMX MAX 6x4R (PDF)
-  </a>
-</div>
     </main>
   );
 }
