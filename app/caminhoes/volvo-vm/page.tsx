@@ -17,22 +17,22 @@ type SpecTableProps = {
 function SpecTable({ title, columns, rows, note }: SpecTableProps) {
   return (
     <section className="mt-10">
-      <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+      <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4">
         {title}
       </h2>
 
       {/* Tabela responsiva – rolagem horizontal em telas pequenas */}
       <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
         <table className="min-w-full text-sm md:text-base border-collapse">
-          <thead>
-            <tr className="bg-slate-50">
-              <th className="py-3 px-4 text-left font-semibold text-slate-700 min-w-[140px]">
+          <thead className="bg-sky-50">
+            <tr>
+              <th className="py-3 px-4 text-left font-semibold text-slate-800 min-w-[140px]">
                 Especificação
               </th>
               {columns.map((col) => (
                 <th
                   key={col}
-                  className="py-3 px-4 text-left font-semibold text-slate-700 whitespace-nowrap"
+                  className="py-3 px-4 text-left font-semibold text-slate-800 whitespace-nowrap"
                 >
                   {col}
                 </th>
@@ -45,7 +45,7 @@ function SpecTable({ title, columns, rows, note }: SpecTableProps) {
                 key={row.label}
                 className={idx % 2 === 0 ? "bg-white" : "bg-slate-50/60"}
               >
-                <td className="py-3 px-4 font-semibold text-slate-800 align-top">
+                <td className="py-3 px-4 font-semibold text-slate-900 align-top">
                   {row.label}
                 </td>
                 {row.values.map((val, i) => (
@@ -126,7 +126,11 @@ export default function VolvoVmPage() {
   ];
 
   // Transmissões
-  const gearboxColumns = ["I-Shift VM AT2612F", "I-Shift VM ATO3112F", "Caixa manual (VT/VMT)"];
+  const gearboxColumns = [
+    "I-Shift VM AT2612F",
+    "I-Shift VM ATO3112F",
+    "Caixa manual (VT/VMT)",
+  ];
   const gearboxRows: SpecRow[] = [
     {
       label: "Aplicação",
@@ -176,12 +180,7 @@ export default function VolvoVmPage() {
     },
     {
       label: "PBT típico",
-      values: [
-        "até ~17 t",
-        "até ~23 t",
-        "até ~26 t",
-        "até ~32 t",
-      ],
+      values: ["até ~17 t", "até ~23 t", "até ~26 t", "até ~32 t"],
     },
     {
       label: "Tração",
@@ -271,17 +270,20 @@ export default function VolvoVmPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-sky-50 to-slate-50 pb-20">
-      {/* FAIXA SUPERIOR / HERO */}
+      {/* HERO – padrão FH/Scania */}
       <section className="border-b border-slate-200 bg-white/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 md:flex-row md:items-center">
           <div className="flex-1">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
               Caminhões Volvo • VM & VMX
             </p>
-            <h1 className="mt-2 text-3xl md:text-4xl font-extrabold text-slate-900">
+            <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
               Volvo VM / VMX
+              <span className="block text-sky-500 text-xl md:text-2xl mt-1">
+                versatilidade para cidades, estradas e obras.
+              </span>
             </h1>
-            <p className="mt-4 text-slate-700 leading-relaxed">
+            <p className="mt-4 text-sm md:text-base text-slate-700 leading-relaxed">
               A família Volvo VM foi concebida para distribuição e operações
               rodoviárias leves, enquanto o VMX leva a mesma base mecânica para
               serviços mais severos, como construção civil e aplicações fora de
@@ -307,8 +309,8 @@ export default function VolvoVmPage() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/"
-                className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 transition"
+                href="/caminhoes"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 transition"
               >
                 Voltar para a lista de caminhões
               </Link>
@@ -326,7 +328,7 @@ export default function VolvoVmPage() {
             <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-sky-100 via-white to-emerald-50 shadow-lg" />
             <div className="relative h-full w-full">
               <Image
-                src="/images/trucks/volvo-vm.jpg" // mesma imagem usada no card
+                src="/images/trucks/volvo-vm.jpg"
                 alt="Volvo VM / VMX em operação"
                 fill
                 className="object-contain p-4 md:p-6"
@@ -396,10 +398,10 @@ export default function VolvoVmPage() {
         {/* Texto de posicionamento */}
         <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)]">
           <div>
-            <h2 className="text-2xl font-extrabold text-slate-900">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">
               Plataforma modular para cidades, estradas e obras
             </h2>
-            <p className="mt-3 text-slate-700 leading-relaxed">
+            <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
               O Volvo VM combina cabine confortável, trem de força moderno e
               múltiplas configurações de chassi. É uma base única que atende
               desde baús urbanos e câmaras frias até betoneiras e basculantes.
@@ -407,7 +409,7 @@ export default function VolvoVmPage() {
               eixos e da transmissão para enfrentar pisos ruins e operações com
               alta solicitação de chassi.
             </p>
-            <p className="mt-3 text-slate-700 leading-relaxed">
+            <p className="mt-3 text-sm md:text-base text-slate-700 leading-relaxed">
               A inteligência embarcada da I-Shift VM ajuda a reduzir consumo de
               combustível e desgaste, enquanto sistemas eletrônicos de freio e
               auxílio em rampa aumentam a segurança nas manobras diárias.
@@ -423,8 +425,9 @@ export default function VolvoVmPage() {
               <li>• Operações mistas asfalto–terra com o VMX</li>
             </ul>
             <p className="mt-4 text-xs text-slate-300">
-              Sempre consulte o concessionário Volvo para confirmar configurações
-              disponíveis, PBT/CMT homologados e adaptações de implementos.
+              Sempre consulte o concessionário Volvo para confirmar
+              configurações disponíveis, PBT/CMT homologados e adaptações de
+              implementos.
             </p>
           </div>
         </div>
@@ -463,39 +466,47 @@ export default function VolvoVmPage() {
           rows={cabRows}
           note="Recursos de segurança ativa e passiva podem variar conforme o pacote de opcionais escolhido."
         />
+
+        {/* BLOCO FINAL – Fichas técnicas oficiais (PDF) */}
+        <section className="mt-10">
+          <div className="p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              Fichas técnicas oficiais – Volvo VM / VMX (PDF)
+            </h2>
+            <p className="text-sm md:text-base text-slate-700 max-w-2xl">
+              Consulte os dados completos de dimensões, capacidades, motor,
+              transmissão e aplicações das versões rodoviárias Volvo VM 6x2R e
+              vocacionais Volvo VMX MAX 6x4R.
+            </p>
+
+            <div className="mt-4 flex flex-wrap gap-3">
+              <a
+                href="/fichas-tecnicas/volvo-vm-6x2r.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+                  PDF
+                </span>
+                Abrir ficha técnica VM 6x2R (PDF)
+              </a>
+
+              <a
+                href="/fichas-tecnicas/volvo-vmx-max-6x4r.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+                  PDF
+                </span>
+                Abrir ficha técnica VMX MAX 6x4R (PDF)
+              </a>
+            </div>
+          </div>
+        </section>
       </section>
-       // app/caminhoes/volvo-vm-vmx/page.tsx
-
-<div className="mt-8 border-t pt-4 space-y-4">
-  <h2 className="text-xl font-semibold">
-    Fichas técnicas oficiais (PDF)
-  </h2>
-
-  <p className="text-sm text-gray-700">
-    Consulte os dados completos das versões VM 6x2R e VMX MAX 6x4R.
-  </p>
-
-  <div className="flex flex-col gap-2">
-    <a
-      href="/fichas-tecnicas/volvo-vm-6x2r.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="underline font-semibold hover:no-underline text-blue-600"
-    >
-      Ficha técnica Volvo VM 6x2R (PDF)
-    </a>
-
-    <a
-      href="/fichas-tecnicas/volvo-vmx-max-6x4r.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="underline font-semibold hover:no-underline text-blue-600"
-    >
-      Ficha técnica Volvo VMX MAX 6x4R (PDF)
-    </a>
-  </div>
-</div>
-
     </main>
   );
 }
