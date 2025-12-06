@@ -7,11 +7,10 @@ export default function ScaniaP3208x2Page() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
       {/* HERO */}
-      <section className="w-full bg-gradient-to-r from-[#020617] via-[#111827] to-[#020617] text-white">
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.3fr,1fr] gap-10 items-center">
-          {/* Texto principal */}
+      <section className="w-full border-b border-slate-200 bg-white/80">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-12 grid gap-10 md:grid-cols-[1.2fr,1fr] items-center">
           <div>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-emerald-300 mb-3">
+            <p className="text-xs font-semibold tracking-[0.2em] text-sky-600 uppercase">
               Distribuição Regional & Urbana
             </p>
 
