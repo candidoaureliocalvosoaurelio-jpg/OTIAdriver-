@@ -1,5 +1,4 @@
-// app/caminhoes/volvo-fh-2025/page.tsx (Código completo com modificações)
-
+// app/caminhoes/volvo-fh-2025/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -262,9 +261,9 @@ export default function VolvoFH2025Page() {
             <p className="mt-4 text-slate-700 text-sm md:text-base max-w-xl">
               A linha Volvo FH foi desenvolvida para operações rodoviárias de
               longa distância, combinando motores D13C de alta eficiência,
-              transmissão I-Shift e cabines Globetrotter de referência em
-              conforto. Esta página reúne, em formato técnico e didático, os
-              principais dados para motoristas, frotistas e instrutores.
+              transmissão I-Shift e cabines de referência em conforto. Esta
+              página reúne, em formato técnico e didático, os principais dados
+              para motoristas, frotistas e instrutores.
             </p>
 
             {/* Cards de destaque */}
@@ -274,7 +273,7 @@ export default function VolvoFH2025Page() {
                   Faixa de potência
                 </p>
                 <p className="mt-1 text-xl font-bold text-slate-900">
-                  420cv 460cv 500cv 540 cv
+                  420cv • 460cv • 500cv • 540cv
                 </p>
                 <p className="text-xs text-slate-600">
                   Motores D13C com freio-motor VEB/VEB+ integrado.
@@ -305,10 +304,10 @@ export default function VolvoFH2025Page() {
             </div>
           </div>
 
-          {/* Imagem do FH */}
+          {/* Imagem do FH (corrigida) */}
           <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border bg-slate-100 shadow-sm">
             <Image
-              src="/images/trucks/volvo-fh-2025.jpg"
+              src="/images/trucks/volvo-fh.jpg"
               alt="Volvo FH em configuração rodoviária"
               fill
               priority
@@ -321,61 +320,40 @@ export default function VolvoFH2025Page() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <div className="max-w-6xl mx-auto px-4 mt-10">
-        {/* Seção: Conforto da cabine */}
-        <section className="grid gap-10 md:grid-cols-[1.2fr,1fr] items-start">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
-              Conforto da cabine Globetrotter / Globetrotter XL
-            </h2>
-            <p className="text-slate-700 text-sm md:text-base mb-3">
-              A cabine do Volvo FH foi projetada para ser um ambiente de
-              trabalho e descanso de alto padrão, reduzindo fadiga e aumentando
-              a segurança em viagens longas. Nas versões Globetrotter e
-              Globetrotter XL, o motorista conta com excelente isolamento
-              acústico, ergonomia refinada e amplo espaço interno.
-            </p>
-            <ul className="space-y-2 text-sm md:text-base text-slate-700">
-              <li>
-                •<span className="font-semibold"> Leito amplo</span> com opções
-                de colchão de mola ou espuma, pensado para sono mais reparador.
-              </li>
-              <li>
-                • Suspensão de cabine e de chassi desenvolvidas para reduzir
-                vibrações e impactos, melhorando conforto e controle do veículo.
-              </li>
-              <li>
-                • Grande volume de porta-objetos internos e compartimentos
-                externos, facilitando a organização de bagagens e itens de
-                trabalho.
-              </li>
-              <li>
-                • Painel digital e central multimídia posicionados para reduzir
-                desvios de atenção, com comandos ao alcance das mãos.
-              </li>
-              <li>
-                • Sistemas de climatização que mantêm a temperatura ideal, mesmo
-                durante paradas prolongadas, conforme a configuração da cabine.
-              </li>
-            </ul>
-          </div>
-
-          {/* Imagem interior da cabine */}
-          <figure className="space-y-3">
-            <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border bg-slate-100 shadow-sm">
-              <Image
-                src="/images/caminhoes/volvo-fh/interior-globetrotter-xl.jpg"
-                alt="Interior da cabine Volvo FH Globetrotter XL"
-                fill
-                sizes="(max-width: 768px) 100vw, 35vw"
-                className="object-cover"
-              />
-            </div>
-            {/* REMOVIDO: Indicação textual sobre a imagem que estava gerando sobreposição/confusão no design */}
-            <figcaption className="text-xs text-slate-500 text-center">
-              Imagem ilustrativa da cabine Volvo FH Globetrotter XL – ambiente
-              pensado para ser uma “casa sobre rodas” para o motorista.
-            </figcaption>
-          </figure>
+        {/* Seção: Conforto da cabine (AGORA SEM IMAGEM) */}
+        <section className="mt-10">
+          <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
+            Conforto da cabine Globetrotter / Globetrotter XL
+          </h2>
+          <p className="text-slate-700 text-sm md:text-base mb-3">
+            A cabine do Volvo FH foi projetada para ser um ambiente de trabalho
+            e descanso de alto padrão, reduzindo fadiga e aumentando a
+            segurança em viagens longas. O motorista conta com ótimo isolamento
+            acústico, ergonomia refinada e excelente espaço interno para
+            organização da rotina na estrada.
+          </p>
+          <ul className="space-y-2 text-sm md:text-base text-slate-700">
+            <li>
+              • Leito amplo com opções de colchão de mola ou espuma, pensado
+              para sono reparador.
+            </li>
+            <li>
+              • Suspensão de cabine e de chassi desenvolvidas para reduzir
+              vibrações e impactos.
+            </li>
+            <li>
+              • Diversos porta-objetos internos e compartimentos externos para
+              bagagens e itens de trabalho.
+            </li>
+            <li>
+              • Painel digital e central multimídia com comandos bem
+              posicionados, reduzindo desvios de atenção.
+            </li>
+            <li>
+              • Sistemas de climatização que mantêm a temperatura ideal mesmo
+              durante paradas prolongadas.
+            </li>
+          </ul>
         </section>
 
         {/* Seção: Plataforma modular */}
@@ -397,7 +375,7 @@ export default function VolvoFH2025Page() {
           </p>
         </section>
 
-        {/* Tabelas técnicas (Motores, Transmissão, Eixos) */}
+        {/* Tabelas técnicas */}
         <SpecTable
           title={engineTable.title}
           headers={engineTable.headers}
@@ -436,7 +414,7 @@ export default function VolvoFH2025Page() {
           </p>
         </section>
 
-        {/* Ficha técnica oficial em PDF – bloco final (CORRIGIDO) */}
+        {/* Ficha técnica oficial em PDF – bloco final */}
         <section className="mt-10">
           <div className="p-6 rounded-2xl border shadow-sm bg-white">
             <h2 className="text-2xl font-bold mb-2 text-slate-900">
@@ -455,7 +433,6 @@ export default function VolvoFH2025Page() {
                 href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                // RESTAURADO: Classes originais para aparecer como botão azul com texto branco
                 className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
               >
                 <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
