@@ -134,6 +134,22 @@ export const trucks: Truck[] = [
     },
   },
 
+  // 5.1) DAF CF Semipesado
+  {
+    slug: "daf-cf-semipesado",
+    name: "DAF CF Semipesado",
+    file: "/images/trucks/daf-cf-semipesado.jpg",
+    description:
+      "Caminhão rígido semipesado da DAF, com motor PACCAR PX-7 Euro 6 e configurações 6x2 e 8x2 para distribuição urbana, regional e aplicações vocacionais.",
+    specs: {
+      Motor: "PACCAR PX-7 6,7 L",
+      Potência: "faixas de 260–310 cv",
+      Configuração: "FAS 6x2 e FAC 8x2 rígido",
+      Aplicação:
+        "Distribuição urbana/regional, bebidas, alimentos, carga seca, materiais de construção e agro",
+    },
+  }
+  
   // 6) MERCEDES ACTROS
   {
     slug: "mercedes-actros-2025",
