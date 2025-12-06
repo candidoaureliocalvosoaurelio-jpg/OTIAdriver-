@@ -464,6 +464,38 @@ export default function VolvoVmPage() {
           note="Recursos de segurança ativa e passiva podem variar conforme o pacote de opcionais escolhido."
         />
       </section>
+       // app/caminhoes/volvo-vm-vmx/page.tsx
+
+<div className="mt-8 border-t pt-4 space-y-4">
+  <h2 className="text-xl font-semibold">
+    Fichas técnicas oficiais (PDF)
+  </h2>
+
+  <p className="text-sm text-gray-700">
+    Consulte os dados completos das versões VM 6x2R e VMX MAX 6x4R.
+  </p>
+
+  <div className="flex flex-col gap-2">
+    <a
+      href="/fichas-tecnicas/volvo-vm-6x2r.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline font-semibold hover:no-underline text-blue-600"
+    >
+      Ficha técnica Volvo VM 6x2R (PDF)
+    </a>
+
+    <a
+      href="/fichas-tecnicas/volvo-vmx-max-6x4r.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline font-semibold hover:no-underline text-blue-600"
+    >
+      Ficha técnica Volvo VMX MAX 6x4R (PDF)
+    </a>
+  </div>
+</div>
+
     </main>
   );
 }
