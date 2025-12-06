@@ -71,7 +71,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 4.1) SCANIA SUPER XT – vocacional
+  // 4.1) SCANIA SUPER XT — vocacional
   {
     slug: "scania-super-xt",
     name: "Scania Super XT",
@@ -87,11 +87,11 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 4.2) SCANIA P320 8x2 – distribuição
+  // 4.2) SCANIA P320 8x2 — distribuição
   {
     slug: "scania-p320-8x2",
     name: "Scania P320 8x2",
-    file: "/images/trucks/scania-p320-8x2.jpg", // mesma imagem usada na página
+    file: "/images/trucks/scania-p320-8x2.jpg",
     description:
       "Caminhão rígido 8x2 da Scania para distribuição regional e urbana de alto volume, com cabine P de fácil acesso, motor D9 320 hp e foco em máxima carga útil com baixo TCO.",
     specs: {
@@ -103,7 +103,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 5) DAF XF
+  // 5) DAF XF — rodoviário
   {
     slug: "daf-xf",
     name: "DAF XF",
@@ -115,6 +115,22 @@ export const trucks: Truck[] = [
       Potência: "até 530 cv",
       Transmissão: "TraXon 12v",
       Aplicação: "Transporte rodoviário nacional e internacional",
+    },
+  },
+
+  // 5.1) DAF XF OFF-ROAD — NOVO
+  {
+    slug: "daf-xf-offroad",
+    name: "DAF XF OFF-ROAD",
+    file: "/images/trucks/daf-xf-offroad.jpg",
+    description:
+      "Versão reforçada do DAF XF para mineração, florestal, cana e operações severas, com chassi reforçado e trem de força preparado para alto esforço.",
+    specs: {
+      Motor: "PACCAR MX-13",
+      Potência: "530 cv",
+      Tração: "6x4",
+      Suspensão: "Heavy-Duty / reforçada",
+      Aplicação: "Mineração, florestal, cana e operações severas off-road",
     },
   },
 
