@@ -12,63 +12,67 @@ export default function DafCFSemipesadoPage() {
           {/* Texto principal */}
           <div>
             <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-300 mb-3">
-              Linha Semipesada Multimissão
+              Semipesado para distribuição e serviços
             </p>
 
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
               DAF CF Semipesado
               <span className="block text-sky-300 text-xl md:text-2xl mt-1">
-                Versatilidade, robustez e economia para distribuição e serviços
+                Versatilidade para distribuição regional e operações mistas
               </span>
             </h1>
 
             <p className="text-sm md:text-base text-slate-100/85 mb-6 max-w-xl">
-              O <strong>DAF CF Semipesado</strong> foi projetado para operações
-              urbanas, regionais e vocacionais que exigem{" "}
-              <strong>alta disponibilidade</strong>,{" "}
-              <strong>baixo consumo de combustível</strong> e{" "}
-              <strong>conforto real ao motorista</strong>. Com as
-              configurações <strong>FAS 6x2</strong> e <strong>FAC 8x2</strong>,
-              atende de distribuição leve a aplicações de alto volume de carga.
+              O <strong>DAF CF Semipesado</strong> foi pensado para aplicações
+              que exigem agilidade, robustez e bom desempenho em rotas
+              regionais, operação urbana reforçada e trajetos com trechos de
+              terra. Combina cabine confortável, trem de força eficiente e
+              configurações 4x2 e 6x2/6x4 para diferentes tipos de implementos.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
               <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-slate-300">
-                  Motor
+                  Potência
                 </p>
-                <p className="text-lg font-bold">PACCAR PX-7</p>
+                <p className="text-lg font-bold"> 260cv 290cv até 310 cv</p>
                 <p className="text-[11px] text-slate-300">
-                  6,7 L • Euro 6 • 260cv 290cv 310cv
+                  Motor PACCAR PX 
                 </p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-slate-300">
                   Configurações
                 </p>
-                <p className="text-lg font-bold">6x2 e 8x2</p>
+                <p className="text-lg font-bold">4x2 / 6x2 / 6x4</p>
                 <p className="text-[11px] text-slate-300">
-                  FAS 6x2 • FAC 8x2 rígido
+                  Para baú, carga seca, serviços e vocacional
                 </p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-slate-300">
-                  Aplicações
+                  Foco operacional
                 </p>
-                <p className="text-lg font-bold">Distribuição & serviços</p>
+                <p className="text-lg font-bold">Regional / urbano reforçado</p>
                 <p className="text-[11px] text-slate-300">
-                  Baú, sider, bebidas, carga seca, agro
+                  Distribuição, serviços e aplicações mistas
                 </p>
               </div>
             </div>
 
             <div className="flex flex-wrap gap-3">
               <Link
+                href="/caminhoes"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-300 text-black hover:bg-sky-200 transition"
+              >
+                Voltar para Caminhões
+              </Link>
+              <a
                 href="#ficha-tecnica"
                 className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-white/40 text-white hover:bg-white/10 transition"
               >
                 Ver ficha técnica resumida
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -77,18 +81,18 @@ export default function DafCFSemipesadoPage() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                  src="/images/trucks/daf-cf-semipesado.jpg" // coloque o arquivo aqui
-                  alt="DAF CF Semipesado – caminhão rígido para distribuição e serviços"
+                  src="/images/trucks/daf-cf-semipesado.jpg"
+                  alt="DAF CF Semipesado"
                   fill
                   className="object-cover"
                   priority
                 />
               </div>
             </div>
-            <div className="mt-3 text-[11px] text-slate-300 text-center">
-              Imagem ilustrativa DAF CF Semipesado – configurações rígidas 6x2
-              e 8x2 para operações urbanas e regionais.
-            </div>
+            <p className="mt-3 text-[11px] text-slate-300 text-center">
+              Imagem ilustrativa DAF CF Semipesado – chassi para distribuição e
+              serviços.
+            </p>
           </div>
         </div>
       </section>
@@ -99,109 +103,94 @@ export default function DafCFSemipesadoPage() {
         <section className="grid md:grid-cols-2 gap-8 items-start">
           <div>
             <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-3">
-              DAF CF Semipesado: versatilidade para distribuição e vocacional
+              Plataforma CF para operações semipesadas
             </h2>
             <p className="text-sm md:text-base text-slate-700 mb-3">
-              O <strong>DAF CF Semipesado</strong> foi desenvolvido para ser um
-              verdadeiro <strong>multimissão</strong>. Atende desde a
-              distribuição urbana e regional até aplicações vocacionais de
-              maior severidade, sempre com foco em{" "}
-              <strong>robustez, conforto e baixo custo operacional</strong>.
+              A linha <strong>DAF CF</strong> Semipesado atende operações que
+              combinam trechos urbanos, rodovias simples e acessos em via de
+              terra. O projeto privilegia robustez estrutural, boa capacidade de
+              carga e ergonomia de cabine para jornadas intensas de trabalho.
             </p>
             <p className="text-sm md:text-base text-slate-700">
-              A combinação entre o motor <strong>PACCAR PX-7</strong>, cabines
-              bem dimensionadas e as configurações de eixos{" "}
-              <strong>FAS 6x2</strong> e <strong>FAC 8x2</strong> permite que a
-              mesma plataforma seja utilizada em diferentes segmentos, mantendo
-              elevada disponibilidade mecânica e facilidade de manutenção.
+              A cabine oferece excelente visibilidade, comandos bem posicionados
+              e nível de conforto adequado para quem passa o dia inteiro ao
+              volante, seja em distribuição regional, apoio operacional ou
+              serviços especializados.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
-                Segmentos atendidos
+                Aplicações típicas
               </p>
               <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Distribuição urbana e regional</li>
-                <li>• Bebidas, alimentos e carga seca</li>
-                <li>• Agro, materiais de construção e serviços</li>
+                <li>• Distribuição regional e urbana reforçada</li>
+                <li>• Carga seca, baú e sider</li>
+                <li>• Serviços públicos e apoio operacional</li>
               </ul>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
-                Benefícios para a frota
+                Benefícios principais
               </p>
               <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Alto tempo de disponibilidade</li>
-                <li>• Consumo otimizado na faixa semipesada</li>
-                <li>• Cabine confortável e produtiva</li>
+                <li>• Robustez com boa dirigibilidade</li>
+                <li>• Trem de força eficiente e confiável</li>
+                <li>• Versatilidade de implementos e configurações</li>
               </ul>
             </div>
           </div>
         </section>
 
-        {/* Bloco 2 – Motor PACCAR PX-7 Euro 6 */}
+        {/* Bloco 2 – Trem de força e configurações */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Novo motor PACCAR PX-7 Euro 6: eficiência na faixa semipesada
+            Trem de força e configurações de eixos
           </h2>
           <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
               <p className="text-sm text-slate-700 mb-3">
-                O <strong>PACCAR PX-7</strong> é um motor de{" "}
-                <strong>6,7 litros</strong> desenvolvido para entregar o melhor
-                equilíbrio entre desempenho, consumo de combustível e
-                confiabilidade em operações urbanas e regionais.
+                O <strong>DAF CF Semipesado</strong> utiliza motores PACCAR
+                dimensionados para alta disponibilidade e baixo consumo em
+                aplicações de distribuição e serviços. A transmissão
+                automatizada ou manual (conforme versão) permite adequar o
+                conjunto ao perfil da rota e à preferência da frota.
               </p>
               <ul className="text-sm text-slate-700 space-y-2">
                 <li>
-                  <strong>Cilindrada:</strong> 6,7 L, com arquitetura pensada
-                  para durabilidade e manutenção facilitada.
+                  <strong>Potência:</strong> faixas típicas 260cv 290cv até 310cv
                 </li>
                 <li>
-                  <strong>Potências típicas:</strong> faixas de 260, 290 e 310
-                  cv (conforme configuração e aplicação).
+                  <strong>Transmissão:</strong> opções manuais e automatizadas,
+                  com relações voltadas para uso misto urbano/regional
                 </li>
                 <li>
-                  <strong>Torque:</strong> foco em alto torque em baixas e
-                  médias rotações, ideal para arrancadas com carga.
-                </li>
-                <li>
-                  <strong>Padrão de emissões:</strong> tecnologia Euro 6 com
-                  pós-tratamento moderno e baixo nível de emissões.
-                </li>
-                <li>
-                  <strong>Economia de combustível:</strong> projeto otimizado
-                  para ciclo de distribuição, com paradas frequentes e variação
-                  de carga.
+                  <strong>Configurações de eixos:</strong> 6x2 e 6x4,
+                  permitindo desde aplicações mais leves até composições
+                  semipesadas e vocacionais
                 </li>
               </ul>
             </div>
 
             <div className="bg-sky-50 border border-sky-100 rounded-2xl p-5 text-sm text-slate-800">
               <p className="font-semibold text-sky-900 mb-2">
-                Foco em custo por quilômetro
-              </p>
-              <p className="mb-2">
-                A calibração do PX-7 foi pensada para rodar na faixa de rotação
-                mais eficiente, reduzindo o consumo de diesel e os custos de
-                manutenção ao longo do tempo.
+                Foco em disponibilidade e TCO
               </p>
               <p>
-                Resultado: <strong>mais km por litro</strong>,{" "}
-                <strong>intervalos de serviço competitivos</strong> e{" "}
-                <strong>maior retorno para a frota</strong> nas operações
-                semipesadas.
+                Manutenções planejadas, componentes dimensionados para alto
+                esforço e consumo de combustível competitivo ajudam a reduzir o{" "}
+                <strong>Custo Total de Operação (TCO)</strong>, mantendo o
+                veículo disponível para a operação diariamente.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Bloco 3 – Configurações FAS 6x2 e FAC 8x2 */}
-        <section>
+        {/* Bloco 3 – Configurações e aplicações */}
+        <section id="configuracoes">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Configurações FAS 6x2 e FAC 8x2: flexibilidade de carga
+            Configurações típicas e aplicações do DAF CF Semipesado
           </h2>
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
@@ -211,91 +200,54 @@ export default function DafCFSemipesadoPage() {
                     Configuração
                   </th>
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Características
+                    Aplicação principal
                   </th>
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Aplicações típicas
+                    Característica operacional
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b border-slate-200">
                   <td className="px-4 py-3 text-slate-800 font-medium">
-                    FAS 6x2 rígido
+                    4x2 chassi
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Conjunto mais leve e ágil, ideal para rotas com muitas
-                    paradas e manobras urbanas.
+                    Baú, carga seca e serviços urbanos reforçados.
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Distribuição urbana e regional, baús de médio porte, carga
-                    seca, alimentos, bebidas e aplicações de serviço.
+                    Bom raio de giro, agilidade e capacidade adequada para
+                    distribuição regional.
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200 bg-slate-50/60">
+                  <td className="px-4 py-3 text-slate-800 font-medium">
+                    6x2 chassi
+                  </td>
+                  <td className="px-4 py-3 text-slate-800">
+                    Operações que exigem maior capacidade de carga dentro dos
+                    limites semipesados.
+                  </td>
+                  <td className="px-4 py-3 text-slate-800">
+                    Melhor distribuição de peso sobre os eixos, atendendo a
+                    legislações e operações com alto volume de carga.
                   </td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 text-slate-800 font-medium bg-slate-50/60">
-                    FAC 8x2 rígido
+                  <td className="px-4 py-3 text-slate-800 font-medium">
+                    6x4 vocacional
                   </td>
-                  <td className="px-4 py-3 text-slate-800 bg-slate-50/60">
-                    Quatro eixos com eixo auxiliar, proporcionando maior PBT
-                    legal e melhor distribuição de peso.
+                  <td className="px-4 py-3 text-slate-800">
+                    Aplicações que combinam asfalto e trechos de terra com
+                    necessidade de tração adicional.
                   </td>
-                  <td className="px-4 py-3 text-slate-800 bg-slate-50/60">
-                    Distribuição de alto volume, implementos mais longos,
-                    operações com carga densa ou volumétrica que exigem maior
-                    capacidade de carga.
+                  <td className="px-4 py-3 text-slate-800">
+                    Tração total em dois eixos traseiros e robustez de chassi
+                    para implementos especiais.
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
-
-          <p className="mt-3 text-sm text-slate-700">
-            Nas duas configurações, o DAF CF Semipesado foi pensado para
-            combinar <strong>capacidade de carga</strong>,{" "}
-            <strong>economia de combustível</strong> e{" "}
-            <strong>facilidade de manobra</strong>, fatores essenciais para
-            operações em centros urbanos e rotas regionais.
-          </p>
-        </section>
-
-        {/* Bloco 4 – Cabines e conforto */}
-        <section>
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Cabines Day, Sleeper e Space Cab – conforto sob medida
-          </h2>
-          <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
-                Day Cab
-              </p>
-              <p>
-                Cabine sem cama, ideal para rotas de curta duração, com muitos
-                acessos ao solo. Foco em visibilidade, ergonomia e facilidade de
-                entrada e saída.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
-                Sleeper Cab
-              </p>
-              <p>
-                Cabine com cama, pensada para rotas regionais com eventuais
-                pernoites. Oferece bom espaço para descanso, armários e
-                organização do dia a dia.
-              </p>
-            </div>
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
-                Space Cab
-              </p>
-              <p>
-                Cabine de maior volume e altura interna superior a 2 metros,
-                ideal para motoristas que passam longos períodos com o veículo.
-                Mais espaço de circulação, arrumação e conforto em viagens
-                prolongadas.
-              </p>
-            </div>
           </div>
         </section>
 
@@ -312,55 +264,37 @@ export default function DafCFSemipesadoPage() {
                     Plataforma
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Caminhão rígido semipesado DAF CF, com foco em distribuição
-                    urbana, regional e aplicações vocacionais de média
-                    severidade.
+                    Chassi semipesado da família DAF CF, voltado para
+                    distribuição regional, operações urbanas reforçadas e
+                    serviços.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Motor
+                    Trem de força
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    PACCAR PX-7, 6,7 L, padrão Euro 6, calibração voltada para
-                    economia de combustível e alta confiabilidade.
+                    Motores PACCAR com potências típicas 260cv 290cv até 310cv, combinados
+                    a transmissões manuais ou automatizadas conforme versão e
+                    aplicação.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Potência / torque
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Faixas típicas de 260cv 290cv a 310cv, com torques adequados a
-                    arrancadas com carga em rotas urbanas e regionais.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Configurações de eixos
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    FAS 6x2 rígido e FAC 8x2 rígido, permitindo diferentes
-                    níveis de PBT e capacidade de carga conforme a necessidade
-                    da operação.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Cabines
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Opções Day Cab, Sleeper Cab e Space Cab, com foco em
-                    ergonomia, visibilidade e conforto para o motorista.
+                    6x2 e 6x4, permitindo adequar o veículo ao tipo de
+                    carga, ao perfil da rota e à necessidade de tração.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Aplicações
+                    Cabine
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Distribuição urbana e regional, bebidas, alimentos, carga
-                    seca, materiais de construção, agro e serviços em geral.
+                    Cabine da família CF, com bom acesso, ergonomia e conforto
+                    para jornadas diárias intensas em distribuição e serviços.
                   </td>
                 </tr>
                 <tr>
@@ -368,9 +302,9 @@ export default function DafCFSemipesadoPage() {
                     Foco operacional
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Maximizar versatilidade, produtividade e economia de
-                    combustível em operações semipesadas, mantendo alta
-                    disponibilidade mecânica e conforto ao motorista.
+                    Distribuição regional, operações urbanas reforçadas e
+                    serviços semipesados que exigem equilíbrio entre robustez,
+                    conforto e eficiência de combustível.
                   </td>
                 </tr>
               </tbody>
@@ -378,9 +312,9 @@ export default function DafCFSemipesadoPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – CARTÃO COM BOTÃO PARA PDF E CTA */}
-        <section className="mt-8 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex-1 rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+        {/* BLOCO FINAL – Apenas o card do PDF */}
+        <section className="mt-8">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
             <h2 className="text-xl font-semibold text-slate-900 mb-2">
               Ficha técnica oficial (PDF)
             </h2>
@@ -390,28 +324,13 @@ export default function DafCFSemipesadoPage() {
               <strong>DAF CF Semipesado</strong>.
             </p>
             <a
-              href="/fichas-tecnicas/daf-cf-semipesado.pdf" // ajuste o nome se o PDF tiver outro nome
+              href="/fichas-tecnicas/daf-cf-semipesado.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
             >
               Abrir ficha técnica DAF CF Semipesado (PDF)
             </a>
-          </div>
-
-          <div className="flex-1 md:text-right">
-            <p className="text-sm text-slate-700 mb-3 md:mb-2">
-              Este resumo foi estruturado para apoiar motoristas, frotistas e
-              instrutores na escolha da configuração ideal do{" "}
-              <strong>DAF CF Semipesado</strong> conforme a severidade da rota e
-              o tipo de carga.
-            </p>
-            <Link
-              href="/caminhoes"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-            >
-              Ver todos os caminhões a diesel
-            </Link>
           </div>
         </section>
       </section>
