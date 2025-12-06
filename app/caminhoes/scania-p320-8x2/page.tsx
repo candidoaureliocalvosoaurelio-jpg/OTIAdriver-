@@ -459,6 +459,27 @@ export default function ScaniaP3208x2Page() {
             Ver todos os caminhões a diesel
           </Link>
         </section>
+        // app/caminhoes/scania-p320-8x2/page.tsx
+
+<div className="mt-8 border-t pt-4">
+  <h2 className="text-xl font-semibold mb-2">
+    Ficha técnica oficial (PDF)
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-2">
+    Dados completos do Scania P 320 B8x2NA para operações de distribuição.
+  </p>
+
+  <a
+    href="/fichas-tecnicas/scania-p320-b8x2na.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block underline font-semibold hover:no-underline text-blue-600"
+  >
+    Abrir ficha técnica Scania P 320 8x2 (PDF)
+  </a>
+</div>
+
       </section>
     </main>
   );
