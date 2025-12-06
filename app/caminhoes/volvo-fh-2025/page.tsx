@@ -304,7 +304,7 @@ export default function VolvoFH2025Page() {
             </div>
           </div>
 
-          {/* Imagem do FH (substitua pelo caminho real se for diferente) */}
+          {/* Imagem do FH */}
           <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border bg-slate-100 shadow-sm">
             <Image
               src="/images/trucks/volvo-fh-2025.jpg"
@@ -434,34 +434,36 @@ export default function VolvoFH2025Page() {
           </p>
         </section>
 
-       {/* Ficha técnica oficial em PDF – bloco final */}
-<section className="mt-10">
-  <div className="p-6 rounded-2xl border shadow-sm bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-    <div>
-      <h2 className="text-2xl font-bold mb-2 text-slate-900">
-        Ficha técnica oficial – Volvo FH 6x4T (PDF)
-      </h2>
-      <p className="text-sm text-slate-700">
-        Acesse o documento oficial da Volvo Trucks com todas as informações de
-        dimensões, capacidades, motor, transmissão e especificações técnicas
-        utilizadas para dimensionamento e comparação de frota.
-      </p>
-    </div>
+        {/* Ficha técnica oficial em PDF – bloco final */}
+        <section className="mt-10">
+          <div className="p-6 rounded-2xl border shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              Ficha técnica oficial – Volvo FH 6x4T (PDF)
+            </h2>
 
-    <a
-      href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-    >
-      <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-        PDF
-      </span>
-      Abrir ficha técnica (PDF)
-    </a>
-  </div>
-</section>
-        </div>
+            <p className="text-sm text-slate-700">
+              Acesse o documento oficial da Volvo Trucks com todas as
+              informações de dimensões, capacidades, motor, transmissão e
+              especificações técnicas utilizadas para dimensionamento e
+              comparação de frota.
+            </p>
+
+            <div className="mt-4">
+              <a
+                href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+                  PDF
+                </span>
+                Abrir ficha técnica (PDF)
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
