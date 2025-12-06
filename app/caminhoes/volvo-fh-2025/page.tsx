@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Volvo | OTIAdriver",
+  title: "Volvo FH | OTIAdriver",
   description:
-    "Ficha técnica completa do Volvo FH: motores D13C, transmissão I-Shift, eixos traseiros, conforto de cabine Globetrotter XL e aplicações rodoviárias.",
+    "Ficha técnica completa do Volvo FH: motores D13C, transmissão I-Shift, eixos traseiros, conforto de cabine e aplicações rodoviárias.",
 };
 
 type TableRow = {
@@ -69,12 +69,7 @@ const engineTable: SpecTableProps = {
     },
     {
       label: "Freio-motor",
-      values: [
-        "VEB410 / VEB510 (opc.)",
-        "VEB410 / VEB510 (opc.)",
-        "VEB510",
-        "VEB510",
-      ],
+      values: ["VEB410 / VEB510 (opc.)", "VEB410 / VEB510 (opc.)", "VEB510", "VEB510"],
     },
   ],
 };
@@ -98,11 +93,7 @@ const transmissionTable: SpecTableProps = {
     },
     {
       label: "Troca de marchas",
-      values: [
-        "Manual ou automático",
-        "Manual ou automático",
-        "Manual ou automático",
-      ],
+      values: ["Manual ou automático", "Manual ou automático", "Manual ou automático"],
     },
     {
       label: "Nº de marchas à frente",
@@ -137,14 +128,7 @@ const rearAxleTable: SpecTableProps = {
   rows: [
     {
       label: "Aplicação",
-      values: [
-        "4×2 / 6×2 / 8×2",
-        "4×2 / 6×2 / 8×2",
-        "6×4",
-        "6×4 / 8×4",
-        "6×4",
-        "6×4",
-      ],
+      values: ["4×2 / 6×2 / 8×2", "4×2 / 6×2 / 8×2", "6×4", "6×4 / 8×4", "6×4", "6×4"],
     },
     {
       label: "Tipo",
@@ -197,7 +181,9 @@ const rearAxleTable: SpecTableProps = {
 function SpecTable({ title, headers, rows }: SpecTableProps) {
   return (
     <section className="mt-10">
-      <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{title}</h2>
+      <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-4">
+        {title}
+      </h2>
       <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
         <table className="min-w-full border-collapse text-sm md:text-base">
           <thead className="bg-sky-50">
@@ -221,10 +207,7 @@ function SpecTable({ title, headers, rows }: SpecTableProps) {
                   {row.label}
                 </td>
                 {row.values.map((v, idx) => (
-                  <td
-                    key={idx}
-                    className="px-4 py-3 border-t border-slate-200 align-top"
-                  >
+                  <td key={idx} className="px-4 py-3 border-t border-slate-200 align-top">
                     {v}
                   </td>
                 ))}
@@ -234,9 +217,8 @@ function SpecTable({ title, headers, rows }: SpecTableProps) {
         </table>
       </div>
       <p className="mt-2 text-xs text-slate-500">
-        Valores de potência, torque e relações podem variar conforme
-        configuração de fábrica, atualização de software ou mercado. Consulte
-        sempre o catálogo oficial Volvo Trucks.
+        Valores de potência, torque e relações podem variar conforme configuração de fábrica,
+        atualização de software ou mercado. Consulte sempre o catálogo oficial Volvo Trucks.
       </p>
     </section>
   );
@@ -244,67 +226,55 @@ function SpecTable({ title, headers, rows }: SpecTableProps) {
 
 export default function VolvoFH2025Page() {
   return (
-    <main className="min-h-screen w-full bg-gradient-to-b from-sky-50 via-slate-50 to-white pb-24">
-      {/* HERO */}
-      <section className="w-full border-b border-slate-200 bg-white/80">
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-12 grid gap-10 md:grid-cols-[1.2fr,1fr] items-center">
+    <main className="min-h-screen w-full bg-gradient-to-b from-sky-50 via-slate-50 to-white pb-16">
+      {/* HERO – padrão alinhado ao Scania Super */}
+      <section className="w-full bg-white/80 border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
+          {/* Texto principal */}
           <div>
-            <p className="text-xs font-semibold tracking-[0.2em] text-sky-600 uppercase">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Ficha Técnica • Rodoviário Pesado
             </p>
-            <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               Volvo FH
-              <span className="block text-sky-500">
-                desempenho, conforto e segurança em alto nível.
+              <span className="block text-sky-600 text-xl md:text-2xl mt-1">
+                Desempenho, conforto e segurança em alto nível
               </span>
             </h1>
-            <p className="mt-4 text-slate-700 text-sm md:text-base max-w-xl">
-              A linha Volvo FH foi desenvolvida para operações rodoviárias de
-              longa distância, combinando motores D13C de alta eficiência,
-              transmissão I-Shift e cabines de referência em conforto. Esta
-              página reúne, em formato técnico e didático, os principais dados
-              para motoristas, frotistas e instrutores.
+            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
+              A linha Volvo FH foi desenvolvida para operações rodoviárias de longa distância,
+              combinando motores D13C de alta eficiência, transmissão I-Shift e cabines de
+              referência em conforto. Esta página reúne, em formato técnico e didático, os
+              principais dados para motoristas, frotistas e instrutores.
             </p>
 
-            {/* Cards de destaque */}
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="rounded-xl bg-sky-50 border border-sky-100 px-4 py-3">
-                <p className="text-xs font-semibold text-sky-700 uppercase">
-                  Faixa de potência
-                </p>
-                <p className="mt-1 text-xl font-bold text-slate-900">
-                  420cv • 460cv • 500cv • 540cv
-                </p>
-                <p className="text-xs text-slate-600">
+            {/* Cards de destaque – tipografia igual Scania Super */}
+            <div className="grid sm:grid-cols-3 gap-3 mb-6">
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-sky-700">Faixa de potência</p>
+                <p className="text-lg font-bold text-slate-900">420 cv • 460 cv • 500 cv • 540 cv</p>
+                <p className="text-[11px] text-slate-600">
                   Motores D13C com freio-motor VEB/VEB+ integrado.
                 </p>
               </div>
-              <div className="rounded-xl bg-emerald-50 border border-emerald-100 px-4 py-3">
-                <p className="text-xs font-semibold text-emerald-700 uppercase">
-                  Transmissão
-                </p>
-                <p className="mt-1 text-xl font-bold text-slate-900">
-                  I-Shift 12/13/14 marchas
-                </p>
-                <p className="text-xs text-slate-600">
+              <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-sky-700">Transmissão</p>
+                <p className="text-lg font-bold text-slate-900">I-Shift 12 / 13 / 14 marchas</p>
+                <p className="text-[11px] text-slate-600">
                   Modos automático e manual, versões super-reduzidas.
                 </p>
               </div>
-              <div className="rounded-xl bg-amber-50 border border-amber-100 px-4 py-3">
-                <p className="text-xs font-semibold text-amber-700 uppercase">
-                  Aplicações
-                </p>
-                <p className="mt-1 text-xl font-bold text-slate-900">
-                  4×2 • 6×2 • 6×4 • 8×2 • 8×4
-                </p>
-                <p className="text-xs text-slate-600">
+              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-amber-700">Aplicações</p>
+                <p className="text-lg font-bold text-slate-900">4×2 • 6×2 • 6×4 • 8×2 • 8×4</p>
+                <p className="text-[11px] text-slate-600">
                   Configurações para diversos perfis de carga e rota.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Imagem do FH (corrigida) */}
+          {/* Imagem do FH em configuração rodoviária */}
           <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border bg-slate-100 shadow-sm">
             <Image
               src="/images/trucks/volvo-fh.jpg"
@@ -320,58 +290,56 @@ export default function VolvoFH2025Page() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <div className="max-w-6xl mx-auto px-4 mt-10">
-        {/* Seção: Conforto da cabine (AGORA SEM IMAGEM) */}
-        <section className="mt-10">
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
+        {/* Seção: Conforto da cabine (sem imagem – OPÇÃO A) */}
+        <section className="max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
             Conforto da cabine Globetrotter / Globetrotter XL
           </h2>
-          <p className="text-slate-700 text-sm md:text-base mb-3">
-            A cabine do Volvo FH foi projetada para ser um ambiente de trabalho
-            e descanso de alto padrão, reduzindo fadiga e aumentando a
-            segurança em viagens longas. O motorista conta com ótimo isolamento
-            acústico, ergonomia refinada e excelente espaço interno para
-            organização da rotina na estrada.
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            A cabine do Volvo FH foi projetada para ser um ambiente de trabalho e descanso de alto
+            padrão, reduzindo fadiga e aumentando a segurança em viagens longas. Nas versões
+            Globetrotter e Globetrotter XL, o motorista conta com excelente isolamento acústico,
+            ergonomia refinada e amplo espaço interno.
           </p>
           <ul className="space-y-2 text-sm md:text-base text-slate-700">
             <li>
-              • Leito amplo com opções de colchão de mola ou espuma, pensado
-              para sono reparador.
+              • <span className="font-semibold">Leito amplo</span> com opções de colchão de mola ou
+              espuma, pensado para sono mais reparador.
             </li>
             <li>
-              • Suspensão de cabine e de chassi desenvolvidas para reduzir
-              vibrações e impactos.
+              • Suspensão de cabine e de chassi desenvolvidas para reduzir vibrações e impactos,
+              melhorando conforto e controle do veículo.
             </li>
             <li>
-              • Diversos porta-objetos internos e compartimentos externos para
-              bagagens e itens de trabalho.
+              • Grande volume de porta-objetos internos e compartimentos externos, facilitando a
+              organização de bagagens e itens de trabalho.
             </li>
             <li>
-              • Painel digital e central multimídia com comandos bem
-              posicionados, reduzindo desvios de atenção.
+              • Painel digital e central multimídia posicionados para reduzir desvios de atenção, com
+              comandos ao alcance das mãos.
             </li>
             <li>
-              • Sistemas de climatização que mantêm a temperatura ideal mesmo
-              durante paradas prolongadas.
+              • Sistemas de climatização que mantêm a temperatura ideal, mesmo durante paradas
+              prolongadas, conforme a configuração da cabine.
             </li>
           </ul>
         </section>
 
         {/* Seção: Plataforma modular */}
-        <section className="mt-12">
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-3">
+        <section className="mt-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
             Plataforma modular: o FH se adapta à sua missão
           </h2>
-          <p className="text-slate-700 text-sm md:text-base mb-3">
-            O chassi do Volvo FH foi pensado para combinar capacidade de carga,
-            tração e eficiência. As diferentes configurações de eixos permitem
-            atender desde operações rodoviárias leves até composições de alto
-            PBTC, com foco em estabilidade e consumo de combustível.
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            O chassi do Volvo FH foi pensado para combinar capacidade de carga, tração e eficiência.
+            As diferentes configurações de eixos permitem atender desde operações rodoviárias leves
+            até composições de alto PBTC, com foco em estabilidade e consumo de combustível.
           </p>
-          <p className="text-slate-700 text-sm md:text-base">
-            A integração entre motor D13C, transmissão I-Shift e eixos traseiros
-            de simples velocidade ou com redução nos cubos garante desempenho
-            consistente em subidas, retomadas e velocidade de cruzeiro, sempre
-            com alto nível de segurança e controle de frenagem.
+          <p className="text-sm md:text-base text-slate-700">
+            A integração entre motor D13C, transmissão I-Shift e eixos traseiros de simples
+            velocidade ou com redução nos cubos garante desempenho consistente em subidas,
+            retomadas e velocidade de cruzeiro, sempre com alto nível de segurança e controle de
+            frenagem.
           </p>
         </section>
 
@@ -400,17 +368,15 @@ export default function VolvoFH2025Page() {
             Como usar esta ficha técnica na OTIAdriver
           </h2>
           <p className="text-sm md:text-base text-slate-100/90 mb-3">
-            Esta ficha foi organizada para apoiar motoristas, instrutores e
-            gestores de frota em treinamentos, simulações de carga e estudos
-            comparativos entre configurações do Volvo FH. Os dados podem ser
-            combinados com os módulos de pneus, planos de manutenção e
+            Esta ficha foi organizada para apoiar motoristas, instrutores e gestores de frota em
+            treinamentos, simulações de carga e estudos comparativos entre configurações do Volvo
+            FH. Os dados podem ser combinados com os módulos de pneus, planos de manutenção e
             caminhões elétricos disponíveis na plataforma OTIAdriver.
           </p>
           <p className="text-xs md:text-sm text-slate-300">
-            Informações de caráter técnico e ilustrativo. Especificações podem
-            variar de acordo com o ano-modelo, país e atualizações de produto da
-            Volvo Trucks. Sempre consulte o catálogo oficial e o manual do
-            proprietário para decisões operacionais.
+            Informações de caráter técnico e ilustrativo. Especificações podem variar de acordo com
+            o ano-modelo, país e atualizações de produto da Volvo Trucks. Sempre consulte o catálogo
+            oficial e o manual do proprietário para decisões operacionais.
           </p>
         </section>
 
@@ -422,10 +388,9 @@ export default function VolvoFH2025Page() {
             </h2>
 
             <p className="text-sm text-slate-700">
-              Acesse o documento oficial da Volvo Trucks com todas as
-              informações de dimensões, capacidades, motor, transmissão e
-              especificações técnicas utilizadas para dimensionamento e
-              comparação de frota.
+              Acesse o documento oficial da Volvo Trucks com todas as informações de dimensões,
+              capacidades, motor, transmissão e especificações técnicas utilizadas para
+              dimensionamento e comparação de frota.
             </p>
 
             <div className="mt-4">
