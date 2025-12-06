@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function ScaniaSuperPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO – padrão claro OTIAdriver */}
+      {/* HERO – padrão claro OTIAdriver, igual FH/Scania */}
       <section className="w-full bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
           {/* Texto principal */}
@@ -14,7 +14,7 @@ export default function ScaniaSuperPage() {
             <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Linha Pesada Premium
             </p>
-            <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               Scania Super
               <span className="block text-sky-600 text-xl md:text-2xl mt-1">
                 nova referência em eficiência e tecnologia.
@@ -28,6 +28,7 @@ export default function ScaniaSuperPage() {
               com máxima confiabilidade.
             </p>
 
+            {/* Cards de destaque */}
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
               <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-sky-700">
@@ -60,16 +61,11 @@ export default function ScaniaSuperPage() {
               </div>
             </div>
 
+            {/* ÚNICO botão — ver ficha técnica */}
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-              >
-                Voltar para Caminhões
-              </Link>
-              <Link
                 href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-slate-300 text-slate-800 hover:bg-slate-100 transition"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
               >
                 Ver ficha técnica completa
               </Link>
@@ -316,91 +312,81 @@ export default function ScaniaSuperPage() {
           </div>
         </section>
 
-        {/* Bloco 5 – Ficha técnica resumida com cabeçalho azul */}
+        {/* Bloco 5 – Ficha técnica resumida (cabeçalho azul-claro) */}
         <section id="ficha-tecnica">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Scania Super
           </h2>
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <table className="min-w-full text-sm md:text-base border-collapse">
-              <thead className="bg-sky-50">
-                <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-800 w-40">
-                    Especificação
-                  </th>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-800">
-                    Descrição
-                  </th>
-                </tr>
-              </thead>
+            <table className="min-w-full text-sm border-collapse">
               <tbody>
-                <tr className="border-t border-slate-200 bg-white">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200 bg-sky-50">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700 w-40">
                     Motor
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Scania Super 13L – 6 cilindros em linha, projetado para
                     maior eficiência térmica e emissões reduzidas.
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-slate-50/60">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Potência
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Faixa típica de 420 hp a 560 hp (conforme versão e
                     aplicação).
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-white">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200 bg-sky-50">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Torque
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Aproximadamente 2.300–2.800 Nm, com pico em rotações mais
                     baixas, favorecendo economia e desempenho em rampas.
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-slate-50/60">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Transmissão
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Caixa automatizada Scania Opticruise, com modos de condução
                     otimizados e integração com Active Prediction (CCAP).
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-white">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200 bg-sky-50">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Emissões
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Atende à norma Proconve P8 / Euro 6, com sistema Twin SCR e
                     foco em redução de NOx e particulados.
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-slate-50/60">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Configurações
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Eixos 4x2, 6x2, 6x4 e 8x4, conforme aplicação (rodoviária,
                     regional ou vocacional pesada).
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-white">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr className="border-b border-slate-200 bg-sky-50">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Cabines
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     S (piso plano), R (rodoviária) e variantes XT vocacionais
                     reforçadas.
                   </td>
                 </tr>
-                <tr className="border-t border-slate-200 bg-slate-50/60">
-                  <td className="px-4 py-3 font-semibold text-slate-900">
+                <tr>
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Foco operacional
-                  </td>
+                  </th>
                   <td className="px-4 py-3 text-slate-800">
                     Longa distância, operações regionais de alta exigência e
                     aplicações com alto CMT, com prioridade absoluta para
@@ -412,17 +398,17 @@ export default function ScaniaSuperPage() {
           </div>
         </section>
 
-        {/* Bloco final – cartão branco com botão azul para PDF */}
+        {/* Bloco final – cartão branco com botão azul (PDF oficial) */}
         <section className="mt-10">
-          <div className="p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm bg-white">
+          <div className="p-6 rounded-2xl border shadow-sm bg-white">
             <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Scania R 500 / R 560 Super (PDF)
+              Ficha técnica oficial – Scania R 500 / R 560 A6x4NZ Super (PDF)
             </h2>
 
-            <p className="text-sm md:text-base text-slate-700 max-w-2xl">
-              Acesse o documento oficial da Scania com dados completos de
-              potência, torque, consumo, configurações de eixos e dimensões
-              das versões R 500 e R 560 A6x4NZ Super.
+            <p className="text-sm text-slate-700">
+              Acesse a ficha técnica oficial da Scania com dados completos de
+              motor, transmissão, eixos, dimensões e capacidades para
+              dimensionamento da frota.
             </p>
 
             <div className="mt-4">
@@ -432,7 +418,7 @@ export default function ScaniaSuperPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
               >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
                   PDF
                 </span>
                 Abrir ficha técnica (PDF)
