@@ -6,68 +6,68 @@ import Link from "next/link";
 export default function ScaniaSuperXTPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO */}
+      {/* HERO – padrão tipográfico FH/Scania */}
       <section className="w-full border-b border-slate-200 bg-white/80">
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-12 grid gap-10 md:grid-cols-[1.2fr,1fr] items-center">
           <div>
             <p className="text-xs font-semibold tracking-[0.2em] text-sky-600 uppercase">
               Linha Vocacional SUPER XT
             </p>
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4 text-slate-900">
               Scania SUPER XT
-              <span className="block text-amber-300 text-xl md:text-2xl mt-1">
-                Robustez extrema com Trem de Força Super
+              <span className="block text-amber-500 text-xl md:text-2xl mt-1">
+                robustez extrema com trem de força Super
               </span>
             </h1>
 
-            <p className="text-sm md:text-base text-slate-100/85 mb-6 max-w-xl">
-              A Linha <strong>Scania SUPER XT (Xtra Tough)</strong> foi
+            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
+              A linha <strong>Scania SUPER XT (Xtra Tough)</strong> foi
               desenvolvida para operar em ambientes severos, como construção,
-              mineração e transporte florestal, combinando o Trem de Força
+              mineração e transporte florestal, combinando o trem de força
               Super com chassis, eixos e proteções projetados para máxima
               durabilidade e disponibilidade da frota.
             </p>
 
+            {/* Cards de destaque */}
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-600">
                   Potência
                 </p>
-                <p className="text-lg font-bold">420–770 hp</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">420–770 hp</p>
+                <p className="text-[11px] text-slate-600">
                   Motores 6L e V8 vocacionais
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-600">
                   Torque
                 </p>
-                <p className="text-lg font-bold">alto em baixa rotação</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">
+                  alto em baixa rotação
+                </p>
+                <p className="text-[11px] text-slate-600">
                   Focado em tração off-road
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-600">
                   Aplicações
                 </p>
-                <p className="text-lg font-bold">Construção, mineração, florestal</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">
+                  Construção, mineração, florestal
+                </p>
+                <p className="text-[11px] text-slate-600">
                   Configurações 6x4, 8x4, 6x6, 8x6
                 </p>
               </div>
             </div>
 
+            {/* Botão único – ver ficha técnica */}
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-amber-300 text-black hover:bg-amber-200 transition"
-              >
-                Voltar para Caminhões
-              </Link>
-              <Link
                 href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-white/40 text-white hover:bg-white/10 transition"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
               >
                 Ver ficha técnica completa
               </Link>
@@ -79,7 +79,7 @@ export default function ScaniaSuperXTPage() {
             <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                  src="/images/trucks/scania-super-xt.jpg" // ajuste o nome do arquivo se necessário
+                  src="/images/trucks/scania-super-xt.jpg"
                   alt="Scania SUPER XT – caminhão vocacional fora de estrada"
                   fill
                   className="object-cover"
@@ -87,7 +87,7 @@ export default function ScaniaSuperXTPage() {
                 />
               </div>
             </div>
-            <div className="mt-3 text-[11px] text-slate-300 text-center">
+            <div className="mt-3 text-[11px] text-slate-500 text-center">
               Imagem ilustrativa Scania SUPER XT — aplicações vocacionais
               pesadas (mineração, construção, florestal).
             </div>
@@ -104,7 +104,7 @@ export default function ScaniaSuperXTPage() {
               Vocação Xtra Tough: disponibilidade máxima em ambiente severo
             </h2>
             <p className="text-sm md:text-base text-slate-700 mb-3">
-              A Linha <strong>SUPER XT</strong> foi concebida para suportar
+              A linha <strong>SUPER XT</strong> foi concebida para suportar
               lama, aclives acentuados, solo irregular e cargas elevadas sem
               comprometer a confiabilidade. O conjunto reúne motor Super,
               caixas Opticruise HD, eixos com redução nos cubos e um pacote
@@ -143,7 +143,7 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* Design XT: proteção e ângulo de ataque */}
+        {/* Design XT */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Design XT: proteção funcional e ângulo de ataque elevado
@@ -196,7 +196,7 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* Trem de força e performance off-road */}
+        {/* Trem de força */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Trem de Força SUPER + Opticruise HD: performance off-road
@@ -228,7 +228,7 @@ export default function ScaniaSuperXTPage() {
                   caçamba cheia em aclives severos.
                 </li>
                 <li>
-                  <strong>Freio auxiliar:</strong> Retarder e/ou CRB
+                  <strong>Freio auxiliar:</strong> retarder e/ou CRB
                   (freio de liberação de compressão), fundamentais para descidas
                   longas com segurança.
                 </li>
@@ -253,10 +253,10 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* Chassis, eixos e tração extrema */}
+        {/* Chassis, eixos e tração */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Chassis, eixos e tração extrema na Linha XT
+            Chassis, eixos e tração extrema na linha XT
           </h2>
           <div className="grid md:grid-cols-2 gap-5 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
@@ -303,14 +303,14 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* Aplicações e configurações */}
+        {/* Aplicações – tabela com cabeçalho azul-claro */}
         <section id="aplicacoes">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Aplicações e configurações vocacionais
           </h2>
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
-              <thead className="bg-slate-50/80">
+              <thead className="bg-sky-50">
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Configuração
@@ -381,7 +381,7 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* Ficha técnica resumida */}
+        {/* Ficha técnica resumida – linhas com azul-claro na primeira linha */}
         <section id="ficha-tecnica">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Scania SUPER XT
@@ -389,7 +389,7 @@ export default function ScaniaSuperXTPage() {
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
               <tbody>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
+                <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700 w-44">
                     Plataforma
                   </th>
@@ -468,42 +468,41 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* CTA final */}
-        <section className="mt-8 flex flex-wrap gap-4 justify-between items-center">
+        {/* Texto de encerramento + cartão PDF oficial */}
+        <section className="mt-8 space-y-6">
           <p className="text-sm text-slate-700 max-w-xl">
             Este resumo da <strong>Scania SUPER XT</strong> foi estruturado
             para apoiar motoristas, frotistas e instrutores técnicos na seleção
             correta de configuração, de acordo com a severidade do terreno e a
             exigência de carga da operação.
           </p>
-          <Link
-            href="/caminhoes"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-          >
-            Ver todos os caminhões a diesel
-          </Link>
+
+          {/* Cartão branco com botão azul para o PDF oficial */}
+          <div className="p-6 rounded-2xl border shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              Ficha técnica oficial – Scania G 560 B8x4HZ XT Super (PDF)
+            </h2>
+
+            <p className="text-sm text-slate-700 mb-4">
+              Acesse a ficha técnica oficial com dados completos do Scania
+              G 560 B8x4HZ XT Super para aplicações severas, incluindo
+              informações de motor, transmissão, eixos, capacidades e
+              dimensões para dimensionamento da frota.
+            </p>
+
+            <a
+              href="/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+            >
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+                PDF
+              </span>
+              Abrir ficha técnica (PDF)
+            </a>
+          </div>
         </section>
-          // app/caminhoes/scania-super-xt/page.tsx
-
-<div className="mt-8 border-t pt-4">
-  <h2 className="text-xl font-semibold mb-2">
-    Ficha técnica oficial (PDF)
-  </h2>
-
-  <p className="text-sm text-gray-700 mb-2">
-    Dados completos do Scania G 560 B8x4HZ XT Super para aplicações severas.
-  </p>
-
-  <a
-    href="/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block underline font-semibold hover:no-underline text-blue-600"
-  >
-    Abrir ficha técnica Scania G 560 XT Super (PDF)
-  </a>
-</div>
-
       </section>
     </main>
   );
