@@ -197,9 +197,7 @@ const rearAxleTable: SpecTableProps = {
 function SpecTable({ title, headers, rows }: SpecTableProps) {
   return (
     <section className="mt-10">
-      <h2 className="text-2xl md:text-3xl font-extrabold mb-4">
-        {title}
-      </h2>
+      <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{title}</h2>
       <div className="overflow-x-auto rounded-2xl border bg-white shadow-sm">
         <table className="min-w-full border-collapse text-sm md:text-base">
           <thead className="bg-sky-50">
@@ -237,8 +235,8 @@ function SpecTable({ title, headers, rows }: SpecTableProps) {
       </div>
       <p className="mt-2 text-xs text-slate-500">
         Valores de potência, torque e relações podem variar conforme
-        configuração de fábrica, atualização de software ou mercado.
-        Consulte sempre o catálogo oficial Volvo Trucks.
+        configuração de fábrica, atualização de software ou mercado. Consulte
+        sempre o catálogo oficial Volvo Trucks.
       </p>
     </section>
   );
@@ -255,7 +253,7 @@ export default function VolvoFH2025Page() {
               Ficha Técnica • Rodoviário Pesado
             </p>
             <h1 className="mt-2 text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-              Volvo FH 
+              Volvo FH
               <span className="block text-sky-500">
                 desempenho, conforto e segurança em alto nível.
               </span>
@@ -338,13 +336,11 @@ export default function VolvoFH2025Page() {
             <ul className="space-y-2 text-sm md:text-base text-slate-700">
               <li>
                 •<span className="font-semibold"> Leito amplo</span> com opções
-                de colchão de mola ou espuma, pensado para sono mais
-                reparador.
+                de colchão de mola ou espuma, pensado para sono mais reparador.
               </li>
               <li>
                 • Suspensão de cabine e de chassi desenvolvidas para reduzir
-                vibrações e impactos, melhorando conforto e controle do
-                veículo.
+                vibrações e impactos, melhorando conforto e controle do veículo.
               </li>
               <li>
                 • Grande volume de porta-objetos internos e compartimentos
@@ -437,27 +433,138 @@ export default function VolvoFH2025Page() {
             proprietário para decisões operacionais.
           </p>
         </section>
-        // dentro de app/caminhoes/volvo-fh/page.tsx
 
-<div className="mt-8 border-t pt-4">
-  <h2 className="text-xl font-semibold mb-2">
-    Ficha técnica oficial (PDF)
-  </h2>
+        {/* DEMONSTRAÇÃO DE ESTILOS PARA FICHA TÉCNICA – VOLVO FH 6x4T */}
+        <section className="mt-10 space-y-10">
+          {/* 1) BLOCO MAIS BONITO (CARD LIMPO) */}
+          <div className="p-6 rounded-2xl border shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-3 text-slate-900">
+              Ficha Técnica Oficial – Volvo FH 6x4T
+            </h2>
 
-  <p className="text-sm text-gray-700 mb-2">
-    Consulte os dados completos de dimensões, pesos, motor,
-    transmissão e capacidades do Volvo FH 6x4T.
-  </p>
+            <p className="text-sm text-slate-700 mb-4">
+              Consulte o documento completo da montadora com dimensões, pesos,
+              capacidades, motor, transmissão e demais especificações técnicas
+              do Volvo FH 6x4T.
+            </p>
 
-  <a
-    href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block underline font-semibold hover:no-underline text-blue-600"
-  >
-    Abrir ficha técnica Volvo FH 6x4T (PDF)
-  </a>
-</div>
+            <a
+              href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 font-semibold underline hover:no-underline hover:text-blue-800"
+            >
+              Abrir ficha técnica (PDF)
+            </a>
+          </div>
+
+          {/* 2) SEÇÃO COM ÍCONE DE PDF */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 p-5 rounded-2xl border bg-red-50">
+            <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-red-600">
+              <span className="text-white text-xs font-bold">PDF</span>
+            </div>
+
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-slate-900">
+                Ficha Técnica em PDF – Volvo FH
+              </h3>
+              <p className="text-xs text-slate-700 mb-1">
+                Arquivo oficial em formato PDF, pronto para leitura, download ou
+                impressão.
+              </p>
+
+              <a
+                href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-semibold text-blue-700 underline hover:no-underline"
+              >
+                Baixar / Abrir documento
+              </a>
+            </div>
+          </div>
+
+          {/* 3) BOTÃO ESTILIZADO */}
+          <div className="p-6 rounded-2xl border bg-slate-50">
+            <h3 className="text-xl font-semibold mb-3 text-slate-900">
+              Acesso rápido à ficha técnica
+            </h3>
+            <p className="text-sm text-slate-700 mb-4">
+              Clique no botão abaixo para abrir diretamente a ficha técnica
+              oficial do Volvo FH 6x4T em uma nova aba.
+            </p>
+
+            <a
+              href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold text-sm hover:bg-blue-700 transition"
+            >
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+                PDF
+              </span>
+              Abrir Ficha Técnica (PDF)
+            </a>
+          </div>
+
+          {/* 4) VERSÃO MOBILE RESPONSIVA (PENSADA PARA CELULAR) */}
+          <div className="p-5 rounded-2xl border bg-white md:flex md:items-center md:justify-between md:gap-4">
+            <div className="mb-4 md:mb-0">
+              <h3 className="text-lg font-semibold text-slate-900">
+                Ficha técnica para consulta no campo
+              </h3>
+              <p className="text-xs text-slate-700 mt-1">
+                Otimizada para acesso em dispositivos móveis: motoristas e
+                técnicos podem abrir a ficha diretamente no celular ou tablet.
+              </p>
+            </div>
+
+            <a
+              href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition"
+            >
+              Abrir ficha em PDF
+            </a>
+          </div>
+
+          {/* 5) ESTILO COMPLETO (MISTURANDO: CARD + ÍCONE + BOTÃO) */}
+          <div className="p-6 rounded-2xl border shadow-sm bg-slate-900 text-slate-50">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-red-500">
+                <span className="text-xs font-bold">PDF</span>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-slate-300">
+                  Documento oficial
+                </p>
+                <h3 className="text-lg font-bold">
+                  Ficha Técnica – Volvo FH 6x4T
+                </h3>
+              </div>
+            </div>
+
+            <p className="text-sm text-slate-200 mb-4">
+              A ficha técnica oficial consolida todos os dados utilizados para
+              dimensionamento, especificação e comparativos de frota.
+              Recomendado para gestores, engenheiros de aplicação e análise
+              técnica.
+            </p>
+
+            <a
+              href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-red-500 text-white text-sm font-semibold hover:bg-red-600 transition"
+            >
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-red-400 text-xs font-bold">
+                PDF
+              </span>
+              Abrir ficha técnica em nova aba
+            </a>
+          </div>
+        </section>
       </div>
     </main>
   );
