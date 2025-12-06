@@ -418,6 +418,25 @@ export default function VolvoFmxPage() {
           note="*Capacidades de CMT e relações de redução podem variar conforme combinação de eixos e suspensão."
         />
       </div>
+      <div className="mt-8 border-t pt-4">
+  <h2 className="text-xl font-semibold mb-2">
+    Ficha técnica oficial (PDF)
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-2">
+    Consulte os dados completos de dimensões, capacidades, motor,
+    suspensão e desempenho do Volvo FMX MAX 6x4R.
+  </p>
+
+  <a
+    href="/fichas-tecnicas/volvo-fmx-max-6x4r.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block underline font-semibold hover:no-underline text-blue-600"
+  >
+    Abrir ficha técnica Volvo FMX MAX 6x4R (PDF)
+  </a>
+</div>
     </main>
   );
 }
