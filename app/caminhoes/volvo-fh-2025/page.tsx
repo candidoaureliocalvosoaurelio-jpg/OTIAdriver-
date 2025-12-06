@@ -437,6 +437,27 @@ export default function VolvoFH2025Page() {
             proprietário para decisões operacionais.
           </p>
         </section>
+        // dentro de app/caminhoes/volvo-fh/page.tsx
+
+<div className="mt-8 border-t pt-4">
+  <h2 className="text-xl font-semibold mb-2">
+    Ficha técnica oficial (PDF)
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-2">
+    Consulte os dados completos de dimensões, pesos, motor,
+    transmissão e capacidades do Volvo FH 6x4T.
+  </p>
+
+  <a
+    href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block underline font-semibold hover:no-underline text-blue-600"
+  >
+    Abrir ficha técnica Volvo FH 6x4T (PDF)
+  </a>
+</div>
       </div>
     </main>
   );
