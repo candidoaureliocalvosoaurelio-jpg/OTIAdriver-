@@ -70,34 +70,39 @@ export const trucks: Truck[] = [
       Aplicação: "Longa distância e cargas pesadas",
     },
   },
-// 4.1) SCANIA SUPER XT – vocacional
-{
-  slug: "scania-super-xt",
-  name: "Scania Super XT",
-  file: "/images/trucks/scania-super-xt.jpg", // coloque a imagem em /public/images/trucks/
-  description:
-    "Linha vocacional Scania SUPER XT, desenvolvida para operações severas como construção pesada, mineração e florestal, combinando trem de força Super com robustez estrutural extrema.",
-  specs: {
-    Motor: "Família Super (6L / V8)",
-    Potência: "420–770 hp",
-    Torque: "alto em baixa rotação",
-    Transmissão: "Opticruise HD (Heavy Duty)",
-    Aplicação: "Construção pesada, mineração e operações florestais",
+
+  // 4.1) SCANIA SUPER XT – vocacional
+  {
+    slug: "scania-super-xt",
+    name: "Scania Super XT",
+    file: "/images/trucks/scania-super-xt.jpg",
+    description:
+      "Linha vocacional Scania SUPER XT, desenvolvida para operações severas como construção pesada, mineração e florestal, combinando trem de força Super com robustez estrutural extrema.",
+    specs: {
+      Motor: "Família Super (6L / V8)",
+      Potência: "420–770 hp",
+      Torque: "alto em baixa rotação",
+      Transmissão: "Opticruise HD (Heavy Duty)",
+      Aplicação: "Construção pesada, mineração e operações florestais",
+    },
   },
-},
-{
-  slug: "scania-p320-8x2",
-  name: "Scania P320 8x2",
-  file: "/images/trucks/scania-p320-8x2.jpg", // mesma imagem usada na página
-  description:
-    "Caminhão rígido 8x2 da Scania para distribuição regional e urbana de alto volume, com cabine P de fácil acesso, motor D9 320 hp e foco em máxima carga útil com baixo TCO.",
-  specs: {
-    Motor: "D9 – 6 cilindros",
-    Potência: "320 hp",
-    Configuração: "8x2 rígido com eixo auxiliar levantável",
-    Aplicação: "Distribuição regional/urbana de alto volume (bebidas, alimentos, baú, sider)",
+
+  // 4.2) SCANIA P320 8x2 – distribuição
+  {
+    slug: "scania-p320-8x2",
+    name: "Scania P320 8x2",
+    file: "/images/trucks/scania-p320-8x2.jpg", // mesma imagem usada na página
+    description:
+      "Caminhão rígido 8x2 da Scania para distribuição regional e urbana de alto volume, com cabine P de fácil acesso, motor D9 320 hp e foco em máxima carga útil com baixo TCO.",
+    specs: {
+      Motor: "D9 – 6 cilindros",
+      Potência: "320 hp",
+      Configuração: "8x2 rígido com eixo auxiliar levantável",
+      Aplicação:
+        "Distribuição regional/urbana de alto volume (bebidas, alimentos, baú, sider)",
+    },
   },
-},
+
   // 5) DAF XF
   {
     slug: "daf-xf-2025",
