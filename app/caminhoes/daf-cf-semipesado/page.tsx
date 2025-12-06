@@ -39,7 +39,7 @@ export default function DafCFSemipesadoPage() {
                 </p>
                 <p className="text-lg font-bold">PACCAR PX-7</p>
                 <p className="text-[11px] text-slate-300">
-                  6,7 L • Euro 6 • 260–310 cv
+                  6,7 L • Euro 6 • 260cv 290cv 310cv
                 </p>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
@@ -331,7 +331,7 @@ export default function DafCFSemipesadoPage() {
                     Potência / torque
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Faixas típicas de 260 a 310 cv, com torques adequados a
+                    Faixas típicas de 260cv 290cv a 310cv, com torques adequados a
                     arrancadas com carga em rotas urbanas e regionais.
                   </td>
                 </tr>
