@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function ScaniaP3208x2Page() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO */}
+      {/* HERO – padrão FH/Scania */}
       <section className="w-full border-b border-slate-200 bg-white/80">
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-12 grid gap-10 md:grid-cols-[1.2fr,1fr] items-center">
           <div>
@@ -14,14 +14,14 @@ export default function ScaniaP3208x2Page() {
               Distribuição Regional & Urbana
             </p>
 
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4 text-slate-900">
               Scania P320 8x2
-              <span className="block text-emerald-300 text-xl md:text-2xl mt-1">
-                Máxima carga útil com agilidade na distribuição
+              <span className="block text-emerald-500 text-xl md:text-2xl mt-1">
+                máxima carga útil com agilidade na distribuição
               </span>
             </h1>
 
-            <p className="text-sm md:text-base text-slate-100/85 mb-6 max-w-xl">
+            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
               O <strong>Scania P320 8x2</strong> é um rígido vocacional pensado
               para operações de alto volume e peso em rotas regionais e urbanas.
               A Cabine P de fácil acesso, combinada à motorização de{" "}
@@ -30,46 +30,44 @@ export default function ScaniaP3208x2Page() {
               dirigibilidade e baixo Custo Total de Operação (TCO).
             </p>
 
+            {/* Cards de destaque */}
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-600">
                   Potência
                 </p>
-                <p className="text-lg font-bold">320 hp</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">320 hp</p>
+                <p className="text-[11px] text-slate-600">
                   Motor D9 de 6 cilindros
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-600">
                   Configuração
                 </p>
-                <p className="text-lg font-bold">8x2 rígido</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">8x2 rígido</p>
+                <p className="text-[11px] text-slate-600">
                   4 eixos, com eixo auxiliar
                 </p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-slate-300">
+              <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-600">
                   Aplicações
                 </p>
-                <p className="text-lg font-bold">Distribuição de alto volume</p>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-lg font-bold text-slate-900">
+                  Distribuição de alto volume
+                </p>
+                <p className="text-[11px] text-slate-600">
                   Bebidas, alimentos, carga seca, baú
                 </p>
               </div>
             </div>
 
+            {/* Botão único – ficha técnica */}
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-emerald-300 text-black hover:bg-emerald-200 transition"
-              >
-                Voltar para Caminhões
-              </Link>
-              <Link
                 href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-white/40 text-white hover:bg-white/10 transition"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
               >
                 Ver ficha técnica completa
               </Link>
@@ -78,10 +76,10 @@ export default function ScaniaP3208x2Page() {
 
           {/* Imagem do caminhão */}
           <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/5 border border-slate-200">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                  src="/images/trucks/scania-p320-8x2.jpg" // coloque a imagem neste caminho
+                  src="/images/trucks/scania-p320-8x2.jpg"
                   alt="Scania P320 8x2 – caminhão rígido para distribuição"
                   fill
                   className="object-cover"
@@ -89,7 +87,7 @@ export default function ScaniaP3208x2Page() {
                 />
               </div>
             </div>
-            <div className="mt-3 text-[11px] text-slate-300 text-center">
+            <div className="mt-3 text-[11px] text-slate-500 text-center">
               Imagem ilustrativa Scania P320 8x2 — configuração rígida para
               distribuição de alto volume.
             </div>
@@ -122,7 +120,7 @@ export default function ScaniaP3208x2Page() {
 
           <div className="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
             <table className="min-w-full text-sm border-collapse">
-              <thead className="bg-slate-50/80">
+              <thead className="bg-sky-50">
                 <tr className="border-b border-slate-200">
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
                     Característica
@@ -234,9 +232,9 @@ export default function ScaniaP3208x2Page() {
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
               <p className="mb-3">
                 A configuração <strong>8x2</strong> utiliza{" "}
-                <strong>quatro eixos</strong>, sendo um eixo auxiliar/direcional,
-                permitindo maior Peso Bruto Total (PBT) dentro dos limites
-                legais.
+                <strong>quatro eixos</strong>, sendo um eixo
+                auxiliar/direcional, permitindo maior Peso Bruto Total (PBT)
+                dentro dos limites legais.
               </p>
               <ul className="space-y-2">
                 <li>
@@ -300,8 +298,8 @@ export default function ScaniaP3208x2Page() {
                 Serviços conectados
               </p>
               <p>
-                Telemática paramonitorar consumo, estilo de condução, manutenção
-                preditiva e disponibilidade da frota em tempo real.
+                Telemática para monitorar consumo, estilo de condução,
+                manutenção preditiva e disponibilidade da frota em tempo real.
               </p>
             </div>
           </div>
@@ -314,7 +312,7 @@ export default function ScaniaP3208x2Page() {
           </h2>
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
-              <thead className="bg-slate-50/80">
+              <thead className="bg-sky-50">
                 <tr className="border-b border-slate-200">
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
                     Aplicação
@@ -374,7 +372,7 @@ export default function ScaniaP3208x2Page() {
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
               <tbody>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
+                <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700 w-44">
                     Plataforma
                   </th>
@@ -444,42 +442,40 @@ export default function ScaniaP3208x2Page() {
           </div>
         </section>
 
-        {/* CTA final */}
-        <section className="mt-8 flex flex-wrap gap-4 justify-between items-center">
+        {/* Texto de encerramento + cartão PDF oficial */}
+        <section className="mt-8 space-y-6">
           <p className="text-sm text-slate-700 max-w-xl">
             Este resumo do <strong>Scania P320 8x2</strong> foi estruturado para
             apoiar motoristas, frotistas e instrutores técnicos na escolha da
             melhor configuração de chassi, cabine e trem de força para
             distribuição de alto volume.
           </p>
-          <Link
-            href="/caminhoes"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
-          >
-            Ver todos os caminhões a diesel
-          </Link>
+
+          <div className="p-6 rounded-2xl border shadow-sm bg-white">
+            <h2 className="text-2xl font-bold mb-2 text-slate-900">
+              Ficha técnica oficial – Scania P 320 B8x2NA (PDF)
+            </h2>
+
+            <p className="text-sm text-slate-700 mb-4">
+              Consulte a ficha técnica oficial com dados completos do Scania
+              P 320 B8x2NA para operações de distribuição, incluindo informações
+              de motor, transmissão, capacidades, dimensões e recomendações de
+              aplicação.
+            </p>
+
+            <a
+              href="/fichas-tecnicas/scania-p320-b8x2na.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+            >
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+                PDF
+              </span>
+              Abrir ficha técnica (PDF)
+            </a>
+          </div>
         </section>
-        // app/caminhoes/scania-p320-8x2/page.tsx
-
-<div className="mt-8 border-t pt-4">
-  <h2 className="text-xl font-semibold mb-2">
-    Ficha técnica oficial (PDF)
-  </h2>
-
-  <p className="text-sm text-gray-700 mb-2">
-    Dados completos do Scania P 320 B8x2NA para operações de distribuição.
-  </p>
-
-  <a
-    href="/fichas-tecnicas/scania-p320-b8x2na.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block underline font-semibold hover:no-underline text-blue-600"
-  >
-    Abrir ficha técnica Scania P 320 8x2 (PDF)
-  </a>
-</div>
-
       </section>
     </main>
   );
