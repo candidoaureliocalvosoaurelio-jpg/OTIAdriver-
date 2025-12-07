@@ -164,7 +164,21 @@ export const trucks: Truck[] = [
       Aplicação: "Longa distância / logística pesada",
     },
   },
-  
+
+  {
+  slug: "mercedes-arocs-3353s-6x4",
+  name: "Mercedes-Benz Arocs 3353 S 6x4",
+  file: "/images/trucks/mercedes-arocs-3353s-6x4.jpg",
+  description:
+    "Cavalo mecânico vocacional para mineração, construção pesada e operações severas com CMT de até 150 toneladas.",
+  specs: {
+    Motor: "OM 471 – 530 cv",
+    Tração: "6x4 com redução nos cubos",
+    Transmissão: "PowerShift Advanced",
+    Aplicação: "Mineração / Construção pesada / Florestal",
+  },
+},
+
   // 7) MERCEDES ATEGO 2433 P 6x2
   {
     slug: "mercedes-atego-2433p-6x2",
