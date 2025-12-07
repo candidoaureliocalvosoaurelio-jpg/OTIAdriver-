@@ -100,10 +100,9 @@ Ao receber um alerta do TPMS:
 Ignorar alerta de TPMS é assumir risco de falha iminente (estouro, separação de banda ou dano estrutural à carcaça).
 ### Tabela de pressão ideal x capacidade de carga
 
----
-
-### Tabela visual de pressão ideal dos pneus
+Tabela visual de pressão ideal dos pneus  
 
 Abaixo está a tabela oficial em imagem, conforme referência técnica do fabricante:
 
 ![Tabela de pressão ideal dos pneus](/pneus/pressao-ideal-pneus.jpg)
+
