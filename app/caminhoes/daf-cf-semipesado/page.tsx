@@ -65,12 +65,6 @@ export default function DafCFSemipesadoPage() {
                 href="/caminhoes"
                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-300 text-black hover:bg-sky-200 transition"
               >
-                Voltar para Caminhões
-              </Link>
-              <Link
-                href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-xs font-semibold border border-white/40 text-white hover:bg-white/10 transition"
-              >
                 Ver fichas técnicas em PDF
               </Link>
             </div>
@@ -194,7 +188,7 @@ export default function DafCFSemipesadoPage() {
               <tbody>
                 <tr className="border-b border-slate-200">
                   <td className="px-4 py-3 text-slate-800 font-medium">
-                    4x2
+                    6x2
                   </td>
                   <td className="px-4 py-3 text-slate-800">
                     Distribuição urbana e regional com menor PBTC.
@@ -242,7 +236,7 @@ export default function DafCFSemipesadoPage() {
             <p className="text-sm text-slate-700 mb-4">
               Consulte os dados completos de dimensões, capacidades, trem de
               força, configurações de eixos e equipamentos do{" "}
-              <strong>DAF CF Semipesado</strong>.
+              <strong>DAF CF Semipesado 6x2</strong>.
             </p>
 
             <a
