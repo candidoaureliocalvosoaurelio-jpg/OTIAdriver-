@@ -23,7 +23,7 @@ export default function Header() {
               Plataforma Oficial
             </span>
 
-            {/* Linha 2 – OTIAdriver com cores de marca */}
+            {/* Linha 2 – OTIAdriver */}
             <span className="block text-sm sm:text-base md:text-lg font-extrabold tracking-tight">
               <span className="text-[#003F9A]">OTIA</span>
               <span className="text-[#15B8B2]">driver</span>
@@ -36,24 +36,34 @@ export default function Header() {
           <Link href="/" className="hover:underline">
             Início
           </Link>
+
           <Link href="/proposito" className="hover:underline">
             Propósito
           </Link>
+
           <Link href="/caminhoes-eletricos" className="hover:underline">
             Caminhões Elétricos <span aria-hidden>⚡</span>
           </Link>
+
           <Link href="/planos" className="hover:underline">
             Planos
           </Link>
+
           <Link href="/pneus" className="hover:underline">
             Pneus
           </Link>
+
           <Link href="/inspecao-manutencao" className="hover:underline">
             Inspeção e Manutenção
           </Link>
-          {/* NOVO LINK – SÍMBOLOS DO PAINEL */}
+
           <Link href="/simbolos-painel" className="hover:underline">
             Símbolos do Painel
+          </Link>
+
+          {/* 🔵 NOVO LINK – EBOOK DRIVER */}
+          <Link href="/ebook-driver" className="hover:underline text-yellow-300">
+            Ebook Driver
           </Link>
         </nav>
 
@@ -80,7 +90,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* MENU MOBILE ABERTO */}
+      {/* MENU MOBILE */}
       {menuOpen && (
         <nav className="md:hidden px-6 pb-4 text-sm font-semibold bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] border-t border-white/20">
           <Link
@@ -90,6 +100,7 @@ export default function Header() {
           >
             Início
           </Link>
+
           <Link
             href="/proposito"
             className="block py-2"
@@ -97,13 +108,15 @@ export default function Header() {
           >
             Propósito
           </Link>
+
           <Link
             href="/caminhoes-eletricos"
             className="block py-2"
             onClick={() => setMenuOpen(false)}
           >
-            Caminhões Elétricos <span aria-hidden>⚡</span>
+            Caminhões Elétricos ⚡
           </Link>
+
           <Link
             href="/planos"
             className="block py-2"
@@ -111,6 +124,7 @@ export default function Header() {
           >
             Planos
           </Link>
+
           <Link
             href="/pneus"
             className="block py-2"
@@ -118,6 +132,7 @@ export default function Header() {
           >
             Pneus
           </Link>
+
           <Link
             href="/inspecao-manutencao"
             className="block py-2"
@@ -125,13 +140,22 @@ export default function Header() {
           >
             Inspeção e Manutenção
           </Link>
-          {/* NOVO LINK – SÍMBOLOS DO PAINEL (MOBILE) */}
+
           <Link
             href="/simbolos-painel"
             className="block py-2"
             onClick={() => setMenuOpen(false)}
           >
             Símbolos do Painel
+          </Link>
+
+          {/* 🔵 NOVO LINK – MOBILE */}
+          <Link
+            href="/ebook-driver"
+            className="block py-2 text-yellow-200"
+            onClick={() => setMenuOpen(false)}
+          >
+            Ebook Driver
           </Link>
         </nav>
       )}
