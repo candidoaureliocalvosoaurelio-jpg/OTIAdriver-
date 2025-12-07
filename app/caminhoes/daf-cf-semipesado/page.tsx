@@ -27,7 +27,7 @@ export default function DafCFSemipesadoPage() {
               que exigem agilidade, robustez e bom desempenho em rotas
               regionais, operação urbana reforçada e trajetos com trechos de
               terra. Combina cabine confortável, trem de força eficiente e
-              configurações 4x2 e 6x2/6x4 para diferentes tipos de implementos.
+              configurações 6x2 6x4 e 8x2 para diferentes tipos de implementos.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
@@ -44,7 +44,7 @@ export default function DafCFSemipesadoPage() {
                 <p className="text-xs uppercase tracking-wide text-slate-300">
                   Configurações
                 </p>
-                <p className="text-lg font-bold">4x2 / 6x2 / 6x4</p>
+                <p className="text-lg font-bold">6x2 / 6x4 / 8x2</p>
                 <p className="text-[11px] text-slate-300">
                   Para baú, carga seca, serviços e vocacional
                 </p>
@@ -210,7 +210,7 @@ export default function DafCFSemipesadoPage() {
               <tbody>
                 <tr className="border-b border-slate-200">
                   <td className="px-4 py-3 text-slate-800 font-medium">
-                    4x2 chassi
+                   6x2 chassi
                   </td>
                   <td className="px-4 py-3 text-slate-800">
                     Baú, carga seca e serviços urbanos reforçados.
@@ -284,7 +284,7 @@ export default function DafCFSemipesadoPage() {
                     Configurações de eixos
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    6x2 e 6x4, permitindo adequar o veículo ao tipo de
+                    6x2 6x4 e 8x2, permitindo adequar o veículo ao tipo de
                     carga, ao perfil da rota e à necessidade de tração.
                   </td>
                 </tr>
