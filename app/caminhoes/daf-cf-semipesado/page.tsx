@@ -245,7 +245,7 @@ export default function DafCFSemipesadoPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
             >
-              Abrir ficha técnica DAF CF Semipesado (PDF)
+              Abrir ficha técnica DAF CF Semipesado 6x2 (PDF)
             </a>
           </div>
 
