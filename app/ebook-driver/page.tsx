@@ -399,6 +399,28 @@ export default function EbookDriverPage() {
           </p>
         </section>
       </section>
+
+      {/* BLOCO DE DOWNLOAD DO E-BOOK COMPLEMENTAR */}
+      <div className="max-w-6xl mx-auto px-4 mt-12 mb-16">
+        <div className="bg-sky-900 text-white rounded-2xl p-6 md:p-8 shadow-lg border border-sky-700">
+          <h2 className="text-xl md:text-2xl font-semibold mb-3">
+            Baixe o E-book Treinamento Inteligente de Motoristas de Caminhões
+          </h2>
+
+          <p className="text-slate-200 mb-4 text-sm md:text-base">
+            Este material complementar aprofunda técnicas profissionais de
+            condução, economia operacional e segurança no transporte de cargas.
+          </p>
+
+          <a
+            href="/E-book-Treinamento-Inteligente-de-Motoristas-de-Caminhoes.pdf"
+            target="_blank"
+            className="inline-block bg-yellow-400 text-slate-900 font-bold px-5 py-3 rounded-xl hover:bg-yellow-300 transition-colors"
+          >
+            Baixar E-book Treinamento Inteligente
+          </a>
+        </div>
+      </div>
     </main>
   );
 }
