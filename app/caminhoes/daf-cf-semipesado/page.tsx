@@ -62,11 +62,12 @@ export default function DafCFSemipesadoPage() {
 
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-300 text-black hover:bg-sky-200 transition"
-              >
-                Ver fichas técnicas em PDF
-              </Link>
+                href="#ficha-tecnica"
+                 scroll={true}
+                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-300 text-black hover:bg-sky-200 transition"
+                >
+                    Ver fichas técnicas em PDF
+                </Link>
             </div>
           </div>
 
