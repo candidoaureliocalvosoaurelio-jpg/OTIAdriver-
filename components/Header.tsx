@@ -133,8 +133,12 @@ export default function Header() {
           >
             Símbolos do Painel
           </Link>
+        {/* AQUI: novo item */}
+          <Link href="/ebook-driver" className="text-sky-300 font-medium hover:text-sky-200">
+            Ebook Driver
+          </Link>
         </nav>
-      )}
+      </div>
     </header>
   );
 }
