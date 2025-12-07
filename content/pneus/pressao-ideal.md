@@ -98,3 +98,100 @@ Ao receber um alerta do TPMS:
 4. Ajustar a pressão conforme tabela.
 
 Ignorar alerta de TPMS é assumir risco de falha iminente (estouro, separação de banda ou dano estrutural à carcaça).
+---
+
+## Tabela de pressão ideal x capacidade de carga
+
+<div className="overflow-x-auto rounded-xl shadow border border-slate-200 mt-6">
+
+  <table className="w-full text-sm text-left border-collapse">
+
+    <thead>
+      <tr className="bg-[#003B78] text-white text-center">
+        <th className="px-4 py-3 font-semibold border-r border-white/20">Medida</th>
+        <th className="px-4 py-3 font-semibold border-r border-white/20">Montagem</th>
+        <th className="px-4 py-3 font-semibold border-r border-white/20">Índice de carga</th>
+        <th className="px-4 py-3 font-semibold border-r border-white/20">Pressão (PSI)</th>
+        <th className="px-4 py-3 font-semibold">Capacidade de carga (KG)</th>
+      </tr>
+    </thead>
+
+    <tbody className="bg-slate-50">
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">275/80R22.5</td>
+        <td className="px-4 py-3">Simples</td>
+        <td className="px-4 py-3">144/141</td>
+        <td className="px-4 py-3">95</td>
+        <td className="px-4 py-3">2800</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">275/80R22.5</td>
+        <td className="px-4 py-3">Duplo</td>
+        <td className="px-4 py-3">144/141</td>
+        <td className="px-4 py-3">95</td>
+        <td className="px-4 py-3">2575</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">275/80R22.5</td>
+        <td className="px-4 py-3">Simples</td>
+        <td className="px-4 py-3">149/146</td>
+        <td className="px-4 py-3">100</td>
+        <td className="px-4 py-3">3075</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">295/80R22.5</td>
+        <td className="px-4 py-3">Simples</td>
+        <td className="px-4 py-3">152/148</td>
+        <td className="px-4 py-3">105</td>
+        <td className="px-4 py-3">3090</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">295/80R22.5</td>
+        <td className="px-4 py-3">Duplo</td>
+        <td className="px-4 py-3">152/148</td>
+        <td className="px-4 py-3">105</td>
+        <td className="px-4 py-3">2740</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">295/80R22.5</td>
+        <td className="px-4 py-3">Duplo</td>
+        <td className="px-4 py-3">150/147</td>
+        <td className="px-4 py-3">90</td>
+        <td className="px-4 py-3">2525</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">315/80R22.5</td>
+        <td className="px-4 py-3">Simples</td>
+        <td className="px-4 py-3">154/150</td>
+        <td className="px-4 py-3">110</td>
+        <td className="px-4 py-3">3350</td>
+      </tr>
+
+      <tr className="border-b border-slate-200">
+        <td className="px-4 py-3">315/80R22.5</td>
+        <td className="px-4 py-3">Duplo</td>
+        <td className="px-4 py-3">154/150</td>
+        <td className="px-4 py-3">110</td>
+        <td className="px-4 py-3">3075</td>
+      </tr>
+
+      <tr>
+        <td className="px-4 py-3">315/80R22.5</td>
+        <td className="px-4 py-3">Simples</td>
+        <td className="px-4 py-3">156/150</td>
+        <td className="px-4 py-3">120</td>
+        <td className="px-4 py-3">3450</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
