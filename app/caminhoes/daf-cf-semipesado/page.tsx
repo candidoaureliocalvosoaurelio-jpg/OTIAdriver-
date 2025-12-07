@@ -312,28 +312,50 @@ export default function DafCFSemipesadoPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Apenas o card do PDF */}
-        <section className="mt-8">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial (PDF)
-            </h2>
-            <p className="text-sm text-slate-700 mb-4">
-              Consulte os dados completos de dimensões, capacidades, trem de
-              força, configurações de eixos e equipamentos do{" "}
-              <strong>DAF CF Semipesado</strong>.
-            </p>
-            <a
-              href="/fichas-tecnicas/daf-cf-semipesado.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-            >
-              Abrir ficha técnica DAF CF Semipesado (PDF)
-            </a>
-          </div>
-        </section>
-      </section>
-    </main>
-  );
-}
+        {/* BLOCO FINAL – Fichas Técnicas */}
+<section className="mt-8 space-y-6">
+
+  {/* Ficha técnica oficial – Semipesado */}
+  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+    <h2 className="text-xl font-semibold text-slate-900 mb-2">
+      Ficha técnica oficial (PDF)
+    </h2>
+    <p className="text-sm text-slate-700 mb-4">
+      Consulte os dados completos de dimensões, capacidades, trem de força,
+      configurações de eixos e equipamentos do{" "}
+      <strong>DAF CF Semipesado</strong>.
+    </p>
+
+    <a
+      href="/fichas-tecnicas/daf-cf-semipesado.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+    >
+      Abrir ficha técnica DAF CF Semipesado (PDF)
+    </a>
+  </div>
+
+  {/* Ficha técnica oficial – Semipesado 8x2 */}
+  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+    <h2 className="text-xl font-semibold text-slate-900 mb-2">
+      Ficha técnica oficial – DAF CF Semipesado 8x2 (PDF)
+    </h2>
+    <p className="text-sm text-slate-700 mb-4">
+      Informações completas sobre dimensões, capacidades, limites legais,
+      configurações de trem de força e características operacionais do{" "}
+      <strong>DAF CF Semipesado 8x2</strong>.
+    </p>
+
+    <a
+      href="/fichas-tecnicas/daf-cf-semipesado-8x2.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+    >
+      Abrir ficha técnica DAF CF Semipesado 8x2 (PDF)
+    </a>
+  </div>
+
+</section>
+
