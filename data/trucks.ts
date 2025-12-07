@@ -152,7 +152,7 @@ export const trucks: Truck[] = [
 
   // 6) MERCEDES ACTROS
   {
-    slug: "Mercedes-Benz Actros Evolution 2653 S 6x4",
+    slug: "mercedes-actros-evolution-2653s-6x4",
     name: "Mercedes-Benz Actros Evolution 2653 S 6x4",
     file: "/images/trucks/mercedes-actros-evolution-2653s-6x4.jpg",
     description:
