@@ -145,7 +145,7 @@ export default function DafCFSemipesadoPage() {
                 <li>• Motor com foco em torque útil em baixas e médias rotações</li>
                 <li>• Transmissão adequada a operações de distribuição regional</li>
                 <li>• Relações de eixo pensadas para equilíbrio entre força e velocidade</li>
-                <li>• Configurações específicas por versão (4x2, 6x2, 8x2)</li>
+                <li>• Configurações específicas por versão (6x2 / 6x4 / 8x2)</li>
               </ul>
             </div>
 
