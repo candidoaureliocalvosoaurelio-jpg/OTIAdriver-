@@ -413,7 +413,7 @@ export default function EbookDriverPage() {
           </p>
 
           <a
-            href="/E-book-Treinamento-Inteligente-de-Motoristas-de-Caminhoes.pdf"
+            href="/ebooks/E-book-Treinamento-Inteligente-de-Motoristas-de-Caminhoes.pdf"
             target="_blank"
             className="inline-block bg-yellow-400 text-slate-900 font-bold px-5 py-3 rounded-xl hover:bg-yellow-300 transition-colors"
           >
