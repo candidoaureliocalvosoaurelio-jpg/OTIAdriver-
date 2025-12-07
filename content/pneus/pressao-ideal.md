@@ -100,14 +100,112 @@ Ao receber um alerta do TPMS:
 Ignorar alerta de TPMS é assumir risco de falha iminente (estouro, separação de banda ou dano estrutural à carcaça).
 ### Tabela de pressão ideal x capacidade de carga
 
-| Medida       | Montagem | Índice de carga | Pressão (PSI) | Capacidade de carga (kg) |
-|-------------|----------|-----------------|---------------|--------------------------|
-| 275/80R22.5 | Simples  | 144/141         | 95            | 2800                     |
-| 275/80R22.5 | Duplo    | 144/141         | 95            | 2575                     |
-| 275/80R22.5 | Simples  | 149/146         | 100           | 3075                     |
-| 295/80R22.5 | Simples  | 152/148         | 105           | 3090                     |
-| 295/80R22.5 | Duplo    | 152/148         | 105           | 2740                     |
-| 295/80R22.5 | Duplo    | 150/147         | 90            | 2525                     |
-| 315/80R22.5 | Simples  | 154/150         | 110           | 3350                     |
-| 315/80R22.5 | Duplo    | 154/150         | 110           | 3075                     |
-| 315/80R22.5 | Simples  | 156/150         | 120           | 3450                     |
+<tbody class="bg-slate-50">
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">275/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞</span> Simples
+      </span>
+    </td>
+    <td class="px-4 py-3">144/141</td>
+    <td class="px-4 py-3">95</td>
+    <td class="px-4 py-3">2800</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">275/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞🛞</span> Duplo
+      </span>
+    </td>
+    <td class="px-4 py-3">144/141</td>
+    <td class="px-4 py-3">95</td>
+    <td class="px-4 py-3">2575</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">275/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞</span> Simples
+      </span>
+    </td>
+    <td class="px-4 py-3">149/146</td>
+    <td class="px-4 py-3 text-sky-700 font-semibold">100</td>
+    <td class="px-4 py-3 font-medium">3075</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">295/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞</span> Simples
+      </span>
+    </td>
+    <td class="px-4 py-3">152/148</td>
+    <td class="px-4 py-3 text-sky-700 font-semibold">105</td>
+    <td class="px-4 py-3 font-medium">3090</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">295/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞🛞</span> Duplo
+      </span>
+    </td>
+    <td class="px-4 py-3">152/148</td>
+    <td class="px-4 py-3 text-sky-700 font-semibold">105</td>
+    <td class="px-4 py-3">2740</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">295/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞🛞</span> Duplo
+      </span>
+    </td>
+    <td class="px-4 py-3">150/147</td>
+    <td class="px-4 py-3">90</td>
+    <td class="px-4 py-3">2525</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">315/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞</span> Simples
+      </span>
+    </td>
+    <td class="px-4 py-3">154/150</td>
+    <td class="px-4 py-3 text-sky-800 font-semibold">110</td>
+    <td class="px-4 py-3 font-semibold text-emerald-700">3350</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">315/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞🛞</span> Duplo
+      </span>
+    </td>
+    <td class="px-4 py-3">154/150</td>
+    <td class="px-4 py-3 text-sky-800 font-semibold">110</td>
+    <td class="px-4 py-3 font-medium">3075</td>
+  </tr>
+
+  <tr class="border-t border-slate-200">
+    <td class="px-4 py-3">315/80R22.5</td>
+    <td class="px-4 py-3">
+      <span class="inline-flex items-center gap-1">
+        <span aria-hidden>🛞</span> Simples
+      </span>
+    </td>
+    <td class="px-4 py-3">156/150</td>
+    <td class="px-4 py-3 text-sky-900 font-semibold">120</td>
+    <td class="px-4 py-3 font-semibold text-emerald-700">3450</td>
+  </tr>
+</tbody>
