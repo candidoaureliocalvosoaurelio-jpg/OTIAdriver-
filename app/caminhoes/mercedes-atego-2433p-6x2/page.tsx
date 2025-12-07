@@ -479,7 +479,34 @@ export default function MercedesAtego2433PPage() {
               </a>
             </div>
           </div>
-        </section>
+        </section>{/* Ficha técnica oficial – PDF */}
+<section className="mt-10">
+  <div className="p-6 rounded-2xl border shadow-sm bg-white">
+    <h2 className="text-2xl font-bold mb-2 text-slate-900">
+      Ficha técnica oficial – Mercedes-Benz Atego 3033 P 8x2 (PDF)
+    </h2>
+
+    <p className="text-sm text-slate-700 mb-4">
+      Recomenda-se consultar a ficha técnica oficial da Mercedes-Benz para obter
+      dados completos de motor, transmissão, eixos, capacidades, dimensões e
+      configurações específicas do Atego 3033 P 8x2, apoiando o correto
+      dimensionamento da frota.
+    </p>
+
+    <a
+      href="/fichas-tecnicas/mercedes-atego-3033p-8x2.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+    >
+      <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+        PDF
+      </span>
+      Abrir ficha técnica (PDF)
+    </a>
+  </div>
+</section>
+
       </section>
     </main>
   );
