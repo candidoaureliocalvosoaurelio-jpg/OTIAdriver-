@@ -106,20 +106,17 @@ A tabela a seguir apresenta as recomendações de pressão (PSI) e capacidade de
 
 **Consulte a imagem abaixo para a referência visual completa:**
 
-![Tabela de pressão ideal de pneus com as colunas Medida, Montagem, Índice de carga, Pressão (PSI) e Capacidade de carga (KG).](pressao-ideal-pneus.jpg)
+![Tabela de pressão ideal de pneus com as colunas Medida, Montagem, Índice de carga, Pressão (PSI) e Capacidade de carga (KG).]
 
 ## 📋 Dados Transcritos para Acessibilidade
 
-Para facilitar a leitura em diferentes dispositivos e garantir a acessibilidade do conteúdo, os dados da imagem foram transcritos para o formato de tabela Markdown:
-
-| Medida | Montagem | Índice de carga | Pressão (PSI) | Capacidade de carga (KG) |
-| :--- | :--- | :--- | :--- | :--- |
-| 275/80R22.5 | Simples | 144/141 | 95 | 2800 |
-| 275/80R22.5 | Duplo | 144/141 | 95 | 2575 |
-| 275/80R22.5 | Simples | 149/146 | 100 | 3075 |
-| 295/80R22.5 | Simples | 152/148 | 105 | 3090 |
-| 295/80R22.5 | Duplo | 152/148 | 105 | 2740 |
-| 295/80R22.5 | Duplo | 150/147 | 90 | 2525 |
-| 315/80R22.5 | Simples | 154/150 | 110 | 3350 |
-| 315/80R22.5 | Duplo | 154/150 | 110 | 3075 |
-| 315/80R22.5 | Simples | 156/150 | 120 | 3450 |
+| Medida      | Montagem | Índice de carga | Pressão (PSI) | Capacidade de carga (KG) |
+| 275/80R22.5 | Simples  |     144/141     |       95      |          2800            |
+| 275/80R22.5 | Duplo    |     144/141     |       95      |          2575            |
+| 275/80R22.5 | Simples  |     149/146     |      100      |          3075            |
+| 295/80R22.5 | Simples  |     152/148     |      105      |          3090            |
+| 295/80R22.5 | Duplo    |     152/148     |      105      |          2740            |
+| 295/80R22.5 | Duplo    |     150/147     |       90      |          2525            |
+| 315/80R22.5 | Simples  |     154/150     |      110      |          3350            |          
+| 315/80R22.5 | Duplo    |     154/150     |      110      |          3075            |
+| 315/80R22.5 | Simples  |     156/150     |      120      |          3450            |
