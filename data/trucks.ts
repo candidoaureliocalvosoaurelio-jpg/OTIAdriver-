@@ -164,6 +164,23 @@ export const trucks: Truck[] = [
       Aplicação: "Longa distância / logística pesada",
     },
   },
+  
+  // 7) MERCEDES ATEGO 2433 P 6x2
+  {
+    slug: "mercedes-atego-2433p-6x2",
+    name: "Mercedes-Benz Atego 2433 P 6x2",
+    file: "/images/trucks/mercedes-atego-2433p-6x2.jpg",
+    description:
+      "Caminhão rígido semipesado 6x2 com eixo auxiliar levantável, voltado para distribuição regional e urbana de alto volume, com foco em alta carga útil e boa economia de combustível.",
+    specs: {
+      Motor: "OM 926 – 6 cilindros em linha",
+      Potência: "cerca de 321 cv",
+      PBT: "24,1 t (PBT técnico da versão)",
+      Configuração: "6x2 rígido com eixo auxiliar levantável",
+      Aplicação:
+        "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
+    },
+  },
 
   // 7) VW METEOR
   {
