@@ -152,9 +152,9 @@ export const trucks: Truck[] = [
 
   // 6) MERCEDES ACTROS
   {
-    slug: "mercedes-actros-2025",
-    name: "Mercedes-Benz Actros",
-    file: "/images/trucks/mercedes.jpg",
+    slug: "Mercedes-Benz Actros Evolution 2653 S 6x4",
+    name: "Mercedes-Benz Actros Evolution 2653 S 6x4",
+    file: "/images/trucks/mercedes-actros-evolution-2653s-6x4.jpg",
     description:
       "Linha premium da Mercedes-Benz para longa distância, com tecnologia avançada e segurança ativa.",
     specs: {
