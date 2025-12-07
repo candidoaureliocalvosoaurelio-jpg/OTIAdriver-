@@ -106,9 +106,4 @@ Ignorar alerta de TPMS é assumir risco de falha iminente (estouro, separação 
 
 Abaixo está a tabela oficial em imagem, conforme referência técnica do fabricante:
 
-<img 
-  src="/pneus/pressao-ideal-pneus.jpg" 
-  alt="Tabela de pressão ideal dos pneus" 
-  class="rounded-xl border border-slate-300 shadow-md mt-4"
-/>
-
+![Tabela de pressão ideal dos pneus](/pneus/pressao-ideal-pneus.jpg)
