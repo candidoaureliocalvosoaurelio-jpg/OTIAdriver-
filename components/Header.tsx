@@ -63,7 +63,7 @@ export default function Header() {
 
           {/* 🔵 NOVO LINK – EBOOK DRIVER */}
           <Link href="/ebook-driver" className="hover:underline text-yellow-300">
-            Ebook Driver
+            Ebook Driver Economy
           </Link>
         </nav>
 
@@ -155,7 +155,7 @@ export default function Header() {
             className="block py-2 text-yellow-200"
             onClick={() => setMenuOpen(false)}
           >
-            Ebook Driver
+            Ebook Driver Economy
           </Link>
         </nav>
       )}
