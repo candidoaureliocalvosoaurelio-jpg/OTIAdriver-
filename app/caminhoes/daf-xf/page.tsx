@@ -36,7 +36,7 @@ export default function DAFXFPage() {
                 <p className="text-xs uppercase tracking-wide text-sky-700">
                   Potência
                 </p>
-                <p className="text-lg font-bold text-slate-900">480–530 cv</p>
+                <p className="text-lg font-bold text-slate-900">480cv 530cv</p>
                 <p className="text-[11px] text-slate-600">
                   Motor PACCAR MX-13 13L
                 </p>
