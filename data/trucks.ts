@@ -214,6 +214,24 @@ export const trucks: Truck[] = [
     Aplicação: "Longa distância / extrapesado até 74 toneladas",
   },
 },
+  
+// ================================
+// 9) VW CONSTELLATION 26.320 6x2
+// ================================
+{
+  slug: "volkswagen-constellation-26320-6x2",
+  name: "Volkswagen Constellation 26.320 6x2",
+  file: "/images/trucks/vw-constellation-26320-6x2.jpg",
+  description:
+    "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e pacote de segurança ativa de série, focado em distribuição regional e urbana de alto volume.",
+  specs: {
+    Motor: "MAN D08 – 6 cilindros em linha",
+    Potência: "320 cv",
+    Torque: "1.200 Nm",
+    Transmissão: "Manual 9 marchas ou automatizada V-Tronic 12 marchas",
+    Aplicação: "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
+  },
+},
 
   // 8) IVECO S-WAY
   {
