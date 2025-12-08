@@ -180,7 +180,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 7) MERCEDES ATEGO 2433 P 6x2
+  // 6.2) MERCEDES ATEGO 2433 P 6x2
   {
     slug: "mercedes-atego-2433p-6x2",
     name: "Mercedes-Benz Atego 2433 P 6x2",
@@ -197,20 +197,23 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 7) VW METEOR
-  {
-    slug: "volkswagen-meteor-2025",
-    name: "Volkswagen Meteor",
-    file: "/images/trucks/meteor.jpg",
-    description:
-      "Cavalo-mecânico extrapesado da VW, projetado para robustez e produtividade.",
-    specs: {
-      Motor: "MAN D26",
-      Potência: "até 520 cv",
-      Transmissão: "Automatizada",
-      Aplicação: "Rodoviário – carga geral",
-    },
+  // =====================
+// 8) VW METEOR HIGHLINE 29.530 (NOVO)
+// =====================
+{
+  slug: "volkswagen-meteor-highline-29530",
+  name: "Volkswagen Meteor Highline 29.530",
+  file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
+  description:
+    "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em alta conectividade e eficiência para longas distâncias.",
+  specs: {
+    Motor: "MAN D26 – 13 litros",
+    Potência: "530 cv",
+    Torque: "até 2.600 Nm",
+    Transmissão: "Automatizada V-Tronic (ZF 12TX)",
+    Aplicação: "Longa distância / extrapesado até 74 toneladas",
   },
+},
 
   // 8) IVECO S-WAY
   {
