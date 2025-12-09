@@ -252,22 +252,21 @@ export const trucks: Truck[] = [
   },
 },
 
-  // 11) IVECO S-WAY
-  {
-    slug: "iveco-s-way-2025",
-    name: "Iveco S-Way",
-    file: "/images/trucks/iveco.jpg",
-    description:
-      "Linha rodoviária da Iveco com foco em aerodinâmica, economia e conforto.",
-    specs: {
-      Motor: "Cursor 13",
-      Potência: "até 570 cv",
-      Transmissão: "Hi-Tronix",
-      Aplicação: "Longa distância e regional",
-    },
+  // 11) IVECO S-WAY 540 6x4
+{
+  slug: "iveco-s-way-540-6x4",
+  name: "Iveco S-Way 540 6x4",
+  file: "/images/trucks/iveco-s-way-540-6x4.jpg",
+  description:
+    "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
+  specs: {
+    Motor: "FPT Cursor 13 – 12,9 litros, 6 cilindros em linha",
+    Potência: "540 cv",
+    Torque: "cerca de 2.450 Nm",
+    Transmissão: "Automatizada Hi-Tronix, 12 marchas",
+    Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
   },
-];
-
+},
 // Helper
 export function getTruckBySlug(slug: string) {
   return trucks.find((t) => t.slug === slug);
