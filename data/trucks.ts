@@ -214,9 +214,28 @@ export const trucks: Truck[] = [
     Aplicação: "Longa distância / extrapesado até 74 toneladas",
   },
 },
-  
+
+  // ======================
+  // 9) VW CONSTELLATION 33.480 6x4
+  // ======================
+  {
+    slug: "vw-constellation-33480-6x4",
+    name: "Volkswagen Constellation 33.480 6x4",
+    file: "/images/trucks/vw-constellation-33480-6x4.jpg",
+    description:
+      "Caminhão extrapesado da família Constellation, equipado com motor MAN D26 de 480 cv e tração 6x4, voltado para operações rodoviárias e mistas com composições de alto PBTC.",
+    specs: {
+      Motor: "MAN D26 – 13 litros, 6 cilindros em linha",
+      Potência: "480 cv",
+      Torque: "até 2.400 Nm",
+      Transmissão: "Automatizada V-Tronic (ZF TraXon) de 12 marchas",
+      Aplicação:
+        "Longa distância / extrapesado com PBTC elevado em rodovias e rotas mistas",
+    },
+  },
+
 // ================================
-// 9) VW CONSTELLATION 26.320 6x2
+// 10) VW CONSTELLATION 26.320 6x2
 // ================================
 {
   slug: "volkswagen-constellation-26320-6x2",
@@ -233,7 +252,7 @@ export const trucks: Truck[] = [
   },
 },
 
-  // 8) IVECO S-WAY
+  // 11) IVECO S-WAY
   {
     slug: "iveco-s-way-2025",
     name: "Iveco S-Way",
