@@ -1,4 +1,4 @@
-// app/caminhoes/volkswagen-constellation-33480-6x4/page.tsx
+// app/caminhoes/vw-constellation-33480-6x4/page.tsx
 
 import Image from "next/image";
 import Link from "next/link";
