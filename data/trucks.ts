@@ -267,7 +267,22 @@ export const trucks: Truck[] = [
     Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
   },
 },
-];
+
+    // 12) IVECO Tector 24-280 6x2 e 8x2
+  {
+    slug: "iveco-tector-24280-6x2-8x2",
+    name: "IVECO Tector 24-280 6x2 e 8x2",
+    file: "/images/trucks/iveco-tector-24280-6x2-8x2.jpg",
+    description:
+      "Semipesado IVECO voltado para distribuição urbana, entregas intermunicipais e aplicações vocacionais nas versões 6x2 e 8x2.",
+    specs: {
+      Motor: "6 cilindros eletrônico – cerca de 280 cv",
+      Potência: "280 cv (linha 24-280)",
+      Transmissão: "Opções manual ou automatizada",
+      Aplicação: "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
+    },
+  },
+  ];
 
 // Helper
 export function getTruckBySlug(slug: string) {
