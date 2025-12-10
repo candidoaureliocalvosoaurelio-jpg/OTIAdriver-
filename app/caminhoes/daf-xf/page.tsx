@@ -18,7 +18,7 @@ export default function DAFXFPage() {
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               DAF XF
               <span className="block text-sky-600 text-xl md:text-2xl mt-1">
-                Conforto máximo e eficiência para o transporte rodoviário
+                Eficiência, conforto e disponibilidade máxima para o transporte rodoviário
               </span>
             </h1>
 
@@ -26,30 +26,30 @@ export default function DAFXFPage() {
               O <strong>DAF XF</strong> foi desenvolvido para o transporte de
               longa distância com foco absoluto no motorista e no{" "}
               <strong>Custo Total de Propriedade (TCO)</strong>. Combina cabine
-              extremamente confortável, motor PACCAR MX-13 eficiente e
-              transmissão automatizada ZF TraXon para máxima produtividade nas
-              estradas brasileiras.
+              extremamente confortável, motor <strong>PACCAR MX-13</strong> eficiente,
+              transmissões automatizadas <strong>ZF TraXon</strong> e uma plataforma
+              Euro 6 otimizada para entregar alta performance, baixo consumo e
+              máxima disponibilidade operacional.
             </p>
 
+            {/* Cards de destaque */}
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
               <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-sky-700">
                   Potência
                 </p>
-                <p className="text-lg font-bold text-slate-900">480cv 530cv</p>
+                <p className="text-lg font-bold text-slate-900">480 cv • 530 cv</p>
                 <p className="text-[11px] text-slate-600">
                   Motor PACCAR MX-13 13L
                 </p>
               </div>
               <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-sky-700">
-                  Foco
+                  Eficiência
                 </p>
-                <p className="text-lg font-bold text-slate-900">
-                  Longa distância
-                </p>
+                <p className="text-lg font-bold text-slate-900">até 8%*</p>
                 <p className="text-[11px] text-slate-600">
-                  Alto PBTC e rotas rodoviárias
+                  Economia de combustível com Euro 6 + PCC
                 </p>
               </div>
               <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
@@ -60,7 +60,7 @@ export default function DAFXFPage() {
                   Super Space Cab
                 </p>
                 <p className="text-[11px] text-slate-600">
-                  Maior espaço interno da categoria
+                  Um dos maiores espaços internos da categoria
                 </p>
               </div>
             </div>
@@ -102,45 +102,46 @@ export default function DAFXFPage() {
         <section className="grid md:grid-cols-2 gap-8 items-start">
           <div>
             <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-3">
-              DAF XF: conforto europeu para as estradas brasileiras
+              DAF XF: referência em eficiência de transporte
             </h2>
             <p className="text-sm md:text-base text-slate-700 mb-3">
               O <strong>DAF XF</strong> é referência em{" "}
-              <strong>conforto de cabine</strong>, espaço interno e ergonomia,
-              oferecendo ao motorista uma jornada menos cansativa e mais segura.
-              A cabine de teto alto, especialmente na versão{" "}
-              <strong>Super Space Cab</strong>, se destaca pelo amplo volume,
-              excelente arrumação e acabamento de nível premium.
+              <strong>eficiência de transporte</strong> graças ao torque elevado
+              em baixas rotações, transmissões automatizadas otimizadas,
+              eixos traseiros de elevada eficiência e um{" "}
+              <strong>design aerodinâmico premium</strong>. O resultado é um
+              caminhão pesado que alia performance, economia de combustível e
+              conforto de alto nível para o motorista.
             </p>
-            <p className="text-sm md:text-base text-slate-700">
-              O conjunto mecânico, formado pelo motor{" "}
-              <strong>PACCAR MX-13</strong> e pela transmissão automatizada{" "}
-              <strong>ZF TraXon</strong>, foi dimensionado para garantir{" "}
-              <strong>baixo consumo de combustível</strong>, alta
-              disponibilidade mecânica e intervalos de manutenção alongados –
-              pilares do baixo TCO para o frotista.
+            <p className="text-sm md:text-base text-slate-700 mb-3">
+              Com a nova plataforma <strong>Proconve P8 / Euro 6</strong>, o XF
+              traz evoluções mecânicas e de software em relação à geração Euro 5,
+              elevando ainda mais a robustez, a confiabilidade e a eficiência.
+              Essa combinação, somada ao <strong>Controle de Cruzeiro Preditivo</strong>{" "}
+              (PCC), possibilita até <strong>8% de economia de combustível</strong>
+              e redução de emissões de CO₂ em operações reais.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Foco operacional
+                Plataforma Euro 6
               </p>
               <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Longa distância nacional e internacional</li>
-                <li>• Cargas gerais, granel, baú e sider</li>
-                <li>• Composições de alto PBTC (bitrens, rodotrens)</li>
+                <li>• Nova arquitetura Proconve P8 / Euro 6 altamente testada</li>
+                <li>• Mais tecnologia eletrônica e de segurança embarcada</li>
+                <li>• Até 2% de economia com otimizações mecânicas</li>
               </ul>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Benefícios para a frota
+              <p className="text-xs font-semibold text-emerald-600 mb-1 uppercase">
+                Eficiência de combustível
               </p>
               <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Alto conforto e menor fadiga do motorista</li>
-                <li>• Eficiência de combustível e baixo TCO</li>
-                <li>• Disponibilidade mecânica e robustez de chassi</li>
+                <li>• Controle de Cruzeiro Preditivo de série (PCC)</li>
+                <li>• Até 6% de economia adicional com PCC</li>
+                <li>• Resultado combinado: até 8% de redução de consumo*</li>
               </ul>
             </div>
           </div>
@@ -149,7 +150,7 @@ export default function DAFXFPage() {
         {/* Bloco 2 – Cabines e conforto */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Cabines Space Cab e Super Space Cab – conforto para viver na estrada
+            Cabines Space Cab e Super Space Cab – o melhor interior da categoria
           </h2>
           <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
@@ -175,122 +176,228 @@ export default function DAFXFPage() {
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Ergonomia e descanso
+                Conforto e ergonomia
               </p>
               <p>
-                Painel envolvente, bancos com múltiplos ajustes, cama de alta
-                densidade, armários, refrigerador e soluções inteligentes de
-                armazenamento, tudo pensado para reduzir a fadiga e melhorar a
-                qualidade de vida do motorista.
+                O interior do XF é considerado um dos melhores da categoria:
+                painel envolvente, bancos com múltiplos ajustes, cama de alta
+                qualidade, armários bem distribuídos e soluções de armazenamento
+                que tornam o caminhão um verdadeiro local de trabalho e descanso.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Bloco 3 – Motorização PACCAR MX-13 */}
+        {/* Bloco 3 – Design exterior e aerodinâmica */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Motor PACCAR MX-13: potência, torque e eficiência
+            Design exterior: beleza, aerodinâmica e eficiência
+          </h2>
+          <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-sm text-slate-800">
+              <p className="mb-3">
+                Com um novo design, o <strong>DAF XF</strong> é frequentemente
+                apontado como um dos caminhões mais bonitos da estrada. Mas o
+                design não é apenas estético: diversos elementos externos foram
+                estudados para melhorar a{" "}
+                <strong>aerodinâmica e a eficiência de combustível</strong>.
+              </p>
+              <ul className="space-y-1.5">
+                <li>• Linhas de cabine otimizadas para reduzir arrasto aerodinâmico.</li>
+                <li>• Defletores, saias e detalhes de design que favorecem o fluxo de ar.</li>
+                <li>• Conjunto frontal remodelado, com visual moderno e funcional.</li>
+              </ul>
+            </div>
+            <div className="bg-slate-900 text-slate-50 rounded-2xl border border-slate-800 shadow-sm p-5 text-sm">
+              <p className="font-semibold mb-2">
+                Evolução do “melhor caminhão de sempre”
+              </p>
+              <p>
+                A nova geração do XF parte de uma base já reconhecida no mercado
+                e adiciona melhorias em design, aerodinâmica, motor, transmissão
+                e eletrônica. O objetivo é claro:{" "}
+                <strong>mais economia, mais conforto e mais produtividade</strong>{" "}
+                em cada quilômetro rodado.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bloco 4 – Motorização PACCAR MX-13 */}
+        <section>
+          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
+            Motor PACCAR MX-13: torque elevado e freio motor de referência
           </h2>
           <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
               <p className="text-sm text-slate-700 mb-3">
                 O motor <strong>PACCAR MX-13</strong> de 13 litros foi projetado
                 para combinar alto torque em baixas rotações com emissões
-                reduzidas e consumo otimizado. Atende aos níveis de emissões
-                modernos, com sistema de pós-tratamento eficiente.
+                reduzidas e consumo otimizado. É o primeiro passo para alcançar
+                uma <strong>eficiência de combustível líder de mercado</strong>.
               </p>
               <ul className="text-sm text-slate-700 space-y-2">
                 <li>
-                  <strong>Família de motores:</strong> PACCAR MX-13 13L
+                  <strong>Família de motores:</strong> PACCAR MX-13 13L com
+                  novas potências, incluindo versões de 480 e 530 cv.
                 </li>
                 <li>
-                  <strong>Potências típicas:</strong> 480 cv e 530 cv (conforme
-                  versão e aplicação)
+                  <strong>Torque:</strong> ainda maior em rotações mais baixas,
+                  permitindo rodar em torno de 900 rpm com baixo ruído e alta
+                  eficiência.
                 </li>
                 <li>
-                  <strong>Torque:</strong> alto torque disponível em baixas
-                  rotações para vencer aclives com carga total
+                  <strong>Inovações internas:</strong> novo pacote de anéis de
+                  pistão, desenho de pistão otimizado, novo turbocompressor e
+                  novo sistema de injeção, reduzindo fricção e consumo.
                 </li>
                 <li>
-                  <strong>Tecnologia:</strong> injeção common rail de última
-                  geração e pós-tratamento compatível com padrões avançados de
-                  emissões
-                </li>
-                <li>
-                  <strong>Freio auxiliar:</strong> MX Engine Brake – freio
-                  motor descompressor de alta potência, preservando os freios de
-                  serviço em descidas longas
+                  <strong>Freio motor MX Engine Brake:</strong> potência de
+                  frenagem de classe mundial, chegando a cerca de 490 cv em
+                  rotações elevadas, preservando os freios de serviço.
                 </li>
               </ul>
             </div>
 
             <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 text-sm text-slate-800">
               <p className="font-semibold text-amber-900 mb-2">
-                Foco em economia e durabilidade
+                Modo Eco e estratégias de consumo
               </p>
               <p className="mb-2">
-                O MX-13 foi desenvolvido para operar na faixa ideal de
-                rendimento, reduzindo o consumo de diesel, garantindo intervalos
-                de manutenção longos e entregando durabilidade alinhada às
-                exigências de frotas de alta quilometragem.
+                O XF oferece modos de condução voltados para{" "}
+                <strong>máxima economia de combustível</strong>. O{" "}
+                <strong>Modo Eco</strong> e o{" "}
+                <strong>Modo Eco de Combustível</strong> priorizam trocas de
+                marchas em rotações mais baixas e estratégias que equilibram
+                dirigibilidade com o menor consumo possível.
               </p>
               <p>
-                Resultado: <strong>mais km por litro</strong>,{" "}
-                <strong>menos tempo parado</strong> e{" "}
-                <strong>maior retorno por viagem</strong>.
+                O objetivo é simples:{" "}
+                <strong>extrair o máximo de cada gota de diesel</strong>,
+                reduzindo custos operacionais sem comprometer desempenho.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Bloco 4 – Transmissão ZF TraXon e PCC */}
+        {/* Bloco 5 – Transmissão ZF TraXon e tecnologias de condução */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Transmissão ZF TraXon e tecnologias de condução
+            Transmissão ZF TraXon e Controle de Cruzeiro Preditivo
           </h2>
           <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                ZF TraXon 12v
+                Nova geração ZF TraXon 12v
               </p>
               <p>
-                Transmissão automatizada de última geração, com trocas rápidas e
-                suaves, baixo ruído e alta eficiência de torque. Mantém o motor
-                sempre na faixa ideal de rotação para economia e desempenho.
+                A nova geração de caixas automatizadas{" "}
+                <strong>TraXon de 12 velocidades</strong> reduz perdas por
+                fricção, realiza trocas mais rápidas em marchas superiores e
+                permite uso prolongado do EcoRoll. Tudo isso contribui para
+                menor consumo, mais conforto e trocas precisas de marcha.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Modos de condução
+                Modos de condução e EcoRoll
               </p>
               <p>
-                Modos como <strong>ECO</strong> permitem priorizar economia de
-                combustível, enquanto configurações específicas podem favorecer
-                desempenho em trechos mais exigentes, trazendo flexibilidade ao
-                motorista e à operação.
+                Modos de condução otimizados permitem adaptar o conjunto à
+                realidade da rota. A função <strong>EcoRoll</strong> amplia o
+                tempo em que o veículo roda em embalo, reduzindo o esforço do
+                motor e o consumo de combustível em trechos favoráveis.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Predictive Cruise Control (PCC)
+                Controle de Cruzeiro Preditivo (PCC)
               </p>
               <p>
-                Piloto automático preditivo que utiliza{" "}
-                <strong>dados de GPS e topografia</strong> para antecipar
-                aclives e declives, ajustando velocidade e trocas de marcha para
-                maximizar a economia de combustível ao longo da rota.
+                O <strong>Controle de Cruzeiro Preditivo</strong> utiliza dados
+                de GPS e topografia para antecipar aclives e declives, ajustando
+                velocidade e trocas de marcha de forma inteligente. Isso
+                potencializa a economia de combustível e melhora o controle do
+                veículo em percursos variáveis.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Bloco 5 – Configurações e TCO */}
+        {/* Bloco 6 – Máxima disponibilidade operacional e menores custos de reparo */}
+        <section>
+          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
+            Máxima disponibilidade operacional e menor custo de reparo
+          </h2>
+          <div className="grid md:grid-cols-2 gap-5 text-sm text-slate-800">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+              <p className="mb-3">
+                O caminhão DAF sempre foi reconhecido pela{" "}
+                <strong>alta confiabilidade</strong>. Com a nova arquitetura
+                elétrica e eletrônica, o XF leva esse desempenho a outro nível.
+              </p>
+              <ul className="space-y-1.5">
+                <li>
+                  • Chicotes elétricos e conexões redesenhados, com roteamento
+                  reduzido e simplificado.
+                </li>
+                <li>
+                  • Maior flexibilidade para instalação de acessórios auxiliares
+                  sem comprometer o sistema elétrico.
+                </li>
+                <li>
+                  • Menor probabilidade de falhas elétricas e elétronicas ao
+                  longo da vida útil.
+                </li>
+              </ul>
+              <p className="mt-2">
+                Resultado: <strong>disponibilidade máxima</strong> do veículo ao{" "}
+                <strong>menor custo operacional</strong>, com menos paradas
+                não programadas.
+              </p>
+            </div>
+            <div className="bg-slate-900 text-slate-50 rounded-2xl border border-slate-800 shadow-sm p-5">
+              <p className="text-xs font-semibold text-amber-300 mb-1 uppercase">
+                Itens pensados para reduzir desgaste
+              </p>
+              <ul className="space-y-1.5">
+                <li>
+                  • Controle da embreagem dentro da própria carcaça, protegido
+                  contra água e sujeira.
+                </li>
+                <li>
+                  • Alternador com controle eletrônico, otimizando o
+                  carregamento das baterias.
+                </li>
+                <li>
+                  • Componentes projetados para maior durabilidade em uso
+                  intensivo.
+                </li>
+              </ul>
+              <p className="mt-2">
+                Essas inovações ajudam a reduzir os{" "}
+                <strong>custos de reparo e manutenção</strong>, aumentando a
+                lucratividade ao longo do ciclo de vida do XF.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bloco 7 – Eixos traseiros de elevada eficiência e TCO */}
         <section id="configuracoes">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Configurações típicas e foco em baixo TCO
+            Configurações típicas, eixos eficientes e foco em baixo TCO
           </h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            Além de novos motores e transmissões automatizadas de alta
+            performance, o DAF XF traz <strong>eixos traseiros de elevada
+            eficiência</strong>, com uma gama de relações mais rápidas (a partir
+            de 2,64) que permitem rotações mais baixas do motor em velocidade de
+            cruzeiro. Isso aumenta a eficiência energética e reduz o consumo.
+          </p>
+
+          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm mt-4">
             <table className="min-w-full text-sm border-collapse">
               <thead className="bg-sky-50">
                 <tr className="border-b border-slate-200">
@@ -356,7 +463,7 @@ export default function DAFXFPage() {
           </p>
         </section>
 
-        {/* Bloco 6 – Segurança e ADAS */}
+        {/* Bloco 8 – Segurança e ADAS */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Segurança ativa e passiva para motorista e carga
@@ -409,7 +516,8 @@ export default function DAFXFPage() {
                   </th>
                   <td className="px-4 py-3 text-slate-800">
                     Cavalo-mecânico rodoviário focado em transporte de longa
-                    distância, com cabines Space Cab e Super Space Cab.
+                    distância, com cabines Space Cab e Super Space Cab e
+                    plataforma Proconve P8 / Euro 6.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
@@ -418,8 +526,8 @@ export default function DAFXFPage() {
                   </th>
                   <td className="px-4 py-3 text-slate-800">
                     PACCAR MX-13 13L, alto torque em baixa rotação, com
-                    tecnologia de injeção e pós-tratamento para emissões
-                    reduzidas.
+                    inovações internas (pistões, anéis, turbo, injeção) e
+                    pós-tratamento de emissões para máxima eficiência.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
@@ -429,7 +537,7 @@ export default function DAFXFPage() {
                   <td className="px-4 py-3 text-slate-800">
                     Potências típicas de 480 cv e 530 cv, com torque elevado
                     disponível em rotações baixas, favorecendo economia e
-                    desempenho em aclives.
+                    desempenho em aclives e retomadas.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
@@ -437,11 +545,23 @@ export default function DAFXFPage() {
                     Transmissão
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Caixa automatizada ZF TraXon 12 velocidades, integrada ao
-                    motor para máxima eficiência de consumo.
+                    Caixa automatizada ZF TraXon 12 velocidades de nova geração,
+                    com EcoRoll, modos de condução e integração ao Controle de
+                    Cruzeiro Preditivo.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
+                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
+                    Eixos traseiros
+                  </th>
+                  <td className="px-4 py-3 text-slate-800">
+                    Eixos de elevada eficiência com relações mais rápidas
+                    (a partir de 2,64), permitindo rotações mais baixas em
+                    velocidade de cruzeiro e contribuindo para menor consumo de
+                    combustível.
+                  </td>
+                </tr>
+                <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Configurações
                   </th>
@@ -450,22 +570,22 @@ export default function DAFXFPage() {
                     tipo de composição (carretas simples, bitrens, rodotrens).
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200">
+                <tr className="border-b border-slate-200 bg-slate-50/60">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Cabines
                   </th>
                   <td className="px-4 py-3 text-slate-800">
                     Space Cab e Super Space Cab, com foco em ergonomia, área de
-                    descanso e amplo espaço interno.
+                    descanso, espaço interno e qualidade de acabamento.
                   </td>
                 </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
+                <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Segurança
                   </th>
                   <td className="px-4 py-3 text-slate-800">
                     Sistemas ADAS como ACC, AEBS e LDWS (conforme versão),
-                    cabine reforçada e boa visibilidade, contribuindo para
+                    cabine reforçada e itens de visibilidade, contribuindo para
                     segurança ativa e passiva.
                   </td>
                 </tr>
@@ -475,13 +595,18 @@ export default function DAFXFPage() {
                   </th>
                   <td className="px-4 py-3 text-slate-800">
                     Longa distância com alta eficiência de combustível, conforto
-                    máximo ao motorista e baixo Custo Total de Propriedade para
-                    frotas de grande porte.
+                    máximo ao motorista, elevada disponibilidade mecânica e baixo
+                    Custo Total de Propriedade em frotas de grande porte.
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
+
+          <p className="mt-2 text-xs text-slate-500">
+            *Valores de economia de combustível dependem de configuração, rota,
+            carga, estilo de condução e condições reais de operação.
+          </p>
         </section>
 
         {/* BLOCO FINAL – CARTÃO COM BOTÃO PARA PDF */}
@@ -492,7 +617,8 @@ export default function DAFXFPage() {
             </h2>
             <p className="text-sm text-slate-700 mb-4">
               Consulte os dados completos de dimensões, capacidades, motor,
-              transmissão e desempenho do DAF XF.
+              transmissão, relações de eixo e desempenho do DAF XF diretamente
+              no material oficial do fabricante.
             </p>
             <a
               href="/fichas-tecnicas/daf-xf.pdf" // ajuste o nome do arquivo conforme o PDF real
