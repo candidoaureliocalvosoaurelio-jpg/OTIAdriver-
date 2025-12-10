@@ -252,7 +252,9 @@ export default function VolvoFH2025Page() {
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
               <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-sky-700">Faixa de potência</p>
-                <p className="text-lg font-bold text-slate-900">420 cv • 460 cv • 500 cv • 540 cv</p>
+                <p className="text-lg font-bold text-slate-900">
+                  420 cv • 460 cv • 500 cv • 540 cv
+                </p>
                 <p className="text-[11px] text-slate-600">
                   Motores D13C com freio-motor VEB/VEB+ integrado.
                 </p>
@@ -290,7 +292,7 @@ export default function VolvoFH2025Page() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <div className="max-w-6xl mx-auto px-4 mt-10">
-        {/* Seção: Conforto da cabine (sem imagem – OPÇÃO A) */}
+        {/* Conforto da cabine */}
         <section className="max-w-3xl">
           <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
             Conforto da cabine Globetrotter / Globetrotter XL
@@ -325,7 +327,30 @@ export default function VolvoFH2025Page() {
           </ul>
         </section>
 
-        {/* Seção: Plataforma modular */}
+        {/* Conforto diário – detalhes práticos da cabine */}
+        <section className="mt-10 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Conforto diário para quem vive na estrada
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            As cabines do Volvo FH foram pensadas para tornar a rotina na estrada mais leve e
+            funcional. Além da ergonomia, o modelo oferece soluções de conforto que impactam
+            diretamente a qualidade de vida do motorista e do passageiro.
+          </p>
+          <ul className="space-y-2 text-sm md:text-base text-slate-700">
+            <li>• Espaços generosos de armazenamento, internos e externos.</li>
+            <li>
+              • Geladeira com duplo compartimento, ideal para manter alimentos e bebidas frescas
+              durante toda a jornada.
+            </li>
+            <li>
+              • Cama muito confortável, projetada para garantir descanso adequado entre os turnos
+              de direção.
+            </li>
+          </ul>
+        </section>
+
+        {/* Plataforma modular */}
         <section className="mt-12 max-w-3xl">
           <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
             Plataforma modular: o FH se adapta à sua missão
@@ -340,6 +365,162 @@ export default function VolvoFH2025Page() {
             velocidade ou com redução nos cubos garante desempenho consistente em subidas,
             retomadas e velocidade de cruzeiro, sempre com alto nível de segurança e controle de
             frenagem.
+          </p>
+        </section>
+
+        {/* Inteligência Artificial embarcada e I-Torque */}
+        <section className="mt-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Inteligência Artificial embarcada e tecnologia I-Torque
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            A Volvo apresenta a evolução da Inteligência Artificial embarcada de fábrica, uma
+            solução desenvolvida pela equipe do Brasil e exclusiva para os veículos Volvo FH. O
+            ícone das estradas passa a contar com tecnologia ainda mais avançada, que atua em tempo
+            real para entregar mais performance e eficiência à operação.
+          </p>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            Com o <strong>I-Torque</strong>, o sistema gerencia continuamente o torque do motor,
+            ajustando-o automaticamente conforme a velocidade, a topografia e o peso do conjunto.
+            Isso se traduz em respostas mais rápidas, melhor aproveitamento da potência e maior
+            eficiência em diferentes condições de rodagem.
+          </p>
+          <p className="text-sm md:text-base text-slate-700">
+            Para o motorista, essa gestão inteligente do torque proporciona economia consistente de
+            combustível sem abrir mão de desempenho, produtividade e conforto ao dirigir. O resultado
+            é um Volvo FH ainda mais econômico e agradável de conduzir, reforçando seu papel de
+            referência nas estradas.
+          </p>
+        </section>
+
+        {/* Mais inteligência, mais economia – foco em consumo */}
+        <section className="mt-10 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Mais inteligência, mais economia
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            Com o I-Torque, o Volvo FH realiza um gerenciamento contínuo e inteligente do torque do
+            motor em qualquer rota, explorando ao máximo o potencial do trem de força em aclives,
+            descidas e trechos de velocidade de cruzeiro.
+          </p>
+          <p className="text-sm md:text-base text-slate-700">
+            O resultado prático é uma economia de combustível de até{" "}
+            <strong>3% em comparação ao mesmo modelo sem I-Torque</strong>, mantendo o nível de
+            performance e produtividade exigido pelas operações modernas. Em frotas de grande
+            quilometragem anual, esse ganho representa impacto direto no custo total de operação.
+          </p>
+        </section>
+
+        {/* Segurança ao máximo */}
+        <section className="mt-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Segurança ao máximo: visão ampliada ao redor do caminhão
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            Saber o que está acontecendo ao redor do caminhão é essencial para uma direção segura.
+            O Volvo FH pode contar com sistemas baseados em radares, câmeras e sensores projetados
+            para detectar e alertar o motorista sobre a presença de pedestres, ciclistas e outros
+            veículos em áreas críticas de visibilidade.
+          </p>
+          <p className="text-sm md:text-base text-slate-700">
+            A combinação de visibilidade ampliada, imagem por câmeras e tecnologia de assistência ao
+            motorista permite que o caminhão tenha uma visão mais abrangente do ambiente, inclusive
+            em pontos que os olhos não conseguem enxergar diretamente. Isso aumenta a segurança nas
+            manobras, mudanças de faixa e circulação em áreas urbanas e de carga/descarga.
+          </p>
+        </section>
+
+        {/* Produtividade e conforto */}
+        <section className="mt-10 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Produtividade e conforto ao longo de toda a jornada
+          </h2>
+          <p className="text-sm md:text-base text-slate-700">
+            Garantir uma jornada confortável para o motorista e o passageiro faz parte das
+            prioridades do Volvo FH. As soluções de cabine, a ergonomia, os sistemas de assistência
+            e os recursos de conectividade transformam o caminhão em um local de trabalho mais
+            eficiente, produtivo e confortável – seja durante a condução, seja nos momentos de
+            descanso.
+          </p>
+        </section>
+
+        {/* Projetado para ser eficiente – aerodinâmica e design */}
+        <section className="mt-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Projetado para ser eficiente: aerodinâmica e design inteligente
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            O Volvo FH foi desenhado para cortar o ar com o mínimo de resistência possível. Faróis
+            em LED, melhor fechamento das folgas da cabine e o sistema de retrovisores externos por
+            câmeras com visão infravermelha são exemplos de funcionalidades que contribuem para a
+            aerodinâmica e a economia de combustível.
+          </p>
+          <p className="text-sm md:text-base text-slate-700">
+            Além disso, os faróis em LED adaptativos otimizam a iluminação da via sem ofuscar outros
+            motoristas, melhorando a segurança nas rodovias e em condições de baixa visibilidade.
+          </p>
+        </section>
+
+        {/* Sistema de Monitoramento de Pressão dos Pneus */}
+        <section className="mt-10 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Sistema de Monitoramento de Pressão de Pneus
+          </h2>
+          <p className="text-sm md:text-base text-slate-700">
+            O Sistema de Monitoramento de Pressão de Pneus controla, em tempo real, a pressão e a
+            temperatura de todos os pneus da combinação do veículo. O motorista é alertado em caso
+            de baixa pressão, fuga rápida de ar ou temperatura elevada, o que aumenta a proteção
+            contra acidentes relacionados a falhas nos pneus e contribui para maior segurança,
+            economia e produtividade.
+          </p>
+        </section>
+
+        {/* I-See pré-mapeado e piloto automático adaptativo */}
+        <section className="mt-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            I-See pré-mapeado e piloto automático adaptativo
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            Com o <strong>I-See pré-mapeado</strong>, o caminhão utiliza informações de topografia e
+            curvas da rodovia para otimizar o embalo da composição, as trocas de marcha e o uso do
+            I-Roll. Ao se aproximar de curvas ou rotatórias que exigem velocidade mais baixa, o
+            sistema adapta antecipadamente a seleção de marchas e a estratégia de condução.
+          </p>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            A soma dessas estratégias gera <strong>economia de combustível</strong> e{" "}
+            <strong>mais segurança</strong> nas estradas, especialmente em rotas com relevo
+            acentuado.
+          </p>
+          <p className="text-sm md:text-base text-slate-700">
+            Já o <strong>Piloto Automático Adaptativo</strong> ajuda a manter uma velocidade
+            uniforme e uma distância segura em relação ao veículo à frente. Ele funciona em todas as
+            velocidades, inclusive até a parada total, e pode retomar automaticamente, permitindo
+            uso eficiente tanto em rodovias quanto em trechos mais congestionados.
+          </p>
+        </section>
+
+        {/* I-Shift e Direção Dinâmica Volvo */}
+        <section className="mt-12 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            I-Shift e Direção Dinâmica Volvo: condução perfeita e produtividade
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            A caixa de câmbio <strong>I-Shift</strong>, em sua 7ª geração, é uma grande aliada do
+            motorista em viagens de curta e longa distância. Com trocas de marchas precisas e
+            automáticas, contribui para economia de combustível e conforto ao dirigir.
+          </p>
+          <p className="text-sm md:text-base text-slate-700 mb-3">
+            A I-Shift gerencia embreagem e marchas de forma inteligente, avaliando continuamente
+            velocidade, peso, inclinação da via e torque disponível. Com isso, ajusta a atuação do
+            motor e dos freios para garantir máxima precisão, eficiência e desempenho em diferentes
+            condições operacionais.
+          </p>
+          <p className="text-sm md:text-base text-slate-700">
+            A <strong>Direção Dinâmica Volvo</strong> atua como uma “mão firme” auxiliando o
+            motorista nos pequenos ajustes de volante, reduzindo esforço físico e aumentando o
+            controle do caminhão. Ela também adiciona funcionalidades aos sistemas de suporte ao
+            motorista, com direção ativa em diferentes situações, como correções de faixa, vento
+            lateral e manobras em baixa velocidade.
           </p>
         </section>
 
@@ -362,7 +543,7 @@ export default function VolvoFH2025Page() {
           rows={rearAxleTable.rows}
         />
 
-        {/* Rodapé da ficha */}
+        {/* Rodapé da ficha – uso na OTIAdriver */}
         <section className="mt-10 rounded-2xl border bg-slate-900 text-slate-50 px-6 py-6 md:px-8 md:py-8 shadow-sm">
           <h2 className="text-xl md:text-2xl font-extrabold mb-2">
             Como usar esta ficha técnica na OTIAdriver
@@ -377,6 +558,20 @@ export default function VolvoFH2025Page() {
             Informações de caráter técnico e ilustrativo. Especificações podem variar de acordo com
             o ano-modelo, país e atualizações de produto da Volvo Trucks. Sempre consulte o catálogo
             oficial e o manual do proprietário para decisões operacionais.
+          </p>
+        </section>
+
+        {/* Plano Ouro Volvo – manutenção e disponibilidade */}
+        <section className="mt-10 max-w-3xl">
+          <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-slate-900 mb-3">
+            Plano Ouro Volvo: manutenção inteligente e custos previsíveis
+          </h2>
+          <p className="text-sm md:text-base text-slate-700">
+            Garantir que o veículo esteja sempre pronto para o trabalho exige tecnologia aliada a um
+            plano de manutenção adequado. Com o <strong>Plano Ouro Volvo</strong>, a frota passa a
+            contar com custos de manutenção previsíveis, gestão inteligente de paradas e menor risco
+            de imprevistos. Assim, o transportador pode focar nos negócios enquanto a manutenção fica
+            sob responsabilidade de quem mais entende do Volvo FH.
           </p>
         </section>
 
