@@ -630,7 +630,31 @@ export default function DAFXFPage() {
             </a>
           </div>
         </section>
-      </section>
+        {/* BLOCO FINAL – GUIA DE INTERRUPTORES DAF (PDF) */}
+<section className="mt-4">
+  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+    <h2 className="text-xl font-semibold text-slate-900 mb-2">
+      Guia de Interruptores DAF (PDF)
+    </h2>
+
+    <p className="text-sm text-slate-700 mb-4">
+      Acesse o material oficial contendo a identificação completa dos 
+      interruptores, botões e comandos do DAF XF. Ideal para treinamentos, 
+      motoristas e instrutores.
+    </p>
+
+    <a
+      href="/fichas-tecnicas/Interruptores-DAF.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 
+      text-sm font-semibold text-white hover:bg-sky-700 transition"
+    >
+      Abrir guia de Interruptores DAF (PDF)
+    </a>
+  </div>
+ </section>
+ </section>
     </main>
   );
 }
