@@ -407,7 +407,35 @@ export default function VolkswagenMeteorHighline29530Page() {
             </div>
           </div>
         </section>
-      </section>
+        {/* Bloco final – Luzes de Aviso Volkswagen (PDF) */}
+<section className="mt-6">
+  <div className="p-6 rounded-2xl border shadow-sm bg-white">
+    <h2 className="text-2xl font-bold mb-2 text-slate-900">
+      Luzes de Aviso – Volkswagen Caminhões (PDF)
+    </h2>
+
+    <p className="text-sm text-slate-700">
+      Consulte o guia oficial de luzes de aviso e símbolos do painel dos 
+      caminhões Volkswagen. Material essencial para identificar alertas, 
+      entender significados e agir corretamente durante a operação.
+    </p>
+
+    <div className="mt-4">
+      <a
+        href="/fichas-tecnicas/luzes-aviso-vw.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+          PDF
+        </span>
+        Abrir guia de luzes de aviso (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+</section>
     </main>
   );
 }
