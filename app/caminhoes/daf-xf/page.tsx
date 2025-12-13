@@ -608,81 +608,77 @@ export default function DAFXFPage() {
             carga, estilo de condução e condições reais de operação.
           </p>
         </section>
+         {/* BLOCO FINAL – Materiais Técnicos DAF XF (PDFs) */}
+<section id="ficha-tecnica" className="mt-8">
+  <div className="grid gap-6 md:grid-cols-3">
 
-        {/* BLOCO FINAL – CARTÃO COM BOTÃO PARA PDF */}
-        <section className="mt-8">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial (PDF)
-            </h2>
-            <p className="text-sm text-slate-700 mb-4">
-              Consulte os dados completos de dimensões, capacidades, motor,
-              transmissão, relações de eixo e desempenho do DAF XF diretamente
-              no material oficial do fabricante.
-            </p>
-            <a
-              href="/fichas-tecnicas/daf-xf.pdf" // ajuste o nome do arquivo conforme o PDF real
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-            >
-              Abrir ficha técnica DAF XF (PDF)
-            </a>
-          </div>
-        </section>
-        {/* BLOCO FINAL – GUIA DE INTERRUPTORES DAF (PDF) */}
-<section className="mt-4">
-  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-    <h2 className="text-xl font-semibold text-slate-900 mb-2">
-      Guia de Interruptores DAF (PDF)
-    </h2>
+    {/* Ficha Técnica DAF XF */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – DAF XF (PDF)
+      </h2>
 
-    <p className="text-sm text-slate-700 mb-4">
-      Acesse o material oficial contendo a identificação completa dos 
-      interruptores, botões e comandos do DAF XF. Ideal para treinamentos, 
-      motoristas e instrutores.
-    </p>
+      <p className="text-sm text-slate-700 mb-4">
+        Consulte os dados completos de dimensões, capacidades, motor,
+        transmissão, relações de eixo e desempenho do{" "}
+        <strong>DAF XF</strong> diretamente no material oficial do fabricante.
+      </p>
 
-    <a
-      href="/fichas-tecnicas/Interruptores-DAF.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 
-      text-sm font-semibold text-white hover:bg-sky-700 transition"
-    >
-      Abrir guia de Interruptores DAF (PDF)
-    </a>
-  </div>
- </section>
- </section>
-      {/* Bloco final – Luzes do Painel DAF (PDF) */}
-<section className="mt-6">
-  <div className="p-6 rounded-2xl border shadow-sm bg-white">
-    <h2 className="text-2xl font-bold mb-2 text-slate-900">
-      Luzes do Painel – Caminhões DAF (PDF)
-    </h2>
+      <a
+        href="/fichas-tecnicas/daf-xf.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-    <p className="text-sm text-slate-700">
-      Consulte o guia de luzes e símbolos do painel dos caminhões DAF.
-      Material essencial para identificar alertas, compreender os
-      significados e agir corretamente durante a operação do veículo.
-    </p>
+    {/* Guia de Interruptores DAF */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Guia de Interruptores – DAF XF (PDF)
+      </h2>
 
-    <div className="mt-4">
+      <p className="text-sm text-slate-700 mb-4">
+        Material oficial com a identificação completa dos interruptores,
+        botões e comandos do <strong>DAF XF</strong>. Ideal para treinamentos,
+        motoristas e instrutores.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/Interruptores-DAF.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de interruptores (PDF)
+      </a>
+    </div>
+
+    {/* Luzes do Painel DAF */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes do Painel – Caminhões DAF (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial de luzes e símbolos do painel dos caminhões DAF.
+        Essencial para identificar alertas, compreender significados e
+        agir corretamente durante a operação.
+      </p>
+
       <a
         href="/fichas-tecnicas/luzes-painel-DAF.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
       >
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-          PDF
-        </span>
         Abrir guia de luzes do painel (PDF)
       </a>
     </div>
   </div>
-</section>
+</section>      
 </main>
   );
 }
