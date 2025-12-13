@@ -370,34 +370,55 @@ export default function IvecoTector24280Page() {
           </div>
         </section>
 
-        {/* Bloco final – cartão branco com botão azul (PDF oficial) */}
-        <section className="mt-10">
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – IVECO Tector 24-280 6x2 e 8x2 (PDF)
-            </h2>
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-2">
 
-            <p className="text-sm text-slate-700">
-              Acesse a ficha técnica oficial da IVECO com dados completos do
-              Tector 24-280 6x2 e 8x2: motor, transmissões, capacidades,
-              dimensões, entre-eixos e configurações para dimensionar a frota
-              com segurança e precisão.
-            </p>
+    {/* PDF – Ficha técnica oficial IVECO Tector 24-280 6x2 e 8x2 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – IVECO Tector 24-280 6x2 e 8x2 (PDF)
+      </h2>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/iveco-tector-24280-6x2-8x2.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
+      <p className="text-sm text-slate-700 mb-4">
+        Acesse a ficha técnica oficial da IVECO com dados completos do{" "}
+        <strong>Tector 24-280 6x2 e 8x2</strong>: motor, transmissões,
+        capacidades, dimensões, entre-eixos e configurações para dimensionar a
+        frota com segurança e precisão.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/iveco-tector-24280-6x2-8x2.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* Reservado para próximo PDF (opcional) */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Símbolos e Luzes do Painel – IVECO Tector (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia de símbolos, luzes de advertência e alertas do painel do{" "}
+        <strong>IVECO Tector</strong>. Ideal para motoristas, instrutores e
+        treinamentos operacionais.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/simbolos-iveco-tector.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de símbolos (PDF)
+      </a>
+    </div>
+  </div>
         </section>
       </section>
     </main>
