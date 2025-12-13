@@ -408,36 +408,58 @@ export default function IvecoSWay5406x4Page() {
             </table>
           </div>
         </section>
+        
+{/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-2">
 
-        {/* Bloco final – cartão branco com botão azul (PDF oficial) */}
-        <section className="mt-10">
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
-            </h2>
+    {/* PDF – Ficha técnica oficial Iveco S-Way 540 6x4 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
+      </h2>
 
-            <p className="text-sm text-slate-700">
-              Consulte a ficha técnica oficial da Iveco com dados completos de
-              motor, transmissão, eixos, capacidades, dimensões e configurações
-              do S-Way 540 6x4 para dimensionamento correto da frota.
-            </p>
+      <p className="text-sm text-slate-700 mb-4">
+        Dados completos de motor, transmissão, eixos, capacidades, dimensões e
+        configurações do <strong>Iveco S-Way 540 6x4</strong>, auxiliando no
+        correto dimensionamento da frota.
+      </p>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
-        </section>
-      </section>
+      <a
+        href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* PDF – Símbolos e Luzes do Painel Iveco S-Way */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Símbolos e Luzes do Painel – Iveco S-Way (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia completo de símbolos, luzes de advertência e alertas do painel
+        do <strong>Iveco S-Way</strong>. Material essencial para identificar
+        avisos, compreender significados e agir corretamente durante a
+        operação do veículo.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/simbolos-iveco-sway.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de símbolos (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+</section>
     </main>
   );
 }
