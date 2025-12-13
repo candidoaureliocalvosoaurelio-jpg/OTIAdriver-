@@ -655,6 +655,34 @@ export default function DAFXFPage() {
   </div>
  </section>
  </section>
-    </main>
+      {/* Bloco final – Luzes do Painel DAF (PDF) */}
+<section className="mt-6">
+  <div className="p-6 rounded-2xl border shadow-sm bg-white">
+    <h2 className="text-2xl font-bold mb-2 text-slate-900">
+      Luzes do Painel – Caminhões DAF (PDF)
+    </h2>
+
+    <p className="text-sm text-slate-700">
+      Consulte o guia de luzes e símbolos do painel dos caminhões DAF.
+      Material essencial para identificar alertas, compreender os
+      significados e agir corretamente durante a operação do veículo.
+    </p>
+
+    <div className="mt-4">
+      <a
+        href="/fichas-tecnicas/luzes-painel-DAF.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+          PDF
+        </span>
+        Abrir guia de luzes do painel (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+</main>
   );
 }
