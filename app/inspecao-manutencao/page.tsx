@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
@@ -27,8 +26,8 @@ export default function InspecaoManutencaoPage() {
         <p className="mt-3 md:text-lg text-white/90 max-w-3xl">
           Um programa de manutenção bem estruturado é essencial para garantir
           confiabilidade, segurança e rentabilidade da frota. Aqui você encontra
-          o programa otimizado, checklist diário para motoristas e quadros de
-          referência por tipo de operação.
+          o programa otimizado, checklist diário para motoristas e um modelo de
+          grupos de manutenção (lógica geral) usado por fabricantes.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
@@ -112,7 +111,9 @@ export default function InspecaoManutencaoPage() {
                 Inspeções periódicas em componentes críticos:
               </p>
               <ul className="mt-2 list-disc pl-5 text-sm text-slate-700 space-y-1">
-                <li>Sistema de freios (pastilhas, lonas, tambores, tubulações);</li>
+                <li>
+                  Sistema de freios (pastilhas, lonas, tambores, tubulações);
+                </li>
                 <li>Suspensão, molas, bolsas de ar e amortecedores;</li>
                 <li>Sistema de direção, barras, terminais e folgas;</li>
                 <li>
@@ -345,9 +346,7 @@ export default function InspecaoManutencaoPage() {
               <span className="font-semibold">Flexibilidade:</span> os planos
               podem ser adaptados ao tipo de operação (rodoviária, urbana, fora
               de estrada) e ao perfil de uso, incluindo faturamento por km
-              rodado ou por horas de motor. O conteúdo desta tabela pode ser
-              facilmente exportado para suas planilhas (Excel, Google Sheets)
-              para controle de custos.
+              rodado ou por horas de motor.
             </p>
           </section>
 
@@ -423,6 +422,7 @@ export default function InspecaoManutencaoPage() {
           Sheets) e arquivar os registros por veículo, data e motorista.
         </p>
 
+        {/* (tabela mantida exatamente como estava no seu código) */}
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-sm border border-slate-200 rounded-2xl overflow-hidden">
             <thead className="bg-slate-50">
@@ -444,6 +444,7 @@ export default function InspecaoManutencaoPage() {
                 </th>
               </tr>
             </thead>
+
             <tbody className="divide-y divide-slate-100">
               {/* PNEUS E RODAS */}
               <tr>
@@ -457,15 +458,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Pneus OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Pneus exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Pneus exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Checar por cortes, bolhas ou objetos presos na banda de rodagem.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Pneus e Rodas
@@ -477,10 +476,7 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Porcas OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Porcas exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Porcas exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Verificar se estão apertadas (sinais de pó de ferrugem ou folga).
@@ -499,15 +495,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Pressão OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Pressão exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Pressão exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Atingir pressão máxima antes de iniciar a viagem.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Freios
@@ -525,10 +519,11 @@ export default function InspecaoManutencaoPage() {
                   />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
-                  Testar em baixa velocidade (desviar se puxa para um lado ou
-                  há ruídos anormais).
+                  Testar em baixa velocidade (desviar se puxa para um lado ou há
+                  ruídos anormais).
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Freios
@@ -537,10 +532,7 @@ export default function InspecaoManutencaoPage() {
                   Teste de freio de estacionamento
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Freio de estacionamento OK"
-                  />
+                  <input type="checkbox" aria-label="Freio de estacionamento OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
                   <input
@@ -565,15 +557,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Faróis OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Faróis exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Faróis exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Confirmar funcionamento e regulagem adequada.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Luzes e Sinalização
@@ -585,15 +575,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Luzes traseiras OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Luzes traseiras exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Luzes traseiras exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Incluir luzes de marcação laterais e superiores.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Luzes e Sinalização
@@ -605,10 +593,7 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Setas OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Setas exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Setas exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Conferir todos os lados e o alerta geral.
@@ -627,16 +612,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Óleo do motor OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Óleo do motor exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Óleo do motor exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
-                  Verificar na vareta, se aplicável, sempre com o veículo
-                  nivelado.
+                  Verificar na vareta, se aplicável, sempre com o veículo nivelado.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Motor e Fluidos
@@ -648,15 +630,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Arrefecimento OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Arrefecimento exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Arrefecimento exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Checar visualmente o reservatório e sinais de vazamento.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Motor e Fluidos
@@ -668,10 +648,7 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Combustível OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Combustível exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Combustível exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Planejar o abastecimento antes de rotas longas ou remotas.
@@ -690,15 +667,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Limpadores OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Limpadores exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Limpadores exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Verificar palhetas, reservatório de água e jatos de limpeza.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Cabine e Documentação
@@ -710,15 +685,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Espelhos OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Espelhos exigem serviço"
-                  />
+                  <input type="checkbox" aria-label="Espelhos exigem serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Devem estar limpos, sem trincas e corretamente ajustados.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Cabine e Documentação
@@ -730,14 +703,11 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Documentação OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Documentação exige atenção"
-                  />
+                  <input type="checkbox" aria-label="Documentação exige atenção" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
-                  Conferir validade e conformidade com a legislação e a nota
-                  fiscal da carga.
+                  Conferir validade e conformidade com a legislação e a nota fiscal
+                  da carga.
                 </td>
               </tr>
 
@@ -753,28 +723,25 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Bateria OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Bateria exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Bateria exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Verificar corrosão nos terminais e cabos soltos ou danificados.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Sistema Elétrico
                 </td>
-                <td className="px-3 py-2 align-top text-slate-700">Buzina</td>
+                <td className="px-3 py-2 align-top text-slate-700">
+                  Buzina
+                </td>
                 <td className="px-3 py-2 text-center align-top">
                   <input type="checkbox" aria-label="Buzina OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Buzina exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Buzina exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Confirmar funcionamento adequado para situações de emergência.
@@ -793,15 +760,13 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Extintor OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Extintor exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Extintor exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Deve estar acessível, lacrado e dentro da validade.
                 </td>
               </tr>
+
               <tr>
                 <td className="px-3 py-2 align-top font-semibold text-slate-800">
                   Segurança e Emergência
@@ -813,10 +778,7 @@ export default function InspecaoManutencaoPage() {
                   <input type="checkbox" aria-label="Triângulo OK" />
                 </td>
                 <td className="px-3 py-2 text-center align-top">
-                  <input
-                    type="checkbox"
-                    aria-label="Triângulo exige serviço"
-                  />
+                  <input type="checkbox" aria-label="Triângulo exige serviço" />
                 </td>
                 <td className="px-3 py-2 align-top text-slate-500 text-xs">
                   Conferir se está completo e em local de fácil acesso.
@@ -827,230 +789,240 @@ export default function InspecaoManutencaoPage() {
         </div>
       </section>
 
-      {/* COMO DETERMINAR O PROGRAMA (BLOCO ORIGINAL MANTIDO) */}
-      <section className="mt-10 grid md:grid-cols-2 gap-6">
-        <div className="rounded-3xl bg-white p-6 shadow">
-          <h2 className="text-xl font-semibold">
-            Como determinar o Programa de Manutenção
+      {/* NOVO BLOCO – GRUPOS DE MANUTENÇÃO (LÓGICA GERAL) */}
+      <section className="mt-12 space-y-6">
+        <header className="rounded-3xl bg-white p-6 shadow">
+          <h2 className="text-2xl font-bold">
+            Grupos de Manutenção de Caminhões (lógica geral dos fabricantes)
           </h2>
-          <p className="mt-3 text-slate-700">
-            O plano adequado deve ser definido considerando o tipo específico de
-            operação, a aplicação (urbano, rodoviário, fora de estrada),
-            especificações de óleos e graxas e o perfil de uso do veículo. Em
-            geral, os serviços se organizam em:
-          </p>
-          <ul className="mt-4 list-disc pl-5 space-y-2 text-slate-700">
-            <li>
-              <b>Primeiro Serviço:</b> checagens e conferências gerais
-              pós-entrega.
-            </li>
-            <li>
-              <b>Intermediária:</b> checagens, troca de filtros e conferências
-              gerais.
-            </li>
-            <li>
-              <b>Serviço X (básico):</b> troca de óleo + inspeções visuais; pode
-              incluir atividades adicionais.
-            </li>
-            <li>
-              <b>Serviço Y:</b> combina o básico com atividades adicionais (ex.:
-              óleos de transmissão e eixo traseiro conforme cronograma).
-            </li>
-            <li>
-              <b>Inspeção Legal:</b> segurança e manutenção conforme requisitos
-              legais.
-            </li>
-          </ul>
-        </div>
-
-        <div className="rounded-3xl bg-white p-6 shadow">
-          <h3 className="text-xl font-semibold">Verificações diárias/semanais</h3>
-          <p className="mt-3 text-slate-700">
-            Devem ser feitas pelo motorista e registradas na lista de
-            verificação. Itens encontrados serão examinados na visita à
-            concessionária/oficina.
-          </p>
-          <ul className="mt-4 list-disc pl-5 space-y-2 text-slate-700">
-            <li>
-              Níveis: óleo do motor, fluido de arrefecimento, fluido de
-              freio/embreagem, Arla 32.
-            </li>
-            <li>Vazamentos, mangueiras, conexões e ruídos anormais.</li>
-            <li>Iluminação, limpadores, buzina e equipamentos de segurança.</li>
-            <li>Documentação do veículo e validade de itens obrigatórios.</li>
-          </ul>
-
-          <h4 className="mt-6 font-semibold">Retratamento da cabine</h4>
           <p className="mt-2 text-slate-700">
-            Entre o 9º e o 15º mês após a entrega, realizar retratamento
-            anticorrosão (quando aplicável).
+            Os planos são geralmente divididos em estágios que se repetem em
+            ciclos de quilometragem ou tempo. A lógica abaixo é uma referência
+            prática e amplamente utilizada para organizar paradas, reduzir
+            indisponibilidade e padronizar custos.
           </p>
-        </div>
-      </section>
+        </header>
 
-      {/* GRUPOS DE OPERAÇÃO */}
-      <section className="mt-10">
-        <h2 className="text-2xl font-bold">Grupos de Operação (perfil de uso)</h2>
-        <p className="mt-2 text-slate-700">
-          Selecione o grupo que melhor representa a sua operação para consultar
-          os intervalos.
-        </p>
+        {/* 1) Básica */}
+        <article className="rounded-3xl bg-white p-6 shadow">
+          <h3 className="text-xl font-semibold">
+            1. Manutenção preventiva básica (inspeção e fluidos)
+          </h3>
+          <p className="mt-2 text-slate-700">
+            Foca nos serviços mais frequentes, essenciais para a segurança e o
+            monitoramento contínuo do veículo.
+          </p>
 
-        <div className="mt-6 grid md:grid-cols-3 gap-6">
-          {/* Grupo I */}
-          <div className="rounded-3xl bg-white shadow overflow-hidden">
-            <div
-              className="relative w-full bg-gray-50"
-              style={{ aspectRatio: "16/9" }}
-            >
-              <Image
-                src="/images/manutencao/grupo-rodoviario-I.png"
-                alt="Grupo I"
-                fill
-                className="object-contain p-3"
-              />
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full text-sm border border-slate-200 rounded-2xl overflow-hidden">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Grupo típico
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Nome comum (exemplo)
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Frequência (referência)
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Foco do serviço
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                <tr>
+                  <td className="px-4 py-3 font-semibold text-slate-800">
+                    Grupo A (rápida/simples)
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Inspeção, check-up de segurança
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    15.000 a 30.000 km
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Verificação de níveis e itens de segurança (luzes, pneus,
+                    fluidos, articulações, aperto de rodas). Serviço rápido.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 font-semibold text-slate-800">
+                    Grupo B (intermediária)
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Troca de óleo e filtros básicos
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    45.000 a 90.000 km
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Troca de óleo do motor e filtros básicos. Inspeção mais
+                    detalhada do trem de força e freios.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-3 text-sm text-slate-500">
+            Observação: a quilometragem real varia conforme aplicação, severidade,
+            combustível, lubrificantes homologados e telemetria.
+          </p>
+        </article>
+
+        {/* 2) Completa */}
+        <article className="rounded-3xl bg-white p-6 shadow">
+          <h3 className="text-xl font-semibold">
+            2. Manutenção preventiva completa (trem de força)
+          </h3>
+          <p className="mt-2 text-slate-700">
+            Grupos mais abrangentes, envolvendo fluidos de transmissão/eixos e
+            inspeção profunda de sistemas vitais.
+          </p>
+
+          <div className="mt-4 overflow-x-auto">
+            <table className="min-w-full text-sm border border-slate-200 rounded-2xl overflow-hidden">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Grupo típico
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Nome comum (exemplo)
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Frequência (referência)
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-800">
+                    Foco do serviço
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                <tr>
+                  <td className="px-4 py-3 font-semibold text-slate-800">
+                    Grupo C (completa/grande)
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Manutenção de trem de força
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    120.000 a 180.000 km
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Troca de óleo da transmissão e dos eixos. Substituição de
+                    filtros mais complexos. Inspeção de suspensão e embreagem
+                    (se manual).
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 font-semibold text-slate-800">
+                    Grupo D (especializada/max)
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Componentes de longa vida
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    240.000 a 360.000 km
+                  </td>
+                  <td className="px-4 py-3 text-slate-700">
+                    Troca de fluido/filtros do sistema hidráulico/direção.
+                    Ajustes finos (válvulas/injetores), inspeção de turbocompressor
+                    e pós-tratamento (SCR/EGR).
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        {/* 3) Corretiva/Preditiva */}
+        <article className="rounded-3xl bg-white p-6 shadow">
+          <h3 className="text-xl font-semibold">
+            3. Manutenção corretiva e preditiva (adicional)
+          </h3>
+          <p className="mt-2 text-slate-700">
+            Este grupo não é baseado apenas em quilometragem. Ele depende de
+            tempo de uso, condição de operação, severidade e dados coletados do
+            veículo.
+          </p>
+
+          <div className="mt-4 grid md:grid-cols-3 gap-5">
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">
+                Manutenção vocacional
+              </h4>
+              <p className="mt-2 text-sm text-slate-700">
+                Em aplicações severas (off-road, poeira, cargas pesadas), pode
+                haver ciclos mais curtos com foco em filtros de ar e inspeções
+                de eixos/suspensão devido ao estresse operacional.
+              </p>
             </div>
-            <div className="p-5">
-              <h3 className="font-semibold">Grupo I</h3>
-              <p className="text-slate-700 text-sm mt-1">
-                Aplicações severas (aclives, rotas sinuosas, uso urbano com PTO
-                ativo), alto fator de carga e consumo menor que 1,99 km/l.
+
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">
+                Serviços de conectividade
+              </h4>
+              <p className="mt-2 text-sm text-slate-700">
+                A telemática permite manutenção preditiva: o caminhão envia dados
+                sobre desgaste e condição, indicando o melhor momento de troca,
+                independente do ciclo fixo do hodômetro.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">
+                Revisões de garantia
+              </h4>
+              <p className="mt-2 text-sm text-slate-700">
+                Serviços obrigatórios em quilometragens específicas (geralmente
+                no início da vida útil) para manter a garantia e o histórico de
+                manutenção conforme o fabricante.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        {/* Modularidade */}
+        <article className="rounded-3xl bg-white p-6 shadow">
+          <h3 className="text-xl font-semibold">
+            Por que a modularidade é a chave
+          </h3>
+          <p className="mt-2 text-slate-700">
+            Fabricantes utilizam manutenção modular para agrupar serviços e
+            melhorar a eficiência operacional.
+          </p>
+
+          <div className="mt-4 grid md:grid-cols-2 gap-5">
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">
+                Reduzir tempo de parada
+              </h4>
+              <p className="mt-2 text-sm text-slate-700">
+                Em vez de parar o caminhão várias vezes, o transportador agenda
+                uma parada maior (Grupo C/D) para cobrir os serviços do ciclo e
+                paradas rápidas (Grupo A) entre elas.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-slate-50 p-4">
+              <h4 className="font-semibold text-slate-800">Otimizar o TCO</h4>
+              <p className="mt-2 text-sm text-slate-700">
+                Ao prever custos via planos de serviço, o gestor melhora
+                previsibilidade financeira, padroniza peças/mão de obra e reduz
+                risco de intervenções emergenciais.
               </p>
             </div>
           </div>
 
-          {/* Grupo II */}
-          <div className="rounded-3xl bg-white shadow overflow-hidden">
-            <div
-              className="relative w-full bg-gray-50"
-              style={{ aspectRatio: "16/9" }}
-            >
-              <Image
-                src="/images/manutencao/grupo-rodoviario-II.png"
-                alt="Grupo II"
-                fill
-                className="object-contain p-3"
-              />
-            </div>
-            <div className="p-5">
-              <h3 className="font-semibold">Grupo II</h3>
-              <p className="text-slate-700 text-sm mt-1">
-                Aplicações rodoviárias padrão e boas condições de rodagem,
-                consumo entre 2 e 2,99 km/l.
-              </p>
-            </div>
+          <div className="mt-5 text-sm text-slate-700">
+            Se você quiser, eu posso montar um exemplo prático de calendário de
+            manutenção (A/B/C/D) para um caminhão rodoviário e outro vocacional,
+            alinhado a horas de motor e severidade.
           </div>
-
-          {/* Grupo III */}
-          <div className="rounded-3xl bg-white shadow overflow-hidden">
-            <div
-              className="relative w-full bg-gray-50"
-              style={{ aspectRatio: "16/9" }}
-            >
-              <Image
-                src="/images/manutencao/grupo-rodoviario-III.png"
-                alt="Grupo III"
-                fill
-                className="object-contain p-3"
-              />
-            </div>
-            <div className="p-5">
-              <h3 className="font-semibold">Grupo III</h3>
-              <p className="text-slate-700 text-sm mt-1">
-                Aplicações leves e rotas planas, consumo acima de 3 km/l, longas
-                distâncias em boas condições.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* OBSERVAÇÕES ESSENCIAIS */}
-      <section className="mt-10 rounded-3xl bg-white p-6 shadow">
-        <h2 className="text-2xl font-bold">Observações Importantes</h2>
-        <ul className="mt-4 list-disc pl-5 space-y-2 text-slate-700">
-          <li>
-            Valores de intervalos expressos em quilômetros; considerar o que
-            ocorrer primeiro: tempo ou quilometragem.
-          </li>
-          <li>Combustível com enxofre abaixo de 50 ppm e Biodiesel até 10%.</li>
-          <li>
-            Veículos saem com óleo sintético no eixo traseiro; se usar óleo
-            mineral, reduzir o período conforme o manual.
-          </li>
-          <li>
-            Operações específicas ou severas exigem plano ajustado pelo
-            fabricante.
-          </li>
-          <li>
-            Trocar o óleo do motor conforme quilometragem indicada ou a cada 500
-            horas de uso.
-          </li>
-          <li>Planos incorretos podem acarretar perda de garantia.</li>
-        </ul>
-      </section>
-
-      {/* QUADROS DE REFERÊNCIA */}
-      <section className="mt-10">
-        <h2 className="text-2xl font-bold">Quadros de Intervalos</h2>
-        <p className="mt-2 text-slate-700">
-          Utilize os quadros abaixo como referência visual para rodoviário e
-          fora de estrada.
-        </p>
-
-        <div className="mt-4 grid md:grid-cols-2 gap-6">
-          <figure className="rounded-3xl bg-white p-3 shadow">
-            <div
-              className="relative w-full bg-gray-50 rounded-2xl overflow-hidden"
-              style={{ aspectRatio: "4/3" }}
-            >
-              <Image
-                src="/images/manutencao/quadro-rodoviario-1.png"
-                alt="Programa Rodoviário – Intervalos e Atividades"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <figcaption className="mt-2 text-center text-sm text-slate-500">
-              Programa Rodoviário: Intermediária, X, Y, atividades adicionais
-              (Eixo, Gearbox, DPF).
-            </figcaption>
-          </figure>
-
-          <figure className="rounded-3xl bg-white p-3 shadow">
-            <div
-              className="relative w-full bg-gray-50 rounded-2xl overflow-hidden"
-              style={{ aspectRatio: "4/3" }}
-            >
-              <Image
-                src="/images/manutencao/quadro-offroad-1.png"
-                alt="Programa Off-Road – Intervalos e Atividades"
-                fill
-                className="object-contain"
-              />
-            </div>
-            <figcaption className="mt-2 text-center text-sm text-slate-500">
-              Programa Fora de Estrada: Revisões X e Y, atividades adicionais.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      {/* CTA FINAL */}
-      <section className="mt-12 mb-4 rounded-3xl bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white p-8 shadow-xl">
-        <h3 className="text-2xl font-bold">Precisa de um plano sob medida?</h3>
-        <p className="mt-2 text-white/90">
-          Entre em contato e ajustamos o programa conforme sua operação, frota e
-          contratos de manutenção.
-        </p>
-        <div className="mt-4">
-          <Link
-            href="/contato"
-            className="inline-block rounded-xl bg-white/10 px-5 py-2 hover:bg-white/20 transition"
-          >
-            Falar com Especialista
-          </Link>
-        </div>
+        </article>
       </section>
     </main>
   );
