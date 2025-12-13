@@ -337,88 +337,77 @@ export default function VolkswagenConstellation26320Page() {
           </div>
         </section>
 
-        {/* Bloco final – PDFs oficiais 26.320 e 30.320 8x2 */}
-        <section className="mt-10 space-y-6">
-          {/* PDF – Ficha técnica oficial Volkswagen Constellation 26.320 6x2 */}
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Volkswagen Constellation 26.320 6x2 (PDF)
-            </h2>
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-3">
 
-            <p className="text-sm text-slate-700">
-              Consulte a ficha técnica oficial da Volkswagen Caminhões e Ônibus
-              para obter todos os dados de motor, transmissões, capacidades,
-              dimensões e configurações disponíveis do Constellation 26.320 6x2.
-            </p>
+    {/* PDF – Ficha técnica oficial Volkswagen Constellation 30.320 8x2 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – VW Constellation 30.320 8x2 (PDF)
+      </h2>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/vw-constellation-26320-6x2.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
+      <p className="text-sm text-slate-700 mb-4">
+        Dados completos de motor, transmissão, capacidades, dimensões e
+        configurações do <strong>Volkswagen Constellation 30.320 8x2</strong>,
+        apoiando o correto dimensionamento da frota.
+      </p>
 
-          {/* PDF – Ficha técnica oficial Volkswagen Constellation 30.320 8x2 */}
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Volkswagen Constellation 30.320 8x2 (PDF)
-            </h2>
+      <a
+        href="/fichas-tecnicas/vw-constellation-30320-8x2.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-            <p className="text-sm text-slate-700 mb-4">
-              Acesse a ficha técnica oficial do VW Constellation 30.320 8x2 com
-              dados completos de motor, transmissão, capacidades, dimensões e
-              configurações para dimensionamento correto da frota.
-            </p>
+    {/* PDF – Luzes de Aviso Volkswagen */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes de Aviso – Volkswagen Caminhões (PDF)
+      </h2>
 
-            <a
-              href="/fichas-tecnicas/vw-constellation-30320-8x2.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-            >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                PDF
-              </span>
-              Abrir ficha técnica (PDF)
-            </a>
-          </div>
-        </section>
-      </section>
-      {/* Bloco final – Luzes de Aviso Volkswagen (PDF) */}
-<section className="mt-6">
-  <div className="p-6 rounded-2xl border shadow-sm bg-white">
-    <h2 className="text-2xl font-bold mb-2 text-slate-900">
-      Luzes de Aviso – Volkswagen Caminhões (PDF)
-    </h2>
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial de luzes e símbolos do painel dos caminhões Volkswagen.
+        Essencial para identificar alertas, compreender significados e agir
+        corretamente durante a operação.
+      </p>
 
-    <p className="text-sm text-slate-700">
-      Consulte o guia oficial de luzes de aviso e símbolos do painel dos
-      caminhões Volkswagen. Material essencial para identificar alertas,
-      entender significados e agir corretamente durante a operação.
-    </p>
-
-    <div className="mt-4">
       <a
         href="/fichas-tecnicas/luzes-aviso-vw.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
       >
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-          PDF
-        </span>
-        Abrir guia de luzes de aviso (PDF)
+        Abrir guia de luzes (PDF)
+      </a>
+    </div>
+
+    {/* PDF – Guia de Comandos / Interruptores Volkswagen */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Guia de Comandos e Interruptores VW (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Material de apoio com a identificação dos comandos, botões e
+        interruptores dos caminhões Volkswagen. Ideal para motoristas,
+        treinamentos e instrutores.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/interruptores-vw.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de comandos (PDF)
       </a>
     </div>
   </div>
+</section>
 </section>
     </main>
   );
