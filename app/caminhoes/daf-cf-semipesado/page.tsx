@@ -273,6 +273,27 @@ export default function DafCFSemipesadoPage() {
           </div>
         </section>
       </section>
-    </main>
+      {/* Ficha técnica oficial – DAF CF 8x2 PX-9 360 cv */}
+<div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+  <h2 className="text-xl font-semibold text-slate-900 mb-2">
+    Ficha técnica oficial – DAF CF 8x2 PX-9 360 cv (PDF)
+  </h2>
+
+  <p className="text-sm text-slate-700 mb-4">
+    Informações completas sobre dimensões, capacidades, limites legais,
+    configurações do trem de força e características operacionais do{" "}
+    <strong>DAF CF 8x2 com motor PACCAR PX-9 de 360 cv</strong>.
+  </p>
+
+  <a
+    href="/fichas-tecnicas/ficha-tecnica-daf-cf-8x2-PX-9-360cv.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+  >
+    Abrir ficha técnica DAF CF 8x2 PX-9 360 cv (PDF)
+  </a>
+</div>
+</main>
   );
 }
