@@ -378,58 +378,51 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* Bloco final – cartão branco com botão azul (PDF oficial) */}
-        <section className="mt-10">
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Volkswagen Meteor Highline 29.530 (PDF)
-            </h2>
+      {/* BLOCO FINAL – Materiais em PDF (padrão) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-2">
 
-            <p className="text-sm text-slate-700">
-              Consulte a ficha técnica oficial para ter acesso a todos os dados
-              de motor, transmissão, eixos, capacidades, dimensões e itens de
-              série do Volkswagen Meteor Highline 29.530, apoiando o correto
-              dimensionamento da frota.
-            </p>
+    {/* Card 1 – Ficha técnica oficial */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Volkswagen Meteor Highline 29.530 (PDF)
+      </h2>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/volkswagen-meteor-highline-29530.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
-        </section>
-        {/* Bloco final – Luzes de Aviso Volkswagen (PDF) */}
-<section className="mt-6">
-  <div className="p-6 rounded-2xl border shadow-sm bg-white">
-    <h2 className="text-2xl font-bold mb-2 text-slate-900">
-      Luzes de Aviso – Volkswagen Caminhões (PDF)
-    </h2>
+      <p className="text-sm text-slate-700 mb-4">
+        Consulte a ficha técnica oficial para ter acesso a todos os dados de
+        motor, transmissão, eixos, capacidades, dimensões e itens de série do{" "}
+        <strong>Volkswagen Meteor Highline 29.530</strong>, apoiando o correto
+        dimensionamento da frota.
+      </p>
 
-    <p className="text-sm text-slate-700">
-      Consulte o guia oficial de luzes de aviso e símbolos do painel dos 
-      caminhões Volkswagen. Material essencial para identificar alertas, 
-      entender significados e agir corretamente durante a operação.
-    </p>
+      <a
+        href="/fichas-tecnicas/volkswagen-meteor-highline-29530.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-    <div className="mt-4">
+    {/* Card 2 – Luzes de aviso Volkswagen */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes de Aviso – Volkswagen Caminhões (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Consulte o guia oficial de luzes de aviso e símbolos do painel dos
+        caminhões Volkswagen. Material essencial para identificar alertas,
+        entender significados e agir corretamente durante a operação.
+      </p>
+
       <a
         href="/fichas-tecnicas/luzes-aviso-vw.pdf"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
       >
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-          PDF
-        </span>
         Abrir guia de luzes de aviso (PDF)
       </a>
     </div>
