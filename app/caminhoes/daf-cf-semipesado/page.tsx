@@ -3,7 +3,53 @@
 import Image from "next/image";
 import Link from "next/link";
 
+type FichaTecnicaItem = {
+  titulo: string;
+  descricao: React.ReactNode;
+  href: string;
+  cta?: string;
+};
+
 export default function DafCFSemipesadoPage() {
+  const fichasTecnicas: FichaTecnicaItem[] = [
+    {
+      titulo: "Ficha técnica oficial – DAF CF Semipesado 6x2 (PDF)",
+      descricao: (
+        <>
+          Consulte os dados completos de dimensões, capacidades, trem de força,
+          configurações de eixos e equipamentos do{" "}
+          <strong>DAF CF Semipesado 6x2</strong>.
+        </>
+      ),
+      href: "/fichas-tecnicas/daf-cf-semipesado.pdf",
+      cta: "Abrir ficha técnica (PDF)",
+    },
+    {
+      titulo: "Ficha técnica oficial – DAF CF Semipesado 8x2 (PDF)",
+      descricao: (
+        <>
+          Informações completas sobre dimensões, capacidades, limites legais,
+          configurações de trem de força e características operacionais do{" "}
+          <strong>DAF CF Semipesado 8x2</strong>.
+        </>
+      ),
+      href: "/fichas-tecnicas/daf-cf-semipesado-8x2.pdf",
+      cta: "Abrir ficha técnica (PDF)",
+    },
+    {
+      titulo: "Ficha técnica oficial – DAF CF 8x2 PX-9 360 cv (PDF)",
+      descricao: (
+        <>
+          Informações completas sobre dimensões, capacidades, limites legais,
+          configurações do trem de força e características operacionais do{" "}
+          <strong>DAF CF 8x2 com motor PACCAR PX-9 de 360 cv</strong>.
+        </>
+      ),
+      href: "/fichas-tecnicas/ficha-tecnica-daf-cf-8x2-PX-9-360cv.pdf",
+      cta: "Abrir ficha técnica (PDF)",
+    },
+  ];
+
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
       {/* HERO */}
@@ -63,11 +109,11 @@ export default function DafCFSemipesadoPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="#ficha-tecnica"
-                 scroll={true}
-                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-300 text-black hover:bg-sky-200 transition"
-                >
-                    Ver fichas técnicas em PDF
-                </Link>
+                scroll={true}
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-300 text-black hover:bg-sky-200 transition"
+              >
+                Ver fichas técnicas em PDF
+              </Link>
             </div>
           </div>
 
@@ -144,7 +190,10 @@ export default function DafCFSemipesadoPage() {
               <ul className="text-sm text-slate-700 space-y-2">
                 <li>• Motor com foco em torque útil em baixas e médias rotações</li>
                 <li>• Transmissão adequada a operações de distribuição regional</li>
-                <li>• Relações de eixo pensadas para equilíbrio entre força e velocidade</li>
+                <li>
+                  • Relações de eixo pensadas para equilíbrio entre força e
+                  velocidade
+                </li>
                 <li>• Configurações específicas por versão (6x2 / 6x4 / 8x2)</li>
               </ul>
             </div>
@@ -160,7 +209,8 @@ export default function DafCFSemipesadoPage() {
               </p>
               <p>
                 Resultado: boa disponibilidade da frota, previsibilidade de
-                custos e maior controle do <strong>Custo Total de Operação</strong>.
+                custos e maior controle do{" "}
+                <strong>Custo Total de Operação</strong>.
               </p>
             </div>
           </div>
@@ -188,9 +238,7 @@ export default function DafCFSemipesadoPage() {
               </thead>
               <tbody>
                 <tr className="border-b border-slate-200">
-                  <td className="px-4 py-3 text-slate-800 font-medium">
-                    6x2
-                  </td>
+                  <td className="px-4 py-3 text-slate-800 font-medium">6x2</td>
                   <td className="px-4 py-3 text-slate-800">
                     Distribuição urbana e regional com menor PBTC.
                   </td>
@@ -199,9 +247,7 @@ export default function DafCFSemipesadoPage() {
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <td className="px-4 py-3 text-slate-800 font-medium">
-                    6x2
-                  </td>
+                  <td className="px-4 py-3 text-slate-800 font-medium">6x2</td>
                   <td className="px-4 py-3 text-slate-800">
                     Cargas com maior densidade e rotas regionais.
                   </td>
@@ -210,16 +256,14 @@ export default function DafCFSemipesadoPage() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 text-slate-800 font-medium">
-                    8x2
-                  </td>
+                  <td className="px-4 py-3 text-slate-800 font-medium">8x2</td>
                   <td className="px-4 py-3 text-slate-800">
                     Operações com alta utilização de PBT e necessidade de
                     distribuição mais uniforme da carga.
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Maior PBT disponível e melhor distribuição de peso sobre os eixos,
-                    adequado a implementos de grande volume.
+                    Maior PBT disponível e melhor distribuição de peso sobre os
+                    eixos, adequado a implementos de grande volume.
                   </td>
                 </tr>
               </tbody>
@@ -227,73 +271,33 @@ export default function DafCFSemipesadoPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Fichas Técnicas (duas caixas) */}
-        <section id="ficha-tecnica" className="mt-8 space-y-6">
-          {/* Ficha técnica oficial – Semipesado */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial (PDF)
-            </h2>
-            <p className="text-sm text-slate-700 mb-4">
-              Consulte os dados completos de dimensões, capacidades, trem de
-              força, configurações de eixos e equipamentos do{" "}
-              <strong>DAF CF Semipesado 6x2</strong>.
-            </p>
+        {/* BLOCO FINAL – Fichas Técnicas (3 cards padronizados, data-driven) */}
+        <section id="ficha-tecnica" className="mt-8">
+          <div className="grid gap-6 md:grid-cols-3">
+            {fichasTecnicas.map((item) => (
+              <div
+                key={item.href}
+                className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
+              >
+                <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                  {item.titulo}
+                </h2>
 
-            <a
-              href="/fichas-tecnicas/daf-cf-semipesado.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-            >
-              Abrir ficha técnica DAF CF Semipesado 6x2 (PDF)
-            </a>
-          </div>
+                <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
 
-          {/* Ficha técnica oficial – Semipesado 8x2 */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial – DAF CF Semipesado 8x2 (PDF)
-            </h2>
-            <p className="text-sm text-slate-700 mb-4">
-              Informações completas sobre dimensões, capacidades, limites
-              legais, configurações de trem de força e características
-              operacionais do{" "}
-              <strong>DAF CF Semipesado 8x2</strong>.
-            </p>
-
-            <a
-              href="/fichas-tecnicas/daf-cf-semipesado-8x2.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-            >
-              Abrir ficha técnica DAF CF Semipesado 8x2 (PDF)
-            </a>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+                >
+                  {item.cta ?? "Abrir ficha técnica (PDF)"}
+                </a>
+              </div>
+            ))}
           </div>
         </section>
       </section>
-      {/* Ficha técnica oficial – DAF CF 8x2 PX-9 360 cv */}
-<div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
-  <h2 className="text-xl font-semibold text-slate-900 mb-2">
-    Ficha técnica oficial – DAF CF 8x2 PX-9 360 cv (PDF)
-  </h2>
-
-  <p className="text-sm text-slate-700 mb-4">
-    Informações completas sobre dimensões, capacidades, limites legais,
-    configurações do trem de força e características operacionais do{" "}
-    <strong>DAF CF 8x2 com motor PACCAR PX-9 de 360 cv</strong>.
-  </p>
-
-  <a
-    href="/fichas-tecnicas/ficha-tecnica-daf-cf-8x2-PX-9-360cv.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-  >
-    Abrir ficha técnica DAF CF 8x2 PX-9 360 cv (PDF)
-  </a>
-</div>
-</main>
+    </main>
   );
 }
