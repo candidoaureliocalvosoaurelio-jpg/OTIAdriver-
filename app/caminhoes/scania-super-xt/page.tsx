@@ -476,34 +476,77 @@ export default function ScaniaSuperXTPage() {
             correta de configuração, de acordo com a severidade do terreno e a
             exigência de carga da operação.
           </p>
+         {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-3">
 
-          {/* Cartão branco com botão azul para o PDF oficial */}
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Scania G 560 B8x4HZ XT Super (PDF)
-            </h2>
+    {/* PDF – Ficha técnica Scania G 560 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Scania G 560 B8x4HZ XT Super (PDF)
+      </h2>
 
-            <p className="text-sm text-slate-700 mb-4">
-              Acesse a ficha técnica oficial com dados completos do Scania
-              G 560 B8x4HZ XT Super para aplicações severas, incluindo
-              informações de motor, transmissão, eixos, capacidades e
-              dimensões para dimensionamento da frota.
-            </p>
+      <p className="text-sm text-slate-700 mb-4">
+        Dados técnicos completos do{" "}
+        <strong>Scania G 560 B8x4HZ XT Super</strong>, incluindo motor,
+        transmissão, eixos, capacidades, dimensões e aplicações severas.
+      </p>
 
-            <a
-              href="/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-            >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                PDF
-              </span>
-              Abrir ficha técnica (PDF)
-            </a>
-          </div>
-        </section>
-      </section>
+      <a
+        href="/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* PDF – Símbolos do painel Scania */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Símbolos do painel – Scania (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial com os principais símbolos do painel Scania,
+        significados, níveis de alerta e ações recomendadas ao motorista.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/simbolo-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de símbolos (PDF)
+      </a>
+    </div>
+
+    {/* PDF – Interruptores Scania */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Interruptores e comandos – Scania (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Material explicativo dos principais interruptores, botões e
+        comandos da cabine Scania para uso correto dos sistemas do veículo.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/interruptor-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de interruptores (PDF)
+      </a>
+    </div>
+
+  </div>
+</section>
+</section>
     </main>
   );
 }
