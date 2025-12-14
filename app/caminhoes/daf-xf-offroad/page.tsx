@@ -320,13 +320,8 @@ export default function DAFXFOffRoadPage() {
         key={m.href}
         className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]"
       >
-        <h3 className="text-xl font-semibold text-slate-900 mb-2">
-          {m.titulo}
-        </h3>
-
-        <p className="text-sm text-slate-700 mb-4">
-          {m.descricao}
-        </p>
+        <h3 className="text-xl font-semibold text-slate-900 mb-2">{m.titulo}</h3>
+        <p className="text-sm text-slate-700 mb-4">{m.descricao}</p>
 
         <a
           href={m.href}
