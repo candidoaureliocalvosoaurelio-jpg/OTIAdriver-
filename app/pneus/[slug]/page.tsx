@@ -175,13 +175,7 @@ export default function TireDetailPage({ params }: Props) {
         {/* Troque por seu WhatsApp quando quiser:
            href={`https://wa.me/55SEUNUMERO?text=${encodeURIComponent('Quero orçamento de ' + cat.title)}`}
         */}
-        <Link
-          href="/contato"
-          className="inline-flex items-center gap-2 rounded-lg bg-[#0F2454] px-4 py-2 text-white hover:opacity-90"
-        >
-          Solicitar orçamento
-        </Link>
-      </div>
+        </div>
     </main>
   );
 }
