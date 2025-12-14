@@ -442,41 +442,93 @@ export default function ScaniaP3208x2Page() {
           </div>
         </section>
 
-        {/* Texto de encerramento + cartão PDF oficial */}
-        <section className="mt-8 space-y-6">
-          <p className="text-sm text-slate-700 max-w-xl">
-            Este resumo do <strong>Scania P320 8x2</strong> foi estruturado para
-            apoiar motoristas, frotistas e instrutores técnicos na escolha da
-            melhor configuração de chassi, cabine e trem de força para
-            distribuição de alto volume.
-          </p>
+        {/* Texto de encerramento + PDFs + cartão PDF oficial */}
+<section className="mt-8 space-y-6">
+  <p className="text-sm text-slate-700 max-w-xl">
+    Este resumo do <strong>Scania P320 8x2</strong> foi estruturado para
+    apoiar motoristas, frotistas e instrutores técnicos na escolha da
+    melhor configuração de chassi, cabine e trem de força para
+    distribuição de alto volume.
+  </p>
 
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Scania P 320 B8x2NA (PDF)
-            </h2>
+  {/* Guias e materiais complementares */}
+  <div className="grid md:grid-cols-2 gap-6">
+    {/* PDF – Símbolos do painel */}
+    <div className="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <h3 className="text-lg font-bold text-slate-900 mb-2">
+        Símbolos do painel – Scania (PDF)
+      </h3>
 
-            <p className="text-sm text-slate-700 mb-4">
-              Consulte a ficha técnica oficial com dados completos do Scania
-              P 320 B8x2NA para operações de distribuição, incluindo informações
-              de motor, transmissão, capacidades, dimensões e recomendações de
-              aplicação.
-            </p>
+      <p className="text-sm text-slate-700 mb-4">
+        Guia com os principais símbolos do painel Scania, significados e ações
+        recomendadas para o motorista durante a operação.
+      </p>
 
-            <a
-              href="/fichas-tecnicas/scania-p320-b8x2na.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-            >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                PDF
-              </span>
-              Abrir ficha técnica (PDF)
-            </a>
-          </div>
-        </section>
-      </section>
+      <a
+        href="/fichas-tecnicas/simbolo-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-slate-700 text-xs font-bold">
+          PDF
+        </span>
+        Abrir guia de símbolos
+      </a>
+    </div>
+
+    {/* PDF – Interruptores */}
+    <div className="p-6 rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <h3 className="text-lg font-bold text-slate-900 mb-2">
+        Interruptores e comandos – Scania (PDF)
+      </h3>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Material com os principais interruptores, botões e comandos da cabine
+        Scania para facilitar o uso correto dos sistemas do veículo.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/interruptor-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-slate-700 text-xs font-bold">
+          PDF
+        </span>
+        Abrir guia de interruptores
+      </a>
+    </div>
+  </div>
+
+  {/* Cartão PDF oficial */}
+  <div className="p-6 rounded-2xl border shadow-sm bg-white">
+    <h2 className="text-2xl font-bold mb-2 text-slate-900">
+      Ficha técnica oficial – Scania P 320 B8x2NA (PDF)
+    </h2>
+
+    <p className="text-sm text-slate-700 mb-4">
+      Consulte a ficha técnica oficial com dados completos do Scania
+      P 320 B8x2NA para operações de distribuição, incluindo informações
+      de motor, transmissão, capacidades, dimensões e recomendações de
+      aplicação.
+    </p>
+
+    <a
+      href="/fichas-tecnicas/scania-p320-b8x2na.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+    >
+      <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+        PDF
+      </span>
+      Abrir ficha técnica (PDF)
+    </a>
+  </div>
+</section>
+ </section>
     </main>
   );
 }
