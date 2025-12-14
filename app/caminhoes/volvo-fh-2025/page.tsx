@@ -575,34 +575,51 @@ export default function VolvoFH2025Page() {
           </p>
         </section>
 
-        {/* BLOCO FINAL – Fichas Técnicas (3 cards padronizados, data-driven) */}
+        {/* BLOCO FINAL – Fichas Técnicas (cards padronizados, data-driven) */}
 <section id="ficha-tecnica" className="mt-8">
   <div className="grid gap-6 md:grid-cols-3">
     {[
       {
+        href: "/fichas-tecnicas/volvo-fh-6x4t.pdf",
+        titulo: "Ficha técnica oficial – Volvo FH 6x4T (PDF)",
+        descricao:
+          "Ficha técnica oficial do Volvo FH 6x4T com dados completos de motor, transmissão, eixos, capacidades e dimensões.",
+        cta: "Abrir ficha técnica Volvo FH 6x4T (PDF)",
+      },
+      {
         href: "/fichas-tecnicas/display-instrumentos-volvo.pdf",
-        titulo: "Display de Instrumentos Volvo (PDF)",
-        descricao: "Consulte o guia completo sobre o display de instrumentos do Volvo FH 2025.",
+        titulo: "Display de instrumentos Volvo (PDF)",
+        descricao:
+          "Guia oficial do display de instrumentos: telas, informações exibidas e leitura correta durante a operação.",
+        cta: "Abrir guia do display (PDF)",
       },
       {
         href: "/fichas-tecnicas/painel-instrumentos-volvo.pdf",
-        titulo: "Painel de Instrumentos Volvo (PDF)",
-        descricao: "Acesse informações detalhadas sobre o painel de instrumentos do Volvo FH 2025.",
+        titulo: "Painel de instrumentos Volvo (PDF)",
+        descricao:
+          "Material de referência do painel de instrumentos: funções, indicadores e orientações de uso.",
+        cta: "Abrir guia do painel (PDF)",
       },
       {
         href: "/fichas-tecnicas/sistema-monitoramento-pneu-volvo.pdf",
-        titulo: "Sistema de Monitoramento de Pneus Volvo (PDF)",
-        descricao: "Guia detalhado sobre o sistema de monitoramento de pneus para o Volvo FH 2025.",
+        titulo: "Sistema de monitoramento de pneus Volvo (PDF)",
+        descricao:
+          "Guia do sistema de monitoramento de pneus: alertas, calibração e boas práticas de operação.",
+        cta: "Abrir guia de pneus (PDF)",
       },
       {
         href: "/fichas-tecnicas/caixa-mudancas-volvo.pdf",
-        titulo: "Caixa de Mudanças Volvo (PDF)",
-        descricao: "Consulte a ficha técnica sobre a caixa de mudanças do Volvo FH 2025.",
+        titulo: "Caixa de mudanças Volvo (PDF)",
+        descricao:
+          "Material técnico sobre a transmissão/caixa de mudanças: modos, recomendações e operação eficiente.",
+        cta: "Abrir guia da caixa (PDF)",
       },
       {
         href: "/fichas-tecnicas/simbolos-volvo.pdf",
         titulo: "Símbolos Volvo (PDF)",
-        descricao: "Acesse o guia oficial dos símbolos usados no painel dos caminhões Volvo.",
+        descricao:
+          "Guia oficial de símbolos e luzes do painel Volvo para interpretação rápida e ação correta.",
+        cta: "Abrir guia de símbolos (PDF)",
       },
     ].map((item) => (
       <div
@@ -621,13 +638,13 @@ export default function VolvoFH2025Page() {
           rel="noopener noreferrer"
           className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
         >
-          Abrir ficha técnica (PDF)
+          {item.cta ?? "Abrir ficha técnica (PDF)"}
         </a>
       </div>
     ))}
   </div>
 </section>
-  </div>
+</div>
     </main>
   );
 }
