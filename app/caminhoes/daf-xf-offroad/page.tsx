@@ -1,245 +1,315 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function DAFXFOFFROADPage() {
-  return (
-    <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO – padrão OTIAdriver */}
-      <section className="w-full bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.25fr,1fr] gap-10 items-center">
-          {/* Texto principal */}
-          <div>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber-700 mb-3">
-              Linha Vocacional • OFF-ROAD
-            </p>
+type PdfMaterial = {
+  titulo: string;
+  descricao: string;
+  href: string;
+  cta: string;
+};
 
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
-              DAF XF Off-Road
-              <span className="block text-amber-600 text-xl md:text-2xl mt-1">
-                robustez, tração e eficiência fora do asfalto
-              </span>
-            </h1>
+export default function DAFXFOffRoadPage() {
+  const materiaisPdf: PdfMaterial[] = [
+    {
+      titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
+      descricao: "Consulte todos os dados detalhados do DAF XF OFF-ROAD 530 cv no material oficial.",
+      href: "/fichas-tecnicas/daf-xf-offroad.pdf",
+      cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
+    },
+    {
+      titulo: "Luzes do Painel – Caminhões DAF (PDF)",
+      descricao:
+        "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente na operação.",
+      href: "/fichas-tecnicas/luzes-painel-DAF.pdf",
+      cta: "Abrir guia de luzes do painel (PDF)",
+    },
+  ];
 
-            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
-              O <strong>DAF XF Off-Road</strong> foi desenvolvido para operações
-              severas, como <strong>construção pesada, mineração, canavieiro</strong>{" "}
-              e aplicações mistas asfalto/terra. Combina motor PACCAR MX-13,
-              transmissão ZF TraXon Heavy Duty e chassi reforçado para máxima
-              disponibilidade operacional.
-            </p>
+return (
+<main className="min-h-screen w-full bg-slate-50 pb-20">
+{/* HERO */}
+<section className="w-full bg-gradient-to-r from-[#1e293b] via-[#0f172a] to-[#1e293b] text-white">
+<div className="max-w-6xl mx-auto px-4 py-12 md:py-16 grid md:grid-cols-[1.3fr,1fr] gap-10 items-center">
 
-            {/* Cards de destaque */}
-            <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-amber-700">
-                  Potência
-                </p>
-                <p className="text-lg font-bold text-slate-900">480–530 cv</p>
-                <p className="text-[11px] text-slate-600">
-                  Motor PACCAR MX-13 Euro 6
-                </p>
-              </div>
+{/* Texto principal */}
+<div>
+<p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber-300 mb-3">
+@@ -23,9 +45,10 @@ export default function DAFXFOffRoadPage() {
+<p className="text-sm md:text-base text-slate-100/85 mb-6 max-w-xl">
+Versão reforçada do XF desenvolvida para operações extrapesadas,
+mineração, florestal, trechos agrícolas e percursos de baixa
+              aderência. Combina o poderoso <strong>motor PACCAR MX-13 530 cv</strong>
+              com tração 6x4, chassi reforçado e tecnologias que garantem
+              desempenho e confiabilidade mesmo nos terrenos mais difíceis.
+              aderência. Combina o poderoso{" "}
+              <strong>motor PACCAR MX-13 530 cv</strong> com tração 6x4, chassi
+              reforçado e tecnologias que garantem desempenho e confiabilidade
+              mesmo nos terrenos mais difíceis.
+</p>
 
-              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-amber-700">
-                  Tração
+{/* Cards do HERO */}
+@@ -51,27 +74,38 @@ export default function DAFXFOffRoadPage() {
+Aplicação
+</p>
+<p className="text-lg font-bold">Off-Road Pesado</p>
+                <p className="text-[11px] text-slate-300">Mineração / Florestal</p>
+                <p className="text-[11px] text-slate-300">
+                  Mineração / Florestal
                 </p>
-                <p className="text-lg font-bold text-slate-900">6x4 / 8x4</p>
-                <p className="text-[11px] text-slate-600">
-                  Eixos reforçados Off-Road
-                </p>
-              </div>
+</div>
+</div>
 
-              <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-emerald-700">
-                  Aplicações
-                </p>
-                <p className="text-lg font-bold text-slate-900">
-                  Construção / Mineração
-                </p>
-                <p className="text-[11px] text-slate-600">
-                  Operações severas e mistas
-                </p>
-              </div>
-            </div>
-
-            {/* Botão */}
+            <Link
+              href="#ficha-tecnica"
+              className="inline-flex items-center px-5 py-2.5 rounded-lg bg-amber-300 text-black text-sm font-semibold hover:bg-amber-200 transition"
+            >
+              Ver ficha técnica completa
+            </Link>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
+                href="#materiais-pdf"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-amber-300 text-black hover:bg-amber-200 transition"
               >
-                Ver ficha técnica completa
+                Ver materiais em PDF
+              </Link>
+              <Link
+                href="#ficha-tecnica"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition"
+              >
+                Ver ficha técnica resumida
               </Link>
             </div>
-          </div>
+</div>
 
-          {/* Imagem */}
-          <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-900/5 border border-slate-200">
-              <div style={{ aspectRatio: "4 / 3" }} className="relative">
-                <Image
+{/* Imagem */}
+<div className="relative w-full max-w-md mx-auto">
+<div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
+<div style={{ aspectRatio: "4 / 3" }} className="relative">
+<Image
+                  src="/images/trucks/daf-xf-offroad.jpg" // salve sua imagem com este nome
                   src="/images/trucks/daf-xf-offroad.jpg"
-                  alt="DAF XF Off-Road – caminhão vocacional"
-                  fill
-                  className="object-cover"
+alt="DAF XF OFF-ROAD 530 cv"
+fill
+className="object-cover"
                   priority
-                />
-              </div>
-            </div>
-            <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa DAF XF Off-Road – aplicação vocacional pesada.
-            </div>
-          </div>
-        </div>
-      </section>
+/>
+</div>
+</div>
+@@ -84,7 +118,6 @@ export default function DAFXFOffRoadPage() {
 
-      {/* CONTEÚDO PRINCIPAL */}
-      <section className="max-w-6xl mx-auto px-4 mt-10 space-y-10">
-        {/* Visão geral */}
-        <section className="grid md:grid-cols-2 gap-8 items-start">
-          <div>
-            <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-3">
-              Plataforma vocacional DAF XF Off-Road
-            </h2>
-            <p className="text-sm md:text-base text-slate-700 mb-3">
-              A versão Off-Road do DAF XF foi projetada para resistir a
-              <strong> terrenos irregulares, lama, poeira e cargas elevadas</strong>,
-              mantendo confiabilidade e produtividade em ambientes severos.
-            </p>
-            <p className="text-sm md:text-base text-slate-700">
-              O conjunto inclui chassi reforçado, suspensão preparada para
-              torção, eixos de alta capacidade e proteções adicionais para
-              componentes críticos.
-            </p>
-          </div>
+{/* CONTEÚDO GERAL */}
+<section className="max-w-6xl mx-auto px-4 mt-12 space-y-12">
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Ambientes de trabalho
-              </p>
-              <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Obras e terraplenagem</li>
-                <li>• Mineração e pedreiras</li>
-                <li>• Cana-de-açúcar e florestal</li>
-              </ul>
-            </div>
+{/* Bloco 1 — Motor */}
+<section>
+<h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+@@ -96,8 +129,8 @@ export default function DAFXFOffRoadPage() {
+<ul className="text-sm text-slate-700 space-y-2">
+<li>• 530 cv – maior potência da linha MX-13.</li>
+<li>
+                  • Alto torque para arrancadas fortes e força constante
+                  em aclives fora de estrada.
+                  • Alto torque para arrancadas fortes e força constante em
+                  aclives fora de estrada.
+</li>
+<li>
+• Calibração Off-Road: entrega torque pleno em baixas rotações.
+@@ -134,8 +167,8 @@ export default function DAFXFOffRoadPage() {
+TraXon Off-Road
+</p>
+<p>
+                Software especial que prioriza tração e momentum, evitando
+                perda de força em subidas fortes ou lama.
+                Software especial que prioriza tração e momentum, evitando perda
+                de força em subidas fortes ou lama.
+</p>
+</div>
 
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Benefícios operacionais
-              </p>
-              <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Alta tração e estabilidade</li>
-                <li>• Menos paradas não programadas</li>
-                <li>• Excelente TCO vocacional</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Trem de força */}
-        <section>
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Trem de força PACCAR MX-13 + TraXon HD
-          </h2>
-          <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-              <ul className="text-sm text-slate-700 space-y-2">
-                <li><strong>Motor:</strong> PACCAR MX-13 Euro 6</li>
-                <li><strong>Potência:</strong> até 530 cv</li>
-                <li><strong>Torque:</strong> elevado em baixas rotações</li>
-                <li><strong>Transmissão:</strong> ZF TraXon Heavy Duty</li>
-                <li><strong>Freio motor:</strong> MX Engine Brake de alta capacidade</li>
-                <li><strong>Modos:</strong> Eco / Off-Road / Manobra pesada</li>
-              </ul>
-            </div>
-
-            <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 text-sm text-slate-800">
-              <p className="font-semibold text-amber-900 mb-2">
-                Controle total fora do asfalto
-              </p>
+@@ -198,7 +231,9 @@ export default function DAFXFOffRoadPage() {
+<div className="grid sm:grid-cols-3 gap-4 text-sm text-slate-800">
+<div className="bg-white rounded-xl border border-slate-200 shadow p-4">
+<h3 className="font-semibold mb-2">Extrapesado</h3>
+              <p>Movimentação de cargas indivisíveis e composições de alto PBTC/CMT.</p>
               <p>
-                A calibração Off-Road privilegia tração contínua, arrancadas
-                suaves com carga e controle em descidas longas, reduzindo
-                desgaste dos freios de serviço.
+                Movimentação de cargas indivisíveis e composições de alto PBTC/CMT.
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Ficha técnica resumida */}
-        <section id="ficha-tecnica">
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Ficha técnica resumida – DAF XF Off-Road
-          </h2>
-
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <table className="min-w-full text-sm border-collapse">
-              <tbody>
-                <tr className="border-b bg-amber-50">
+</div>
+<div className="bg-white rounded-xl border border-slate-200 shadow p-4">
+<h3 className="font-semibold mb-2">Mineração</h3>
+@@ -221,23 +256,41 @@ export default function DAFXFOffRoadPage() {
+<table className="min-w-full text-sm border-collapse">
+<tbody>
+<tr className="border-b bg-slate-50/60">
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700 w-44">Motor</th>
+                  <td className="px-4 py-3 text-slate-800">PACCAR MX-13, 530 cv.</td>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 w-44">
                     Motor
                   </th>
-                  <td className="px-4 py-3">
-                    PACCAR MX-13 Euro 6, alto torque em baixa rotação
+                  <td className="px-4 py-3 text-slate-800">
+                    PACCAR MX-13, 530 cv.
                   </td>
-                </tr>
-                <tr className="border-b">
+</tr>
+<tr className="border-b">
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Tração</th>
+                  <td className="px-4 py-3 text-slate-800">6x4 com bloqueio de diferencial.</td>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                    Potência
+                    Tração
                   </th>
-                  <td className="px-4 py-3">480–530 cv</td>
-                </tr>
-                <tr className="border-b bg-slate-50/60">
+                  <td className="px-4 py-3 text-slate-800">
+                    6x4 com bloqueio de diferencial.
+                  </td>
+</tr>
+<tr className="border-b bg-slate-50/60">
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Transmissão</th>
+                  <td className="px-4 py-3 text-slate-800">ZF TraXon com software Off-Road.</td>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
                     Transmissão
                   </th>
-                  <td className="px-4 py-3">
-                    ZF TraXon automatizada Heavy Duty
+                  <td className="px-4 py-3 text-slate-800">
+                    ZF TraXon com software Off-Road.
                   </td>
-                </tr>
-                <tr className="border-b">
+</tr>
+<tr className="border-b">
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Chassi</th>
+                  <td className="px-4 py-3 text-slate-800">Longarinas reforçadas e suspensão robusta.</td>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                    Configurações
+                    Chassi
                   </th>
-                  <td className="px-4 py-3">6x4 • 8x4</td>
-                </tr>
-                <tr>
-                  <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                    Aplicação
-                  </th>
-                  <td className="px-4 py-3">
-                    Construção pesada, mineração, canavieiro, florestal
+                  <td className="px-4 py-3 text-slate-800">
+                    Longarinas reforçadas e suspensão robusta.
                   </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+</tr>
+<tr className="border-b bg-slate-50/60">
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">Aplicações</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700">
+                    Aplicações
+                  </th>
+<td className="px-4 py-3 text-slate-800">
+Mineração, florestal, cana, extrapesado, terrenos severos.
+</td>
+@@ -247,55 +300,78 @@ export default function DAFXFOffRoadPage() {
+</div>
+</section>
 
         {/* PDF */}
         <section className="mt-8">
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial – DAF XF Off-Road (PDF)
-            </h2>
+            <h3 className="text-xl font-semibold text-slate-900 mb-2">
+              Ficha técnica oficial (PDF)
+            </h3>
             <p className="text-sm text-slate-700 mb-4">
-              Consulte o material oficial da DAF com dados completos de
-              dimensões, capacidades, trem de força e aplicações vocacionais.
+              Consulte todos os dados detalhados do XF OFF-ROAD 530 cv.
             </p>
+                {/* BLOCO FINAL – Materiais Técnicos em PDF (3 cards padrão CF/XF) */}
+        <section id="materiais-pdf" className="mt-10">
+          <div className="grid gap-6 md:grid-cols-3">
+            
+            {/* Card 1 – Ficha técnica OFF-ROAD */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)
+              </h3>
+
+              <p className="text-sm text-slate-700 mb-4">
+                Consulte os dados completos de dimensões, capacidades, motor,
+                transmissão, tração 6x4, chassi reforçado e aplicações severas
+                do <strong>DAF XF OFF-ROAD 530 cv</strong>.
+              </p>
+
+              <a
+                href="/fichas-tecnicas/daf-xf-offroad.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir ficha técnica XF OFF-ROAD (PDF)
+              </a>
+            </div>
+
+            {/* Card 2 – Guia de Interruptores */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Guia de Interruptores DAF (PDF)
+              </h3>
+
+              <p className="text-sm text-slate-700 mb-4">
+                Material oficial com a identificação completa dos interruptores,
+                botões e comandos do DAF XF. Ideal para motoristas, instrutores
+                e treinamentos operacionais.
+              </p>
+
             <a
               href="/fichas-tecnicas/daf-xf-offroad.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-700 transition"
+              className="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition"
             >
-              Abrir ficha técnica Off-Road (PDF)
+              Abrir ficha técnica XF OFF-ROAD (PDF)
             </a>
-          </div>
-        </section>
+              <a
+                href="/fichas-tecnicas/Interruptores-DAF.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir guia de interruptores (PDF)
+              </a>
+            </div>
+
+            {/* Card 3 – Luzes do Painel */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Luzes do Painel – Caminhões DAF (PDF)
+              </h3>
+
+              <p className="text-sm text-slate-700 mb-4">
+                Guia completo de luzes e símbolos do painel dos caminhões DAF,
+                com explicação dos alertas, significados e ações recomendadas
+                durante a operação.
+              </p>
+
+              <a
+                href="/fichas-tecnicas/luzes-painel-DAF.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir guia de luzes do painel (PDF)
+              </a>
+            </div>
+</div>
+</section>
       </section>
+      {/* Bloco final – Luzes do Painel DAF (PDF) */}
+<section className="mt-6">
+  <div className="p-6 rounded-2xl border shadow-sm bg-white">
+    <h2 className="text-2xl font-bold mb-2 text-slate-900">
+      Luzes do Painel – Caminhões DAF (PDF)
+    </h2>
+
+    <p className="text-sm text-slate-700">
+      Consulte o guia de luzes e símbolos do painel dos caminhões DAF.
+      Material essencial para identificar alertas, compreender os
+      significados e agir corretamente durante a operação do veículo.
+    </p>
+
+    <div className="mt-4">
+      <a
+        href="/fichas-tecnicas/luzes-painel-DAF.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
+          PDF
+        </span>
+        Abrir guia de luzes do painel (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+        </section>
     </main>
-  );
+);
 }
