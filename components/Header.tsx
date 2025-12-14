@@ -45,8 +45,8 @@ export default function Header() {
             Caminhões Elétricos <span aria-hidden>⚡</span>
           </Link>
 
-          <Link href="/Assinaturas" className="hover:underline">
-            Assinaturas
+          <Link href="/Planos" className="hover:underline">
+            Planos
           </Link>
 
           <Link href="/pneus" className="hover:underline">
@@ -118,11 +118,11 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/Assinaturas"
+            href="/Planos"
             className="block py-2"
             onClick={() => setMenuOpen(false)}
           >
-            Assinaturas
+            Planos
           </Link>
 
           <Link
