@@ -398,7 +398,7 @@ export default function ScaniaSuperPage() {
           </div>
         </section>
 
-        {/* Bloco final – cartão branco com botão azul (PDF oficial) */}
+        {/* Bloco final – cartão branco com botão azul (PDF oficial) + links complementares */}
         <section className="mt-10">
           <div className="p-6 rounded-2xl border shadow-sm bg-white">
             <h2 className="text-2xl font-bold mb-2 text-slate-900">
@@ -423,6 +423,38 @@ export default function ScaniaSuperPage() {
                 </span>
                 Abrir ficha técnica (PDF)
               </a>
+            </div>
+
+            {/* Links complementares (mesmo padrão dos outros Scania) */}
+            <div className="border-t pt-4 mt-5 space-y-2">
+              <p className="text-sm font-semibold text-slate-800">
+                Materiais complementares do motorista:
+              </p>
+
+              <ul className="text-sm text-slate-700 space-y-1">
+                <li>
+                  •{" "}
+                  <a
+                    href="/fichas-tecnicas/simbolo-scania.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    Símbolos do painel – Scania (PDF)
+                  </a>
+                </li>
+                <li>
+                  •{" "}
+                  <a
+                    href="/fichas-tecnicas/interruptor-scania.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    Interruptores e comandos – Scania (PDF)
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
