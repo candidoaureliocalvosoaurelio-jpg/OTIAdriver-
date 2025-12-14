@@ -341,16 +341,38 @@ export default function VolkswagenConstellation26320Page() {
 <section id="ficha-tecnica" className="mt-10">
   <div className="grid gap-6 md:grid-cols-3">
 
-    {/* PDF – Ficha técnica oficial Volkswagen Constellation 30.320 8x2 */}
+    {/* PDF – VW Constellation 26.320 6x2 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – VW Constellation 26.320 6x2 (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Dados completos de motor, transmissão, capacidades, dimensões e
+        configurações do{" "}
+        <strong>Volkswagen Constellation 26.320 6x2</strong>.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/vw-constellation-26320-6x2.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* PDF – VW Constellation 30.320 8x2 */}
     <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
       <h2 className="text-xl font-semibold text-slate-900 mb-2">
         Ficha técnica oficial – VW Constellation 30.320 8x2 (PDF)
       </h2>
 
       <p className="text-sm text-slate-700 mb-4">
-        Dados completos de motor, transmissão, capacidades, dimensões e
-        configurações do <strong>Volkswagen Constellation 30.320 8x2</strong>,
-        apoiando o correto dimensionamento da frota.
+        Informações técnicas completas do{" "}
+        <strong>Volkswagen Constellation 30.320 8x2</strong>, incluindo
+        capacidades, dimensões e configurações de eixos.
       </p>
 
       <a
@@ -371,8 +393,8 @@ export default function VolkswagenConstellation26320Page() {
 
       <p className="text-sm text-slate-700 mb-4">
         Guia oficial de luzes e símbolos do painel dos caminhões Volkswagen.
-        Essencial para identificar alertas, compreender significados e agir
-        corretamente durante a operação.
+        Essencial para identificar alertas e agir corretamente durante a
+        operação.
       </p>
 
       <a
@@ -385,27 +407,6 @@ export default function VolkswagenConstellation26320Page() {
       </a>
     </div>
 
-    {/* Card 2 – Luzes de aviso */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Luzes de Aviso – Volkswagen Caminhões (PDF)
-      </h2>
-
-      <p className="text-sm text-slate-700 mb-4">
-        Consulte o guia oficial de luzes de aviso e símbolos do painel dos
-        caminhões Volkswagen. Material essencial para identificar alertas,
-        compreender significados e agir corretamente durante a operação.
-      </p>
-
-      <a
-        href="/fichas-tecnicas/luzes-aviso-vw.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir guia de luzes de aviso (PDF)
-      </a>
-    </div>
   </div>
 </section>
 </section>
