@@ -13,6 +13,7 @@ export default function ScaniaSuperXTPage() {
             <p className="text-xs font-semibold tracking-[0.2em] text-sky-600 uppercase">
               Linha Vocacional SUPER XT
             </p>
+
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4 text-slate-900">
               Scania SUPER XT
               <span className="block text-amber-500 text-xl md:text-2xl mt-1">
@@ -23,9 +24,9 @@ export default function ScaniaSuperXTPage() {
             <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
               A linha <strong>Scania SUPER XT (Xtra Tough)</strong> foi
               desenvolvida para operar em ambientes severos, como construção,
-              mineração e transporte florestal, combinando o trem de força
-              Super com chassis, eixos e proteções projetados para máxima
-              durabilidade e disponibilidade da frota.
+              mineração e transporte florestal, combinando o trem de força Super
+              com chassis, eixos e proteções projetados para máxima durabilidade
+              e disponibilidade da frota.
             </p>
 
             {/* Cards de destaque */}
@@ -39,6 +40,7 @@ export default function ScaniaSuperXTPage() {
                   Motores 6L e V8 vocacionais
                 </p>
               </div>
+
               <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-slate-600">
                   Torque
@@ -50,6 +52,7 @@ export default function ScaniaSuperXTPage() {
                   Focado em tração off-road
                 </p>
               </div>
+
               <div className="bg-slate-900/5 border border-slate-200 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-slate-600">
                   Aplicações
@@ -63,7 +66,7 @@ export default function ScaniaSuperXTPage() {
               </div>
             </div>
 
-            {/* Botão único – ver ficha técnica */}
+            {/* Botão – ver PDFs */}
             <div className="flex flex-wrap gap-3">
               <Link
                 href="#ficha-tecnica"
@@ -88,8 +91,8 @@ export default function ScaniaSuperXTPage() {
               </div>
             </div>
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa Scania SUPER XT — aplicações vocacionais
-              pesadas (mineração, construção, florestal).
+              Imagem ilustrativa Scania SUPER XT — aplicações vocacionais pesadas
+              (mineração, construção, florestal).
             </div>
           </div>
         </div>
@@ -104,18 +107,18 @@ export default function ScaniaSuperXTPage() {
               Vocação Xtra Tough: disponibilidade máxima em ambiente severo
             </h2>
             <p className="text-sm md:text-base text-slate-700 mb-3">
-              A linha <strong>SUPER XT</strong> foi concebida para suportar
-              lama, aclives acentuados, solo irregular e cargas elevadas sem
-              comprometer a confiabilidade. O conjunto reúne motor Super,
-              caixas Opticruise HD, eixos com redução nos cubos e um pacote
-              estrutural dimensionado para operações críticas.
+              A linha <strong>SUPER XT</strong> foi concebida para suportar lama,
+              aclives acentuados, solo irregular e cargas elevadas sem comprometer
+              a confiabilidade. O conjunto reúne motor Super, caixas Opticruise HD,
+              eixos com redução nos cubos e um pacote estrutural dimensionado para
+              operações críticas.
             </p>
             <p className="text-sm md:text-base text-slate-700">
               O foco é garantir <strong>alta tração</strong>,{" "}
               <strong>robustez estrutural</strong> e{" "}
-              <strong>segurança em descidas</strong>, reduzindo paradas
-              imprevistas e mantendo a produtividade em canteiros de obra,
-              pedreiras, minas e operações florestais.
+              <strong>segurança em descidas</strong>, reduzindo paradas imprevistas
+              e mantendo a produtividade em canteiros de obra, pedreiras, minas e
+              operações florestais.
             </p>
           </div>
 
@@ -151,15 +154,15 @@ export default function ScaniaSuperXTPage() {
           <div className="grid md:grid-cols-2 gap-6 items-start">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
               <p className="text-sm text-slate-700 mb-3">
-                O visual XT foi projetado para ser <strong>funcional</strong>.
-                Os elementos de design atuam como escudos para componentes
-                vitais, permitindo que o caminhão avance em terreno acidentado
-                com menor risco de danos estruturais.
+                O visual XT foi projetado para ser <strong>funcional</strong>. Os
+                elementos de design atuam como escudos para componentes vitais,
+                permitindo que o caminhão avance em terreno acidentado com menor
+                risco de danos estruturais.
               </p>
               <ul className="text-sm text-slate-700 space-y-2">
                 <li>
-                  <strong>Para-choque em aço reforçado:</strong> ajuda a
-                  absorver impactos sem comprometer componentes sensíveis.
+                  <strong>Para-choque em aço reforçado:</strong> ajuda a absorver
+                  impactos sem comprometer componentes sensíveis.
                 </li>
                 <li>
                   <strong>Ângulo de ataque elevado:</strong> facilita a
@@ -167,8 +170,8 @@ export default function ScaniaSuperXTPage() {
                   canteiros e minas.
                 </li>
                 <li>
-                  <strong>Proteções e grelhas:</strong> reduzem quebras de
-                  faróis e lanternas por pedras e detritos.
+                  <strong>Proteções e grelhas:</strong> reduzem quebras de faróis
+                  e lanternas por pedras e detritos.
                 </li>
                 <li>
                   <strong>Pino de reboque frontal:</strong> alta capacidade de
@@ -183,9 +186,9 @@ export default function ScaniaSuperXTPage() {
               </p>
               <p className="mb-2">
                 Cada batida em vala, encosto em talude ou manobra em piso de
-                cascalho representa risco de danos. A arquitetura XT foi
-                pensada para que o caminhão suporte esses impactos com menor
-                custo de reparo.
+                cascalho representa risco de danos. A arquitetura XT foi pensada
+                para que o caminhão suporte esses impactos com menor custo de
+                reparo.
               </p>
               <p>
                 Resultado: <strong>mais disponibilidade</strong>,{" "}
@@ -223,14 +226,14 @@ export default function ScaniaSuperXTPage() {
                   pesado, com mudanças suaves e robustez mecânica.
                 </li>
                 <li>
-                  <strong>Marchas super-reduzidas:</strong> relações que
-                  permitem manobrar em baixíssima velocidade e arrancar com
-                  caçamba cheia em aclives severos.
+                  <strong>Marchas super-reduzidas:</strong> relações que permitem
+                  manobrar em baixíssima velocidade e arrancar com caçamba cheia
+                  em aclives severos.
                 </li>
                 <li>
-                  <strong>Freio auxiliar:</strong> retarder e/ou CRB
-                  (freio de liberação de compressão), fundamentais para descidas
-                  longas com segurança.
+                  <strong>Freio auxiliar:</strong> retarder e/ou CRB (freio de
+                  liberação de compressão), fundamentais para descidas longas com
+                  segurança.
                 </li>
               </ul>
             </div>
@@ -240,10 +243,10 @@ export default function ScaniaSuperXTPage() {
                 Foco: controle total em subida e descida
               </p>
               <p className="mb-2">
-                Em ambiente vocacional, o risco maior não está apenas em subir
-                com carga, mas em controlar o peso na descida. O conjunto
-                Super XT foi pensado para garantir freio auxiliar abundante,
-                boa relação de marchas e tração constante.
+                Em ambiente vocacional, o risco maior não está apenas em subir com
+                carga, mas em controlar o peso na descida. O conjunto Super XT foi
+                pensado para garantir freio auxiliar abundante, boa relação de
+                marchas e tração constante.
               </p>
               <p>
                 Isso reduz o risco de superaquecimento dos freios de serviço e
@@ -264,9 +267,9 @@ export default function ScaniaSuperXTPage() {
                 Chassis reforçado
               </p>
               <p>
-                Longarinas com maior espessura e reforços adicionais para
-                suportar torção e cargas concentradas de caçambas, betoneiras e
-                implementos vocacionais pesados.
+                Longarinas com maior espessura e reforços adicionais para suportar
+                torção e cargas concentradas de caçambas, betoneiras e implementos
+                vocacionais pesados.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
@@ -274,9 +277,9 @@ export default function ScaniaSuperXTPage() {
                 Eixo traseiro RB 885
               </p>
               <p>
-                Eixo projetado para aplicações severas, com capacidade de
-                trabalhar em PBTs elevados e contribuir com incremento
-                significativo de força na roda em terrenos planos.
+                Eixo projetado para aplicações severas, com capacidade de trabalhar
+                em PBTs elevados e contribuir com incremento significativo de força
+                na roda em terrenos planos.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
@@ -285,8 +288,8 @@ export default function ScaniaSuperXTPage() {
               </p>
               <p>
                 Distribui o esforço de torque para as extremidades, elevando a
-                capacidade de tração em solos de baixa aderência, como lama,
-                areia ou cascalho solto.
+                capacidade de tração em solos de baixa aderência, como lama, areia
+                ou cascalho solto.
               </p>
             </div>
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
@@ -295,15 +298,14 @@ export default function ScaniaSuperXTPage() {
               </p>
               <p>
                 Suspensões com molas parabólicas reforçadas e{" "}
-                <strong>bloqueios de diferencial</strong> entre-eixos e
-                entre-rodas, garantindo movimentação mesmo com uma roda com
-                aderência limitada.
+                <strong>bloqueios de diferencial</strong> entre-eixos e entre-rodas,
+                garantindo movimentação mesmo com uma roda com aderência limitada.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Aplicações – tabela com cabeçalho azul-claro */}
+        {/* Aplicações */}
         <section id="aplicacoes">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Aplicações e configurações vocacionais
@@ -332,8 +334,7 @@ export default function ScaniaSuperXTPage() {
                     Basculantes, transporte florestal, tanques em terreno misto.
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Equilíbrio entre tração, PBT e versatilidade em rotas
-                    mistas.
+                    Equilíbrio entre tração, PBT e versatilidade em rotas mistas.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
@@ -341,8 +342,8 @@ export default function ScaniaSuperXTPage() {
                     8x4 rígido
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Construção pesada, betoneiras, bombas de concreto e
-                    basculantes de alta capacidade.
+                    Construção pesada, betoneiras, bombas de concreto e basculantes
+                    de alta capacidade.
                   </td>
                   <td className="px-4 py-3 text-slate-800">
                     Máxima capacidade de carga sobre chassi rígido, com
@@ -367,13 +368,11 @@ export default function ScaniaSuperXTPage() {
                     CMT elevado
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Composições pesadas vocacionais, respeitando legislação
-                    local.
+                    Composições pesadas vocacionais, respeitando legislação local.
                   </td>
                   <td className="px-4 py-3 text-slate-800">
-                    Plataformas com capacidade para atingir CMT muito elevado,
-                    com eixos, chassi e trem de força dimensionados para uso
-                    contínuo.
+                    Plataformas com capacidade para atingir CMT muito elevado, com
+                    eixos, chassi e trem de força dimensionados para uso contínuo.
                   </td>
                 </tr>
               </tbody>
@@ -381,7 +380,7 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
-        {/* Ficha técnica resumida – linhas com azul-claro na primeira linha */}
+        {/* Ficha técnica resumida */}
         <section id="ficha-tecnica-resumida">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Scania SUPER XT
@@ -394,8 +393,8 @@ export default function ScaniaSuperXTPage() {
                     Plataforma
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Linha Scania SUPER XT (Xtra Tough) para aplicações
-                    vocacionais severas: construção, mineração e florestal.
+                    Linha Scania SUPER XT (Xtra Tough) para aplicações vocacionais
+                    severas: construção, mineração e florestal.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
@@ -412,8 +411,8 @@ export default function ScaniaSuperXTPage() {
                     Potência / torque
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Faixa típica a partir de 420 hp, com níveis altos de torque
-                    para arrancadas com carga e tração em piso escorregadio.
+                    Faixa típica a partir de 420 hp, com níveis altos de torque para
+                    arrancadas com carga e tração em piso escorregadio.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
@@ -421,8 +420,8 @@ export default function ScaniaSuperXTPage() {
                     Transmissões
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Caixas Opticruise HD (G25/G33) com marchas super-reduzidas
-                    e relações adequadas ao trabalho fora de estrada.
+                    Caixas Opticruise HD (G25/G33) com marchas super-reduzidas e
+                    relações adequadas ao trabalho fora de estrada.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200 bg-slate-50/60">
@@ -430,9 +429,8 @@ export default function ScaniaSuperXTPage() {
                     Eixos / tração
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Eixos traseiros vocacionais (ex.: RB 885) com redução nos
-                    cubos e bloqueios de diferencial, em configurações 6x4,
-                    8x4, 6x6 e 8x6.
+                    Eixos traseiros vocacionais (ex.: RB 885) com redução nos cubos
+                    e bloqueios de diferencial, em configurações 6x4, 8x4, 6x6 e 8x6.
                   </td>
                 </tr>
                 <tr className="border-b border-slate-200">
@@ -458,9 +456,9 @@ export default function ScaniaSuperXTPage() {
                     Foco operacional
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Maximizar disponibilidade e segurança em operações
-                    vocacionais severas, com alta capacidade de tração, robustez
-                    estrutural e redução de paradas não programadas.
+                    Maximizar disponibilidade e segurança em operações vocacionais
+                    severas, com alta capacidade de tração, robustez estrutural e
+                    redução de paradas não programadas.
                   </td>
                 </tr>
               </tbody>
@@ -468,10 +466,19 @@ export default function ScaniaSuperXTPage() {
           </div>
         </section>
 
+        {/* Texto de encerramento */}
+        <section className="mt-8 space-y-6">
+          <p className="text-sm text-slate-700 max-w-xl">
+            Este resumo da <strong>Scania SUPER XT</strong> foi estruturado para
+            apoiar motoristas, frotistas e instrutores técnicos na seleção correta
+            de configuração, de acordo com a severidade do terreno e a exigência de
+            carga da operação.
+          </p>
+        </section>
+
         {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
         <section id="ficha-tecnica" className="mt-10">
           <div className="grid gap-6 md:grid-cols-3">
-
             {/* PDF – Ficha técnica */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
               <h2 className="text-xl font-semibold text-slate-900 mb-2">
@@ -535,42 +542,6 @@ export default function ScaniaSuperXTPage() {
                 Abrir guia de interruptores (PDF)
               </a>
             </div>
-
-          </div>
-        </section>
-
-        {/* Texto de encerramento + cartão PDF oficial */}
-        <section className="mt-8 space-y-6">
-          <p className="text-sm text-slate-700 max-w-xl">
-            Este resumo da <strong>Scania SUPER XT</strong> foi estruturado para
-            apoiar motoristas, frotistas e instrutores técnicos na seleção correta
-            de configuração, de acordo com a severidade do terreno e a exigência
-            de carga da operação.
-          </p>
-
-          {/* Cartão branco com botão azul para o PDF oficial */}
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Scania G 560 B8x4HZ XT Super (PDF)
-            </h2>
-            <p className="text-sm text-slate-700 mb-4">
-              Acesse a ficha técnica oficial com dados completos do Scania
-              G 560 B8x4HZ XT Super para aplicações severas, incluindo informações
-              de motor, transmissão, eixos, capacidades e dimensões para
-              dimensionamento da frota.
-            </p>
-
-            <a
-              href="/fichas-tecnicas/scania-g560-b8x4hz-xt-super.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-            >
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                PDF
-              </span>
-              Abrir ficha técnica (PDF)
-            </a>
           </div>
         </section>
       </section>
