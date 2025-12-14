@@ -382,36 +382,78 @@ export default function VolvoFmxPage() {
           note="*Capacidades de CMT e relações de redução podem variar conforme combinação de eixos e suspensão."
         />
 
-        {/* Ficha técnica oficial em PDF – bloco final, mesmo padrão do FH */}
-        <section className="mt-10">
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Volvo FMX MAX 6x4R (PDF)
-            </h2>
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-3">
+    {[
+      {
+        href: "/fichas-tecnicas/volvo-fmx-6x4.pdf",
+        titulo: "Ficha técnica oficial – Volvo FMX 6x4 (PDF)",
+        descricao:
+          "Documento oficial Volvo Trucks com dados completos de dimensões, capacidades, motor, suspensão e aplicações do Volvo FMX 6x4.",
+        cta: "Abrir ficha técnica FMX (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/display-instrumentos-volvo.pdf",
+        titulo: "Display de instrumentos Volvo (PDF)",
+        descricao:
+          "Guia oficial do display de instrumentos Volvo com telas, alertas, menus e interpretação correta das informações.",
+        cta: "Abrir guia do display (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/painel-instrumentos-volvo.pdf",
+        titulo: "Painel de instrumentos Volvo (PDF)",
+        descricao:
+          "Material técnico do painel de instrumentos Volvo com indicadores, avisos e orientações de uso.",
+        cta: "Abrir guia do painel (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/sistema-monitoramento-pneu-volvo.pdf",
+        titulo: "Sistema de monitoramento de pneus Volvo (PDF)",
+        descricao:
+          "Guia do sistema TPMS Volvo: leitura de pressão, alertas, calibração e boas práticas operacionais.",
+        cta: "Abrir guia de pneus (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/caixa-mudancas-volvo.pdf",
+        titulo: "Caixa de mudanças Volvo (PDF)",
+        descricao:
+          "Guia técnico da transmissão Volvo com modos de condução, recomendações e operação eficiente.",
+        cta: "Abrir guia da transmissão (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/simbolos-volvo.pdf",
+        titulo: "Símbolos e luzes do painel Volvo (PDF)",
+        descricao:
+          "Guia oficial de símbolos, luzes de advertência e mensagens do painel Volvo.",
+        cta: "Abrir guia de símbolos (PDF)",
+      },
+    ].map((item) => (
+      <div
+        key={item.href}
+        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
+      >
+        <h2 className="text-xl font-semibold text-slate-900 mb-2">
+          {item.titulo}
+        </h2>
 
-            <p className="text-sm text-slate-700">
-              Acesse o documento oficial da Volvo Trucks com todas as
-              informações de dimensões, capacidades, motor, suspensão e
-              desempenho do Volvo FMX MAX 6x4R, utilizado para dimensionamento
-              e comparação de frota.
-            </p>
+        <p className="text-sm text-slate-700 mb-4">
+          {item.descricao}
+        </p>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/volvo-fmx-max-6x4r.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
-        </section>
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+        >
+          {item.cta}
+        </a>
       </div>
+    ))}
+  </div>
+</section>
+ </div>
     </main>
   );
 }
