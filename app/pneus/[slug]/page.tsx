@@ -6,10 +6,10 @@ import { pneus, getTireBySlug, type TireSlug } from "@/data/pneus";
 
 // ---------- mapas por categoria ----------
 const sizeMap: Record<TireSlug, string[]> = {
-  'direcional-liso': ["295/80 R22.5 ⭐", "295/85 R22.5", "275/80 R22.5", "255/70 R22.5", "315/80 R22.5"],
+  'direcional-liso': ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "315/80 R22.5"],
   'implementos':     ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "235/75 R17.5", "385/65 R22.5"],
-  'tracao':          ["295/80 R22.5 ⭐", "295/85 R22.5", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
-  'tracao-plus':     ["295/80 R22.5 ⭐", "295/85 R22.5", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
+  'tracao':          ["295/80 R22.5 ⭐", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
+  'tracao-plus':     ["295/80 R22.5 ⭐", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
 };
 
 const operationMap: Record<TireSlug, string[]> = {
