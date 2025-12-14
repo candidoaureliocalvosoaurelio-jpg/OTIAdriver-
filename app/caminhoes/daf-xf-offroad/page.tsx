@@ -10,28 +10,35 @@ type PdfMaterial = {
 
 export default function DAFXFOffRoadPage() {
   const materiaisPdf: PdfMaterial[] = [
-    {
-      titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
-      descricao:
-        "Consulte os dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
-      href: "/fichas-tecnicas/daf-xf-offroad.pdf",
-      cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
-    },
-    {
-      titulo: "Guia de Interruptores DAF (PDF)",
-      descricao:
-        "Material com identificação dos interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
-      href: "/fichas-tecnicas/Interruptores-DAF.pdf",
-      cta: "Abrir guia de interruptores (PDF)",
-    },
-    {
-      titulo: "Luzes do Painel – Caminhões DAF (PDF)",
-      descricao:
-        "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente durante a operação.",
-      href: "/fichas-tecnicas/luzes-painel-DAF.pdf",
-      cta: "Abrir guia de luzes do painel (PDF)",
-    },
-  ];
+  {
+    titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
+    descricao:
+      "Consulte os dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
+    href: "/fichas-tecnicas/daf-xf-offroad.pdf",
+    cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
+  },
+  {
+    titulo: "Guia de Interruptores DAF (PDF)",
+    descricao:
+      "Material com identificação dos interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
+    href: "/fichas-tecnicas/Interruptores-DAF.pdf",
+    cta: "Abrir guia de interruptores (PDF)",
+  },
+  {
+    titulo: "Luzes do Painel – Caminhões DAF (PDF)",
+    descricao:
+      "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente durante a operação.",
+    href: "/fichas-tecnicas/luzes-painel-DAF.pdf",
+    cta: "Abrir guia de luzes do painel (PDF)",
+  },
+  {
+    titulo: "Regeneração do Filtro DPF – DAF (PDF)",
+    descricao:
+      "Entenda o funcionamento da regeneração do filtro DPF nos caminhões DAF, incluindo tipos de regeneração, alertas no painel e procedimentos corretos de condução.",
+    href: "/fichas-tecnicas/regeneração-filtro-dpf-daf.pdf",
+    cta: "Abrir guia de regeneração DPF (PDF)",
+  },
+];
 
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-20">
