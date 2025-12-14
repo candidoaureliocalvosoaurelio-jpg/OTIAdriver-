@@ -387,7 +387,7 @@ export default function VolvoFmxPage() {
   <div className="grid gap-6 md:grid-cols-3">
     {[
       {
-        href: "/fichas-tecnicas/volvo-fmx-6x4.pdf",
+        href: "/fichas-tecnicas/volvo-fmx-max-6x4r.pdf",
         titulo: "Ficha técnica oficial – Volvo FMX 6x4 (PDF)",
         descricao:
           "Documento oficial Volvo Trucks com dados completos de dimensões, capacidades, motor, suspensão e aplicações do Volvo FMX 6x4.",
