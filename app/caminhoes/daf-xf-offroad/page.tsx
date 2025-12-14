@@ -1,169 +1,248 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function DAFXFOFFROADPage() {
+type PdfMaterial = {
+  titulo: string;
+  descricao: string;
+  href: string;
+  cta: string;
+};
+
+export default function DAFXFOffRoadPage() {
+  const materiaisPdf: PdfMaterial[] = [
+    {
+      titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
+      descricao:
+        "Consulte os dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
+      href: "/fichas-tecnicas/daf-xf-offroad.pdf",
+      cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
+    },
+    {
+      titulo: "Guia de Interruptores DAF (PDF)",
+      descricao:
+        "Material com identificação dos interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
+      href: "/fichas-tecnicas/Interruptores-DAF.pdf",
+      cta: "Abrir guia de interruptores (PDF)",
+    },
+    {
+      titulo: "Luzes do Painel – Caminhões DAF (PDF)",
+      descricao:
+        "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente durante a operação.",
+      href: "/fichas-tecnicas/luzes-painel-DAF.pdf",
+      cta: "Abrir guia de luzes do painel (PDF)",
+    },
+  ];
+
   return (
-    <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO – padrão OTIAdriver */}
-      <section className="w-full bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.25fr,1fr] gap-10 items-center">
+    <main className="min-h-screen w-full bg-slate-50 pb-20">
+      {/* HERO */}
+      <section className="w-full bg-gradient-to-r from-[#1e293b] via-[#0f172a] to-[#1e293b] text-white">
+        <div className="max-w-6xl mx-auto px-4 py-12 md:py-16 grid md:grid-cols-[1.3fr,1fr] gap-10 items-center">
           {/* Texto principal */}
           <div>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber-700 mb-3">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-amber-300 mb-3">
               Linha Vocacional • OFF-ROAD
             </p>
 
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
-              DAF XF Off-Road
-              <span className="block text-amber-600 text-xl md:text-2xl mt-1">
-                robustez, tração e eficiência fora do asfalto
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
+              DAF XF OFF-ROAD
+              <span className="block text-amber-200 text-xl md:text-2xl mt-1">
+                530 cv • tração 6x4 • operação severa
               </span>
             </h1>
 
-            <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
-              O <strong>DAF XF Off-Road</strong> foi desenvolvido para operações
-              severas, como <strong>construção pesada, mineração, canavieiro</strong>{" "}
-              e aplicações mistas asfalto/terra. Combina motor PACCAR MX-13,
-              transmissão ZF TraXon Heavy Duty e chassi reforçado para máxima
-              disponibilidade operacional.
+            <p className="text-sm md:text-base text-slate-100/85 mb-6 max-w-xl">
+              Versão reforçada do XF desenvolvida para operações extrapesadas,
+              mineração, florestal, trechos agrícolas e percursos de baixa
+              aderência. Combina o poderoso{" "}
+              <strong>motor PACCAR MX-13 530 cv</strong> com tração 6x4, chassi
+              reforçado e tecnologias que garantem desempenho e confiabilidade
+              mesmo nos terrenos mais difíceis.
             </p>
 
-            {/* Cards de destaque */}
+            {/* Cards do HERO */}
             <div className="grid sm:grid-cols-3 gap-3 mb-6">
-              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-amber-700">
+              <div className="bg-white/10 border border-white/15 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-200">
+                  Motor
+                </p>
+                <p className="text-lg font-bold">PACCAR MX-13</p>
+                <p className="text-[11px] text-slate-300">Euro 6 • 13L</p>
+              </div>
+
+              <div className="bg-white/10 border border-white/15 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-200">
                   Potência
                 </p>
-                <p className="text-lg font-bold text-slate-900">480–530 cv</p>
-                <p className="text-[11px] text-slate-600">
-                  Motor PACCAR MX-13 Euro 6
+                <p className="text-lg font-bold">530 cv</p>
+                <p className="text-[11px] text-slate-300">
+                  foco em torque e tração
                 </p>
               </div>
 
-              <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-amber-700">
-                  Tração
+              <div className="bg-white/10 border border-white/15 rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-slate-200">
+                  Aplicação
                 </p>
-                <p className="text-lg font-bold text-slate-900">6x4 / 8x4</p>
-                <p className="text-[11px] text-slate-600">
-                  Eixos reforçados Off-Road
-                </p>
-              </div>
-
-              <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
-                <p className="text-xs uppercase tracking-wide text-emerald-700">
-                  Aplicações
-                </p>
-                <p className="text-lg font-bold text-slate-900">
-                  Construção / Mineração
-                </p>
-                <p className="text-[11px] text-slate-600">
-                  Operações severas e mistas
+                <p className="text-lg font-bold">Off-Road Pesado</p>
+                <p className="text-[11px] text-slate-300">
+                  Mineração / Florestal
                 </p>
               </div>
             </div>
 
-            {/* Botão */}
+            {/* Botões */}
             <div className="flex flex-wrap gap-3">
               <Link
-                href="#ficha-tecnica"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
+                href="#materiais-pdf"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-amber-300 text-black hover:bg-amber-200 transition"
               >
-                Ver ficha técnica completa
+                Ver materiais em PDF
+              </Link>
+
+              <Link
+                href="#ficha-tecnica"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition"
+              >
+                Ver ficha técnica resumida
               </Link>
             </div>
           </div>
 
           {/* Imagem */}
           <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-900/5 border border-slate-200">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black/40 border border-white/10">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
                   src="/images/trucks/daf-xf-offroad.jpg"
-                  alt="DAF XF Off-Road – caminhão vocacional"
+                  alt="DAF XF OFF-ROAD 530 cv"
                   fill
                   className="object-cover"
                   priority
                 />
               </div>
             </div>
-            <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa DAF XF Off-Road – aplicação vocacional pesada.
+            <div className="mt-3 text-[11px] text-slate-300 text-center">
+              Imagem ilustrativa DAF XF OFF-ROAD — aplicação severa.
             </div>
           </div>
         </div>
       </section>
 
-      {/* CONTEÚDO PRINCIPAL */}
-      <section className="max-w-6xl mx-auto px-4 mt-10 space-y-10">
-        {/* Visão geral */}
-        <section className="grid md:grid-cols-2 gap-8 items-start">
-          <div>
-            <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-3">
-              Plataforma vocacional DAF XF Off-Road
-            </h2>
-            <p className="text-sm md:text-base text-slate-700 mb-3">
-              A versão Off-Road do DAF XF foi projetada para resistir a
-              <strong> terrenos irregulares, lama, poeira e cargas elevadas</strong>,
-              mantendo confiabilidade e produtividade em ambientes severos.
-            </p>
-            <p className="text-sm md:text-base text-slate-700">
-              O conjunto inclui chassi reforçado, suspensão preparada para
-              torção, eixos de alta capacidade e proteções adicionais para
-              componentes críticos.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Ambientes de trabalho
-              </p>
-              <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Obras e terraplenagem</li>
-                <li>• Mineração e pedreiras</li>
-                <li>• Cana-de-açúcar e florestal</li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
-              <p className="text-xs font-semibold text-amber-600 mb-1 uppercase">
-                Benefícios operacionais
-              </p>
-              <ul className="text-sm text-slate-700 space-y-1.5">
-                <li>• Alta tração e estabilidade</li>
-                <li>• Menos paradas não programadas</li>
-                <li>• Excelente TCO vocacional</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Trem de força */}
+      {/* CONTEÚDO GERAL */}
+      <section className="max-w-6xl mx-auto px-4 mt-12 space-y-12">
+        {/* Bloco 1 — Motor */}
         <section>
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Trem de força PACCAR MX-13 + TraXon HD
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+            Motor PACCAR MX-13 530 cv: força em baixa rotação
           </h2>
-          <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
+
+          <div className="grid md:grid-cols-[1.25fr,1fr] gap-6 items-start">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
+              <p className="text-sm text-slate-700 mb-3">
+                O PACCAR MX-13 Euro 6 foi dimensionado para alto desempenho em
+                condições severas, com foco em torque forte em baixa rotação e
+                confiabilidade em longas jornadas.
+              </p>
+
               <ul className="text-sm text-slate-700 space-y-2">
-                <li><strong>Motor:</strong> PACCAR MX-13 Euro 6</li>
-                <li><strong>Potência:</strong> até 530 cv</li>
-                <li><strong>Torque:</strong> elevado em baixas rotações</li>
-                <li><strong>Transmissão:</strong> ZF TraXon Heavy Duty</li>
-                <li><strong>Freio motor:</strong> MX Engine Brake de alta capacidade</li>
-                <li><strong>Modos:</strong> Eco / Off-Road / Manobra pesada</li>
+                <li>• 530 cv – maior potência da família MX-13.</li>
+                <li>
+                  • Alto torque para arrancadas fortes e força constante em
+                  aclives fora de estrada.
+                </li>
+                <li>
+                  • Calibração Off-Road: entrega de torque mais firme e
+                  previsível em baixa rotação.
+                </li>
+                <li>
+                  • Freio-motor de alta capacidade para descidas longas com
+                  carga.
+                </li>
               </ul>
             </div>
 
             <div className="bg-amber-50 border border-amber-100 rounded-2xl p-5 text-sm text-slate-800">
               <p className="font-semibold text-amber-900 mb-2">
-                Controle total fora do asfalto
+                Por que isso importa?
               </p>
               <p>
-                A calibração Off-Road privilegia tração contínua, arrancadas
-                suaves com carga e controle em descidas longas, reduzindo
-                desgaste dos freios de serviço.
+                Em terreno severo, a prioridade é manter tração e embalo sem
+                exigir do conjunto. Torque forte em baixa rotação reduz trocas
+                desnecessárias, evita perda de momentum e contribui para menor
+                desgaste do trem de força.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bloco 2 — Transmissão / tração */}
+        <section>
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+            ZF TraXon Off-Road e tração 6x4: controle em lama e rampas
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+              <p className="text-xs font-semibold text-amber-700 mb-1 uppercase">
+                TraXon Off-Road
+              </p>
+              <p>
+                Software específico que prioriza tração e momentum, evitando
+                perda de força em subidas fortes ou lama.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+              <p className="text-xs font-semibold text-amber-700 mb-1 uppercase">
+                Bloqueios
+              </p>
+              <p>
+                Bloqueio de diferencial e estratégias de controle para reduzir
+                patinagem e manter o caminhão em movimento em baixa aderência.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
+              <p className="text-xs font-semibold text-amber-700 mb-1 uppercase">
+                Robustez do conjunto
+              </p>
+              <p>
+                Itens reforçados e foco em durabilidade para suportar carga,
+                poeira, lama e ciclos intensos de operação.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bloco 3 — Aplicações */}
+        <section>
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+            Aplicações típicas em operações severas
+          </h2>
+
+          <div className="grid sm:grid-cols-3 gap-4 text-sm text-slate-800">
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+              <h3 className="font-semibold mb-2">Extrapesado</h3>
+              <p>
+                Movimentação de cargas indivisíveis e composições de alto
+                PBTC/CMT, com foco em tração e segurança.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+              <h3 className="font-semibold mb-2">Mineração</h3>
+              <p>
+                Operações em vias não pavimentadas, cascalho e rampas com carga,
+                exigindo robustez e freio auxiliar eficiente.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
+              <h3 className="font-semibold mb-2">Florestal / Agrícola</h3>
+              <p>
+                Trechos de terra, lama e baixa aderência em ciclos repetitivos,
+                com prioridade para disponibilidade operacional.
               </p>
             </div>
           </div>
@@ -171,47 +250,57 @@ export default function DAFXFOFFROADPage() {
 
         {/* Ficha técnica resumida */}
         <section id="ficha-tecnica">
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Ficha técnica resumida – DAF XF Off-Road
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+            Ficha técnica resumida – DAF XF OFF-ROAD 530 cv
           </h2>
 
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
               <tbody>
-                <tr className="border-b bg-amber-50">
+                <tr className="border-b bg-slate-50/60">
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 w-44">
                     Motor
                   </th>
-                  <td className="px-4 py-3">
-                    PACCAR MX-13 Euro 6, alto torque em baixa rotação
+                  <td className="px-4 py-3 text-slate-800">
+                    PACCAR MX-13 Euro 6, 13L — 530 cv.
                   </td>
                 </tr>
+
                 <tr className="border-b">
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                    Potência
+                    Tração
                   </th>
-                  <td className="px-4 py-3">480–530 cv</td>
+                  <td className="px-4 py-3 text-slate-800">
+                    6x4 com bloqueio de diferencial (conforme configuração).
+                  </td>
                 </tr>
+
                 <tr className="border-b bg-slate-50/60">
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
                     Transmissão
                   </th>
-                  <td className="px-4 py-3">
-                    ZF TraXon automatizada Heavy Duty
+                  <td className="px-4 py-3 text-slate-800">
+                    ZF TraXon automatizada com software Off-Road.
                   </td>
                 </tr>
+
                 <tr className="border-b">
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                    Configurações
+                    Chassi
                   </th>
-                  <td className="px-4 py-3">6x4 • 8x4</td>
+                  <td className="px-4 py-3 text-slate-800">
+                    Longarinas reforçadas e suspensão robusta para operação
+                    severa.
+                  </td>
                 </tr>
+
                 <tr>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                    Aplicação
+                    Aplicações
                   </th>
-                  <td className="px-4 py-3">
-                    Construção pesada, mineração, canavieiro, florestal
+                  <td className="px-4 py-3 text-slate-800">
+                    Mineração, florestal, agrícola, extrapesado e terrenos
+                    severos.
                   </td>
                 </tr>
               </tbody>
@@ -219,24 +308,34 @@ export default function DAFXFOFFROADPage() {
           </div>
         </section>
 
-        {/* PDF */}
-        <section className="mt-8">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial – DAF XF Off-Road (PDF)
-            </h2>
-            <p className="text-sm text-slate-700 mb-4">
-              Consulte o material oficial da DAF com dados completos de
-              dimensões, capacidades, trem de força e aplicações vocacionais.
-            </p>
-            <a
-              href="/fichas-tecnicas/daf-xf-offroad.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-lg bg-amber-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-700 transition"
-            >
-              Abrir ficha técnica Off-Road (PDF)
-            </a>
+        {/* BLOCO FINAL – Materiais Técnicos em PDF */}
+        <section id="materiais-pdf" className="mt-10">
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+            Materiais técnicos em PDF
+          </h2>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {materiaisPdf.map((m) => (
+              <div
+                key={m.href}
+                className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]"
+              >
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                  {m.titulo}
+                </h3>
+
+                <p className="text-sm text-slate-700 mb-4">{m.descricao}</p>
+
+                <a
+                  href={m.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+                >
+                  {m.cta}
+                </a>
+              </div>
+            ))}
           </div>
         </section>
       </section>
