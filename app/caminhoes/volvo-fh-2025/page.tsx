@@ -575,34 +575,59 @@ export default function VolvoFH2025Page() {
           </p>
         </section>
 
-        {/* Ficha técnica oficial em PDF – bloco final */}
-        <section className="mt-10">
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Volvo FH 6x4T (PDF)
-            </h2>
+        {/* BLOCO FINAL – Fichas Técnicas (3 cards padronizados, data-driven) */}
+<section id="ficha-tecnica" className="mt-8">
+  <div className="grid gap-6 md:grid-cols-3">
+    {[
+      {
+        href: "/fichas-tecnicas/display-instrumentos-volvo.pdf",
+        titulo: "Display de Instrumentos Volvo (PDF)",
+        descricao: "Consulte o guia completo sobre o display de instrumentos do Volvo FH 2025.",
+      },
+      {
+        href: "/fichas-tecnicas/painel-instrumentos-volvo.pdf",
+        titulo: "Painel de Instrumentos Volvo (PDF)",
+        descricao: "Acesse informações detalhadas sobre o painel de instrumentos do Volvo FH 2025.",
+      },
+      {
+        href: "/fichas-tecnicas/sistema-monitoramento-pneu-volvo.pdf",
+        titulo: "Sistema de Monitoramento de Pneus Volvo (PDF)",
+        descricao: "Guia detalhado sobre o sistema de monitoramento de pneus para o Volvo FH 2025.",
+      },
+      {
+        href: "/fichas-tecnicas/caixa-mudancas-volvo.pdf",
+        titulo: "Caixa de Mudanças Volvo (PDF)",
+        descricao: "Consulte a ficha técnica sobre a caixa de mudanças do Volvo FH 2025.",
+      },
+      {
+        href: "/fichas-tecnicas/simbolos-volvo.pdf",
+        titulo: "Símbolos Volvo (PDF)",
+        descricao: "Acesse o guia oficial dos símbolos usados no painel dos caminhões Volvo.",
+      },
+    ].map((item) => (
+      <div
+        key={item.href}
+        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
+      >
+        <h2 className="text-xl font-semibold text-slate-900 mb-2">
+          {item.titulo}
+        </h2>
 
-            <p className="text-sm text-slate-700">
-              Acesse o documento oficial da Volvo Trucks com todas as informações de dimensões,
-              capacidades, motor, transmissão e especificações técnicas utilizadas para
-              dimensionamento e comparação de frota.
-            </p>
+        <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/volvo-fh-6x4t.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
-        </section>
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+        >
+          Abrir ficha técnica (PDF)
+        </a>
+      </div>
+    ))}
+  </div>
+</section>
+</section>
       </div>
     </main>
   );
