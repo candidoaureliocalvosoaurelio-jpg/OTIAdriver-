@@ -137,7 +137,7 @@ export default function SimbolosPainelPage() {
       </section>
               {/* BLOCO FINAL – CARTÃO COM BOTÃO PARA PDF (Luzes de aviso e símbolos) */}
 <section className="mt-8">
-  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm">
+  <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col">
     <h2 className="text-xl font-semibold text-slate-900 mb-2">
       Material completo – Luzes de aviso e símbolos (PDF)
     </h2>
@@ -152,7 +152,7 @@ export default function SimbolosPainelPage() {
       href="/fichas-tecnicas/luzes-aviso-simbolos.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
     >
       Abrir PDF luzes de aviso e símbolos
     </a>
