@@ -271,13 +271,15 @@ export default function DafCFSemipesadoPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Fichas Técnicas (cards padronizados) */}
+       {/* BLOCO FINAL – Materiais em PDF (5 cards) */}
 <section id="ficha-tecnica" className="mt-8">
   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+    {/* 3 cards vindos do array */}
     {fichasTecnicas.map((item) => (
       <div
         key={item.href}
-        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
+        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]"
       >
         <h2 className="text-xl font-semibold text-slate-900 mb-2">
           {item.titulo}
@@ -293,10 +295,52 @@ export default function DafCFSemipesadoPage() {
           rel="noopener noreferrer"
           className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
         >
-          {item.cta ?? "Abrir PDF (PDF)"}
+          {item.cta ?? "Abrir ficha técnica (PDF)"}
         </a>
       </div>
     ))}
+
+    {/* Card 4 – Guia de Interruptores */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">
+        Guia de Interruptores DAF (PDF)
+      </h3>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Identificação completa dos interruptores, botões e comandos dos
+        caminhões DAF.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/Interruptores-DAF.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de interruptores (PDF)
+      </a>
+    </div>
+
+    {/* Card 5 – Luzes do Painel */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes do Painel – Caminhões DAF (PDF)
+      </h3>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia completo de luzes e símbolos do painel com ações recomendadas.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/luzes-painel-DAF.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de luzes do painel (PDF)
+      </a>
+    </div>
+
   </div>
 </section>
 </section>
