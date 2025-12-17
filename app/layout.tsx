@@ -4,27 +4,21 @@ import type { Metadata } from "next";
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AssinaturaHero from "@/components/AssinaturaHero"; // <-- ADICIONE
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
   description: "Conhecimento Inteligente para Motoristas",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* Barra fixa no topo */}
         <Header />
 
-        {/* Espaço para não cobrir o conteúdo */}
         <div className="h-[56px]" />
 
-        {/* HERO PADRÃO (OTIAdriver + subtítulo) */}
         <div
           id="site-hero"
           className="max-w-7xl mx-auto px-4 pt-6 pb-6 md:pb-8 text-center"
@@ -38,10 +32,11 @@ export default function RootLayout({
           </p>
         </div>
 
-        {/* Conteúdo das páginas */}
+        {/* BANNER DA ASSINATURA — EM TODAS AS PÁGINAS */}
+        <AssinaturaHero />
+
         <main className="flex-1">{children}</main>
 
-        {/* Rodapé padrão */}
         <Footer />
       </body>
     </html>
