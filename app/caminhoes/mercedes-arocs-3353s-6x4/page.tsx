@@ -270,29 +270,58 @@ export default function MercedesArocs3353Page() {
           </div>
         </section>
 
-        {/* PDF */}
-        <section className="mt-8">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h3 className="text-xl font-semibold text-slate-900 mb-2">
-              Ficha técnica oficial (PDF)
-            </h3>
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver / IVECO) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-2">
 
-            <p className="text-sm text-slate-700 mb-4">
-              Consulte os dados completos do Mercedes-Benz Arocs 3353 S 6x4.
-            </p>
+    {/* Card 1 – Ficha técnica oficial */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Mercedes-Benz Arocs 3353 S 6x4 (PDF)
+      </h2>
 
-            <a
-              href="/fichas-tecnicas/mercedes-arocs-3353s-6x4.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition"
-            >
-              Abrir ficha técnica Arocs 3353 S 6x4 (PDF)
-            </a>
-          </div>
-        </section>
+      <p className="text-sm text-slate-700 mb-4">
+        Consulte a ficha técnica oficial do{" "}
+        <strong>Mercedes-Benz Arocs 3353 S 6x4</strong> com dados completos de
+        motor, transmissão, eixos, capacidades e dimensões para apoiar o correto
+        dimensionamento da frota.
+      </p>
 
-      </section>
+      <a
+        href="/fichas-tecnicas/mercedes-arocs-3353s-6x4.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* Card 2 – Reservado (opcional) */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes de Advertência e Indicadoras – Mercedes-Benz (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia de luzes de advertência e indicadores do painel Mercedes-Benz.
+        Material essencial para identificar alertas, compreender significados e
+        agir corretamente durante a operação.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/luzes-advertencia-indicadora-mercedes.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de luzes (PDF)
+      </a>
+    </div>
+
+  </div>
+</section>
+</section>
     </main>
   );
 }
