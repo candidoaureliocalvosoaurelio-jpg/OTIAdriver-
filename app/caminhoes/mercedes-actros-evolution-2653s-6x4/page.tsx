@@ -443,65 +443,55 @@ export default function MercedesActrosEvolution2653S6x4Page() {
           </div>
         </section>
 
-        {/* Texto final + cartões PDF */}
-<section className="mt-8 space-y-6">
-  <p className="text-sm text-slate-700 max-w-xl">
-    Este resumo do{" "}
-    <strong>Mercedes-Benz Actros Evolution 2653 S 6x4</strong> foi
-    estruturado para apoiar motoristas, frotistas e instrutores técnicos
-    na avaliação de configurações, aplicações e benefícios do modelo em
-    operações extrapesadas rodoviárias.
-  </p>
+       {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver / IVECO) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-2">
 
-  {/* Card 1 – Ficha técnica oficial */}
-  <div className="p-6 rounded-2xl border shadow-sm bg-white">
-    <h2 className="text-2xl font-bold mb-2 text-slate-900">
-      Ficha técnica oficial – Actros Evolution 2653 S 6x4 (PDF)
-    </h2>
+    {/* Card 1 – Ficha técnica oficial */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Actros Evolution 2653 S 6x4 (PDF)
+      </h2>
 
-    <p className="text-sm text-slate-700 mb-4">
-      Acesse a ficha técnica oficial com dados detalhados de motor,
-      transmissão, eixos, capacidades, dimensões e pacotes de segurança
-      para dimensionamento preciso da frota e análise de aplicação.
-    </p>
+      <p className="text-sm text-slate-700 mb-4">
+        Acesse a ficha técnica oficial do{" "}
+        <strong>Mercedes-Benz Actros Evolution 2653 S 6x4</strong> com dados
+        completos de motor, transmissão, eixos, capacidades, dimensões e
+        pacotes de segurança para dimensionamento preciso da frota.
+      </p>
 
-    <a
-      href="/fichas-tecnicas/mercedes-actros-evolution-2653s-6x4.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-    >
-      <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-        PDF
-      </span>
-      Abrir ficha técnica (PDF)
-    </a>
-  </div>
+      <a
+        href="/fichas-tecnicas/mercedes-actros-evolution-2653s-6x4.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-  {/* Card 2 – Luzes de advertência Mercedes */}
-  <div className="p-6 rounded-2xl border shadow-sm bg-white">
-    <h2 className="text-2xl font-bold mb-2 text-slate-900">
-      Luzes de Advertência e Indicadoras – Mercedes-Benz (PDF)
-    </h2>
+    {/* Card 2 – Luzes de advertência */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes de Advertência e Indicadoras – Mercedes-Benz (PDF)
+      </h2>
 
-    <p className="text-sm text-slate-700 mb-4">
-      Consulte o guia oficial de luzes de advertência e indicadoras do
-      painel dos caminhões Mercedes-Benz. Material essencial para
-      identificar alertas, compreender significados e agir corretamente
-      durante a operação do veículo.
-    </p>
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial de luzes de advertência e indicadoras do painel dos
+        caminhões Mercedes-Benz. Material essencial para identificar alertas,
+        compreender significados e agir corretamente durante a operação.
+      </p>
 
-    <a
-      href="/fichas-tecnicas/luzes-advertencia-indicadora-mercedes.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-    >
-      <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-        PDF
-      </span>
-      Abrir guia de luzes (PDF)
-    </a>
+      <a
+        href="/fichas-tecnicas/luzes-advertencia-indicadora-mercedes.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-sky-600 text-white text-sm font-semibold hover:bg-sky-700 transition"
+      >
+        Abrir guia de luzes (PDF)
+      </a>
+    </div>
+
   </div>
 </section>
 </section>
