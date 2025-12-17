@@ -451,63 +451,81 @@ export default function MercedesAtego2433PPage() {
           </div>
         </section>
 
-        {/* Bloco final – cartão branco com botão azul (PDF oficial) */}
-        <section className="mt-10">
-          <div className="p-6 rounded-2xl border shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Ficha técnica oficial – Mercedes-Benz Atego 2433 P 6x2 (PDF)
-            </h2>
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-3">
 
-            <p className="text-sm text-slate-700">
-              Recomenda-se consultar a ficha técnica oficial da Mercedes-Benz
-              para obter dados completos de motor, transmissão, eixos,
-              capacidades, dimensões e configurações específicas do Atego 2433
-              P 6x2, apoiando o correto dimensionamento da frota.
-            </p>
+    {/* Card 1 – Atego 2433 P 6x2 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica – Atego 2433 P 6x2 (PDF)
+      </h2>
 
-            <div className="mt-4">
-              <a
-                href="/fichas-tecnicas/mercedes-atego-2433p-6x2.pdf" // ajuste o caminho do PDF quando tiver o arquivo
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-                  PDF
-                </span>
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
-          </div>
-        </section>{/* Ficha técnica oficial – PDF */}
-<section className="mt-10">
-  <div className="p-6 rounded-2xl border shadow-sm bg-white">
-    <h2 className="text-2xl font-bold mb-2 text-slate-900">
-      Ficha técnica oficial – Mercedes-Benz Atego 3033 P 8x2 (PDF)
-    </h2>
+      <p className="text-sm text-slate-700 mb-4">
+        Consulte a ficha técnica oficial do{" "}
+        <strong>Mercedes-Benz Atego 2433 P 6x2</strong> com dados completos de
+        motor, transmissão, eixos, capacidades, dimensões e configurações para
+        correto dimensionamento da frota.
+      </p>
 
-    <p className="text-sm text-slate-700 mb-4">
-      Recomenda-se consultar a ficha técnica oficial da Mercedes-Benz para obter
-      dados completos de motor, transmissão, eixos, capacidades, dimensões e
-      configurações específicas do Atego 3033 P 8x2, apoiando o correto
-      dimensionamento da frota.
-    </p>
+      <a
+        href="/fichas-tecnicas/mercedes-atego-2433p-6x2.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-    <a
-      href="/fichas-tecnicas/mercedes-atego-3033p-8x2.pdf"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-    >
-      <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold">
-        PDF
-      </span>
-      Abrir ficha técnica (PDF)
-    </a>
+    {/* Card 2 – Atego 3033 P 8x2 */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica – Atego 3033 P 8x2 (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Acesse a ficha técnica oficial do{" "}
+        <strong>Mercedes-Benz Atego 3033 P 8x2</strong> com informações detalhadas
+        de motor, transmissão, eixos, capacidades e dimensões para aplicações
+        de maior PBTC.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/mercedes-atego-3033p-8x2.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* Card 3 – Luzes e símbolos Mercedes */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes de Advertência – Mercedes-Benz (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial de luzes de advertência e indicadores do painel dos
+        caminhões Mercedes-Benz. Essencial para identificar alertas,
+        compreender significados e agir corretamente durante a operação.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/luzes-advertencia-indicadora-mercedes.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de luzes (PDF)
+      </a>
+    </div>
+
   </div>
 </section>
-
-      </section>
+</section>
     </main>
   );
 }
