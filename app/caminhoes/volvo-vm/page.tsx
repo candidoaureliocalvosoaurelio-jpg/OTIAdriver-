@@ -467,46 +467,63 @@ export default function VolvoVmPage() {
           note="Recursos de segurança ativa e passiva podem variar conforme o pacote de opcionais escolhido."
         />
 
-        {/* BLOCO FINAL – Fichas técnicas oficiais (PDF) */}
-        <section className="mt-10">
-          <div className="p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm bg-white">
-            <h2 className="text-2xl font-bold mb-2 text-slate-900">
-              Fichas técnicas oficiais – Volvo VM / VMX (PDF)
-            </h2>
-            <p className="text-sm md:text-base text-slate-700 max-w-2xl">
-              Consulte os dados completos de dimensões, capacidades, motor,
-              transmissão e aplicações das versões rodoviárias Volvo VM 6x2R e
-              vocacionais Volvo VMX MAX 6x4R.
-            </p>
+       {/* BLOCO FINAL – Fichas técnicas oficiais (PDF) */}
+<section className="mt-10">
+  <div className="p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm bg-white">
+    <h2 className="text-2xl font-bold mb-2 text-slate-900">
+      Fichas técnicas oficiais – Volvo VM / VMX (PDF)
+    </h2>
 
-            <div className="mt-4 flex flex-wrap gap-3">
-              <a
-                href="/fichas-tecnicas/volvo-vm-6x2r.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
-                  PDF
-                </span>
-                Abrir ficha técnica VM 6x2R (PDF)
-              </a>
+    <p className="text-sm md:text-base text-slate-700 max-w-2xl">
+      Consulte os dados completos de dimensões, capacidades, motor,
+      transmissão e aplicações das versões rodoviárias Volvo VM 6x2R,
+      vocacionais Volvo VMX MAX 6x4R e informações técnicas da transmissão
+      utilizada na linha VM.
+    </p>
 
-              <a
-                href="/fichas-tecnicas/volvo-vmx-max-6x4r.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
-              >
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
-                  PDF
-                </span>
-                Abrir ficha técnica VMX MAX 6x4R (PDF)
-              </a>
-            </div>
-          </div>
-        </section>
-      </section>
+    <div className="mt-4 flex flex-wrap gap-3">
+      {/* PDF – Volvo VM 6x2R */}
+      <a
+        href="/fichas-tecnicas/volvo-vm-6x2r.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+          PDF
+        </span>
+        Abrir ficha técnica VM 6x2R (PDF)
+      </a>
+
+      {/* PDF – Volvo VMX MAX 6x4R */}
+      <a
+        href="/fichas-tecnicas/volvo-vmx-max-6x4r.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+          PDF
+        </span>
+        Abrir ficha técnica VMX MAX 6x4R (PDF)
+      </a>
+
+      {/* PDF – Caixa de transmissão Volvo VM */}
+      <a
+        href="/fichas-tecnicas/caixa-volvo-vm.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition"
+      >
+        <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-blue-500 text-xs font-bold text-white">
+          PDF
+        </span>
+        Abrir guia da transmissão Volvo VM (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+</section>
     </main>
   );
 }
