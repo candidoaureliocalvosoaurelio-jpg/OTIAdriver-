@@ -410,7 +410,7 @@ export default function ScaniaSuperPage() {
 
         {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
 <section id="ficha-tecnica" className="mt-10">
-  <div className="grid gap-6 md:grid-cols-3">
+  <div className="grid gap-6 md:grid-cols-4">
 
     {/* PDF – Ficha técnica */}
     <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
@@ -500,6 +500,7 @@ export default function ScaniaSuperPage() {
     </div>
 
   </div>
+</section>
 </section>
 </section>
     </main>
