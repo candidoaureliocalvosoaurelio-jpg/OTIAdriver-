@@ -476,10 +476,11 @@ export default function ScaniaSuperXTPage() {
           </p>
         </section>
 
-        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
-<section id="ficha-tecnica" className="mt-10">
-  <div className="grid gap-6 md:grid-cols-3">
+        import Link from "next/link";
 
+{/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-4">
     {/* PDF – Ficha técnica */}
     <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
       <h2 className="text-xl font-semibold text-slate-900 mb-2">
@@ -566,8 +567,37 @@ export default function ScaniaSuperXTPage() {
         Abrir apostila Opticruise (PDF)
       </a>
     </div>
-
   </div>
+</section>
+
+{/* CTA FINAL – Destaque Máximo Opticruise */}
+<section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
+  <div className="flex flex-col items-center text-center">
+    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+      Quer se aprofundar na transmissão Opticruise?
+    </h3>
+    <p className="mt-2 max-w-2xl text-slate-300">
+      Acesse o guia técnico completo com funcionamento, modos, símbolos,
+      freio motor e boas práticas de condução.
+    </p>
+
+    <div className="mt-6">
+      <Link
+        href="/caminhoes/scania/opticruise"
+        className="inline-flex items-center justify-center rounded-2xl
+                   bg-gradient-to-r from-sky-600 to-blue-700
+                   px-12 py-4 text-base font-extrabold text-white
+                   shadow-lg shadow-sky-600/30
+                   hover:from-sky-700 hover:to-blue-800
+                   hover:shadow-xl hover:shadow-sky-700/40
+                   focus:outline-none focus:ring-4 focus:ring-sky-300
+                   transition-all duration-200"
+      >
+        Acessar página completa Opticruise
+      </Link>
+    </div>
+  </div>
+
 </section>
 </section>
     </main>
