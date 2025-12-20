@@ -408,7 +408,9 @@ export default function ScaniaSuperPage() {
           </p>
         </section>
 
-        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+        import Link from "next/link";
+
+{/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
 <section id="ficha-tecnica" className="mt-10">
   <div className="grid gap-6 md:grid-cols-4">
 
@@ -499,6 +501,16 @@ export default function ScaniaSuperPage() {
       </a>
     </div>
 
+  </div>
+
+  {/* BOTÃO FINAL – Link para a página exclusiva da Opticruise */}
+  <div className="mt-8 flex justify-center">
+    <Link
+      href="/caminhoes/scania/opticruise"
+      className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-6 py-3 text-sm font-semibold text-white hover:bg-sky-700 transition"
+    >
+      Opticruise
+    </Link>
   </div>
 </section>
 </section>
