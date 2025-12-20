@@ -575,7 +575,9 @@ export default function VolvoFH2025Page() {
           </p>
         </section>
 
-       {/* BLOCO FINAL – Fichas Técnicas (cards padronizados, data-driven) */}
+       import Link from "next/link";
+
+{/* BLOCO FINAL – Fichas Técnicas (cards padronizados, data-driven) */}
 <section id="ficha-tecnica" className="mt-8">
   <div className="grid gap-6 md:grid-cols-3">
     {[
@@ -636,7 +638,9 @@ export default function VolvoFH2025Page() {
           href={item.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-auto inline-flex items-center justify-center rounded-lg bg-[#005B9A] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#004B80] transition"
+          className="mt-auto inline-flex items-center justify-center rounded-lg
+                     bg-[#005B9A] px-5 py-2.5 text-sm font-semibold text-white
+                     hover:bg-[#004B80] transition"
         >
           {item.cta ?? "Abrir ficha técnica (PDF)"}
         </a>
@@ -644,7 +648,33 @@ export default function VolvoFH2025Page() {
     ))}
   </div>
 </section>
-</div>
-    </main>
-  );
-}
+
+{/* CTA FINAL – Página exclusiva I-Shift */}
+<section className="mt-14 rounded-3xl bg-[#001A33] p-8 md:p-10 shadow-xl">
+  <div className="flex flex-col items-center text-center">
+    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+      Quer se aprofundar na transmissão I-Shift?
+    </h3>
+
+    <p className="mt-2 max-w-2xl text-slate-200">
+      Acesse a página técnica completa com funcionamento detalhado, modos de operação,
+      símbolos do painel, integração com freio motor/retarder e boas práticas de condução.
+    </p>
+
+    <div className="mt-6">
+      <Link
+        href="/caminhoes/volvo/i-shift"
+        className="inline-flex items-center justify-center rounded-2xl
+                   bg-gradient-to-r from-[#005B9A] to-[#003057]
+                   px-12 py-4 text-base font-extrabold text-white
+                   shadow-lg shadow-[#005B9A]/30
+                   hover:from-[#004B80] hover:to-[#00284A]
+                   hover:shadow-xl hover:shadow-[#005B9A]/40
+                   focus:outline-none focus:ring-4 focus:ring-[#8FC6FF]
+                   transition-all duration-200"
+      >
+        Acessar página completa I-Shift
+      </Link>
+    </div>
+  </div>
+</section>
