@@ -576,75 +576,103 @@ export default function VolvoFH2025Page() {
         </section>
 
        {/* BLOCO FINAL – Fichas Técnicas (cards padronizados, data-driven) */}
-<section id="ficha-tecnica" className="mt-8">
-  <div className="grid gap-6 md:grid-cols-3">
-    {[
-      {
-        href: "/fichas-tecnicas/volvo-fh-6x4t.pdf",
-        titulo: "Ficha técnica oficial – Volvo FH 6x4T (PDF)",
-        descricao:
-          "Ficha técnica oficial do Volvo FH 6x4T com dados completos de motor, transmissão, eixos, capacidades e dimensões.",
-        cta: "Abrir ficha técnica Volvo FH 6x4T (PDF)",
-      },
-      {
-        href: "/fichas-tecnicas/display-instrumentos-volvo.pdf",
-        titulo: "Display de instrumentos Volvo (PDF)",
-        descricao:
-          "Guia oficial do display de instrumentos: telas, informações exibidas e leitura correta durante a operação.",
-        cta: "Abrir guia do display (PDF)",
-      },
-      {
-        href: "/fichas-tecnicas/painel-instrumentos-volvo.pdf",
-        titulo: "Painel de instrumentos Volvo (PDF)",
-        descricao:
-          "Material de referência do painel de instrumentos: funções, indicadores e orientações de uso.",
-        cta: "Abrir guia do painel (PDF)",
-      },
-      {
-        href: "/fichas-tecnicas/sistema-monitoramento-pneu-volvo.pdf",
-        titulo: "Sistema de monitoramento de pneus Volvo (PDF)",
-        descricao:
-          "Guia do sistema de monitoramento de pneus: alertas, calibração e boas práticas de operação.",
-        cta: "Abrir guia de pneus (PDF)",
-      },
-      {
-        href: "/fichas-tecnicas/caixa-mudancas-volvo.pdf",
-        titulo: "Caixa de mudanças Volvo (PDF)",
-        descricao:
-          "Material técnico sobre a transmissão/caixa de mudanças: modos, recomendações e operação eficiente.",
-        cta: "Abrir guia da caixa (PDF)",
-      },
-      {
-        href: "/fichas-tecnicas/simbolos-volvo.pdf",
-        titulo: "Símbolos Volvo (PDF)",
-        descricao:
-          "Guia oficial de símbolos e luzes do painel Volvo para interpretação rápida e ação correta.",
-        cta: "Abrir guia de símbolos (PDF)",
-      },
-    ].map((item) => (
-      <div
-        key={item.href}
-        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
-      >
-        <h2 className="text-xl font-semibold text-slate-900 mb-2">
-          {item.titulo}
-        </h2>
+        <section id="materiais-pdf" className="mt-10">
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                href: "/fichas-tecnicas/volvo-fh-6x4t.pdf",
+                titulo: "Ficha técnica oficial – Volvo FH 6x4T (PDF)",
+                descricao:
+                  "Ficha técnica oficial do Volvo FH 6x4T com dados completos de motor, transmissão, eixos, capacidades e dimensões.",
+                cta: "Abrir ficha técnica Volvo FH 6x4T (PDF)",
+              },
+              {
+                href: "/fichas-tecnicas/display-instrumentos-volvo.pdf",
+                titulo: "Display de instrumentos Volvo (PDF)",
+                descricao:
+                  "Guia oficial do display de instrumentos: telas, informações exibidas e leitura correta durante a operação.",
+                cta: "Abrir guia do display (PDF)",
+              },
+              {
+                href: "/fichas-tecnicas/painel-instrumentos-volvo.pdf",
+                titulo: "Painel de instrumentos Volvo (PDF)",
+                descricao:
+                  "Material de referência do painel de instrumentos: funções, indicadores e orientações de uso.",
+                cta: "Abrir guia do painel (PDF)",
+              },
+              {
+                href: "/fichas-tecnicas/sistema-monitoramento-pneu-volvo.pdf",
+                titulo: "Sistema de monitoramento de pneus Volvo (PDF)",
+                descricao:
+                  "Guia do sistema de monitoramento de pneus: alertas, calibração e boas práticas de operação.",
+                cta: "Abrir guia de pneus (PDF)",
+              },
+              {
+                href: "/fichas-tecnicas/caixa-mudancas-volvo.pdf",
+                titulo: "Caixa de mudanças Volvo (PDF)",
+                descricao:
+                  "Material técnico sobre a transmissão/caixa de mudanças: modos, recomendações e operação eficiente.",
+                cta: "Abrir guia da caixa (PDF)",
+              },
+              {
+                href: "/fichas-tecnicas/simbolos-volvo.pdf",
+                titulo: "Símbolos Volvo (PDF)",
+                descricao:
+                  "Guia oficial de símbolos e luzes do painel Volvo para interpretação rápida e ação correta.",
+                cta: "Abrir guia de símbolos (PDF)",
+              },
+            ].map((item) => (
+              <div
+                key={item.href}
+                className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
+              >
+                <h2 className="text-xl font-semibold text-slate-900 mb-2">{item.titulo}</h2>
+                <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
 
-        <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-lg bg-[#005B9A] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#004B80] transition"
+                >
+                  {item.cta ?? "Abrir ficha técnica (PDF)"}
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        <a
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-auto inline-flex items-center justify-center rounded-lg bg-[#005B9A] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#004B80] transition"
-        >
-          {item.cta ?? "Abrir ficha técnica (PDF)"}
-        </a>
+        {/* CTA FINAL – Destaque Máximo (I-Shift) */}
+        <section className="mt-14 rounded-3xl bg-[#001A33] p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Acesse o guia técnico completo da transmissão I-Shift
+            </h3>
+
+            <p className="mt-2 max-w-2xl text-slate-200">
+              Página exclusiva com funcionamento detalhado, modos de operação, símbolos do painel,
+              integração com freio motor/retarder e boas práticas de condução para máxima eficiência
+              e segurança.
+            </p>
+
+            <div className="mt-6">
+              <Link
+                href="/caminhoes/volvo/i-shift"
+                className="inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-[#005B9A] to-[#003057]
+                           px-12 py-4 text-base font-extrabold text-white
+                           shadow-lg shadow-[#005B9A]/30
+                           hover:from-[#004B80] hover:to-[#00284A]
+                           hover:shadow-xl hover:shadow-[#005B9A]/40
+                           focus:outline-none focus:ring-4 focus:ring-[#8FC6FF]
+                           transition-all duration-200"
+              >
+                Acessar página completa I-Shift
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
-    ))}
-  </div>
-</section>
-</div>
     </main>
   );
 }
