@@ -537,7 +537,38 @@ export default function VolvoVmPage() {
     </div>
   </div>
 </section>
-</section>
+
+{/* CTA FINAL – Destaque Máximo (I-Shift) */}
+        <section className="mt-14 rounded-3xl bg-[#001A33] p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Acesse o guia técnico completo da transmissão I-Shift
+            </h3>
+
+            <p className="mt-2 max-w-2xl text-slate-200">
+              Página exclusiva com funcionamento detalhado, modos de operação, símbolos do painel,
+              integração com freio motor/retarder e boas práticas de condução para máxima eficiência
+              e segurança.
+            </p>
+
+            <div className="mt-6">
+              <Link
+                href="/caminhoes/volvo/i-shift"
+                className="inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-[#005B9A] to-[#003057]
+                           px-12 py-4 text-base font-extrabold text-white
+                           shadow-lg shadow-[#005B9A]/30
+                           hover:from-[#004B80] hover:to-[#00284A]
+                           hover:shadow-xl hover:shadow-[#005B9A]/40
+                           focus:outline-none focus:ring-4 focus:ring-[#8FC6FF]
+                           transition-all duration-200"
+              >
+                Acessar página completa I-Shift
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
