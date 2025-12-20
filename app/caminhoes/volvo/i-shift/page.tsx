@@ -1,3 +1,4 @@
+// OTIAdriver-/app/caminhoes/volvo/i-shift/page.tsx
 import Link from "next/link";
 
 export default function IShiftPage() {
@@ -27,7 +28,7 @@ export default function IShiftPage() {
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
-                href="/fichas-tecnicas/caixa-de-cambio-i-shift-volvo.pdf"
+                href="/fichas-tecnicas/caixa-mudancas-volvo.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-xl bg-[#005B9A] px-6 py-3 text-sm font-semibold text-white hover:bg-[#004B80] transition"
@@ -47,8 +48,8 @@ export default function IShiftPage() {
               <li>• Integração com freio motor e retarder (quando equipado)</li>
             </ul>
             <p className="mt-4 text-xs text-slate-300">
-              Dica: em descidas longas, use o retarder/freio motor como freio principal e
-              deixe o freio de serviço para correções.
+              Dica: em descidas longas, use o retarder/freio motor como freio
+              principal e deixe o freio de serviço para correções.
             </p>
           </div>
         </div>
@@ -58,20 +59,24 @@ export default function IShiftPage() {
       <section className="max-w-6xl mx-auto px-4 pt-10">
         {/* BLOCO: O QUE É */}
         <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900">O que é a I-Shift?</h2>
+          <h2 className="text-2xl font-bold text-slate-900">
+            O que é a I-Shift?
+          </h2>
 
           <p className="mt-3 text-slate-700 leading-relaxed">
-            A I-Shift é a transmissão automatizada da Volvo Trucks. Ela combina uma base
-            mecânica robusta com gerenciamento eletrônico avançado para automatizar a
-            embreagem e as trocas de marcha, entregando eficiência, conforto e proteção
-            do conjunto motriz em diferentes perfis de operação.
+            A I-Shift é a transmissão automatizada da Volvo Trucks. Ela combina
+            uma base mecânica robusta com gerenciamento eletrônico avançado para
+            automatizar a embreagem e as trocas de marcha, entregando eficiência,
+            conforto e proteção do conjunto motriz em diferentes perfis de
+            operação.
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
               <p className="text-sm font-semibold text-slate-900">Eficiência</p>
               <p className="mt-1 text-sm text-slate-700">
-                Estratégias de troca priorizam consumo e desempenho conforme carga e relevo.
+                Estratégias de troca priorizam consumo e desempenho conforme
+                carga e relevo.
               </p>
             </div>
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
@@ -91,7 +96,9 @@ export default function IShiftPage() {
 
         {/* BLOCO: COMO FUNCIONA */}
         <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900">Como o sistema funciona</h2>
+          <h2 className="text-2xl font-bold text-slate-900">
+            Como o sistema funciona
+          </h2>
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <div className="rounded-xl border border-slate-200 p-5">
@@ -122,17 +129,21 @@ export default function IShiftPage() {
           </div>
 
           <div className="mt-5 rounded-xl bg-blue-50 border border-blue-100 p-5">
-            <p className="text-sm font-semibold text-[#005B9A]">Dica OTIAdriver</p>
+            <p className="text-sm font-semibold text-[#005B9A]">
+              Dica OTIAdriver
+            </p>
             <p className="mt-1 text-sm text-slate-700">
-              Evite oscilar o acelerador durante as trocas. Com o pedal estável, a troca tende
-              a ser mais suave e com menor desgaste.
+              Evite oscilar o acelerador durante as trocas. Com o pedal estável,
+              a troca tende a ser mais suave e com menor desgaste.
             </p>
           </div>
         </section>
 
         {/* BLOCO: MODOS */}
         <section className="mt-6 rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900">Modos de operação</h2>
+          <h2 className="text-2xl font-bold text-slate-900">
+            Modos de operação
+          </h2>
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             {[
@@ -179,8 +190,9 @@ export default function IShiftPage() {
           </h2>
 
           <p className="mt-3 text-slate-700 leading-relaxed">
-            Atenção aos avisos do painel. Eles indicam falhas ou condições de operação
-            que exigem cuidado para evitar danos e paradas não programadas.
+            Atenção aos avisos do painel. Eles indicam falhas ou condições de
+            operação que exigem cuidado para evitar danos e paradas não
+            programadas.
           </p>
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -189,8 +201,8 @@ export default function IShiftPage() {
                 Alerta do sistema de transmissão (amarelo)
               </p>
               <p className="mt-1 text-sm text-slate-700">
-                Indica anomalia detectada no sistema. Reduza esforço, evite carga elevada em subida
-                e procure diagnóstico em oficina especializada.
+                Indica anomalia detectada no sistema. Reduza esforço, evite carga
+                elevada em subida e procure diagnóstico em oficina especializada.
               </p>
             </div>
 
@@ -199,8 +211,9 @@ export default function IShiftPage() {
                 Temperatura elevada / proteção (amarelo)
               </p>
               <p className="mt-1 text-sm text-slate-700">
-                Indica aquecimento ou atuação de estratégia de proteção. Ajuste a condução e, se necessário,
-                faça pausa para estabilização e verificação.
+                Indica aquecimento ou atuação de estratégia de proteção. Ajuste
+                a condução e, se necessário, faça pausa para estabilização e
+                verificação.
               </p>
             </div>
           </div>
@@ -213,23 +226,30 @@ export default function IShiftPage() {
           </h2>
 
           <p className="mt-3 text-slate-700 leading-relaxed">
-            O freio motor e o retarder (quando equipado) atuam como freios auxiliares, reduzindo a velocidade do veículo
-            com menor uso do freio de serviço. A I-Shift pode reduzir automaticamente para manter a faixa ideal de frenagem
-            e controle em descidas.
+            O freio motor e o retarder (quando equipado) atuam como freios
+            auxiliares, reduzindo a velocidade do veículo com menor uso do freio
+            de serviço. A I-Shift pode reduzir automaticamente para manter a
+            faixa ideal de frenagem e controle em descidas.
           </p>
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-              <p className="text-sm font-semibold text-slate-900">Uso recomendado</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Uso recomendado
+              </p>
               <p className="mt-1 text-sm text-slate-700">
-                Antecipe a descida: selecione estratégia de frenagem e deixe o sistema manter rotação/marcha adequadas.
+                Antecipe a descida: selecione estratégia de frenagem e deixe o
+                sistema manter rotação/marcha adequadas.
               </p>
             </div>
 
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
-              <p className="text-sm font-semibold text-slate-900">Controle e segurança</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Controle e segurança
+              </p>
               <p className="mt-1 text-sm text-slate-700">
-                Menos aquecimento dos freios e maior estabilidade, especialmente em longas declividades.
+                Menos aquecimento dos freios e maior estabilidade, especialmente
+                em longas declividades.
               </p>
             </div>
           </div>
@@ -237,8 +257,9 @@ export default function IShiftPage() {
           <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50 p-5">
             <p className="text-sm font-semibold text-amber-900">Atenção</p>
             <p className="mt-1 text-sm text-slate-700">
-              Em descidas longas, priorize freio motor/retarder e use o freio de serviço apenas para correções.
-              Isso reduz risco de fading e superaquecimento.
+              Em descidas longas, priorize freio motor/retarder e use o freio de
+              serviço apenas para correções. Isso reduz risco de fading e
+              superaquecimento.
             </p>
           </div>
         </section>
@@ -251,7 +272,9 @@ export default function IShiftPage() {
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <div className="rounded-xl border border-slate-200 p-5">
-              <p className="text-sm font-semibold text-slate-900">Checklist preventivo</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Checklist preventivo
+              </p>
               <ul className="mt-2 space-y-1 text-sm text-slate-700">
                 <li>• óleo correto e troca no intervalo recomendado</li>
                 <li>• verificação de vazamentos e conexões</li>
@@ -261,7 +284,9 @@ export default function IShiftPage() {
             </div>
 
             <div className="rounded-xl border border-slate-200 p-5">
-              <p className="text-sm font-semibold text-slate-900">Sintomas frequentes</p>
+              <p className="text-sm font-semibold text-slate-900">
+                Sintomas frequentes
+              </p>
               <ul className="mt-2 space-y-1 text-sm text-slate-700">
                 <li>• trancos nas trocas</li>
                 <li>• demora ou falha para engatar</li>
@@ -349,13 +374,14 @@ export default function IShiftPage() {
               Quer se aprofundar na transmissão I-Shift?
             </h3>
             <p className="mt-2 max-w-2xl text-slate-200">
-              Baixe a apostila completa e utilize esta página como referência rápida para operação,
-              interpretação de alertas e boas práticas de condução.
+              Baixe a apostila completa e utilize esta página como referência
+              rápida para operação, interpretação de alertas e boas práticas de
+              condução.
             </p>
 
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
-                href="/fichas-tecnicas/caixa-de-cambio-i-shift-volvo.pdf"
+                href="/fichas-tecnicas/caixa-mudancas-volvo.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-2xl
