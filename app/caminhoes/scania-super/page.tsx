@@ -409,72 +409,97 @@ export default function ScaniaSuperPage() {
         </section>
 
         {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
-        <section id="ficha-tecnica" className="mt-10">
-          <div className="grid gap-6 md:grid-cols-3">
-            {/* PDF – Ficha técnica */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h2 className="text-xl font-semibold text-slate-900 mb-2">
-                Ficha técnica oficial – Scania R 500 / R 560 A6x4NZ Super (PDF)
-              </h2>
+<section id="ficha-tecnica" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-3">
 
-              <p className="text-sm text-slate-700 mb-4">
-                Dados técnicos completos do{" "}
-                <strong>Scania R 500 / R 560 A6x4NZ Super</strong>, incluindo motor,
-                transmissão, eixos, capacidades, dimensões e recomendações de aplicação.
-              </p>
+    {/* PDF – Ficha técnica */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Scania R 500 / R 560 A6x4NZ Super (PDF)
+      </h2>
 
-              <a
-                href="/fichas-tecnicas/scania-r500-r560-a6x4nz-super.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
+      <p className="text-sm text-slate-700 mb-4">
+        Dados técnicos completos do{" "}
+        <strong>Scania R 500 / R 560 A6x4NZ Super</strong>, incluindo motor,
+        transmissão, eixos, capacidades, dimensões e recomendações de aplicação.
+      </p>
 
-            {/* PDF – Símbolos */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h2 className="text-xl font-semibold text-slate-900 mb-2">
-                Símbolos do painel – Scania (PDF)
-              </h2>
+      <a
+        href="/fichas-tecnicas/scania-r500-r560-a6x4nz-super.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-              <p className="text-sm text-slate-700 mb-4">
-                Guia oficial com os principais símbolos do painel Scania, níveis de
-                alerta e ações recomendadas ao motorista.
-              </p>
+    {/* PDF – Símbolos */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Símbolos do painel – Scania (PDF)
+      </h2>
 
-              <a
-                href="/fichas-tecnicas/simbolo-scania.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir guia de símbolos (PDF)
-              </a>
-            </div>
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial com os principais símbolos do painel Scania,
+        níveis de alerta e ações recomendadas ao motorista.
+      </p>
 
-            {/* PDF – Interruptores */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h2 className="text-xl font-semibold text-slate-900 mb-2">
-                Interruptores e comandos – Scania (PDF)
-              </h2>
+      <a
+        href="/fichas-tecnicas/simbolo-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de símbolos (PDF)
+      </a>
+    </div>
 
-              <p className="text-sm text-slate-700 mb-4">
-                Material explicativo dos principais interruptores e comandos da cabine
-                Scania para uso correto dos sistemas do veículo.
-              </p>
+    {/* PDF – Interruptores */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Interruptores e comandos – Scania (PDF)
+      </h2>
 
-              <a
-                href="/fichas-tecnicas/interruptor-scania.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir guia de interruptores (PDF)
-              </a>
-            </div>
-          </div>
+      <p className="text-sm text-slate-700 mb-4">
+        Material explicativo dos principais interruptores e comandos da
+        cabine Scania para uso correto dos sistemas do veículo.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/interruptor-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de interruptores (PDF)
+      </a>
+    </div>
+
+    {/* PDF – Caixa de Câmbio Opticruise */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Caixa de Câmbio Opticruise – Scania (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Apostila técnica completa sobre a{" "}
+        <strong>Caixa de Câmbio Opticruise da Scania</strong>, incluindo
+        funcionamento, modos de operação, símbolos do painel,
+        freio motor, manutenção e boas práticas de condução.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/caixa-de-cambio-opticruiser-scania.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir apostila Opticruise (PDF)
+      </a>
+    </div>
+  </div>
+</section>
         </section>
       </section>
     </main>
