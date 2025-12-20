@@ -27,8 +27,7 @@ export default function CheckoutPro() {
             <li><span className={s.check}>✓</span> Análise de Imagem </li>
             <li><span className={s.check}>✓</span> Checklists de Viagem </li>
             <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
-            <li><span className={s.check}>✓</span> Alertas Inteligentes e GPS Inteligente</li>
-          </ul>
+            </ul>
 
           <div className={s.terms}>
             <strong>Plano mensal com renovação automática a cada 30 dias.</strong>
