@@ -40,9 +40,7 @@ export default function OpticruisePage() {
                 href="/caminhoes/scania"
                 className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 transition"
               >
-                Voltar para Scania
-              </Link>
-            </div>
+          </div>
           </div>
 
           {/* CARD RESUMO */}
