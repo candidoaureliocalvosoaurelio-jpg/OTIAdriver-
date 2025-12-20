@@ -24,8 +24,7 @@ const pro = [
   "Análise de Imagem",
   "Checklists de Viagem",
   "Sistema de Pontuação de Performance Inteligente",
-  "GPS Inteligente",
-];
+  ];
 
 const premium = [
   "Todos os Recursos PRO",
