@@ -378,57 +378,95 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-      {/* BLOCO FINAL – Materiais em PDF (padrão) */}
-<section id="ficha-tecnica" className="mt-10">
-  <div className="grid gap-6 md:grid-cols-2">
+      {/* PDFs */}
+        <section className="mt-10">
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Material “Caixa Volkswagen” (PDF)
+              </h3>
 
-    {/* Card 1 – Ficha técnica oficial */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Ficha técnica oficial – Volkswagen Meteor Highline 29.530 (PDF)
-      </h2>
+              <p className="text-sm text-slate-700 mb-4">
+                Abra o material completo em PDF com detalhes operacionais,
+                recomendações de uso e conceitos de transmissão para caminhões
+                Volkswagen.
+              </p>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Consulte a ficha técnica oficial para ter acesso a todos os dados de
-        motor, transmissão, eixos, capacidades, dimensões e itens de série do{" "}
-        <strong>Volkswagen Meteor Highline 29.530</strong>, apoiando o correto
-        dimensionamento da frota.
-      </p>
+              <a
+                href="/fichas-tecnicas/caixa-volkswagen.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir PDF da caixa Volkswagen
+              </a>
+            </div>
 
-      <a
-        href="/fichas-tecnicas/volkswagen-meteor-highline-29530.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir ficha técnica (PDF)
-      </a>
-    </div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Guia de Luzes de Aviso Volkswagen (PDF)
+              </h3>
 
-    {/* Card 2 – Luzes de aviso Volkswagen */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Luzes de Aviso – Volkswagen Caminhões (PDF)
-      </h2>
+              <p className="text-sm text-slate-700 mb-4">
+                Material de referência para interpretação de alertas e símbolos
+                do painel em caminhões Volkswagen.
+              </p>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Consulte o guia oficial de luzes de aviso e símbolos do painel dos
-        caminhões Volkswagen. Material essencial para identificar alertas,
-        entender significados e agir corretamente durante a operação.
-      </p>
+              <a
+                href="/fichas-tecnicas/luzes-aviso-vw.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir guia de luzes (PDF)
+              </a>
+            </div>
+          </div>
 
-      <a
-        href="/fichas-tecnicas/luzes-aviso-vw.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir guia de luzes de aviso (PDF)
-      </a>
-    </div>
-  </div>
-</section>
-</section>
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700">
+            <p className="font-semibold text-slate-900 mb-1">
+              Observação importante (para evitar 404)
+            </p>
+            <ul className="space-y-1.5">
+              <li>
+                • Confirme se o arquivo existe em{" "}
+                <code className="px-1 py-0.5 bg-slate-100 rounded">
+                  /public/fichas-tecnicas/caixa-volkswagen.pdf
+                </code>
+                .
+              </li>
+              <li>
+                • Confirme se o guia existe em{" "}
+                <code className="px-1 py-0.5 bg-slate-100 rounded">
+                  /public/fichas-tecnicas/luzes-aviso-vw.pdf
+                </code>
+                .
+              </li>
+              <li>
+                • O nome do arquivo precisa ser idêntico (maiúsculas/minúsculas
+                contam no deploy).
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Navegação final */}
+        <section className="flex flex-wrap gap-3">
+          <Link
+            href="/caminhoes/volkswagen-meteor-highline-29530"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
+          >
+            Voltar ao Meteor 29.530
+          </Link>
+
+          <Link
+            href="/caminhoes"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 transition"
+          >
+            Ver todos os caminhões
+          </Link>
+        </section>
+      </section>
     </main>
   );
 }
