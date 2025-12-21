@@ -402,13 +402,13 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais de apoio (PDF) + Link para página Caixa Volkswagen */}
+        {/* BLOCO FINAL – Materiais de apoio (apenas 2 PDFs) */}
         <section className="mt-10">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Materiais de apoio (PDF) e conteúdo completo
+            Materiais de apoio (PDF)
           </h2>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {/* PDF – Ficha técnica */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
               <h3 className="text-xl font-semibold text-slate-900 mb-2">
@@ -451,7 +451,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 Abrir guia de luzes (PDF)
               </a>
             </div>
-
+                   
             {/* LINK – Página Caixa Volkswagen */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
               <h3 className="text-xl font-semibold text-slate-900 mb-2">
@@ -501,10 +501,8 @@ export default function VolkswagenMeteorHighline29530Page() {
                   Acessar página completa Caixa Volkswagen
                 </Link>
               </div>
-            </div>
-          </section>
-        </section>
+            </section>
       </section>
     </main>
   );
-}
+}      
