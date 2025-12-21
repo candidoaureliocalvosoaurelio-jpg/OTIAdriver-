@@ -434,9 +434,69 @@ export default function VolkswagenConstellation33480Page() {
         Abrir guia de luzes de aviso (PDF)
       </a>
     </div>
-  </div>
-</section>
-</section>
-</main>
+  {/* LINK – Página Caixa Volkswagen */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+              <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                Página completa – Caixa Volkswagen (TRAXON)
+              </h3>
+
+              <p className="text-sm text-slate-700 mb-4">
+                Acesse a página técnica completa com explicação do funcionamento
+                da transmissão V-Tronic, modos de operação, boas práticas e
+                sinais de atenção.
+              </p>
+
+              <Link
+                href="/caminhoes/volkswagen/caixa-volkswagen"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 transition"
+              >
+                Acessar página da Caixa Volkswagen
+              </Link>
+            </div>
+          </div>
+
+          {/* CTA FINAL – Destaque máximo para Caixa Volkswagen */}
+          <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
+            <div className="flex flex-col items-center text-center">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+                Quer se aprofundar na transmissão TRAXON ?
+              </h3>
+
+              <p className="mt-2 max-w-2xl text-slate-300">
+                Acesse o conteúdo completo com funcionamento, modos de operação,
+                boas práticas e pontos de atenção para reduzir consumo e
+                aumentar a vida útil do conjunto.
+              </p>
+
+              <div className="mt-6">
+                <Link
+                  href="/caminhoes/volkswagen/caixa-volkswagen"
+                  className="inline-flex items-center justify-center rounded-2xl
+                             bg-gradient-to-r from-sky-600 to-blue-700
+                             px-12 py-4 text-base font-extrabold text-white
+                             shadow-lg shadow-sky-600/30
+                             hover:from-sky-700 hover:to-blue-800
+                             hover:shadow-xl hover:shadow-sky-700/40
+                             focus:outline-none focus:ring-4 focus:ring-sky-300
+                             transition-all duration-200"
+                >
+                  Acessar página completa Caixa Volkswagen
+                </Link>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        {/* Navegação final */}
+        <section className="flex flex-wrap gap-3">
+          <Link
+            href="/caminhoes"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 transition"
+          >
+            Ver todos os caminhões
+          </Link>
+        </section>
+      </section>
+    </main>
   );
 }
