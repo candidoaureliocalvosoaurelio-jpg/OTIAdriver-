@@ -351,46 +351,35 @@ export default function MercedesArocs3353Page() {
           </div>
         </section>
 
-        {/* CTA FINAL – padrão OTIAdriver */}
-        <section className="mt-14 rounded-3xl bg-[#0f172a] p-8 md:p-10 shadow-xl">
-          <div className="flex flex-col items-center text-center">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
-              Quer aprofundar o estudo do Mercedes-Benz Arocs 3353 S 6x4?
-            </h3>
+       {/* CTA FINAL – Página exclusiva da transmissão Mercedes G340 */}
+<section className="mt-14 rounded-3xl bg-[#0f172a] p-8 md:p-10 shadow-xl">
+  <div className="flex flex-col items-center text-center">
+    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+      Acesse o guia técnico completo da transmissão Mercedes G340
+    </h3>
 
-            <p className="mt-2 max-w-2xl text-slate-200">
-              Use esta página como referência rápida e baixe os materiais oficiais para
-              apoiar treinamento, aplicação e operação severa.
-            </p>
+    <p className="mt-2 max-w-2xl text-slate-200">
+      Página exclusiva com funcionamento detalhado da caixa G340 (12 marchas),
+      modos de operação, recomendações de uso, integração com freio motor
+      e boas práticas para máxima durabilidade e eficiência.
+    </p>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <a
-                href="/fichas-tecnicas/mercedes-arocs-3353s-6x4.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl
-                           bg-gradient-to-r from-amber-300 to-amber-500
-                           px-12 py-4 text-base font-extrabold text-black
-                           shadow-lg shadow-amber-500/20
-                           hover:from-amber-200 hover:to-amber-400
-                           transition-all duration-200"
-              >
-                Baixar ficha técnica Arocs (PDF)
-              </a>
-
-              <Link
-                href="/"
-                className="inline-flex items-center justify-center rounded-2xl
-                           border border-slate-500 bg-transparent
-                           px-10 py-4 text-base font-extrabold text-white
-                           hover:bg-white/10 transition"
-              >
-                Ir para a página inicial
-              </Link>
-            </div>
-          </div>
-        </section>
-      </section>
+    <div className="mt-6">
+      <Link
+        href="/caminhoes/mercedes/g340"
+        className="inline-flex items-center justify-center rounded-2xl
+                   bg-gradient-to-r from-sky-600 to-sky-800
+                   px-12 py-4 text-base font-extrabold text-white
+                   shadow-lg shadow-sky-900/30
+                   hover:from-sky-500 hover:to-sky-700
+                   hover:shadow-xl transition-all duration-200"
+      >
+        Acessar página completa – Caixa Mercedes G340
+      </Link>
+     </div>
+  </div>
+</section>
+</section>
     </main>
   );
 }
