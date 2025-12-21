@@ -237,11 +237,11 @@ export default function CaixaVolkswagenPage() {
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-fuchsia-50">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                  src="/images/caixa/caixa-volkswagen-hero.jpg"
-                  alt="Caixa Volkswagen V-Tronic — comandos e modos"
-                  fill
-                  className="object-cover"
-                  priority
+                src="/images/caixa-volkswagen.png"
+                alt="Caixa de mudanças Volkswagen V-Tronic"
+                fill
+                className="object-contain p-4 md:p-6"
+                priority
                 />
               </div>
             </div>
