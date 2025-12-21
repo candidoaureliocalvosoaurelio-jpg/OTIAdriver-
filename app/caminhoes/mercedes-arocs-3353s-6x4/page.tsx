@@ -270,58 +270,225 @@ export default function MercedesArocs3353Page() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver / IVECO) */}
-<section id="ficha-tecnica" className="mt-10">
-  <div className="grid gap-6 md:grid-cols-2">
+        // app/caminhoes/mercedes/arocs-3353s-6x4/page.tsx
+import Image from "next/image";
+import Link from "next/link";
 
-    {/* Card 1 – Ficha técnica oficial */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Ficha técnica oficial – Mercedes-Benz Arocs 3353 S 6x4 (PDF)
-      </h2>
+type PdfMaterial = {
+  titulo: string;
+  descricao: string;
+  href: string;
+  cta: string;
+};
 
-      <p className="text-sm text-slate-700 mb-4">
-        Consulte a ficha técnica oficial do{" "}
-        <strong>Mercedes-Benz Arocs 3353 S 6x4</strong> com dados completos de
-        motor, transmissão, eixos, capacidades e dimensões para apoiar o correto
-        dimensionamento da frota.
-      </p>
+export default function MercedesArocs3353S6x4Page() {
+  const materiaisPdf: PdfMaterial[] = [
+    {
+      href: "/fichas-tecnicas/mercedes-arocs-3353s-6x4.pdf",
+      titulo: "Ficha técnica oficial – Mercedes-Benz Arocs 3353 S 6x4 (PDF)",
+      descricao:
+        "Consulte a ficha técnica oficial do Mercedes-Benz Arocs 3353 S 6x4 com dados completos de motor, transmissão, eixos, capacidades e dimensões para apoiar o correto dimensionamento da frota.",
+      cta: "Abrir ficha técnica Arocs 3353 S 6x4 (PDF)",
+    },
+    {
+      href: "/fichas-tecnicas/luzes-advertencia-indicadora-mercedes.pdf",
+      titulo: "Luzes de Advertência e Indicadoras – Mercedes-Benz (PDF)",
+      descricao:
+        "Guia oficial de luzes e indicadores do painel dos caminhões Mercedes-Benz. Material essencial para identificar alertas, compreender significados e agir corretamente durante a operação.",
+      cta: "Abrir guia de luzes Mercedes-Benz (PDF)",
+    },
+  ];
 
-      <a
-        href="/fichas-tecnicas/mercedes-arocs-3353s-6x4.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir ficha técnica (PDF)
-      </a>
-    </div>
+  return (
+    <main className="min-h-screen w-full bg-gradient-to-b from-sky-50 via-slate-50 to-white pb-20">
+      {/* HERO */}
+      <section className="w-full bg-white border-b border-slate-200">
+        <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.15fr,0.85fr] gap-10 items-center">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#005B9A] mb-3">
+              Caminhões Mercedes-Benz • Vocacional
+            </p>
 
-    {/* Card 2 – Reservado (opcional) */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Luzes de Advertência e Indicadoras – Mercedes-Benz (PDF)
-      </h2>
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
+              Mercedes-Benz Arocs 3353 S 6x4
+              <span className="block text-[#005B9A] text-xl md:text-2xl mt-1">
+                referência para operação severa e alta disponibilidade
+              </span>
+            </h1>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Guia de luzes de advertência e indicadores do painel Mercedes-Benz.
-        Material essencial para identificar alertas, compreender significados e
-        agir corretamente durante a operação.
-      </p>
+            <p className="text-slate-700 leading-relaxed max-w-2xl">
+              Esta página reúne um resumo técnico do Arocs 3353 S 6x4 e os
+              materiais oficiais em PDF para apoiar aplicação, treinamento e
+              operação em ambientes severos. Use como referência rápida e
+              consulte os PDFs para dados completos e procedimentos.
+            </p>
 
-      <a
-        href="/fichas-tecnicas/luzes-advertencia-indicadora-mercedes.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir guia de luzes (PDF)
-      </a>
-    </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/caminhoes"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-800 transition"
+              >
+                Voltar para caminhões
+              </Link>
 
-  </div>
-</section>
-</section>
+              <Link
+                href="#materiais-pdf"
+                className="inline-flex items-center justify-center rounded-xl border border-sky-200 bg-white px-5 py-2.5 text-sm font-semibold text-[#003057] hover:bg-sky-50 transition"
+              >
+                Ir direto para PDFs
+              </Link>
+            </div>
+          </div>
+
+          {/* Card resumo + imagem */}
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-slate-200 bg-[#001A33] text-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold mb-3">Resumo rápido</h2>
+              <ul className="space-y-2 text-sm text-slate-100">
+                <li>• Configuração 6x4 voltada para aplicações severas</li>
+                <li>• Projeto vocacional: robustez de chassi, tração e suspensão</li>
+                <li>• Operação em canteiros, mineração leve e rotas mistas</li>
+                <li>• Consulte os PDFs para dados homologados e combinações</li>
+              </ul>
+              <p className="mt-4 text-xs text-slate-300">
+                Dica: para evitar paradas, adote rotina de inspeção (pneus, vazamentos,
+                sistemas de freio e acoplamentos) antes de iniciar turnos severos.
+              </p>
+            </div>
+
+            <div className="relative w-full overflow-hidden rounded-3xl bg-white shadow-lg border border-slate-200">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src="/images/trucks/mercedes-arocs.jpg"
+                  alt="Mercedes-Benz Arocs 3353 S 6x4"
+                  fill
+                  className="object-contain p-4"
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  priority
+                />
+              </div>
+            </div>
+
+            <p className="text-[11px] text-slate-500 text-center">
+              Imagem ilustrativa do Mercedes-Benz Arocs. Configurações e opcionais variam conforme aplicação.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CONTEÚDO */}
+      <section className="max-w-6xl mx-auto px-4 mt-10 space-y-10">
+        {/* Bloco: Aplicação */}
+        <section className="rounded-3xl bg-white border border-slate-200 shadow-sm p-6 md:p-8">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3">
+            Onde o Arocs 3353 S 6x4 se destaca
+          </h2>
+          <p className="text-sm md:text-base text-slate-700 leading-relaxed">
+            Em operações severas, a prioridade é disponibilidade, tração e
+            estabilidade do conjunto. Veículos vocacionais como o Arocs são
+            dimensionados para ciclos de carga intensos, pisos irregulares e
+            ambientes com poeira, lama e rampas.
+          </p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-sm font-semibold text-slate-900">Tração e controle</p>
+              <p className="mt-1 text-sm text-slate-700">
+                A configuração 6x4 é indicada para maior aderência e capacidade
+                de avançar em baixa aderência (conforme pneus/condições).
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-sm font-semibold text-slate-900">Chassi vocacional</p>
+              <p className="mt-1 text-sm text-slate-700">
+                Estrutura voltada a implementos pesados, com foco em resistência
+                e integridade em ciclos repetitivos.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <p className="text-sm font-semibold text-slate-900">Produtividade</p>
+              <p className="mt-1 text-sm text-slate-700">
+                Materiais oficiais ajudam a ajustar aplicação, combinações e
+                procedimentos para reduzir falhas e consumo.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+        <section id="materiais-pdf" className="mt-10">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4">
+            Materiais técnicos em PDF
+          </h2>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {materiaisPdf.map((item) => (
+              <div
+                key={item.href}
+                className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]"
+              >
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                  {item.titulo}
+                </h3>
+
+                <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
+
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+                >
+                  {item.cta}
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA FINAL – destaque máximo (padrão Volvo/FH/Scania adaptado para Mercedes) */}
+        <section className="mt-14 rounded-3xl bg-[#001A33] p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Quer aprofundar o estudo do Arocs 3353 S 6x4?
+            </h3>
+
+            <p className="mt-2 max-w-2xl text-slate-200">
+              Use esta página como referência rápida e baixe a ficha técnica oficial e o guia
+              de luzes para apoiar treinamentos, aplicação e operação segura.
+            </p>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <a
+                href="/fichas-tecnicas/mercedes-arocs-3353s-6x4.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-sky-600 to-sky-800
+                           px-12 py-4 text-base font-extrabold text-white
+                           shadow-lg shadow-sky-900/25
+                           hover:from-sky-500 hover:to-sky-700
+                           focus:outline-none focus:ring-4 focus:ring-sky-200
+                           transition-all duration-200"
+              >
+                Baixar ficha técnica Arocs (PDF)
+              </a>
+
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center rounded-2xl
+                           border border-slate-500 bg-transparent
+                           px-10 py-4 text-base font-extrabold text-white
+                           hover:bg-white/10 transition"
+              >
+                Ir para a página inicial
+              </Link>
+            </div>
+          </div>
+        </section>
+      </section>
     </main>
   );
 }
