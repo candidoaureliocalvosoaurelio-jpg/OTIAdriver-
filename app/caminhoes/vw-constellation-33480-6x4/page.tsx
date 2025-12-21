@@ -25,7 +25,7 @@ export default function VolkswagenConstellation33480Page() {
               O <strong>VW Constellation 33.480 6x4</strong> foi projetado para
               operações vocacionais severas, combinando o motor{" "}
               <strong>MAN D26 de 13 litros</strong>, transmissão automatizada{" "}
-              <strong>V-Tronic de 12 marchas</strong> e o novo{" "}
+              <strong>TRAXON de 12 marchas</strong> e o novo{" "}
               <strong>Pacote Off-Road de série</strong>, com foco em robustez,
               conforto e alta disponibilidade em qualquer terreno.
             </p>
@@ -142,10 +142,10 @@ export default function VolkswagenConstellation33480Page() {
           </div>
         </section>
 
-        {/* 2 – Transmissão V-Tronic e funções Off-Road */}
+        {/* 2 – Transmissão TRAXON e funções Off-Road */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Transmissão automatizada V-Tronic com funções Rock-free e Off-Road
+            Transmissão automatizada TRAXON com funções Rock-free e Off-Road
           </h2>
           <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
@@ -153,7 +153,7 @@ export default function VolkswagenConstellation33480Page() {
                 Caixa ZF 12TX 2824 TO
               </p>
               <p>
-                Transmissão automatizada <strong>V-Tronic de 12 marchas</strong>,
+                Transmissão automatizada <strong>TRAXON de 12 marchas</strong>,
                 dimensionada para aplicações extrapesadas, com relações
                 adequadas para arrancadas com carga máxima.
               </p>
@@ -329,7 +329,7 @@ export default function VolkswagenConstellation33480Page() {
                     Transmissão
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    Automatizada V-Tronic – ZF 12TX 2824 TO, 12 marchas, com
+                    Automatizada TRAXON – ZF 12TX 2824 TO, 12 marchas, com
                     funções Rock-free e Off-Road para otimização de tração.
                   </td>
                 </tr>
