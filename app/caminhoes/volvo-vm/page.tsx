@@ -534,48 +534,37 @@ export default function VolvoVmPage() {
           </div>
         </section>
 
-        {/* CTA FINAL – destaque máximo (padrão FH/Scania Super, Volvo) */}
-        <section className="mt-14 rounded-3xl bg-[#001A33] p-8 md:p-10 shadow-xl">
-          <div className="flex flex-col items-center text-center">
-            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
-              Quer aprofundar o estudo do Volvo VM / VMX?
-            </h3>
+        {/* CTA FINAL – Destaque Máximo (I-Shift) */}
+<section className="mt-14 rounded-3xl bg-[#001A33] p-8 md:p-10 shadow-xl">
+  <div className="flex flex-col items-center text-center">
+    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+      Acesse o guia técnico completo da transmissão I-Shift
+    </h3>
 
-            <p className="mt-2 max-w-2xl text-slate-200">
-              Use esta página como referência rápida e baixe as fichas técnicas oficiais
-              para apoiar treinamentos, aplicação e operação — do urbano ao vocacional.
-            </p>
+    <p className="mt-2 max-w-2xl text-slate-200">
+      Página exclusiva com funcionamento detalhado, modos de operação, símbolos do painel,
+      integração com freio motor/retarder e boas práticas de condução para máxima eficiência
+      e segurança nos caminhões Volvo.
+    </p>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <a
-                href="/fichas-tecnicas/volvo-vm-6x2r.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-2xl
-                           bg-gradient-to-r from-[#005B9A] to-[#003057]
-                           px-12 py-4 text-base font-extrabold text-white
-                           shadow-lg shadow-[#005B9A]/30
-                           hover:from-[#004B80] hover:to-[#00284A]
-                           hover:shadow-xl hover:shadow-[#005B9A]/40
-                           focus:outline-none focus:ring-4 focus:ring-[#8FC6FF]
-                           transition-all duration-200"
-              >
-                Baixar ficha técnica VM 6x2R (PDF)
-              </a>
-
-              <Link
-                href="/"
-                className="inline-flex items-center justify-center rounded-2xl
-                           border border-slate-500 bg-transparent
-                           px-10 py-4 text-base font-extrabold text-white
-                           hover:bg-white/10 transition"
-              >
-                Ir para a página inicial
-              </Link>
-            </div>
-          </div>
-        </section>
-      </section>
+    <div className="mt-6">
+      <Link
+        href="/caminhoes/volvo/i-shift"
+        className="inline-flex items-center justify-center rounded-2xl
+                   bg-gradient-to-r from-[#005B9A] to-[#003057]
+                   px-12 py-4 text-base font-extrabold text-white
+                   shadow-lg shadow-[#005B9A]/30
+                   hover:from-[#004B80] hover:to-[#00284A]
+                   hover:shadow-xl hover:shadow-[#005B9A]/40
+                   focus:outline-none focus:ring-4 focus:ring-[#8FC6FF]
+                   transition-all duration-200"
+      >
+        Acessar página completa I-Shift
+      </Link>
+    </div>
+  </div>
+</section>
+</section>
     </main>
   );
 }
