@@ -36,15 +36,33 @@ function getSymbols() {
   }));
 }
 
-// Gera páginas estáticas para todos os IDs conhecidos
+// Mesmo padrão usado na lista (evita inconsistência e rota insegura)
+function toSafeSlug(input: string) {
+  const raw = String(input ?? "");
+
+  // 1) remove acentos
+  const noAccents = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // 2) padroniza para minúsculo e troca espaços por hífen
+  const dashed = noAccents.toLowerCase().trim().replace(/\s+/g, "-");
+
+  // 3) permite apenas a-z, 0-9, hífen e underscore
+  const safe = dashed.replace(/[^a-z0-9_-]/g, "");
+
+  return safe || "desconhecido";
+}
+
+// Gera páginas estáticas para todos os slugs (compatível com a lista)
 export function generateStaticParams() {
-  return symbolData.map((s) => ({ id: String(s.id) }));
+  return symbolData.map((s) => ({ id: toSafeSlug(s.slug) }));
 }
 
 export default function SymbolPage({ params }: SymbolPageProps) {
-  const { id } = params;
-  const numericId = Number(id);
-  const symbol = symbolData.find((s) => s.id === numericId);
+  // sanitiza o parâmetro da rota por segurança/consistência
+  const safeId = toSafeSlug(params.id);
+
+  // agora buscamos por slug (não por número)
+  const symbol = symbolData.find((s) => toSafeSlug(s.slug) === safeId);
 
   if (!symbol) {
     return (
@@ -63,7 +81,11 @@ export default function SymbolPage({ params }: SymbolPageProps) {
   }
 
   const icons = getSymbols();
-  const icon = icons.find((i) => i.baseName === symbol.slug);
+
+  // encontra a imagem pelo slug original (nome de arquivo geralmente bate com slug)
+  const icon = icons.find((i) => toSafeSlug(i.baseName) === toSafeSlug(symbol.slug));
+
+  // fallback: tenta png pelo slug original
   const imageSrc = icon ? icon.path : `/simbolos/${symbol.slug}.png`;
 
   return (
