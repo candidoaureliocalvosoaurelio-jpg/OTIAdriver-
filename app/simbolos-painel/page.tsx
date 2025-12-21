@@ -1,13 +1,12 @@
+// app/simbolos-painel/page.tsx
 import fs from "fs";
 import path from "path";
 import Image from "next/image";
 import Link from "next/link";
 import { symbolData } from "./symbolData";
 
-// Lê os arquivos da pasta /public/simbolos
 function getSymbols() {
   const dir = path.join(process.cwd(), "public", "simbolos");
-
   const entries = fs.readdirSync(dir, { withFileTypes: true });
 
   const imageFiles = entries
@@ -25,125 +24,91 @@ function getSymbols() {
     });
 
   return imageFiles.map((file) => ({
-    file, // ex: simbolo-20.png
+    file,
     path: "/simbolos/" + file,
-    baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(), // ex: simbolo-20
+    baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(),
   }));
 }
 
-// Gera um slug seguro para usar em rotas (evita XSS/injeção no href)
-function toSafeSlug(input: string) {
+function normalizeText(input: string) {
   const raw = String(input ?? "");
-
-  // 1) remove acentos
-  const noAccents = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  // 2) padroniza para minúsculo e troca espaços por hífen
-  const dashed = noAccents.toLowerCase().trim().replace(/\s+/g, "-");
-
-  // 3) permite apenas a-z, 0-9, hífen e underscore
-  const safe = dashed.replace(/[^a-z0-9_-]/g, "");
-
-  // fallback para evitar rota vazia
-  return safe || "desconhecido";
+  return raw
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
 }
 
-export default function SimbolosPainelPage() {
+export default function SimbolosPainelPage({
+  searchParams,
+}: {
+  searchParams?: { q?: string };
+}) {
   const icons = getSymbols();
+  const q = normalizeText(searchParams?.q ?? "");
+
+  const filtered = q
+    ? icons.filter((icon) => {
+        const meta = symbolData.find((s) => s.slug === icon.baseName);
+        const label = meta?.title ?? icon.baseName;
+        return normalizeText(label).includes(q) || normalizeText(icon.baseName).includes(q);
+      })
+    : icons;
 
   return (
     <main className="w-full bg-white">
       <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-        {/* ====================== TABELA DE CORES ====================== */}
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl mb-6">
+        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl mb-4">
           Classificação por Cor das Luzes de Aviso
         </h1>
 
-        <div className="overflow-hidden rounded-xl border bg-gray-50 shadow-sm mb-12">
-          <table className="w-full text-left text-gray-800">
-            <thead className="bg-white border-b">
-              <tr>
-                <th className="py-3 px-4 font-semibold">Cor</th>
-                <th className="py-3 px-4 font-semibold">Significado</th>
-                <th className="py-3 px-4 font-semibold">Ação Recomendada</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Vermelho */}
-              <tr className="border-b">
-                <td className="py-4 px-4 font-semibold flex items-center gap-2">
-                  Vermelho <span className="text-lg">🔴</span>
-                </td>
-                <td className="py-4 px-4">
-                  Emergência/Falha Grave. Risco imediato à segurança ou danos ao
-                  veículo.
-                </td>
-                <td className="py-4 px-4">
-                  Parada Imediata em local seguro e desligamento do motor.
-                  Necessidade de reparo urgente.
-                </td>
-              </tr>
+        {/* Busca */}
+        <form className="mb-8" method="GET" action="/simbolos-painel">
+          <label className="block text-sm font-semibold text-slate-900 mb-2">
+            Buscar símbolo
+          </label>
+          <div className="flex gap-2">
+            <input
+              name="q"
+              defaultValue={searchParams?.q ?? ""}
+              placeholder="Ex.: ABS, ESC, Controle de tração..."
+              className="w-full rounded-lg border border-slate-300 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-400"
+            />
+            <button
+              type="submit"
+              className="rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white hover:bg-sky-700 transition"
+            >
+              Buscar
+            </button>
+          </div>
+          {q ? (
+            <p className="mt-2 text-xs text-slate-600">
+              Mostrando resultados para: <span className="font-semibold">{searchParams?.q}</span>{" "}
+              — <Link className="text-sky-700 hover:underline" href="/simbolos-painel">limpar</Link>
+            </p>
+          ) : null}
+        </form>
 
-              {/* Amarelo / Laranja */}
-              <tr className="border-b">
-                <td className="py-4 px-4 font-semibold flex items-center gap-2">
-                  Amarelo/Laranja <span className="text-lg">🟡</span>
-                </td>
-                <td className="py-4 px-4">
-                  Advertência/Falha Moderada. Indica um problema que requer
-                  atenção, mas que não impede a continuação da viagem.
-                </td>
-                <td className="py-4 px-4">
-                  Verificar a situação. Pode-se continuar a dirigir com cautela
-                  até um local seguro ou oficina.
-                </td>
-              </tr>
-
-              {/* Verde / Azul / Branco */}
-              <tr>
-                <td className="py-4 px-4 font-semibold flex items-center gap-2">
-                  Verde/Azul/Branco <span className="text-lg">🟢 🔵 ⚪</span>
-                </td>
-                <td className="py-4 px-4">
-                  Informativo/Funcionalidade Ativa. Indica que um sistema está
-                  ligado ou ativo.
-                </td>
-                <td className="py-4 px-4">
-                  Não requer ação de emergência, apenas confirmação do
-                  acionamento.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* ====================== LISTA DE SÍMBOLOS ====================== */}
-        <header className="mb-10" id="topo-simbolos">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Símbolos do Painel
-          </h2>
+        {/* Lista */}
+        <header className="mb-6" id="topo-simbolos">
+          <h2 className="text-xl font-semibold text-gray-900">Símbolos do Painel</h2>
           <p className="mt-2 text-sm text-gray-600">
             Indicadores de segurança, sistemas e alertas do veículo.
           </p>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {icons.map((icon) => {
-            // Encontra título correto pelo slug
+          {filtered.map((icon) => {
             const meta = symbolData.find((s) => s.slug === icon.baseName);
-
             const label = meta?.title ?? icon.baseName;
 
-            // id original (pode vir do JSON ou do nome do arquivo)
-            const rawId = meta ? String(meta.id) : icon.baseName;
-
-            // id sanitizado para rota segura (evita XSS/injeção no href)
-            const safeId = toSafeSlug(rawId);
+            // ✅ sempre link por slug (padrão novo e seguro)
+            const slug = meta?.slug ?? icon.baseName;
 
             return (
               <Link
                 key={icon.file}
-                href={`/simbolos-painel/${safeId}`}
+                href={`/simbolos-painel/${slug}`}
                 className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 hover:shadow-md transition"
               >
                 <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
@@ -157,9 +122,7 @@ export default function SimbolosPainelPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-base font-semibold text-gray-900">
-                    {label}
-                  </h3>
+                  <h3 className="text-base font-semibold text-gray-900">{label}</h3>
                   <p className="text-xs text-gray-500">
                     Toque para ver o significado técnico.
                   </p>
@@ -168,33 +131,37 @@ export default function SimbolosPainelPage() {
             );
           })}
         </div>
-      </section>
 
-      {/* BLOCO FINAL – Material completo (PDF) | padrão OTIAdriver */}
-      <section className="mt-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">
-              Material completo – Luzes de aviso e símbolos (PDF)
-            </h2>
-
-            <p className="text-sm md:text-base text-slate-700 mb-6">
-              Consulte o material completo com a explicação detalhada das luzes
-              de aviso, símbolos de painel e recomendações de ação para cada
-              situação. Ideal para treinamentos, consultas rápidas e apoio ao
-              motorista.
-            </p>
-
-            <a
-              href="/fichas-tecnicas/luzes-aviso-simbolos.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 px-6 py-3 text-sm md:text-base font-semibold text-white hover:bg-sky-700 transition"
-            >
-              Abrir PDF luzes de aviso e símbolos
-            </a>
+        {q && filtered.length === 0 ? (
+          <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-700">
+            Nenhum símbolo encontrado para <span className="font-semibold">{searchParams?.q}</span>.
           </div>
-        </div>
+        ) : null}
+
+        {/* PDF final (seu bloco) */}
+        <section className="mt-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-slate-900 mb-3">
+                Material completo – Luzes de aviso e símbolos (PDF)
+              </h2>
+
+              <p className="text-sm md:text-base text-slate-700 mb-6">
+                Consulte o material completo com a explicação detalhada das luzes de aviso,
+                símbolos de painel e recomendações de ação para cada situação.
+              </p>
+
+              <a
+                href="/fichas-tecnicas/luzes-aviso-simbolos.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center rounded-lg bg-sky-600 px-6 py-3 text-sm md:text-base font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir PDF luzes de aviso e símbolos
+              </a>
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   );
