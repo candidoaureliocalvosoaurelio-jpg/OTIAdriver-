@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { symbolData } from "../symbolData";
 
 type SymbolPageProps = {
@@ -58,10 +59,23 @@ export function generateStaticParams() {
 }
 
 export default function SymbolPage({ params }: SymbolPageProps) {
-  // sanitiza o parâmetro da rota por segurança/consistência
-  const safeId = toSafeSlug(params.id);
+  const rawId = String(params.id ?? "");
 
-  // agora buscamos por slug (não por número)
+  // ✅ Compatibilidade: se vier URL antiga numérica (/simbolos-painel/7),
+  // redireciona para a URL nova por slug (/simbolos-painel/esc).
+  if (/^\d+$/.test(rawId)) {
+    const numericId = Number(rawId);
+    const symbolById = symbolData.find((s) => s.id === numericId);
+
+    if (symbolById?.slug) {
+      redirect(`/simbolos-painel/${toSafeSlug(symbolById.slug)}`);
+    }
+  }
+
+  // ✅ Segurança: sempre sanitiza o parâmetro final
+  const safeId = toSafeSlug(rawId);
+
+  // ✅ Busca por slug (padrão novo)
   const symbol = symbolData.find((s) => toSafeSlug(s.slug) === safeId);
 
   if (!symbol) {
@@ -82,10 +96,11 @@ export default function SymbolPage({ params }: SymbolPageProps) {
 
   const icons = getSymbols();
 
-  // encontra a imagem pelo slug original (nome de arquivo geralmente bate com slug)
-  const icon = icons.find((i) => toSafeSlug(i.baseName) === toSafeSlug(symbol.slug));
+  // encontra a imagem pelo slug (com sanitização para bater com o nome do arquivo)
+  const icon = icons.find(
+    (i) => toSafeSlug(i.baseName) === toSafeSlug(symbol.slug)
+  );
 
-  // fallback: tenta png pelo slug original
   const imageSrc = icon ? icon.path : `/simbolos/${symbol.slug}.png`;
 
   return (
