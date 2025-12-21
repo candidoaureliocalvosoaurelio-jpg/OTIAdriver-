@@ -197,7 +197,7 @@ export default function CaixaVolkswagenPage() {
             </div>
 
             <h1 className="mt-4 text-3xl md:text-4xl font-extrabold leading-tight text-slate-900">
-              Caixa Volkswagen (V-Tronic)
+              Caixa Volkswagen (TRAXON)
               <span className="block text-lg md:text-xl mt-2 text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-fuchsia-600 to-emerald-600">
                 Guia completo: funcionamento, modos, segurança, alertas e
                 manutenção.
@@ -238,7 +238,7 @@ export default function CaixaVolkswagenPage() {
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
                 src="/images/caixa-volkswagen.png"
-                alt="Caixa de mudanças Volkswagen V-Tronic"
+                alt="Caixa de mudanças Volkswagen TRAXON"
                 fill
                 className="object-contain p-4 md:p-6"
                 priority
@@ -247,9 +247,7 @@ export default function CaixaVolkswagenPage() {
             </div>
 
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa — ajuste o caminho em{" "}
               <code className="px-1 rounded bg-slate-100">/public/images/caixa</code>{" "}
-              conforme seus arquivos.
             </div>
           </div>
         </div>
@@ -261,7 +259,7 @@ export default function CaixaVolkswagenPage() {
         <section id="visao-geral" className="scroll-mt-24">
           <SectionTitle
             eyebrow="Fundamentos"
-            title="1) Visão geral — o que é a V-Tronic e por que ela existe"
+            title="1) Visão geral — o que é a TRAXON e por que ela existe"
             subtitle="A transmissão automatizada é uma caixa mecânica com gerenciamento eletrônico da embreagem e das trocas. O objetivo é reduzir esforço do motorista, padronizar condução, proteger o trem de força e melhorar consumo e disponibilidade."
           />
 
