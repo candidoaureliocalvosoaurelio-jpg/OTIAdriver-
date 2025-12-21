@@ -380,153 +380,101 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais em PDF + Link para página Caixa Volkswagen */}
-        <section className="mt-10">
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Materiais de apoio (PDF) e conteúdo completo
-          </h2>
+        {/* BLOCO FINAL – Materiais de apoio (PDF) + Link para página Caixa Volkswagen */}
+<section className="mt-10">
+  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
+    Materiais de apoio (PDF) e conteúdo completo
+  </h2>
 
-          <div className="grid gap-6 md:grid-cols-4">
-            {/* PDF – Ficha técnica */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Ficha técnica oficial – Volkswagen Meteor Highline 29.530 (PDF)
-              </h3>
+  <div className="grid gap-6 md:grid-cols-3">
+    {/* PDF – Ficha técnica */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">
+        Ficha técnica oficial – Volkswagen Meteor Highline 29.530 (PDF)
+      </h3>
+      <p className="text-sm text-slate-700 mb-4">
+        Consulte a ficha técnica oficial com dados completos de motor,
+        transmissão, eixos, capacidades, dimensões e itens de série do{" "}
+        <strong>Meteor Highline 29.530</strong>.
+      </p>
+      <a
+        href="/fichas-tecnicas/volkswagen-meteor-highline-29530.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
 
-              <p className="text-sm text-slate-700 mb-4">
-                Consulte a ficha técnica oficial com dados completos de motor,
-                transmissão, eixos, capacidades, dimensões e itens de série do{" "}
-                <strong>Meteor Highline 29.530</strong>.
-              </p>
+    {/* PDF – Luzes de aviso */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">
+        Luzes de Aviso – Volkswagen Caminhões (PDF)
+      </h3>
+      <p className="text-sm text-slate-700 mb-4">
+        Guia oficial com luzes de aviso e símbolos do painel Volkswagen.
+        Essencial para interpretar alertas e agir corretamente.
+      </p>
+      <a
+        href="/fichas-tecnicas/luzes-aviso-vw.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir guia de luzes (PDF)
+      </a>
+    </div>
 
-              <a
-                href="/fichas-tecnicas/volkswagen-meteor-highline-29530.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir ficha técnica (PDF)
-              </a>
-            </div>
+    {/* LINK – Página Caixa Volkswagen */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">
+        Página completa – Caixa Volkswagen (V-Tronic)
+      </h3>
 
-            {/* PDF – Luzes de aviso */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Luzes de Aviso – Volkswagen Caminhões (PDF)
-              </h3>
+      <p className="text-sm text-slate-700 mb-4">
+        Acesse a página técnica completa com explicação do funcionamento da
+        transmissão V-Tronic, modos de operação, boas práticas e sinais de
+        atenção.
+      </p>
 
-              <p className="text-sm text-slate-700 mb-4">
-                Guia oficial com luzes de aviso e símbolos do painel Volkswagen.
-                Essencial para interpretar alertas e agir corretamente.
-              </p>
+      <Link
+        href="/caminhoes/volkswagen/caixa-volkswagen"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 transition"
+      >
+        Acessar página da Caixa Volkswagen
+      </Link>
+    </div>
+  </div>
 
-              <a
-                href="/fichas-tecnicas/luzes-aviso-vw.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir guia de luzes (PDF)
-              </a>
-            </div>
+  {/* CTA FINAL – Destaque máximo para Caixa Volkswagen */}
+  <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
+    <div className="flex flex-col items-center text-center">
+      <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+        Quer se aprofundar na transmissão V-Tronic?
+      </h3>
 
-            {/* PDF – Caixa Volkswagen (material) */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Material “Caixa Volkswagen” (PDF)
-              </h3>
+      <p className="mt-2 max-w-2xl text-slate-300">
+        Acesse o conteúdo completo com funcionamento, modos de operação,
+        boas práticas e pontos de atenção para reduzir consumo e
+        aumentar a vida útil do conjunto.
+      </p>
 
-              <p className="text-sm text-slate-700 mb-4">
-                Apostila técnica com conceitos de transmissão, modos de operação
-                e boas práticas para obter economia e maior vida útil do
-                conjunto.
-              </p>
-
-              <a
-                href="/fichas-tecnicas/caixa-volkswagen.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir apostila da caixa (PDF)
-              </a>
-            </div>
-
-            {/* LINK – Página Caixa Volkswagen (CTA dentro do grid, padrão) */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Página completa – Caixa Volkswagen (V-Tronic)
-              </h3>
-
-              <p className="text-sm text-slate-700 mb-4">
-                Acesse a página técnica completa com explicação do funcionamento
-                da transmissão, modos, boas práticas, sinais de atenção e FAQ de
-                operação.
-              </p>
-
-              <Link
-                href="/caminhoes/volkswagen/caixa-volkswagen"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 transition"
-              >
-                Acessar página da Caixa Volkswagen
-              </Link>
-            </div>
-          </div>
-
-          {/* CTA FINAL – Destaque máximo Caixa Volkswagen (igual ao estilo do Scania) */}
-          <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
-            <div className="flex flex-col items-center text-center">
-              <h3 className="text-2xl md:text-3xl font-extrabold text-white">
-                Quer se aprofundar na transmissão V-Tronic?
-              </h3>
-              <p className="mt-2 max-w-2xl text-slate-300">
-                Acesse o guia técnico completo com funcionamento, modos de
-                operação, boas práticas e pontos de atenção para reduzir consumo
-                e aumentar a vida útil do conjunto.
-              </p>
-
-              <div className="mt-6">
-                <Link
-                  href="/caminhoes/volkswagen/caixa-volkswagen"
-                  className="inline-flex items-center justify-center rounded-2xl
-                             bg-gradient-to-r from-sky-600 to-blue-700
-                             px-12 py-4 text-base font-extrabold text-white
-                             shadow-lg shadow-sky-600/30
-                             hover:from-sky-700 hover:to-blue-800
-                             hover:shadow-xl hover:shadow-sky-700/40
-                             focus:outline-none focus:ring-4 focus:ring-sky-300
-                             transition-all duration-200"
-                >
-                  Acessar página completa Caixa Volkswagen
-                </Link>
-              </div>
-            </div>
-          </section>
-
-          {/* Observação (para evitar 404) — atualizado (sem os 3 itens) */}
-          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900 mb-1">
-              Observação importante (para evitar 404)
-            </p>
-            <ul className="space-y-1.5">
-              <li>
-                • O nome dos arquivos e pastas precisa ser idêntico
-                (maiúsculas/minúsculas contam no deploy).
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* Navegação final */}
-        <section className="flex flex-wrap gap-3">
-          <Link
-            href="/caminhoes"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 transition"
-          >
-            Ver todos os caminhões
-          </Link>
-        </section>
-      </section>
-    </main>
-  );
-}
+      <div className="mt-6">
+        <Link
+          href="/caminhoes/volkswagen/caixa-volkswagen"
+          className="inline-flex items-center justify-center rounded-2xl
+                     bg-gradient-to-r from-sky-600 to-blue-700
+                     px-12 py-4 text-base font-extrabold text-white
+                     shadow-lg shadow-sky-600/30
+                     hover:from-sky-700 hover:to-blue-800
+                     hover:shadow-xl hover:shadow-sky-700/40
+                     focus:outline-none focus:ring-4 focus:ring-sky-300
+                     transition-all duration-200"
+        >
+          Acessar página completa Caixa Volkswagen
+        </Link>
+      </div>
+    </div>
+  </section>
+</section>
