@@ -542,123 +542,86 @@ export default function DAFXFPage() {
           </div>
         </section>
 
-        {/* Ficha técnica resumida */}
-        <section id="ficha-tecnica">
-          <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Ficha técnica resumida – DAF XF
-          </h2>
-          <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
-            <table className="min-w-full text-sm border-collapse">
-              <tbody>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700 w-44">
-                    Plataforma
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Cavalo-mecânico rodoviário focado em transporte de longa distância,
-                    com cabines Space Cab e Super Space Cab e plataforma Proconve P8 / Euro 6.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Motor
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    PACCAR MX-13 13L, alto torque em baixa rotação, pós-tratamento de emissões e eficiência otimizada.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Potência / torque
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Potências típicas de 480 cv e 530 cv, com torque elevado disponível em rotações baixas.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Transmissão
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Caixa automatizada ZF TraXon 12 velocidades, com EcoRoll e integração ao Controle de Cruzeiro Preditivo.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Eixos traseiros
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Eixos de elevada eficiência com relações mais rápidas (a partir de 2,64), reduzindo rotações em cruzeiro.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Configurações
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Configurações 4x2, 6x2 e 6x4, conforme aplicação, PBTC e tipo de composição.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200 bg-slate-50/60">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Cabines
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Space Cab e Super Space Cab, com foco em ergonomia, área de descanso e qualidade de acabamento.
-                  </td>
-                </tr>
-                <tr className="border-b border-slate-200">
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Segurança
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Sistemas ADAS como ACC, AEBS e LDWS (conforme versão), cabine reforçada e itens de visibilidade.
-                  </td>
-                </tr>
-                <tr>
-                  <th className="text-left px-4 py-3 font-semibold text-slate-700">
-                    Foco operacional
-                  </th>
-                  <td className="px-4 py-3 text-slate-800">
-                    Longa distância com alta eficiência, conforto ao motorista, elevada disponibilidade e baixo TCO.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        {/* BLOCO FINAL – Materiais Técnicos em PDF (padrão OTIAdriver – DAF XF) */}
+<section id="materiais-pdf" className="mt-10">
+  <div className="grid gap-6 md:grid-cols-3">
+    {[
+      {
+        href: "/fichas-tecnicas/daf-xf.pdf",
+        titulo: "Ficha técnica oficial – DAF XF (PDF)",
+        descricao:
+          "Ficha técnica oficial do DAF XF com dados completos de motor, transmissão, eixos, capacidades, dimensões e aplicações.",
+        cta: "Abrir ficha técnica DAF XF (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/caixa-transmissao-daf-xf.pdf",
+        titulo: "Caixa de transmissão – DAF XF (PDF)",
+        descricao:
+          "Guia técnico completo da transmissão do DAF XF, incluindo funcionamento, modos de operação, integração com freio motor e boas práticas de condução.",
+        cta: "Abrir guia da transmissão DAF XF (PDF)",
+      },
+      {
+        href: "/fichas-tecnicas/simbolos-daf.pdf",
+        titulo: "Símbolos do painel – DAF (PDF)",
+        descricao:
+          "Guia oficial dos símbolos e luzes do painel DAF para interpretação correta de alertas e mensagens do veículo.",
+        cta: "Abrir guia de símbolos DAF (PDF)",
+      },
+    ].map((item) => (
+      <div
+        key={item.href}
+        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
+      >
+        <h2 className="text-xl font-semibold text-slate-900 mb-2">{item.titulo}</h2>
 
-          <p className="mt-2 text-xs text-slate-500">
-            *Valores de economia de combustível dependem de configuração, rota, carga, estilo de condução e condições reais de operação.
-          </p>
-        </section>
+        <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
 
-        {/* BLOCO FINAL – Materiais Técnicos em PDF (padronizado, 3 cards) */}
-        <section id="materiais-pdf" className="mt-10">
-          <div className="grid gap-6 md:grid-cols-3">
-            {materiaisPdf.map((item) => (
-              <div
-                key={item.href}
-                className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[240px]"
-              >
-                <h2 className="text-xl font-semibold text-slate-900 mb-2">
-                  {item.titulo}
-                </h2>
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto inline-flex items-center justify-center rounded-lg
+                     bg-[#003A8F] px-5 py-2.5 text-sm font-semibold text-white
+                     hover:bg-[#002F73] transition"
+        >
+          {item.cta}
+        </a>
+      </div>
+    ))}
+  </div>
+</section>
 
-                <p className="text-sm text-slate-700 mb-4">{item.descricao}</p>
+{/* CTA FINAL – Destaque Máximo (DAF XF Transmissão) */}
+<section className="mt-14 rounded-3xl bg-[#0B1C2D] p-8 md:p-10 shadow-xl">
+  <div className="flex flex-col items-center text-center">
+    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+      Acesse o guia técnico completo da transmissão DAF XF
+    </h3>
 
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-                >
-                  {item.cta}
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-      </section>
+    <p className="mt-2 max-w-2xl text-slate-200">
+      Página exclusiva com funcionamento detalhado da caixa de transmissão do DAF XF,
+      modos de operação, integração com freio motor, símbolos do painel e boas práticas
+      para condução eficiente e segura.
+    </p>
+
+    <div className="mt-6">
+      <Link
+        href="/caminhoes/daf/caixa-transmissao-xf"
+        className="inline-flex items-center justify-center rounded-2xl
+                   bg-gradient-to-r from-[#003A8F] to-[#001F4D]
+                   px-12 py-4 text-base font-extrabold text-white
+                   shadow-lg shadow-[#003A8F]/30
+                   hover:from-[#002F73] hover:to-[#001738]
+                   hover:shadow-xl hover:shadow-[#003A8F]/40
+                   focus:outline-none focus:ring-4 focus:ring-[#9BB7FF]
+                   transition-all duration-200"
+      >
+        Acessar página completa – Transmissão DAF XF
+      </Link>
+    </div>
+  </div>
+</section>
+</section>
     </main>
   );
 }
