@@ -1,4 +1,5 @@
 // app/caminhoes/volkswagen/caixa-volkswagen/page.tsx
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -156,7 +157,9 @@ function Accordion({
   const s = toneStyles(tone);
   return (
     <details
-      className={`rounded-2xl border bg-white shadow-sm overflow-hidden ${defaultOpen ? "open" : ""}`}
+      className={`rounded-2xl border bg-white shadow-sm overflow-hidden ${
+        defaultOpen ? "open" : ""
+      }`}
       open={defaultOpen}
     >
       <summary className="list-none cursor-pointer select-none">
@@ -208,7 +211,7 @@ export default function CaixaVolkswagenPage() {
               partida, alertas do sistema e cuidados com óleo e embreagem.
             </p>
 
-            {/* CTAs */}
+            {/* CTA (apenas PDF) */}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="/fichas-tecnicas/caixa-volkswagen.pdf"
@@ -224,16 +227,6 @@ export default function CaixaVolkswagenPage() {
               >
                 Abrir apostila (PDF)
               </a>
-
-              <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center rounded-xl
-                           bg-white border border-slate-200
-                           px-6 py-3 text-sm font-extrabold text-slate-900
-                           hover:bg-slate-50 transition"
-              >
-                Ver todos os caminhhões
-              </Link>
             </div>
 
             <PillNav />
@@ -243,7 +236,6 @@ export default function CaixaVolkswagenPage() {
           <div className="relative w-full max-w-md mx-auto">
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-fuchsia-50">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
-                {/* Se você tiver uma imagem específica, substitua o src abaixo */}
                 <Image
                   src="/images/caixa/caixa-volkswagen-hero.jpg"
                   alt="Caixa Volkswagen V-Tronic — comandos e modos"
@@ -315,7 +307,7 @@ export default function CaixaVolkswagenPage() {
             <InfoCard
               tone="success"
               title="Dica OTIAdriver"
-              desc="Em descidas longas, prefira modo MANUAL para segurar marcha + freio motor. Isso reduz aquecimento de freios e melhora controle."
+              desc='Em descidas longas, prefira modo MANUAL para segurar marcha + freio motor. Isso reduz aquecimento de freios e melhora controle.'
             />
           </div>
         </section>
@@ -459,8 +451,8 @@ export default function CaixaVolkswagenPage() {
 
               <ol className="space-y-2 text-sm text-slate-800">
                 <li>
-                  <strong>1.</strong> Mantenha o <strong>freio de estacionamento</strong>{" "}
-                  acionado.
+                  <strong>1.</strong> Mantenha o{" "}
+                  <strong>freio de estacionamento</strong> acionado.
                 </li>
                 <li>
                   <strong>2.</strong> Ligue a ignição e verifique se aparece{" "}
@@ -527,7 +519,10 @@ export default function CaixaVolkswagenPage() {
           </div>
 
           <div className="mt-6">
-            <Accordion tone="purple" title="Assistência de partida em rampa — como aproveitar">
+            <Accordion
+              tone="purple"
+              title="Assistência de partida em rampa — como aproveitar"
+            >
               <p>
                 A assistência de partida em rampa ajuda a evitar que o veículo
                 recue ao iniciar movimento em aclives, especialmente com carga.
@@ -601,7 +596,11 @@ export default function CaixaVolkswagenPage() {
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Accordion tone="warning" title="Baixa pressão de ar no atuador — impacto nas trocas" defaultOpen>
+            <Accordion
+              tone="warning"
+              title="Baixa pressão de ar no atuador — impacto nas trocas"
+              defaultOpen
+            >
               <p>
                 Se houver baixa pressão de ar no sistema do atuador de mudança,
                 o veículo pode apresentar limitação de funcionamento e o modo
@@ -611,9 +610,7 @@ export default function CaixaVolkswagenPage() {
                 <li>
                   • Verifique possíveis vazamentos e condição do sistema de ar.
                 </li>
-                <li>
-                  • Procure assistência / concessionária o quanto antes.
-                </li>
+                <li>• Procure assistência / concessionária o quanto antes.</li>
                 <li>
                   • Se a pressão continuar caindo, pode não ser possível trocar
                   marchas.
@@ -621,7 +618,10 @@ export default function CaixaVolkswagenPage() {
               </ul>
             </Accordion>
 
-            <Accordion tone="danger" title="Sobrecarga da embreagem — causas e conduta correta">
+            <Accordion
+              tone="danger"
+              title="Sobrecarga da embreagem — causas e conduta correta"
+            >
               <p>
                 A sobrecarga geralmente ocorre por saída em marcha alta, manobras
                 prolongadas, rampas com carga e uso indevido de modos de manobra.
@@ -834,7 +834,7 @@ export default function CaixaVolkswagenPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL — CTA forte (cores novas) */}
+        {/* BLOCO FINAL — CTA forte (somente PDF) */}
         <section className="mt-12 rounded-3xl p-8 md:p-10 shadow-xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950">
           <div className="flex flex-col items-center text-center">
             <h3 className="text-2xl md:text-3xl font-extrabold text-white">
@@ -860,50 +860,23 @@ export default function CaixaVolkswagenPage() {
               >
                 Abrir apostila da Caixa (PDF)
               </a>
-
-              <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center rounded-2xl
-                           bg-white/10 border border-white/15
-                           px-10 py-4 text-base font-extrabold text-white
-                           hover:bg-white/15 transition"
-              >
-                Ver caminhões
-              </Link>
             </div>
 
             <p className="mt-4 text-xs text-slate-400">
-              Dica: se aparecer alerta crítico (pressão de ar / embreagem), reduza
-              exigência e procure assistência especializada.
+              Dica: se aparecer alerta crítico (pressão de ar / embreagem),
+              reduza exigência e procure assistência especializada.
             </p>
           </div>
         </section>
 
-        {/* Observação para evitar 404 */}
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="font-extrabold text-slate-900">
-            Observação importante (para evitar 404)
-          </p>
-          <ul className="mt-2 text-sm text-slate-700 space-y-1.5">
-            <li>
-              • Confirme se o PDF existe em{" "}
-              <code className="px-1 rounded bg-slate-100">
-                /public/fichas-tecnicas/caixa-volkswagen.pdf
-              </code>
-              .
-            </li>
-            <li>
-              • Confirme se a imagem do hero existe em{" "}
-              <code className="px-1 rounded bg-slate-100">
-                /public/images/caixa/caixa-volkswagen-hero.jpg
-              </code>{" "}
-              (ou ajuste o caminho).
-            </li>
-            <li>
-              • Nomes de arquivos e pastas precisam ser idênticos (maiúsculas e
-              minúsculas contam no deploy).
-            </li>
-          </ul>
+        {/* Navegação discreta (opcional) */}
+        <section className="flex flex-wrap gap-3">
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 transition"
+          >
+            Ir para a página inicial
+          </Link>
         </section>
       </section>
     </main>
