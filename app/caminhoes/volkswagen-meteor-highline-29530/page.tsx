@@ -503,33 +503,12 @@ export default function VolkswagenMeteorHighline29530Page() {
             </div>
           </section>
 
-          {/* Observação (para evitar 404) */}
+          {/* Observação (para evitar 404) — atualizado (sem os 3 itens) */}
           <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700">
             <p className="font-semibold text-slate-900 mb-1">
               Observação importante (para evitar 404)
             </p>
             <ul className="space-y-1.5">
-              <li>
-                • Confirme se o PDF da caixa existe em{" "}
-                <code className="px-1 py-0.5 bg-slate-100 rounded">
-                  /public/fichas-tecnicas/caixa-volkswagen.pdf
-                </code>
-                .
-              </li>
-              <li>
-                • Confirme se o guia existe em{" "}
-                <code className="px-1 py-0.5 bg-slate-100 rounded">
-                  /public/fichas-tecnicas/luzes-aviso-vw.pdf
-                </code>
-                .
-              </li>
-              <li>
-                • Confirme se a rota da página existe em{" "}
-                <code className="px-1 py-0.5 bg-slate-100 rounded">
-                  /caminhoes/volkswagen/caixa-volkswagen
-                </code>
-                .
-              </li>
               <li>
                 • O nome dos arquivos e pastas precisa ser idêntico
                 (maiúsculas/minúsculas contam no deploy).
