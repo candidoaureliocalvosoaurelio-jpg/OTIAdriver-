@@ -429,42 +429,8 @@ export default function VolkswagenMeteorHighline29530Page() {
                 Abrir guia de luzes (PDF)
               </a>
             </div>
-
-            {/* PDF – Caixa Volkswagen (material) */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Material “Caixa Volkswagen” (PDF)
-              </h3>
-
-              <p className="text-sm text-slate-700 mb-4">
-                Apostila técnica com conceitos de transmissão, modos de operação
-                e boas práticas para obter economia e maior vida útil do
-                conjunto.
-              </p>
-
-              <a
-                href="/fichas-tecnicas/caixa-volkswagen.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir apostila da caixa (PDF)
-              </a>
-            </div>
-
-            {/* LINK – Página Caixa Volkswagen (CTA dentro do grid, padrão) */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Página completa – Caixa Volkswagen (V-Tronic)
-              </h3>
-
-              <p className="text-sm text-slate-700 mb-4">
-                Acesse a página técnica completa com explicação do funcionamento
-                da transmissão, modos, boas práticas, sinais de atenção e FAQ de
-                operação.
-              </p>
-
-              <Link
+            
+            <Link
                 href="/caminhoes/volkswagen/caixa-volkswagen"
                 className="mt-auto inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 transition"
               >
@@ -503,21 +469,7 @@ export default function VolkswagenMeteorHighline29530Page() {
             </div>
           </section>
 
-          {/* Observação (para evitar 404) — atualizado (sem os 3 itens) */}
-          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900 mb-1">
-              Observação importante (para evitar 404)
-            </p>
-            <ul className="space-y-1.5">
-              <li>
-                • O nome dos arquivos e pastas precisa ser idêntico
-                (maiúsculas/minúsculas contam no deploy).
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* Navegação final */}
+          {/* Navegação final */}
         <section className="flex flex-wrap gap-3">
           <Link
             href="/caminhoes"
