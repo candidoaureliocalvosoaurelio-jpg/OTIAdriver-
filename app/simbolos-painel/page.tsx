@@ -1,8 +1,27 @@
+// app/simbolos-painel/page.tsx
 import fs from "fs";
 import path from "path";
 import Image from "next/image";
 import Link from "next/link";
 import { symbolData } from "./symbolData";
+
+// =====================
+// Segurança: sanitização explícita (CodeQL / XSS)
+// =====================
+function toSafeSlug(input: string) {
+  const raw = String(input ?? "");
+
+  // remove acentos
+  const noAccents = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  // lowercase + espaços → hífen
+  const dashed = noAccents.toLowerCase().trim().replace(/\s+/g, "-");
+
+  // remove QUALQUER caractere perigoso (somente a-z 0-9 _ -)
+  const safe = dashed.replace(/[^a-z0-9_-]/g, "");
+
+  return safe || "desconhecido";
+}
 
 // Lê os arquivos da pasta /public/simbolos
 function getSymbols() {
@@ -29,23 +48,6 @@ function getSymbols() {
     path: "/simbolos/" + file,
     baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(), // ex: simbolo-20
   }));
-}
-
-// Gera um slug seguro para usar em rotas (evita XSS/injeção no href)
-function toSafeSlug(input: string) {
-  const raw = String(input ?? "");
-
-  // 1) remove acentos
-  const noAccents = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-  // 2) padroniza para minúsculo e troca espaços por hífen
-  const dashed = noAccents.toLowerCase().trim().replace(/\s+/g, "-");
-
-  // 3) permite apenas a-z, 0-9, hífen e underscore
-  const safe = dashed.replace(/[^a-z0-9_-]/g, "");
-
-  // fallback para evitar rota vazia
-  return safe || "desconhecido";
 }
 
 export default function SimbolosPainelPage() {
@@ -129,21 +131,19 @@ export default function SimbolosPainelPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {icons.map((icon) => {
-            // Encontra título correto pelo slug
+            // Encontra metadados pelo slug/baseName
             const meta = symbolData.find((s) => s.slug === icon.baseName);
 
             const label = meta?.title ?? icon.baseName;
 
-            // id original (pode vir do JSON ou do nome do arquivo)
-            const rawId = meta ? String(meta.id) : icon.baseName;
-
-            // id sanitizado para rota segura (evita XSS/injeção no href)
-            const safeId = toSafeSlug(rawId);
+            // IMPORTANTÍSSIMO: sanitizar o slug antes de usar no href
+            const rawSlug = meta?.slug ?? icon.baseName;
+            const safeSlug = toSafeSlug(rawSlug);
 
             return (
               <Link
                 key={icon.file}
-                href={`/simbolos-painel/${safeId}`}
+                href={`/simbolos-painel/${safeSlug}`}
                 className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 hover:shadow-md transition"
               >
                 <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
@@ -171,7 +171,7 @@ export default function SimbolosPainelPage() {
       </section>
 
       {/* BLOCO FINAL – Material completo (PDF) | padrão OTIAdriver */}
-      <section className="mt-12">
+      <section className="mt-12 pb-16">
         <div className="max-w-6xl mx-auto px-4">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
             <h2 className="text-2xl font-bold text-slate-900 mb-3">
