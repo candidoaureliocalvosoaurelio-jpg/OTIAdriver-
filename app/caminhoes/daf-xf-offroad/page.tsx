@@ -1,3 +1,4 @@
+// app/caminhoes/daf-xf-offroad/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,35 +11,35 @@ type PdfMaterial = {
 
 export default function DAFXFOffRoadPage() {
   const materiaisPdf: PdfMaterial[] = [
-  {
-    titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
-    descricao:
-      "Consulte os dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
-    href: "/fichas-tecnicas/daf-xf-offroad.pdf",
-    cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
-  },
-  {
-    titulo: "Guia de Interruptores DAF (PDF)",
-    descricao:
-      "Material com identificação dos interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
-    href: "/fichas-tecnicas/Interruptores-DAF.pdf",
-    cta: "Abrir guia de interruptores (PDF)",
-  },
-  {
-    titulo: "Luzes do Painel – Caminhões DAF (PDF)",
-    descricao:
-      "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente durante a operação.",
-    href: "/fichas-tecnicas/luzes-painel-DAF.pdf",
-    cta: "Abrir guia de luzes do painel (PDF)",
-  },
-  {
-    titulo: "Regeneração do Filtro DPF – DAF (PDF)",
-    descricao:
-      "Entenda o funcionamento da regeneração do filtro DPF nos caminhões DAF, incluindo tipos de regeneração, alertas no painel e procedimentos corretos de condução.",
-    href: "/fichas-tecnicas/regeneração-filtro-dpf-daf.pdf",
-    cta: "Abrir guia de regeneração DPF (PDF)",
-  },
-];
+    {
+      titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
+      descricao:
+        "Dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
+      href: "/fichas-tecnicas/daf-xf-offroad.pdf",
+      cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
+    },
+    {
+      titulo: "Guia de Interruptores DAF (PDF)",
+      descricao:
+        "Identificação de interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
+      href: "/fichas-tecnicas/interruptores-daf.pdf",
+      cta: "Abrir guia de interruptores (PDF)",
+    },
+    {
+      titulo: "Luzes do Painel – Caminhões DAF (PDF)",
+      descricao:
+        "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente durante a operação.",
+      href: "/fichas-tecnicas/luzes-painel-daf.pdf",
+      cta: "Abrir guia de luzes do painel (PDF)",
+    },
+    {
+      titulo: "Regeneração do Filtro DPF – DAF (PDF)",
+      descricao:
+        "Funcionamento da regeneração do filtro DPF nos caminhões DAF: tipos de regeneração, alertas no painel e procedimentos corretos de condução.",
+      href: "/fichas-tecnicas/regeneracao-filtro-dpf-daf.pdf",
+      cta: "Abrir guia de regeneração DPF (PDF)",
+    },
+  ];
 
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-20">
@@ -112,6 +113,13 @@ export default function DAFXFOffRoadPage() {
                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition"
               >
                 Ver ficha técnica resumida
+              </Link>
+
+              <Link
+                href="/caminhoes"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition"
+              >
+                Voltar para caminhões
               </Link>
             </div>
           </div>
@@ -195,8 +203,8 @@ export default function DAFXFOffRoadPage() {
                 TraXon Off-Road
               </p>
               <p>
-                Software específico que prioriza tração e momentum, evitando
-                perda de força em subidas fortes ou lama.
+                Software específico que prioriza tração e momentum, reduzindo
+                perda de força em rampas fortes e baixa aderência.
               </p>
             </div>
 
@@ -205,8 +213,8 @@ export default function DAFXFOffRoadPage() {
                 Bloqueios
               </p>
               <p>
-                Bloqueio de diferencial e estratégias de controle para reduzir
-                patinagem e manter o caminhão em movimento em baixa aderência.
+                Estratégias de bloqueio de diferencial e controle para reduzir
+                patinagem e manter o caminhão em movimento.
               </p>
             </div>
 
@@ -215,8 +223,8 @@ export default function DAFXFOffRoadPage() {
                 Robustez do conjunto
               </p>
               <p>
-                Itens reforçados e foco em durabilidade para suportar carga,
-                poeira, lama e ciclos intensos de operação.
+                Componentes reforçados e foco em durabilidade para suportar
+                poeira, lama, carga alta e ciclos intensos.
               </p>
             </div>
           </div>
@@ -240,8 +248,8 @@ export default function DAFXFOffRoadPage() {
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
               <h3 className="font-semibold mb-2">Mineração</h3>
               <p>
-                Operações em vias não pavimentadas, cascalho e rampas com carga,
-                exigindo robustez e freio auxiliar eficiente.
+                Operações em vias não pavimentadas e rampas com carga, exigindo
+                robustez e freio auxiliar eficiente.
               </p>
             </div>
 
@@ -315,34 +323,77 @@ export default function DAFXFOffRoadPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais Técnicos em PDF */}
-<section id="materiais-pdf" className="mt-10">
-  <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
-    Materiais técnicos em PDF
-  </h2>
+        {/* BLOCO FINAL – Materiais Técnicos em PDF (cards padronizados) */}
+        <section id="materiais-pdf" className="mt-10">
+          <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
+            Materiais técnicos em PDF
+          </h2>
 
-  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {materiaisPdf.map((m) => (
-      <div
-        key={m.href}
-        className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]"
-      >
-        <h3 className="text-xl font-semibold text-slate-900 mb-2">{m.titulo}</h3>
-        <p className="text-sm text-slate-700 mb-4">{m.descricao}</p>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {materiaisPdf.map((m) => (
+              <div
+                key={m.href}
+                className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[260px]"
+              >
+                <h3 className="text-xl font-semibold text-slate-900 mb-2">
+                  {m.titulo}
+                </h3>
+                <p className="text-sm text-slate-700 mb-4">{m.descricao}</p>
 
-        <a
-          href={m.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-        >
-          {m.cta}
-        </a>
-      </div>
-    ))}
-  </div>
-</section>
-</section>
+                <a
+                  href={m.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+                >
+                  {m.cta}
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA FINAL – destaque máximo (OTIAdriver/DAF) */}
+        <section className="mt-14 rounded-3xl bg-[#0f172a] p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Quer aprofundar o estudo do DAF XF OFF-ROAD?
+            </h3>
+
+            <p className="mt-2 max-w-2xl text-slate-200">
+              Use esta página como referência rápida e acesse a ficha técnica e
+              guias operacionais para apoiar treinamento, aplicação e operação
+              severa.
+            </p>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <a
+                href="/fichas-tecnicas/daf-xf-offroad.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-amber-300 to-amber-500
+                           px-12 py-4 text-base font-extrabold text-black
+                           shadow-lg shadow-amber-500/20
+                           hover:from-amber-200 hover:to-amber-400
+                           transition-all duration-200"
+              >
+                Baixar ficha técnica XF OFF-ROAD (PDF)
+              </a>
+
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center rounded-2xl
+                           border border-slate-500 bg-transparent
+                           px-10 py-4 text-base font-extrabold text-white
+                           hover:bg-white/10 transition"
+              >
+                Ir para a página inicial
+              </Link>
+            </div>
+          </div>
+        </section>
+      </section>
     </main>
   );
 }
