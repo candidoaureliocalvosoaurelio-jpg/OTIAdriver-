@@ -1,5 +1,4 @@
 // app/caminhoes/volkswagen-meteor-highline-29530/page.tsx
-// (com o link para a página "caixa-volkswagen" no mesmo padrão do bloco Scania)
 
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +14,7 @@ export default function VolkswagenMeteorHighline29530Page() {
             <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Linha Extrapesada Conectada
             </p>
+
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               Volkswagen Meteor Highline 29.530
               <span className="block text-sky-600 text-xl md:text-2xl mt-1">
@@ -40,6 +40,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 <p className="text-lg font-bold text-slate-900">530 cv</p>
                 <p className="text-[11px] text-slate-600">MAN D26, 13 litros</p>
               </div>
+
               <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-sky-700">
                   Torque
@@ -49,6 +50,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                   Faixa útil entre 930–1.350 rpm
                 </p>
               </div>
+
               <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-emerald-700">
                   PBTC homologado
@@ -84,6 +86,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 />
               </div>
             </div>
+
             <div className="mt-3 text-[11px] text-slate-500 text-center">
               Imagem ilustrativa Volkswagen Meteor Highline 29.530 6x4 —
               aplicação rodoviária extrapesada.
@@ -100,6 +103,7 @@ export default function VolkswagenMeteorHighline29530Page() {
             <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-3">
               Trem de força MAN D26 – potência com eficiência
             </h2>
+
             <p className="text-sm md:text-base text-slate-700 mb-3">
               O Meteor 29.530 é impulsionado pelo motor{" "}
               <strong>MAN D26 de 13 litros</strong>, desenvolvido para unir alta
@@ -108,6 +112,7 @@ export default function VolkswagenMeteorHighline29530Page() {
               utilizando combinação de EGR e SCR para controle de emissões sem
               abrir mão da performance.
             </p>
+
             <p className="text-sm md:text-base text-slate-700">
               A faixa de torque plano, com até{" "}
               <strong>2.600 Nm entre 930 e 1.350 rpm</strong>, favorece
@@ -128,6 +133,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 <li>• Curva de torque ampla para melhor dirigibilidade.</li>
               </ul>
             </div>
+
             <div className="bg-sky-50 rounded-2xl border border-sky-100 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
                 Eficiência energética
@@ -146,6 +152,7 @@ export default function VolkswagenMeteorHighline29530Page() {
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Transmissão V-Tronic de 12 marchas – inteligência nas trocas
           </h2>
+
           <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
               <p className="text-sm text-slate-700 mb-3">
@@ -154,6 +161,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 sinergia com o motor MAN D26, aplicando estratégias de troca que
                 priorizam eficiência, conforto e proteção do trem de força.
               </p>
+
               <ul className="text-sm text-slate-700 space-y-2">
                 <li>
                   <strong>Software de trocas preditivas:</strong> recurso que
@@ -196,6 +204,7 @@ export default function VolkswagenMeteorHighline29530Page() {
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Painel digital, multimídia e conectividade de última geração
           </h2>
+
           <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
@@ -207,6 +216,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 monitoramento do veículo e da viagem.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Central multimídia 7"
@@ -217,6 +227,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 de voz como Google e Siri.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Conectividade e gestão
@@ -241,6 +252,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 da operação.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-sm text-slate-800">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Carregador por indução
@@ -259,6 +271,7 @@ export default function VolkswagenMeteorHighline29530Page() {
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Conforto a bordo, suspensão pneumática e aplicações ideais
           </h2>
+
           <div className="grid md:grid-cols-2 gap-6 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
@@ -274,6 +287,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                 </li>
               </ul>
             </div>
+
             <div className="bg-sky-50 rounded-2xl border border-sky-100 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
                 Suspensão e aplicação
@@ -293,11 +307,12 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* Bloco 5 – Ficha técnica resumida (cabeçalho azul-claro) */}
+        {/* Bloco 5 – Ficha técnica resumida */}
         <section id="ficha-tecnica">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Volkswagen Meteor Highline 29.530
           </h2>
+
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
               <tbody>
@@ -310,6 +325,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     baixa rotação e atendimento ao Proconve P8.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Potência
@@ -318,6 +334,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     Aproximadamente 530 cv em 1.800 rpm.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Torque
@@ -327,6 +344,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     favorecendo desempenho em rampas com composições pesadas.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Transmissão
@@ -336,6 +354,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     preditivas e modos específicos para economia de combustível.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Tração / PBTC
@@ -346,6 +365,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     extrapesadas.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Suspensão
@@ -355,6 +375,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     por eixo e controle eletrônico de distribuição de carga.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Cabine
@@ -365,6 +386,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     viagens longas.
                   </td>
                 </tr>
+
                 <tr>
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Foco operacional
@@ -380,13 +402,13 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais em PDF + Link para página Caixa Volkswagen */}
+        {/* BLOCO FINAL – Materiais de apoio (PDF) + Link para página Caixa Volkswagen */}
         <section className="mt-10">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Materiais de apoio (PDF) e conteúdo completo
           </h2>
 
-          <div className="grid gap-6 md:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-3">
             {/* PDF – Ficha técnica */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
               <h3 className="text-xl font-semibold text-slate-900 mb-2">
@@ -430,29 +452,7 @@ export default function VolkswagenMeteorHighline29530Page() {
               </a>
             </div>
 
-            {/* PDF – Caixa Volkswagen (material) */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-              <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Material “Caixa Volkswagen” (PDF)
-              </h3>
-
-              <p className="text-sm text-slate-700 mb-4">
-                Apostila técnica com conceitos de transmissão, modos de operação
-                e boas práticas para obter economia e maior vida útil do
-                conjunto.
-              </p>
-
-              <a
-                href="/fichas-tecnicas/caixa-volkswagen.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-              >
-                Abrir apostila da caixa (PDF)
-              </a>
-            </div>
-
-            {/* LINK – Página Caixa Volkswagen (CTA dentro do grid, padrão) */}
+            {/* LINK – Página Caixa Volkswagen */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
               <h3 className="text-xl font-semibold text-slate-900 mb-2">
                 Página completa – Caixa Volkswagen (V-Tronic)
@@ -460,8 +460,8 @@ export default function VolkswagenMeteorHighline29530Page() {
 
               <p className="text-sm text-slate-700 mb-4">
                 Acesse a página técnica completa com explicação do funcionamento
-                da transmissão, modos, boas práticas, sinais de atenção e FAQ de
-                operação.
+                da transmissão V-Tronic, modos de operação, boas práticas e
+                sinais de atenção.
               </p>
 
               <Link
@@ -473,16 +473,17 @@ export default function VolkswagenMeteorHighline29530Page() {
             </div>
           </div>
 
-          {/* CTA FINAL – Destaque máximo Caixa Volkswagen (igual ao estilo do Scania) */}
+          {/* CTA FINAL – Destaque máximo para Caixa Volkswagen */}
           <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
             <div className="flex flex-col items-center text-center">
               <h3 className="text-2xl md:text-3xl font-extrabold text-white">
                 Quer se aprofundar na transmissão V-Tronic?
               </h3>
+
               <p className="mt-2 max-w-2xl text-slate-300">
-                Acesse o guia técnico completo com funcionamento, modos de
-                operação, boas práticas e pontos de atenção para reduzir consumo
-                e aumentar a vida útil do conjunto.
+                Acesse o conteúdo completo com funcionamento, modos de operação,
+                boas práticas e pontos de atenção para reduzir consumo e
+                aumentar a vida útil do conjunto.
               </p>
 
               <div className="mt-6">
@@ -502,29 +503,6 @@ export default function VolkswagenMeteorHighline29530Page() {
               </div>
             </div>
           </section>
-
-          {/* Observação (para evitar 404) — atualizado (sem os 3 itens) */}
-          <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-700">
-            <p className="font-semibold text-slate-900 mb-1">
-              Observação importante (para evitar 404)
-            </p>
-            <ul className="space-y-1.5">
-              <li>
-                • O nome dos arquivos e pastas precisa ser idêntico
-                (maiúsculas/minúsculas contam no deploy).
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        {/* Navegação final */}
-        <section className="flex flex-wrap gap-3">
-          <Link
-            href="/caminhoes"
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 transition"
-          >
-            Ver todos os caminhões
-          </Link>
         </section>
       </section>
     </main>
