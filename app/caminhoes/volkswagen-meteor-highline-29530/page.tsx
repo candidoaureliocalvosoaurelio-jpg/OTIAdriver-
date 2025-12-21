@@ -288,7 +288,7 @@ export default function VolkswagenMeteorHighline29530Page() {
               </ul>
             </div>
 
-            <div className="bg-sky-50 rounded-2xl border border-sky-100 shadow-sm p-4">
+            <div className="bg-sky-50 rounded-2xl border border-slate-100 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
                 Suspensão e aplicação
               </p>
@@ -402,7 +402,7 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais de apoio (PDF) + Link para página Caixa Volkswagen */}
+        {/* BLOCO FINAL – Materiais de apoio (2 PDFs + Link Caixa Volkswagen) */}
         <section className="mt-10">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Materiais de apoio (PDF) e conteúdo completo
@@ -503,8 +503,7 @@ export default function VolkswagenMeteorHighline29530Page() {
               </div>
             </div>
           </section>
-        </section>
-      </section>
+         </section>
     </main>
   );
 }
