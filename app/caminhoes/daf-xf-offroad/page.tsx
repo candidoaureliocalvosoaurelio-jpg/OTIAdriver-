@@ -14,28 +14,28 @@ export default function DAFXFOffRoadPage() {
     {
       titulo: "Ficha técnica oficial – XF OFF-ROAD 530 cv (PDF)",
       descricao:
-        "Dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
+        "Consulte os dados completos de dimensões, capacidades, motor, transmissão, tração 6x4, chassi reforçado e aplicações severas do DAF XF OFF-ROAD 530 cv.",
       href: "/fichas-tecnicas/daf-xf-offroad.pdf",
       cta: "Abrir ficha técnica XF OFF-ROAD (PDF)",
     },
     {
       titulo: "Guia de Interruptores DAF (PDF)",
       descricao:
-        "Identificação de interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
-      href: "/fichas-tecnicas/interruptores-daf.pdf",
+        "Material com identificação dos interruptores, botões e comandos dos caminhões DAF. Útil para motoristas, instrutores e treinamentos operacionais.",
+      href: "/fichas-tecnicas/Interruptores-DAF.pdf",
       cta: "Abrir guia de interruptores (PDF)",
     },
     {
       titulo: "Luzes do Painel – Caminhões DAF (PDF)",
       descricao:
         "Guia de luzes e símbolos do painel para identificar alertas, entender significados e agir corretamente durante a operação.",
-      href: "/fichas-tecnicas/luzes-painel-daf.pdf",
+      href: "/fichas-tecnicas/luzes-painel-DAF.pdf",
       cta: "Abrir guia de luzes do painel (PDF)",
     },
     {
       titulo: "Regeneração do Filtro DPF – DAF (PDF)",
       descricao:
-        "Funcionamento da regeneração do filtro DPF nos caminhões DAF: tipos de regeneração, alertas no painel e procedimentos corretos de condução.",
+        "Entenda o funcionamento da regeneração do filtro DPF nos caminhões DAF, incluindo tipos de regeneração, alertas no painel e procedimentos corretos de condução.",
       href: "/fichas-tecnicas/regeneracao-filtro-dpf-daf.pdf",
       cta: "Abrir guia de regeneração DPF (PDF)",
     },
@@ -113,13 +113,6 @@ export default function DAFXFOffRoadPage() {
                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition"
               >
                 Ver ficha técnica resumida
-              </Link>
-
-              <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-white/30 text-white hover:bg-white/10 transition"
-              >
-                Voltar para caminhões
               </Link>
             </div>
           </div>
@@ -203,8 +196,8 @@ export default function DAFXFOffRoadPage() {
                 TraXon Off-Road
               </p>
               <p>
-                Software específico que prioriza tração e momentum, reduzindo
-                perda de força em rampas fortes e baixa aderência.
+                Software específico que prioriza tração e momentum, evitando
+                perda de força em subidas fortes ou lama.
               </p>
             </div>
 
@@ -213,8 +206,8 @@ export default function DAFXFOffRoadPage() {
                 Bloqueios
               </p>
               <p>
-                Estratégias de bloqueio de diferencial e controle para reduzir
-                patinagem e manter o caminhão em movimento.
+                Bloqueio de diferencial e estratégias de controle para reduzir
+                patinagem e manter o caminhão em movimento em baixa aderência.
               </p>
             </div>
 
@@ -223,8 +216,8 @@ export default function DAFXFOffRoadPage() {
                 Robustez do conjunto
               </p>
               <p>
-                Componentes reforçados e foco em durabilidade para suportar
-                poeira, lama, carga alta e ciclos intensos.
+                Itens reforçados e foco em durabilidade para suportar carga,
+                poeira, lama e ciclos intensos de operação.
               </p>
             </div>
           </div>
@@ -248,8 +241,8 @@ export default function DAFXFOffRoadPage() {
             <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4">
               <h3 className="font-semibold mb-2">Mineração</h3>
               <p>
-                Operações em vias não pavimentadas e rampas com carga, exigindo
-                robustez e freio auxiliar eficiente.
+                Operações em vias não pavimentadas, cascalho e rampas com carga,
+                exigindo robustez e freio auxiliar eficiente.
               </p>
             </div>
 
@@ -323,7 +316,7 @@ export default function DAFXFOffRoadPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL – Materiais Técnicos em PDF (cards padronizados) */}
+        {/* BLOCO FINAL – Materiais Técnicos em PDF */}
         <section id="materiais-pdf" className="mt-10">
           <h2 className="text-2xl font-extrabold text-slate-900 mb-4">
             Materiais técnicos em PDF
@@ -350,6 +343,37 @@ export default function DAFXFOffRoadPage() {
                 </a>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* CTA FINAL – Destaque Máximo (DAF XF Transmissão) */}
+        <section className="mt-14 rounded-3xl bg-[#0B1C2D] p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Acesse o guia técnico completo da transmissão DAF XF
+            </h3>
+
+            <p className="mt-2 max-w-2xl text-slate-200">
+              Página exclusiva com funcionamento detalhado da caixa de transmissão do DAF XF,
+              modos de operação, integração com freio motor, símbolos do painel e boas práticas
+              para condução eficiente e segura.
+            </p>
+
+            <div className="mt-6">
+              <Link
+                href="/caminhoes/daf/caixa-transmissao-xf"
+                className="inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-[#003A8F] to-[#001F4D]
+                           px-12 py-4 text-base font-extrabold text-white
+                           shadow-lg shadow-[#003A8F]/30
+                           hover:from-[#002F73] hover:to-[#001738]
+                           hover:shadow-xl hover:shadow-[#003A8F]/40
+                           focus:outline-none focus:ring-4 focus:ring-[#9BB7FF]
+                           transition-all duration-200"
+              >
+                Acessar página completa – Transmissão DAF XF
+              </Link>
+            </div>
           </div>
         </section>
 
