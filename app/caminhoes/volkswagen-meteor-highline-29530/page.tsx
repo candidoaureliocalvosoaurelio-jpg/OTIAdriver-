@@ -26,7 +26,7 @@ export default function VolkswagenMeteorHighline29530Page() {
               O Meteor Highline 29.530 é o cavalo-mecânico extrapesado 6x4 da
               Volkswagen Caminhões e Ônibus, equipado com trem de força MAN de{" "}
               <strong>13 litros e 530 cv</strong>, transmissão automatizada
-              V-Tronic e pacote de conectividade avançado. Foi projetado para
+              TRAXON e pacote de conectividade avançado. Foi projetado para
               operações rodoviárias de médias e longas distâncias com alto PBTC
               e foco em desempenho, economia e tecnologia embarcada.
             </p>
@@ -147,17 +147,17 @@ export default function VolkswagenMeteorHighline29530Page() {
           </div>
         </section>
 
-        {/* Bloco 2 – Transmissão V-Tronic e desempenho */}
+        {/* Bloco 2 – Transmissão TRAXON e desempenho */}
         <section>
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-            Transmissão V-Tronic de 12 marchas – inteligência nas trocas
+            Transmissão TRAXON de 12 marchas – inteligência nas trocas
           </h2>
 
           <div className="grid md:grid-cols-[1.3fr,1fr] gap-6 items-start">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
               <p className="text-sm text-slate-700 mb-3">
                 A transmissão automatizada{" "}
-                <strong>V-Tronic de 12 marchas</strong> (ZF 12TX) trabalha em
+                <strong>TRAXON de 12 marchas</strong> (ZF 12TX) trabalha em
                 sinergia com o motor MAN D26, aplicando estratégias de troca que
                 priorizam eficiência, conforto e proteção do trem de força.
               </p>
@@ -350,7 +350,7 @@ export default function VolkswagenMeteorHighline29530Page() {
                     Transmissão
                   </th>
                   <td className="px-4 py-3 text-slate-800">
-                    V-Tronic automatizada de 12 marchas (ZF 12TX), com trocas
+                    TRAXON automatizada de 12 marchas (ZF 12TX), com trocas
                     preditivas e modos específicos para economia de combustível.
                   </td>
                 </tr>
@@ -455,7 +455,7 @@ export default function VolkswagenMeteorHighline29530Page() {
             {/* LINK – Página Caixa Volkswagen */}
             <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
               <h3 className="text-xl font-semibold text-slate-900 mb-2">
-                Página completa – Caixa Volkswagen (V-Tronic)
+                Página completa – Caixa Volkswagen (TRAXON)
               </h3>
 
               <p className="text-sm text-slate-700 mb-4">
@@ -477,7 +477,7 @@ export default function VolkswagenMeteorHighline29530Page() {
           <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
             <div className="flex flex-col items-center text-center">
               <h3 className="text-2xl md:text-3xl font-extrabold text-white">
-                Quer se aprofundar na transmissão V-Tronic?
+                Quer se aprofundar na transmissão TRAXON?
               </h3>
 
               <p className="mt-2 max-w-2xl text-slate-300">
