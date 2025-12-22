@@ -11,7 +11,6 @@ type SymbolPageProps = {
   params: { id: string };
 };
 
-// Lê os arquivos para descobrir o caminho da imagem (pasta /public/simbolos)
 function getSymbols() {
   const dir = path.join(process.cwd(), "public", "simbolos");
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -37,11 +36,6 @@ function getSymbols() {
   }));
 }
 
-/**
- * Segurança (CodeQL):
- * - Permite somente [a-z0-9-]
- * - Evita injeção em href via valores "armazenados"
- */
 function safeSlug(input: string) {
   const norm = normalizeSlug(input);
   const cleaned = norm.replace(/[^a-z0-9-]/g, "");
@@ -66,7 +60,10 @@ function colorBadge(color?: string) {
       return { label: "Vermelho", tone: "danger" as const };
     case "amarelo":
     case "laranja":
-      return { label: c === "laranja" ? "Laranja" : "Amarelo", tone: "warning" as const };
+      return {
+        label: c === "laranja" ? "Laranja" : "Amarelo",
+        tone: "warning" as const,
+      };
     case "verde":
     case "azul":
     case "branco":
@@ -76,28 +73,25 @@ function colorBadge(color?: string) {
   }
 }
 
-// ✅ Pré-renderiza as rotas por slug + compat (id numérico)
 export function generateStaticParams() {
   const slugs = symbolData.map((s) => ({ id: safeSlug(s.slug) }));
   const ids = symbolData.map((s) => ({ id: String(s.id) }));
   return [...slugs, ...ids];
 }
 
-// ✅ SEO por símbolo (Next.js Metadata)
 export async function generateMetadata(
   { params }: SymbolPageProps
 ): Promise<Metadata> {
   const raw = String(params.id ?? "").trim();
 
-  // Se vier número, converte para slug correto (SEO)
-  let lookupSlugOrId = raw;
+  let lookup = raw;
   if (/^\d+$/.test(raw)) {
     const numericId = Number(raw);
     const byId = symbolData.find((s) => s.id === numericId);
-    if (byId?.slug) lookupSlugOrId = byId.slug;
+    if (byId?.slug) lookup = byId.slug;
   }
 
-  const safe = safeSlug(lookupSlugOrId);
+  const safe = safeSlug(lookup);
   const symbol = symbolData.find((s) => safeSlug(s.slug) === safe);
 
   const title = symbol
@@ -111,11 +105,7 @@ export async function generateMetadata(
   return {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      type: "article",
-    },
+    openGraph: { title, description, type: "article" },
   };
 }
 
@@ -145,16 +135,12 @@ function Badge({
 export default function SymbolPage({ params }: SymbolPageProps) {
   const rawParam = String(params.id ?? "").trim();
 
-  // ✅ Compatibilidade: URL antiga numérica -> URL nova slug (sem quebrar links antigos)
   if (/^\d+$/.test(rawParam)) {
     const numericId = Number(rawParam);
-    const symbolById = symbolData.find((s) => s.id === numericId);
-    if (symbolById?.slug) {
-      redirect(`/simbolos-painel/${safeSlug(symbolById.slug)}`);
-    }
+    const byId = symbolData.find((s) => s.id === numericId);
+    if (byId?.slug) redirect(`/simbolos-painel/${safeSlug(byId.slug)}`);
   }
 
-  // 🔎 Busca por slug (padrão novo)
   const safeParam = safeSlug(rawParam);
   const symbol = symbolData.find((s) => safeSlug(s.slug) === safeParam);
 
@@ -186,6 +172,9 @@ export default function SymbolPage({ params }: SymbolPageProps) {
     "Recomenda-se reduzir a carga de esforço, observar o comportamento do veículo e, se a luz persistir, buscar diagnóstico em oficina.";
 
   const categoria = symbol.category ?? "Sistema";
+
+  const causas = symbol.causes ?? [];
+  const riscos = symbol.risks ?? [];
 
   return (
     <main className="w-full bg-white">
@@ -222,14 +211,11 @@ export default function SymbolPage({ params }: SymbolPageProps) {
             </h1>
 
             <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-              {symbol.description && symbol.description.trim().length > 0
-                ? symbol.description.trim()
-                : "Adicione aqui a descrição técnica completa: quando acende, causas mais comuns, riscos envolvidos e ação recomendada ao motorista."}
+              {symbol.description?.trim() || "Descrição não disponível."}
             </p>
           </div>
         </div>
 
-        {/* ✅ Card técnico (próximo nível) */}
         <div className="mt-8 grid gap-4">
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="text-base font-bold text-slate-900 mb-2">
@@ -238,11 +224,31 @@ export default function SymbolPage({ params }: SymbolPageProps) {
             <p className="text-sm text-slate-700 leading-relaxed">{acao}</p>
           </div>
 
-          {/* Observação:
-              No seu symbolData.ts atualizado ainda não existem "causes" e "risks".
-              Mantive fora para evitar TypeScript "any" e manter o projeto limpo/seguro.
-              Se você quiser, no próximo passo eu adiciono causes/risks ao tipo e ao data.
-          */}
+          {causas.length > 0 ? (
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h2 className="text-base font-bold text-slate-900 mb-3">
+                Causas comuns
+              </h2>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
+                {causas.map((c, idx) => (
+                  <li key={idx}>{c}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {riscos.length > 0 ? (
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <h2 className="text-base font-bold text-slate-900 mb-3">
+                Riscos ao ignorar
+              </h2>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
+                {riscos.map((r, idx) => (
+                  <li key={idx}>{r}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
         </div>
       </section>
     </main>
