@@ -1,5 +1,4 @@
 // app/caminhoes/caixa-iveco/s-way/page.tsx
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -206,10 +205,12 @@ export default function CaixaIvecoSWayTraXonPage() {
 
             <p className="mt-4 text-sm md:text-base text-slate-700 max-w-xl">
               A <strong>ZF TraXon</strong> que equipa o <strong>Iveco S-Way</strong>{" "}
-              é uma das transmissões automatizadas mais modernas do mercado.
-              No Brasil, substituiu a antiga <strong>ZF AS-Tronic</strong>,
-              trazendo ganhos relevantes em <strong>velocidade de troca</strong>,
-              <strong>redução de ruído</strong> e <strong>economia de combustível</strong>.
+              é uma das transmissões automatizadas mais modernas do mercado. No
+              Brasil, substituiu a antiga <strong>ZF AS-Tronic</strong>,
+              trazendo ganhos relevantes em{" "}
+              <strong>velocidade de troca</strong>,{" "}
+              <strong>redução de ruído</strong> e{" "}
+              <strong>economia de combustível</strong>.
             </p>
 
             {/* CTA (PDF + Voltar ao caminhão) */}
@@ -243,12 +244,12 @@ export default function CaixaIvecoSWayTraXonPage() {
             <PillNav />
           </div>
 
-          {/* Imagem / bloco visual — mesma imagem da caixa-volkswagen */}
+          {/* Imagem / bloco visual — usando a sua imagem em /public/images */}
           <div className="relative w-full max-w-md mx-auto">
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-fuchsia-50">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                  src="/images/caixa/caixa-volkswagen-hero.jpg"
+                  src="/images/caixa-zf-traxon-iveco-s-way.png"
                   alt="ZF TraXon no Iveco S-Way — transmissão automatizada"
                   fill
                   className="object-cover"
@@ -258,7 +259,11 @@ export default function CaixaIvecoSWayTraXonPage() {
             </div>
 
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa — reaproveitando o mesmo hero da página da caixa Volkswagen.
+              Imagem ilustrativa — arquivo em{" "}
+              <code className="px-1 rounded bg-slate-100">
+                /public/images/caixa-zf-traxon-iveco-s-way.png
+              </code>
+              .
             </div>
           </div>
         </div>
@@ -405,10 +410,7 @@ export default function CaixaIvecoSWayTraXonPage() {
               tone="warning"
               title="Rocking Mode"
               desc="Ajuda a sair de baixa aderência (lama/areia), permitindo balanço controlado do veículo."
-              items={[
-                "Facilita desatolar",
-                "Reduz risco de abuso do trem de força",
-              ]}
+              items={["Facilita desatolar", "Reduz risco de abuso do trem de força"]}
             />
           </div>
 
@@ -462,24 +464,32 @@ export default function CaixaIvecoSWayTraXonPage() {
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Accordion tone="success" title="Como a caixa ajuda em descidas" defaultOpen>
+            <Accordion
+              tone="success"
+              title="Como a caixa ajuda em descidas"
+              defaultOpen
+            >
               <ul className="space-y-2">
                 <li>
-                  • Em descidas, manter a <strong>marcha engatada</strong> permite usar freio motor.
+                  • Em descidas, manter a <strong>marcha engatada</strong>{" "}
+                  permite usar freio motor.
                 </li>
                 <li>
-                  • A transmissão pode <strong>reduzir</strong> para elevar a rotação, mantendo o motor em faixa eficiente de frenagem.
+                  • A transmissão pode <strong>reduzir</strong> para elevar a
+                  rotação, mantendo o motor em faixa eficiente de frenagem.
                 </li>
                 <li>
-                  • Isso reduz o uso do freio de serviço e ajuda a controlar temperatura.
+                  • Isso reduz o uso do freio de serviço e ajuda a controlar
+                  temperatura.
                 </li>
               </ul>
             </Accordion>
 
             <Accordion tone="danger" title='Nunca descer serra em "N"'>
               <p>
-                Em <strong>N</strong> o freio motor praticamente não atua. O veículo ganha velocidade com facilidade,
-                aumentando risco de superaquecimento dos freios e acidentes.
+                Em <strong>N</strong> o freio motor praticamente não atua. O
+                veículo ganha velocidade com facilidade, aumentando risco de
+                superaquecimento dos freios e acidentes.
               </p>
             </Accordion>
           </div>
@@ -524,33 +534,89 @@ export default function CaixaIvecoSWayTraXonPage() {
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Accordion tone="info" title="A TraXon é automática de verdade?" defaultOpen>
+            <Accordion
+              tone="info"
+              title="A TraXon é automática de verdade?"
+              defaultOpen
+            >
               <p>
-                Ela é uma <strong>AMT</strong> (manual automatizada). A base é mecânica, mas a embreagem e as trocas são
-                controladas por eletrônica, oferecendo conforto e eficiência.
+                Ela é uma <strong>AMT</strong> (manual automatizada). A base é
+                mecânica, mas a embreagem e as trocas são controladas por
+                eletrônica, oferecendo conforto e eficiência.
               </p>
             </Accordion>
 
-            <Accordion tone="warning" title='EcoRoll é "banguela"?' >
+            <Accordion tone="warning" title='EcoRoll é "banguela"?'>
               <p>
-                É um <strong>neutro eletrônico controlado</strong> em condições específicas. Em descidas longas/serra,
-                mantenha marcha engatada para garantir freio motor.
+                É um <strong>neutro eletrônico controlado</strong> em condições
+                específicas. Em descidas longas/serra, mantenha marcha engatada
+                para garantir freio motor.
               </p>
             </Accordion>
 
-            <Accordion tone="success" title="Por que as trocas parecem “diferentes” entre caminhões?">
+            <Accordion
+              tone="success"
+              title="Por que as trocas parecem “diferentes” entre caminhões?"
+            >
               <p>
-                A estratégia de trocas depende de calibração do fabricante, peso, topografia, modo de condução e do
-                estilo do motorista. É normal haver variações.
+                A estratégia de trocas depende de calibração do fabricante,
+                peso, topografia, modo de condução e do estilo do motorista. É
+                normal haver variações.
               </p>
             </Accordion>
 
-            <Accordion tone="danger" title="O que fazer se aparecer alerta de temperatura da embreagem?">
+            <Accordion
+              tone="danger"
+              title="O que fazer se aparecer alerta de temperatura da embreagem?"
+            >
               <p>
-                Reduza manobras/patinação, pare em local seguro quando possível e aguarde resfriar. Se persistir,
-                procure assistência para diagnóstico.
+                Reduza manobras/patinação, pare em local seguro quando possível
+                e aguarde resfriar. Se persistir, procure assistência para
+                diagnóstico.
               </p>
             </Accordion>
+          </div>
+
+          {/* Observação (anti-404) */}
+          <div className="mt-8 rounded-2xl border border-slate-200 bg-white shadow-sm p-6">
+            <p className="text-sm text-slate-700">
+              <strong>Observação importante (para evitar 404):</strong>
+            </p>
+            <ul className="list-disc ml-5 mt-3 space-y-1 text-sm text-slate-700">
+              <li>
+                Confirme se o PDF existe em{" "}
+                <code className="px-1 rounded bg-slate-100">
+                  /public/fichas-tecnicas/caixa-iveco-s-way-traxon.pdf
+                </code>
+                .
+              </li>
+              <li>
+                Confirme se a imagem existe em{" "}
+                <code className="px-1 rounded bg-slate-100">
+                  /public/images/caixa-zf-traxon-iveco-s-way.png
+                </code>
+                .
+              </li>
+              <li>
+                Nomes de arquivos e pastas precisam ser idênticos (maiúsculas e
+                minúsculas contam no deploy).
+              </li>
+            </ul>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link
+                href="/caminhoes"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-800 font-semibold hover:bg-slate-50 transition"
+              >
+                Ver caminhões
+              </Link>
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-white font-semibold hover:bg-black transition"
+              >
+                Voltar ao início
+              </Link>
+            </div>
           </div>
         </section>
       </section>
