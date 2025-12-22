@@ -247,7 +247,7 @@ export default function CaixaVolkswagenPage() {
             </div>
 
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              <code className="px-1 rounded bg-slate-100">/public/images/caixa</code>{" "}
+              <code className="px-1 rounded bg-slate-100">CAIXA TRAXON</code>{" "}
             </div>
           </div>
         </div>
