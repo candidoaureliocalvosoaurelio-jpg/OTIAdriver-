@@ -259,11 +259,9 @@ export default function CaixaIvecoSWayTraXonPage() {
             </div>
 
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa — arquivo em{" "}
+              Caixa TRAXON
               <code className="px-1 rounded bg-slate-100">
-                /public/images/caixa-zf-traxon-iveco-s-way.png
-              </code>
-              .
+                
             </div>
           </div>
         </div>
