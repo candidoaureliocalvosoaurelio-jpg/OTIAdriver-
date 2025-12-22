@@ -14,12 +14,14 @@ export default function IvecoSWay5406x4Page() {
             <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700 mb-3">
               Linha Pesada Premium
             </p>
+
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900 mb-4">
               Iveco S-Way 540 6x4
               <span className="block text-sky-600 text-xl md:text-2xl mt-1">
                 conforto europeu, alta eficiência e conectividade de fábrica.
               </span>
             </h1>
+
             <p className="text-sm md:text-base text-slate-700 mb-6 max-w-xl">
               O <strong>Iveco S-Way 540 6x4</strong> é o extrapesado rodoviário
               da nova geração Iveco, combinando cabine de última geração,{" "}
@@ -40,6 +42,7 @@ export default function IvecoSWay5406x4Page() {
                   Motor FPT Cursor 13
                 </p>
               </div>
+
               <div className="bg-sky-50 border border-sky-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-sky-700">
                   Torque
@@ -49,6 +52,7 @@ export default function IvecoSWay5406x4Page() {
                   Força em baixa rotação
                 </p>
               </div>
+
               <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-emerald-700">
                   Conectividade
@@ -62,13 +66,28 @@ export default function IvecoSWay5406x4Page() {
               </div>
             </div>
 
-            {/* ÚNICO botão — ver ficha técnica */}
+            {/* Botões (COMPLETO conforme solicitado) */}
             <div className="flex flex-wrap gap-3">
               <Link
                 href="#ficha-tecnica"
                 className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 transition"
               >
-                Ver ficha técnica completa
+                Ver ficha técnica resumida
+              </Link>
+
+              <Link
+                href="#materiais-pdf"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 transition"
+              >
+                Abrir materiais em PDF
+              </Link>
+
+              {/* Link para a página da caixa (TraXon) */}
+              <Link
+                href="/caminhoes/caixa-iveco/s-way"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-sky-600 text-white hover:bg-sky-700 transition"
+              >
+                Ver caixa ZF TraXon (S-Way)
               </Link>
             </div>
           </div>
@@ -86,6 +105,7 @@ export default function IvecoSWay5406x4Page() {
                 />
               </div>
             </div>
+
             <div className="mt-3 text-[11px] text-slate-500 text-center">
               Imagem ilustrativa Iveco S-Way 540 6x4 — aplicação rodoviária
               pesada.
@@ -321,7 +341,7 @@ export default function IvecoSWay5406x4Page() {
         </section>
 
         {/* Bloco 5 – Ficha técnica resumida */}
-        <section id="ficha-tecnica">
+        <section id="ficha-tecnica" className="scroll-mt-24">
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Iveco S-Way 540 6x4
           </h2>
@@ -408,58 +428,58 @@ export default function IvecoSWay5406x4Page() {
             </table>
           </div>
         </section>
-        
-{/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
-<section id="ficha-tecnica" className="mt-10">
-  <div className="grid gap-6 md:grid-cols-2">
 
-    {/* PDF – Ficha técnica oficial Iveco S-Way 540 6x4 */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
-      </h2>
+        {/* BLOCO FINAL – Materiais em PDF (padrão OTIAdriver) */}
+        <section id="materiais-pdf" className="mt-10 scroll-mt-24">
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* PDF – Ficha técnica oficial Iveco S-Way 540 6x4 */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
+              </h2>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Dados completos de motor, transmissão, eixos, capacidades, dimensões e
-        configurações do <strong>Iveco S-Way 540 6x4</strong>, auxiliando no
-        correto dimensionamento da frota.
-      </p>
+              <p className="text-sm text-slate-700 mb-4">
+                Dados completos de motor, transmissão, eixos, capacidades,
+                dimensões e configurações do{" "}
+                <strong>Iveco S-Way 540 6x4</strong>, auxiliando no correto
+                dimensionamento da frota.
+              </p>
 
-      <a
-        href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir ficha técnica (PDF)
-      </a>
-    </div>
+              <a
+                href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir ficha técnica (PDF)
+              </a>
+            </div>
 
-    {/* PDF – Símbolos e Luzes do Painel Iveco S-Way */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Símbolos e Luzes do Painel – Iveco S-Way (PDF)
-      </h2>
+            {/* PDF – Símbolos e Luzes do Painel Iveco S-Way */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                Símbolos e Luzes do Painel – Iveco S-Way (PDF)
+              </h2>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Guia completo de símbolos, luzes de advertência e alertas do painel
-        do <strong>Iveco S-Way</strong>. Material essencial para identificar
-        avisos, compreender significados e agir corretamente durante a
-        operação do veículo.
-      </p>
+              <p className="text-sm text-slate-700 mb-4">
+                Guia completo de símbolos, luzes de advertência e alertas do
+                painel do <strong>Iveco S-Way</strong>. Material essencial para
+                identificar avisos, compreender significados e agir corretamente
+                durante a operação do veículo.
+              </p>
 
-      <a
-        href="/fichas-tecnicas/simbolos-iveco-sway.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir guia de símbolos (PDF)
-      </a>
-    </div>
-  </div>
-</section>
-</section>
+              <a
+                href="/fichas-tecnicas/simbolos-iveco-sway.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir guia de símbolos (PDF)
+              </a>
+            </div>
+          </div>
+        </section>
+      </section>
     </main>
   );
 }
