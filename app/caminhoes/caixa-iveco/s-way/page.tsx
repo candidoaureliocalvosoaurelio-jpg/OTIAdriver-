@@ -1,4 +1,5 @@
 // app/caminhoes/caixa-iveco/s-way/page.tsx
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -122,10 +123,7 @@ function PillNav() {
     { href: "#especificacoes", label: "Especificações" },
     { href: "#funcoes", label: "Funções inteligentes" },
     { href: "#diferenciais", label: "Diferenciais" },
-    { href: "#freio-motor", label: "Freio motor" },
-    { href: "#operacao", label: "Operação e modos" },
-    { href: "#alertas", label: "Alertas e proteção" },
-    { href: "#oleo", label: "Óleo e manutenção" },
+    { href: "#integracao", label: "Freio motor" },
     { href: "#boas-praticas", label: "Boas práticas" },
     { href: "#faq", label: "FAQ" },
   ];
@@ -187,37 +185,37 @@ function Accordion({
 export default function CaixaIvecoSWayTraXonPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO — igual caixa-volkswagen */}
+      {/* HERO — padrão igual caixa-volkswagen */}
       <section className="w-full border-b border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
           {/* Texto */}
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <Badge tone="purple">ZF TraXon • AMT</Badge>
-              <Badge tone="success">Eficiência e economia</Badge>
-              <Badge tone="warning">Alertas e segurança</Badge>
+              <Badge tone="purple">Transmissão Automatizada</Badge>
+              <Badge tone="success">Eficiência</Badge>
+              <Badge tone="warning">Boas práticas</Badge>
             </div>
 
             <h1 className="mt-4 text-3xl md:text-4xl font-extrabold leading-tight text-slate-900">
               Caixa Iveco S-Way (ZF TraXon)
               <span className="block text-lg md:text-xl mt-2 text-transparent bg-clip-text bg-gradient-to-r from-sky-600 via-fuchsia-600 to-emerald-600">
-                Guia completo: especificações, funções inteligentes, operação,
-                proteção e boas práticas.
+                Guia completo: especificações, funções inteligentes, operação e
+                melhores práticas.
               </span>
             </h1>
 
             <p className="mt-4 text-sm md:text-base text-slate-700 max-w-xl">
               A <strong>ZF TraXon</strong> que equipa o <strong>Iveco S-Way</strong>{" "}
-              é referência global em transmissões automatizadas para caminhões
-              pesados. No Brasil, substituiu a antiga <strong>ZF AS-Tronic</strong>, trazendo
-              ganhos relevantes em velocidade de troca, conforto acústico e
-              economia de combustível.
+              é uma das transmissões automatizadas mais modernas do mercado.
+              No Brasil, substituiu a antiga <strong>ZF AS-Tronic</strong>,
+              trazendo ganhos relevantes em <strong>velocidade de troca</strong>,
+              <strong>redução de ruído</strong> e <strong>economia de combustível</strong>.
             </p>
 
-            {/* CTA (apenas PDF) */}
+            {/* CTA (PDF + Voltar ao caminhão) */}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href="/fichas-tecnicas/caixa-zf-traxon-iveco-s-way.pdf"
+                href="/fichas-tecnicas/caixa-iveco-s-way-traxon.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-xl
@@ -232,23 +230,26 @@ export default function CaixaIvecoSWayTraXonPage() {
               </a>
 
               <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50 transition"
+                href="/caminhoes/iveco-s-way-540-6x4"
+                className="inline-flex items-center justify-center rounded-xl
+                           border border-slate-300 bg-white px-6 py-3
+                           text-sm font-extrabold text-slate-800
+                           hover:bg-slate-50 transition"
               >
-                Ver caminhões
+                Ver Iveco S-Way 540 6x4
               </Link>
             </div>
 
             <PillNav />
           </div>
 
-          {/* Imagem (reutilizando a da caixa-volkswagen) */}
+          {/* Imagem / bloco visual — mesma imagem da caixa-volkswagen */}
           <div className="relative w-full max-w-md mx-auto">
             <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-fuchsia-50">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
                   src="/images/caixa/caixa-volkswagen-hero.jpg"
-                  alt="ZF TraXon — Iveco S-Way"
+                  alt="ZF TraXon no Iveco S-Way — transmissão automatizada"
                   fill
                   className="object-cover"
                   priority
@@ -257,11 +258,7 @@ export default function CaixaIvecoSWayTraXonPage() {
             </div>
 
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              Imagem ilustrativa — reutilizando{" "}
-              <code className="px-1 rounded bg-slate-100">
-                /public/images/caixa/caixa-volkswagen-hero.jpg
-              </code>
-              .
+              Imagem ilustrativa — reaproveitando o mesmo hero da página da caixa Volkswagen.
             </div>
           </div>
         </div>
@@ -273,39 +270,39 @@ export default function CaixaIvecoSWayTraXonPage() {
         <section id="visao-geral" className="scroll-mt-24">
           <SectionTitle
             eyebrow="Fundamentos"
-            title="1) Visão geral — o que é a ZF TraXon"
-            subtitle="A TraXon é uma transmissão mecânica com gerenciamento eletrônico da embreagem e das trocas (AMT). O objetivo é aumentar eficiência, proteger o trem de força e melhorar conforto e produtividade."
+            title="1) Visão geral — o que é a ZF TraXon no S-Way"
+            subtitle="A TraXon é uma transmissão manual automatizada (AMT): base mecânica robusta + gerenciamento eletrônico da embreagem e das trocas, buscando eficiência, conforto e proteção do trem de força."
           />
 
           <div className="grid md:grid-cols-3 gap-5">
             <InfoCard
               tone="info"
-              title="Conforto e padronização"
-              desc="Sem pedal de embreagem e com lógica de trocas consistente."
+              title="Automatizada (AMT)"
+              desc="Trocas automáticas com lógica inteligente e proteções eletrônicas."
               items={[
-                "Menos fadiga do motorista",
-                "Trocas rápidas e suaves",
-                "Melhor condução no dia a dia",
+                "Mais conforto (sem pedal de embreagem)",
+                "Trocas rápidas e consistentes",
+                "Menos erro operacional",
               ]}
             />
             <InfoCard
               tone="purple"
-              title="Proteção do conjunto"
-              desc="A TCU ajuda a evitar rotações inadequadas e manobras agressivas."
+              title="Aplicação no S-Way"
+              desc="Compatível com alto torque e uso rodoviário pesado."
               items={[
-                "Proteção contra sobre/baixa rotação",
-                "Estratégias de proteção térmica",
-                "Menos desgaste por operação incorreta",
+                "Motores Cursor 13 (480/540 cv)",
+                "Foco em cruzeiro eficiente",
+                "Integração com freios auxiliares",
               ]}
             />
             <InfoCard
               tone="success"
               title="Eficiência"
-              desc="Arquitetura otimizada para reduzir perdas mecânicas."
+              desc="Projeto voltado a reduzir perdas e melhorar consumo."
               items={[
-                "Direct Drive (1:00) em cruzeiro",
-                "Trocas inteligentes para faixa eficiente",
-                "Potencial de economia por km",
+                "Estratégias de troca otimizadas",
+                "Redução de ruído",
+                "Potencial de economia em rotas repetitivas",
               ]}
             />
           </div>
@@ -314,83 +311,117 @@ export default function CaixaIvecoSWayTraXonPage() {
         {/* ESPECIFICAÇÕES */}
         <section id="especificacoes" className="scroll-mt-24">
           <SectionTitle
-            eyebrow="Dados técnicos"
-            title="2) Especificações Técnicas (referência do conjunto)"
-            subtitle="O conteúdo abaixo segue o material que você passou (modelo de referência 12TX2620 TD, conforme aplicação do S-Way)."
+            eyebrow="Técnico"
+            title="2) Especificações técnicas (modelo 12TX2620 TD / família TraXon)"
+            subtitle="Resumo das características mais relevantes para operação e dimensionamento."
           />
 
-          <div className="grid md:grid-cols-2 gap-5">
-            <InfoCard
-              tone="info"
-              title="Tipo e marchas"
-              desc="Automatizada (AMT) de 12 velocidades à frente e 2 à ré."
-            />
-            <InfoCard
-              tone="purple"
-              title="Configuração: Direct Drive"
-              desc="Última marcha com relação 1:00, reduzindo perdas mecânicas em cruzeiro."
-            />
-            <InfoCard
-              tone="success"
-              title="Capacidade de torque"
-              desc="Suporta até 2.600 Nm — ideal para motores Cursor 13 de 480 cv e 540 cv (conforme referência informada)."
-            />
-            <InfoCard
-              tone="warning"
-              title="Embreagem + ZF ConAct"
-              desc="Monodisco a seco (430 mm) com atuador concêntrico pneumático (ConAct), eliminando garfo de embreagem e suavizando saídas/manobras."
-            />
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-3xl border border-slate-200 bg-white shadow-sm p-6">
+              <p className="text-sm font-extrabold text-slate-900 mb-3">
+                Configuração e capacidade
+              </p>
+              <div className="grid gap-4">
+                <InfoCard
+                  tone="info"
+                  title="Tipo / Marchas"
+                  items={[
+                    "Automatizada (AMT)",
+                    "12 marchas à frente",
+                    "2 marchas à ré",
+                  ]}
+                />
+                <InfoCard
+                  tone="purple"
+                  title="Direct Drive"
+                  desc="Última marcha em relação 1:00 — reduz perdas mecânicas em cruzeiro."
+                />
+                <InfoCard
+                  tone="success"
+                  title="Torque suportado"
+                  desc="Até 2.600 Nm (aplicações extrapesadas)."
+                />
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-white shadow-sm p-6">
+              <p className="text-sm font-extrabold text-slate-900 mb-3">
+                Embreagem e atuador
+              </p>
+              <div className="grid gap-4">
+                <InfoCard
+                  tone="warning"
+                  title="Embreagem"
+                  desc="Monodisco a seco (430 mm), adequada ao alto torque."
+                />
+                <InfoCard
+                  tone="info"
+                  title="ZF ConAct (atuador concêntrico)"
+                  desc="Atuador pneumático concêntrico que elimina o garfo de embreagem, melhorando suavidade em saídas e manobras."
+                />
+                <InfoCard
+                  tone="success"
+                  title="Benefício prático"
+                  items={[
+                    "Saídas mais suaves",
+                    "Menos trancos em manobra",
+                    "Maior previsibilidade no acoplamento",
+                  ]}
+                />
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* FUNÇÕES */}
+        {/* FUNÇÕES INTELIGENTES */}
         <section id="funcoes" className="scroll-mt-24">
           <SectionTitle
-            eyebrow="Inteligência embarcada"
-            title="3) Funções inteligentes e calibração"
-            subtitle="A Iveco implementou novas calibrações no S-Way focadas em produtividade e redução de TCO (custo total de operação)."
+            eyebrow="Software & Estratégias"
+            title="3) Funções inteligentes e calibração no Iveco S-Way"
+            subtitle="A calibração do conjunto pode incluir funções para produtividade, conforto e redução de consumo/TCO."
           />
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-3 gap-5">
             <InfoCard
               tone="purple"
-              title="PreVision (GPS Preditivo)"
-              desc="Usa mapas e GPS para antecipar topografia e escolher a marcha ideal antes de subidas/descidas."
+              title="PreVision (GPS preditivo)"
+              desc="Antecipação de topografia (subidas/descidas) para escolher marcha ideal antes do trecho."
               items={[
                 "Evita trocas desnecessárias",
-                "Mantém o motor em faixa eficiente",
-                "Aumenta produtividade em rotas repetidas",
+                "Mantém rotação eficiente",
+                "Ajuda em rotas repetitivas",
               ]}
             />
             <InfoCard
               tone="success"
-              title="EcoRoll (Banguela Controlada)"
-              desc='Em declives suaves ou planos com embalo, desacopla eletronicamente (N) para aproveitar inércia e economizar combustível.'
+              title="EcoRoll (banguela controlada)"
+              desc='Em condições específicas, pode colocar em "N" eletronicamente para aproveitar inércia.'
               items={[
-                "Economia em trechos favoráveis",
-                "Atuação controlada pelo sistema",
-                "Retorna marcha quando necessário",
+                "Reduz consumo em trechos leves",
+                "Atua quando faz sentido (lógica do sistema)",
               ]}
             />
             <InfoCard
               tone="warning"
               title="Rocking Mode"
-              desc="Para baixa aderência (lama/areia), permite “balançar” para frente e para trás para sair de atoleiros."
+              desc="Ajuda a sair de baixa aderência (lama/areia), permitindo balanço controlado do veículo."
               items={[
-                "Ajuda em atolamentos",
-                "Evita esforço excessivo",
-                "Melhor controle em baixa aderência",
+                "Facilita desatolar",
+                "Reduz risco de abuso do trem de força",
               ]}
             />
+          </div>
+
+          <div className="mt-6 grid md:grid-cols-2 gap-6">
             <InfoCard
               tone="info"
-              title="Modo Manobra"
-              desc="Limita velocidade e suaviza entrega de torque para manobras milimétricas em docas/pátios."
-              items={[
-                "Precisão em docas",
-                "Menos trancos",
-                "Mais segurança em espaços apertados",
-              ]}
+              title="Modo manobra"
+              desc="Entrega de torque suavizada e velocidade limitada para manobras milimétricas em docas/pátios."
+            />
+            <InfoCard
+              tone="danger"
+              title='Atenção: EcoRoll e descidas'
+              desc='Em "N", não há marcha engatada e o freio motor perde efetividade. Em descidas longas, prefira manter marcha engatada e usar freio motor.'
             />
           </div>
         </section>
@@ -398,189 +429,87 @@ export default function CaixaIvecoSWayTraXonPage() {
         {/* DIFERENCIAIS */}
         <section id="diferenciais" className="scroll-mt-24">
           <SectionTitle
-            eyebrow="Benefícios"
-            title="4) Principais diferenciais"
-            subtitle="O que muda na prática: eficiência, silêncio, integração e segurança."
+            eyebrow="Performance"
+            title="4) Principais diferenciais da ZF TraXon"
+            subtitle="O conjunto foi projetado para eficiência mecânica, conforto acústico e integração avançada com o trem de força."
           />
 
           <div className="grid md:grid-cols-3 gap-5">
             <InfoCard
               tone="success"
-              title="Eficiência muito alta"
-              desc="Referência citada: eficiência próxima de 99,7% (quase toda força do motor chega às rodas)."
+              title="Eficiência elevada"
+              desc="Eficiência de transmissão muito alta, com menor perda de energia no trem de força."
+            />
+            <InfoCard
+              tone="info"
+              title="Silêncio e conforto"
+              desc="Engrenagens helicoidais reduzem ruído de rodagem e vibração percebida na cabine."
             />
             <InfoCard
               tone="purple"
-              title="Mais silêncio"
-              desc="Engrenagens helicoidais reduzem drasticamente o ruído de rodagem na cabine."
-            />
-            <InfoCard
-              tone="info"
-              title="Trocas mais rápidas"
-              desc="Trocas ágeis e suaves, com ganho de conforto e eficiência em relação à geração anterior."
+              title="Trocas rápidas"
+              desc="Estratégias de troca otimizadas contribuem para fluidez e produtividade na rota."
             />
           </div>
         </section>
 
-        {/* FREIO MOTOR */}
-        <section id="freio-motor" className="scroll-mt-24">
+        {/* INTEGRAÇÃO COM FREIO MOTOR */}
+        <section id="integracao" className="scroll-mt-24">
           <SectionTitle
-            eyebrow="Segurança em descidas"
-            title="5) Integração com freio motor"
-            subtitle="A TraXon pode reduzir rapidamente para manter a rotação alta e maximizar o poder de frenagem do freio motor."
-          />
-
-          <div className="grid md:grid-cols-2 gap-5">
-            <InfoCard
-              tone="success"
-              title="Reduções rápidas"
-              desc="Em descidas, trabalha com o freio motor de 4 estágios (referência citada: até 610 cv), mantendo rotação para máxima frenagem."
-              items={[
-                "Maior controle em serras",
-                "Menos aquecimento do freio de serviço",
-                "Mais segurança",
-              ]}
-            />
-            <InfoCard
-              tone="danger"
-              title='Perigo: usar "N" em descidas'
-              desc='Em "N", nenhuma marcha está engatada e o freio motor perde efeito. Nunca desça serra em neutro.'
-            />
-          </div>
-        </section>
-
-        {/* OPERAÇÃO */}
-        <section id="operacao" className="scroll-mt-24">
-          <SectionTitle
-            eyebrow="Operação"
-            title="6) Operação e modos — como usar corretamente"
-            subtitle="Regras simples para reduzir desgaste, manter segurança e extrair economia."
+            eyebrow="Segurança"
+            title="5) Integração com freio motor e controle em descidas"
+            subtitle="A transmissão pode reduzir rapidamente para elevar rotação e aumentar a capacidade de frenagem do motor em descidas."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Accordion tone="info" title="Auto vs. Manual — quando usar" defaultOpen>
+            <Accordion tone="success" title="Como a caixa ajuda em descidas" defaultOpen>
               <ul className="space-y-2">
                 <li>
-                  • <strong>AUTO</strong>: melhor para uso rodoviário e operação
-                  geral, com foco em consumo e proteção do conjunto.
+                  • Em descidas, manter a <strong>marcha engatada</strong> permite usar freio motor.
                 </li>
                 <li>
-                  • <strong>MANUAL</strong>: útil em descidas longas (controle +
-                  freio motor), aclives com carga e situações especiais.
+                  • A transmissão pode <strong>reduzir</strong> para elevar a rotação, mantendo o motor em faixa eficiente de frenagem.
+                </li>
+                <li>
+                  • Isso reduz o uso do freio de serviço e ajuda a controlar temperatura.
                 </li>
               </ul>
             </Accordion>
 
-            <Accordion tone="warning" title="Manobras — o que evita aquecimento">
-              <ul className="space-y-2">
-                <li>• Use o modo manobra apenas quando necessário.</li>
-                <li>• Evite “segurar” o caminhão na embreagem em rampas.</li>
-                <li>• Faça pausas se houver alerta de temperatura/uso severo.</li>
-              </ul>
+            <Accordion tone="danger" title='Nunca descer serra em "N"'>
+              <p>
+                Em <strong>N</strong> o freio motor praticamente não atua. O veículo ganha velocidade com facilidade,
+                aumentando risco de superaquecimento dos freios e acidentes.
+              </p>
             </Accordion>
-          </div>
-        </section>
-
-        {/* ALERTAS */}
-        <section id="alertas" className="scroll-mt-24">
-          <SectionTitle
-            eyebrow="Proteção"
-            title="7) Alertas e proteção — o que fazer"
-            subtitle="Sempre que houver alerta de transmissão/embreagem, reduza carga térmica e evite insistir em arrancadas repetidas."
-          />
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <Accordion
-              tone="warning"
-              title="Alerta de aquecimento/uso severo — como reagir"
-              defaultOpen
-            >
-              <ul className="space-y-2">
-                <li>• Reduza manobras contínuas e acelerações bruscas.</li>
-                <li>• Pare em local seguro e aguarde resfriamento se necessário.</li>
-                <li>• Em rampas, use freio de estacionamento/assistência para arrancar.</li>
-              </ul>
-            </Accordion>
-
-            <Accordion
-              tone="danger"
-              title="Falha de engate / neutro inesperado — cuidados"
-            >
-              <ul className="space-y-2">
-                <li>• Reduza velocidade e busque um local seguro.</li>
-                <li>• Leia mensagens no painel e evite tentativas repetidas.</li>
-                <li>• Se persistir, acione suporte/oficina para diagnóstico.</li>
-              </ul>
-            </Accordion>
-          </div>
-        </section>
-
-        {/* ÓLEO */}
-        <section id="oleo" className="scroll-mt-24">
-          <SectionTitle
-            eyebrow="Manutenção"
-            title="8) Óleo e manutenção — boas rotinas"
-            subtitle="A manutenção correta preserva sincronismo, atuadores e vida útil do conjunto."
-          />
-
-          <div className="grid md:grid-cols-2 gap-5">
-            <InfoCard
-              tone="info"
-              title="Óleo correto"
-              desc="Use o fluido especificado pelo fabricante (manual do veículo e especificação ZF aplicável)."
-              items={[
-                "Não misture óleos fora de padrão",
-                "Respeite intervalos e procedimentos",
-                "Verifique vazamentos periodicamente",
-              ]}
-            />
-            <InfoCard
-              tone="success"
-              title="Rotina preventiva"
-              desc="Boa rotina evita falhas e reduz TCO."
-              items={[
-                "Inspeção visual (vazamentos, conectores, chicotes)",
-                "Diagnóstico quando houver alerta",
-                "Atualizações/calibração conforme rede autorizada",
-              ]}
-            />
           </div>
         </section>
 
         {/* BOAS PRÁTICAS */}
         <section id="boas-praticas" className="scroll-mt-24">
           <SectionTitle
-            eyebrow="Dia a dia"
-            title="9) Boas práticas — checklist rápido"
-            subtitle="O essencial para rodar bem e preservar embreagem e transmissão."
+            eyebrow="Operação"
+            title="6) Boas práticas — o que mais preserva embreagem e caixa"
+            subtitle="Regras simples que evitam aquecimento, trancos e desgaste prematuro."
           />
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 gap-6">
             <InfoCard
               tone="success"
-              title="Condução"
+              title="Saídas e manobras"
               items={[
-                "Aceleração progressiva",
-                "Use AUTO na maior parte do tempo",
-                "Evite intervenções sem necessidade",
+                "Acelere suave ao iniciar movimento",
+                "Evite segurar o caminhão no acelerador em rampa",
+                "Use freio de estacionamento/assistência em rampa",
               ]}
             />
             <InfoCard
               tone="warning"
-              title="Manobras"
+              title="Situações de esforço"
               items={[
-                "Use modo manobra para precisão",
-                "Evite manobra contínua por muito tempo",
-                "Faça pausas se houver aquecimento",
-              ]}
-            />
-            <InfoCard
-              tone="danger"
-              title="Serras"
-              items={[
-                'Nunca desça em "N"',
-                "Use freio motor + marcha adequada",
-                "Controle velocidade e evite aquecer freios",
+                "Em aclives longos, use modo MAN quando necessário",
+                "Evite patinar (aquecimento) em manobra prolongada",
+                "Respeite alertas de temperatura do sistema",
               ]}
             />
           </div>
@@ -589,83 +518,39 @@ export default function CaixaIvecoSWayTraXonPage() {
         {/* FAQ */}
         <section id="faq" className="scroll-mt-24">
           <SectionTitle
-            eyebrow="Perguntas frequentes"
-            title="10) FAQ"
-            subtitle="Respostas diretas para as dúvidas mais comuns."
+            eyebrow="Dúvidas comuns"
+            title="7) FAQ — perguntas rápidas"
+            subtitle="Respostas diretas para dúvidas recorrentes na operação diária."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Accordion tone="info" title="EcoRoll é perigoso?" defaultOpen>
+            <Accordion tone="info" title="A TraXon é automática de verdade?" defaultOpen>
               <p>
-                Não, quando acionado pela estratégia do sistema dentro das
-                condições previstas. O que é perigoso é o motorista colocar
-                manualmente em <strong>N</strong> descendo serra.
+                Ela é uma <strong>AMT</strong> (manual automatizada). A base é mecânica, mas a embreagem e as trocas são
+                controladas por eletrônica, oferecendo conforto e eficiência.
               </p>
             </Accordion>
 
-            <Accordion tone="success" title="Qual modo dá mais economia?">
+            <Accordion tone="warning" title='EcoRoll é "banguela"?' >
               <p>
-                Em geral, o modo <strong>AUTO</strong> com condução estável e
-                aproveitando as estratégias preditivas tende a entregar melhor
-                consumo e menor desgaste.
+                É um <strong>neutro eletrônico controlado</strong> em condições específicas. Em descidas longas/serra,
+                mantenha marcha engatada para garantir freio motor.
               </p>
             </Accordion>
 
-            <Accordion tone="warning" title="Rocking Mode posso usar sempre?">
+            <Accordion tone="success" title="Por que as trocas parecem “diferentes” entre caminhões?">
               <p>
-                Use apenas quando necessário (baixa aderência/atolamento). Evite
-                insistir com aceleração agressiva por longos períodos.
+                A estratégia de trocas depende de calibração do fabricante, peso, topografia, modo de condução e do
+                estilo do motorista. É normal haver variações.
               </p>
             </Accordion>
 
-            <Accordion tone="purple" title="O cuidado nº 1 em serra?">
+            <Accordion tone="danger" title="O que fazer se aparecer alerta de temperatura da embreagem?">
               <p>
-                Nunca desça em <strong>N</strong>. Mantenha marcha engatada e use
-                freio motor para controlar velocidade, evitando aquecimento dos
-                freios de serviço.
+                Reduza manobras/patinação, pare em local seguro quando possível e aguarde resfriar. Se persistir,
+                procure assistência para diagnóstico.
               </p>
             </Accordion>
-          </div>
-
-          <div className="mt-8 rounded-2xl border border-slate-200 bg-white shadow-sm p-6">
-            <p className="text-sm text-slate-700">
-              <strong>Observação importante (para evitar 404):</strong>
-            </p>
-            <ul className="list-disc ml-5 mt-3 space-y-1 text-sm text-slate-700">
-              <li>
-                Confirme se o PDF existe em{" "}
-                <code className="px-1 rounded bg-slate-100">
-                  /public/fichas-tecnicas/caixa-zf-traxon-iveco-s-way.pdf
-                </code>
-                .
-              </li>
-              <li>
-                A imagem do hero está reutilizando{" "}
-                <code className="px-1 rounded bg-slate-100">
-                  /public/images/caixa/caixa-volkswagen-hero.jpg
-                </code>
-                .
-              </li>
-              <li>
-                Nomes de arquivos e pastas precisam ser idênticos (maiúsculas e
-                minúsculas contam no deploy).
-              </li>
-            </ul>
-
-            <div className="mt-5 flex flex-wrap gap-3">
-              <Link
-                href="/caminhoes"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-slate-800 font-semibold hover:bg-slate-50 transition"
-              >
-                Ver caminhões
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-white font-semibold hover:bg-black transition"
-              >
-                Voltar ao início
-              </Link>
-            </div>
           </div>
         </section>
       </section>
