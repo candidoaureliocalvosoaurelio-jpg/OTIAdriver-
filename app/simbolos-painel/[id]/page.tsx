@@ -5,12 +5,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { symbolData } from "../symbolData";
+import { symbolData, normalizeSlug } from "../symbolData";
 
 type SymbolPageProps = {
   params: { id: string };
 };
 
+// Lê os arquivos para descobrir o caminho da imagem (pasta /public/simbolos)
 function getSymbols() {
   const dir = path.join(process.cwd(), "public", "simbolos");
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -36,39 +37,72 @@ function getSymbols() {
   }));
 }
 
-function toSafeSlug(input: string) {
-  const raw = String(input ?? "");
-  const noAccents = raw.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  const dashed = noAccents.toLowerCase().trim().replace(/\s+/g, "-");
-  const safe = dashed.replace(/[^a-z0-9_-]/g, "");
-  return safe || "desconhecido";
+/**
+ * Segurança (CodeQL):
+ * - Permite somente [a-z0-9-]
+ * - Evita injeção em href via valores "armazenados"
+ */
+function safeSlug(input: string) {
+  const norm = normalizeSlug(input);
+  const cleaned = norm.replace(/[^a-z0-9-]/g, "");
+  return cleaned.length > 0 ? cleaned : "simbolo";
 }
 
-// ✅ Pré-renderiza as rotas por slug
+function severityBadge(sev?: "info" | "warning" | "danger") {
+  switch (sev) {
+    case "danger":
+      return { label: "Crítico", tone: "danger" as const };
+    case "warning":
+      return { label: "Atenção", tone: "warning" as const };
+    default:
+      return { label: "Informativo", tone: "info" as const };
+  }
+}
+
+function colorBadge(color?: string) {
+  const c = (color || "").toLowerCase();
+  switch (c) {
+    case "vermelho":
+      return { label: "Vermelho", tone: "danger" as const };
+    case "amarelo":
+    case "laranja":
+      return { label: c === "laranja" ? "Laranja" : "Amarelo", tone: "warning" as const };
+    case "verde":
+    case "azul":
+    case "branco":
+      return { label: c.charAt(0).toUpperCase() + c.slice(1), tone: "info" as const };
+    default:
+      return { label: "Indicador", tone: "info" as const };
+  }
+}
+
+// ✅ Pré-renderiza as rotas por slug + compat (id numérico)
 export function generateStaticParams() {
-  return symbolData.map((s) => ({ id: toSafeSlug(s.slug) }));
+  const slugs = symbolData.map((s) => ({ id: safeSlug(s.slug) }));
+  const ids = symbolData.map((s) => ({ id: String(s.id) }));
+  return [...slugs, ...ids];
 }
 
 // ✅ SEO por símbolo (Next.js Metadata)
 export async function generateMetadata(
   { params }: SymbolPageProps
 ): Promise<Metadata> {
-  const rawId = String(params.id ?? "");
+  const raw = String(params.id ?? "").trim();
 
-  // Se veio número, tenta resolver para slug (para SEO correto)
-  let slug = rawId;
-  if (/^\d+$/.test(rawId)) {
-    const numericId = Number(rawId);
+  // Se vier número, converte para slug correto (SEO)
+  let lookupSlugOrId = raw;
+  if (/^\d+$/.test(raw)) {
+    const numericId = Number(raw);
     const byId = symbolData.find((s) => s.id === numericId);
-    if (byId?.slug) slug = byId.slug;
+    if (byId?.slug) lookupSlugOrId = byId.slug;
   }
 
-  const safeId = toSafeSlug(slug);
-  const symbol = symbolData.find((s) => toSafeSlug(s.slug) === safeId);
+  const safe = safeSlug(lookupSlugOrId);
+  const symbol = symbolData.find((s) => safeSlug(s.slug) === safe);
 
   const title = symbol
     ? `${symbol.title} — Símbolos do Painel | OTIAdriver`
-    : `Símbolo do Painel — OTIAdriver`;
+    : "Símbolo do Painel — OTIAdriver";
 
   const description = symbol?.description?.trim()
     ? symbol.description.trim().slice(0, 160)
@@ -90,38 +124,39 @@ function Badge({
   tone,
 }: {
   label: string;
-  tone: "danger" | "warning" | "info" | "success";
+  tone: "danger" | "warning" | "info";
 }) {
   const styles =
     tone === "danger"
       ? "bg-red-50 text-red-800 border-red-200"
       : tone === "warning"
       ? "bg-amber-50 text-amber-800 border-amber-200"
-      : tone === "success"
-      ? "bg-emerald-50 text-emerald-800 border-emerald-200"
       : "bg-sky-50 text-sky-800 border-sky-200";
 
   return (
-    <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${styles}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${styles}`}
+    >
       {label}
     </span>
   );
 }
 
 export default function SymbolPage({ params }: SymbolPageProps) {
-  const rawId = String(params.id ?? "");
+  const rawParam = String(params.id ?? "").trim();
 
-  // ✅ Compatibilidade: URL antiga numérica -> URL nova slug
-  if (/^\d+$/.test(rawId)) {
-    const numericId = Number(rawId);
+  // ✅ Compatibilidade: URL antiga numérica -> URL nova slug (sem quebrar links antigos)
+  if (/^\d+$/.test(rawParam)) {
+    const numericId = Number(rawParam);
     const symbolById = symbolData.find((s) => s.id === numericId);
     if (symbolById?.slug) {
-      redirect(`/simbolos-painel/${toSafeSlug(symbolById.slug)}`);
+      redirect(`/simbolos-painel/${safeSlug(symbolById.slug)}`);
     }
   }
 
-  const safeId = toSafeSlug(rawId);
-  const symbol = symbolData.find((s) => toSafeSlug(s.slug) === safeId);
+  // 🔎 Busca por slug (padrão novo)
+  const safeParam = safeSlug(rawParam);
+  const symbol = symbolData.find((s) => safeSlug(s.slug) === safeParam);
 
   if (!symbol) {
     return (
@@ -140,32 +175,17 @@ export default function SymbolPage({ params }: SymbolPageProps) {
   }
 
   const icons = getSymbols();
-  const icon = icons.find((i) => toSafeSlug(i.baseName) === toSafeSlug(symbol.slug));
+  const icon = icons.find((i) => safeSlug(i.baseName) === safeSlug(symbol.slug));
   const imageSrc = icon ? icon.path : `/simbolos/${symbol.slug}.png`;
 
-  // ✅ Campos opcionais (se não existirem ainda no symbolData, usamos fallback)
-  const severity =
-    (symbol as any).severity as ("danger" | "warning" | "info" | "success") | undefined;
+  const sev = severityBadge(symbol.severity);
+  const col = colorBadge(symbol.color);
 
   const acao =
-    (symbol as any).action ??
+    symbol.action ??
     "Recomenda-se reduzir a carga de esforço, observar o comportamento do veículo e, se a luz persistir, buscar diagnóstico em oficina.";
 
-  const causas: string[] =
-    (symbol as any).causes ??
-    [
-      "Sensor/atuador com leitura fora do padrão",
-      "Conexão elétrica/oxidação em chicote",
-      "Falha intermitente do sistema associado",
-    ];
-
-  const riscos: string[] =
-    (symbol as any).risks ??
-    [
-      "Funcionamento limitado do sistema",
-      "Aumento de desgaste de componentes",
-      "Possível agravamento se ignorado por longos períodos",
-    ];
+  const categoria = symbol.category ?? "Sistema";
 
   return (
     <main className="w-full bg-white">
@@ -178,20 +198,11 @@ export default function SymbolPage({ params }: SymbolPageProps) {
             ← Voltar para Símbolos do Painel
           </Link>
 
-          {severity ? (
-            <Badge
-              label={
-                severity === "danger"
-                  ? "Crítico"
-                  : severity === "warning"
-                  ? "Atenção"
-                  : severity === "success"
-                  ? "Sistema OK"
-                  : "Informativo"
-              }
-              tone={severity}
-            />
-          ) : null}
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge label={categoria} tone="info" />
+            <Badge label={sev.label} tone={sev.tone} />
+            <Badge label={col.label} tone={col.tone} />
+          </div>
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row items-start gap-6">
@@ -205,20 +216,20 @@ export default function SymbolPage({ params }: SymbolPageProps) {
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h1 className="text-2xl font-bold text-gray-900 mb-3">
               {symbol.title}
             </h1>
 
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed whitespace-pre-line">
               {symbol.description && symbol.description.trim().length > 0
-                ? symbol.description
+                ? symbol.description.trim()
                 : "Adicione aqui a descrição técnica completa: quando acende, causas mais comuns, riscos envolvidos e ação recomendada ao motorista."}
             </p>
           </div>
         </div>
 
-        {/* ✅ Cards técnicos (próximo nível) */}
+        {/* ✅ Card técnico (próximo nível) */}
         <div className="mt-8 grid gap-4">
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="text-base font-bold text-slate-900 mb-2">
@@ -227,27 +238,11 @@ export default function SymbolPage({ params }: SymbolPageProps) {
             <p className="text-sm text-slate-700 leading-relaxed">{acao}</p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-base font-bold text-slate-900 mb-3">
-              Causas comuns
-            </h2>
-            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
-              {causas.map((c, idx) => (
-                <li key={idx}>{c}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-base font-bold text-slate-900 mb-3">
-              Riscos ao ignorar
-            </h2>
-            <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
-              {riscos.map((r, idx) => (
-                <li key={idx}>{r}</li>
-              ))}
-            </ul>
-          </div>
+          {/* Observação:
+              No seu symbolData.ts atualizado ainda não existem "causes" e "risks".
+              Mantive fora para evitar TypeScript "any" e manter o projeto limpo/seguro.
+              Se você quiser, no próximo passo eu adiciono causes/risks ao tipo e ao data.
+          */}
         </div>
       </section>
     </main>
