@@ -429,27 +429,40 @@ export default function IvecoSWay5406x4Page() {
           </div>
         </section>
 
-      {/* BLOCO – Materiais em PDF (padrão OTIAdriver) */}
-<section id="materiais-pdf" className="mt-12 scroll-mt-24">
-  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
-    Materiais em PDF — Iveco S-Way / ZF TraXon
-  </h2>
-
-  <p className="text-sm md:text-base text-slate-700 mb-6 max-w-3xl">
-    Documentos de referência para consulta rápida: símbolos do painel, guia de
-    operação e apostila técnica da transmissão.
-  </p>
-
-  <div className="grid gap-6 md:grid-cols-3">
-    {/* PDF – Símbolos */}
+      {/* BLOCO FINAL – Materiais em PDF (somente 2 links) */}
+<section id="materiais-pdf" className="mt-10 scroll-mt-24">
+  <div className="grid gap-6 md:grid-cols-2">
+    {/* PDF – Ficha técnica oficial Iveco S-Way 540 6x4 */}
     <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
       <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Símbolos do painel — Iveco S-Way (PDF)
+        Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
       </h2>
 
       <p className="text-sm text-slate-700 mb-4">
-        Guia com os principais símbolos e luzes de advertência do painel do
-        Iveco S-Way, níveis de alerta e ações recomendadas ao motorista.
+        Dados completos de motor, transmissão, eixos, capacidades, dimensões e
+        configurações do <strong>Iveco S-Way 540 6x4</strong>.
+      </p>
+
+      <a
+        href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+      >
+        Abrir ficha técnica (PDF)
+      </a>
+    </div>
+
+    {/* PDF – Símbolos e Luzes do Painel Iveco S-Way */}
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+      <h2 className="text-xl font-semibold text-slate-900 mb-2">
+        Símbolos do painel – Iveco S-Way (PDF)
+      </h2>
+
+      <p className="text-sm text-slate-700 mb-4">
+        Guia completo de símbolos, luzes de advertência e alertas do painel do{" "}
+        <strong>Iveco S-Way</strong>, com orientações práticas para agir
+        corretamente durante a operação.
       </p>
 
       <a
@@ -461,54 +474,10 @@ export default function IvecoSWay5406x4Page() {
         Abrir guia de símbolos (PDF)
       </a>
     </div>
-
-    {/* PDF – Operação / Manual rápido */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Operação e modos — ZF TraXon (PDF)
-      </h2>
-
-      <p className="text-sm text-slate-700 mb-4">
-        Material de apoio para uso correto dos modos, manobras, subidas/descidas,
-        alertas e boas práticas para preservar embreagem e transmissão.
-      </p>
-
-      <a
-        href="/fichas-tecnicas/operacao-zf-traxon-iveco-s-way.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir guia de operação (PDF)
-      </a>
-    </div>
-
-    {/* PDF – Apostila Caixa (TraXon) */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Caixa ZF TraXon — Iveco S-Way (PDF)
-      </h2>
-
-      <p className="text-sm text-slate-700 mb-4">
-        Apostila técnica completa sobre a{" "}
-        <strong>transmissão ZF TraXon do Iveco S-Way</strong>, incluindo
-        especificações, funções inteligentes, integração com freio motor,
-        alertas, manutenção e boas práticas.
-      </p>
-
-      <a
-        href="/fichas-tecnicas/caixa-iveco-s-way-traxon.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir apostila TraXon (PDF)
-      </a>
-    </div>
   </div>
 </section>
 
-{/* CTA FINAL – Destaque Máximo TraXon */}
+{/* CTA FINAL – Destaque Máximo TraXon (continua) */}
 <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
   <div className="flex flex-col items-center text-center">
     <h3 className="text-2xl md:text-3xl font-extrabold text-white">
