@@ -1,5 +1,4 @@
 // app/caminhoes/iveco-s-way-540-6x4/page.tsx
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -189,8 +188,8 @@ export default function IvecoSWay5406x4Page() {
                   SCR
                 </li>
                 <li>
-                  <strong>Foco:</strong> alta durabilidade, elasticidade e
-                  baixo consumo em regime de cruzeiro
+                  <strong>Foco:</strong> alta durabilidade, elasticidade e baixo
+                  consumo em regime de cruzeiro
                 </li>
               </ul>
             </div>
@@ -218,6 +217,7 @@ export default function IvecoSWay5406x4Page() {
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Transmissão Hi-Tronix, tração 6x4 e serviços conectados Iveco
           </h2>
+
           <div className="grid md:grid-cols-3 gap-5">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
@@ -229,6 +229,7 @@ export default function IvecoSWay5406x4Page() {
                 consumo em rota.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Tração 6x4
@@ -239,6 +240,7 @@ export default function IvecoSWay5406x4Page() {
                 estabilidade.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Serviços conectados
@@ -262,6 +264,7 @@ export default function IvecoSWay5406x4Page() {
                 dos freios de serviço.
               </p>
             </div>
+
             <div className="bg-sky-50 rounded-2xl border border-sky-100 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-700 mb-1 uppercase">
                 Adequação a diferentes composições
@@ -280,6 +283,7 @@ export default function IvecoSWay5406x4Page() {
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Cabine S-Way: ergonomia, espaço interno e foco no motorista
           </h2>
+
           <div className="grid md:grid-cols-3 gap-5 text-sm text-slate-800">
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
@@ -291,6 +295,7 @@ export default function IvecoSWay5406x4Page() {
                 passa vários dias na estrada.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Ergonomia e comandos
@@ -301,6 +306,7 @@ export default function IvecoSWay5406x4Page() {
                 fadiga ao longo da jornada.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Tecnologia a bordo
@@ -327,6 +333,7 @@ export default function IvecoSWay5406x4Page() {
                 *Itens podem variar conforme versão e pacote.
               </p>
             </div>
+
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 text-sm text-slate-800">
               <p className="text-xs font-semibold text-sky-600 mb-1 uppercase">
                 Clima e conforto
@@ -345,6 +352,7 @@ export default function IvecoSWay5406x4Page() {
           <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-4">
             Ficha técnica resumida – Iveco S-Way 540 6x4
           </h2>
+
           <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full text-sm border-collapse">
               <tbody>
@@ -357,6 +365,7 @@ export default function IvecoSWay5406x4Page() {
                     focado em aerodinâmica, conectividade e conforto.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Motor
@@ -367,6 +376,7 @@ export default function IvecoSWay5406x4Page() {
                     6).
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Potência / torque
@@ -376,6 +386,7 @@ export default function IvecoSWay5406x4Page() {
                     2.450 Nm, privilegiando força em baixas rotações.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Transmissão
@@ -385,6 +396,7 @@ export default function IvecoSWay5406x4Page() {
                     de condução específicos e foco em economia de combustível.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Tração / eixos
@@ -394,6 +406,7 @@ export default function IvecoSWay5406x4Page() {
                     adequada a implementos pesados e composições de alto PBTC.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Cabine
@@ -404,6 +417,7 @@ export default function IvecoSWay5406x4Page() {
                     armazenamento.
                   </td>
                 </tr>
+
                 <tr className="border-b border-slate-200 bg-sky-50">
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Segurança
@@ -414,6 +428,7 @@ export default function IvecoSWay5406x4Page() {
                     conforme versão e pacote.
                   </td>
                 </tr>
+
                 <tr>
                   <th className="text-left px-4 py-3 font-semibold text-slate-700">
                     Foco operacional
@@ -429,84 +444,85 @@ export default function IvecoSWay5406x4Page() {
           </div>
         </section>
 
-      {/* BLOCO FINAL – Materiais em PDF (somente 2 links) */}
-<section id="materiais-pdf" className="mt-10 scroll-mt-24">
-  <div className="grid gap-6 md:grid-cols-2">
-    {/* PDF – Ficha técnica oficial Iveco S-Way 540 6x4 */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
-      </h2>
+        {/* BLOCO FINAL – Materiais em PDF (somente 2 links) */}
+        <section id="materiais-pdf" className="mt-10 scroll-mt-24">
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* PDF – Ficha técnica oficial Iveco S-Way 540 6x4 */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                Ficha técnica oficial – Iveco S-Way 540 6x4 (PDF)
+              </h2>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Dados completos de motor, transmissão, eixos, capacidades, dimensões e
-        configurações do <strong>Iveco S-Way 540 6x4</strong>.
-      </p>
+              <p className="text-sm text-slate-700 mb-4">
+                Dados completos de motor, transmissão, eixos, capacidades,
+                dimensões e configurações do{" "}
+                <strong>Iveco S-Way 540 6x4</strong>.
+              </p>
 
-      <a
-        href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir ficha técnica (PDF)
-      </a>
-    </div>
+              <a
+                href="/fichas-tecnicas/iveco-s-way-540-6x4.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir ficha técnica (PDF)
+              </a>
+            </div>
 
-    {/* PDF – Símbolos e Luzes do Painel Iveco S-Way */}
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
-      <h2 className="text-xl font-semibold text-slate-900 mb-2">
-        Símbolos do painel – Iveco S-Way (PDF)
-      </h2>
+            {/* PDF – Símbolos e Luzes do Painel Iveco S-Way */}
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6 shadow-sm flex flex-col min-h-[280px]">
+              <h2 className="text-xl font-semibold text-slate-900 mb-2">
+                Símbolos do painel – Iveco S-Way (PDF)
+              </h2>
 
-      <p className="text-sm text-slate-700 mb-4">
-        Guia completo de símbolos, luzes de advertência e alertas do painel do{" "}
-        <strong>Iveco S-Way</strong>, com orientações práticas para agir
-        corretamente durante a operação.
-      </p>
+              <p className="text-sm text-slate-700 mb-4">
+                Guia completo de símbolos, luzes de advertência e alertas do
+                painel do <strong>Iveco S-Way</strong>, com orientações práticas
+                para agir corretamente durante a operação.
+              </p>
 
-      <a
-        href="/fichas-tecnicas/simbolos-iveco-sway.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
-      >
-        Abrir guia de símbolos (PDF)
-      </a>
-    </div>
-  </div>
-</section>
+              <a
+                href="/fichas-tecnicas/simbolos-iveco-sway.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
+              >
+                Abrir guia de símbolos (PDF)
+              </a>
+            </div>
+          </div>
+        </section>
 
-{/* CTA FINAL – Destaque Máximo TraXon (continua) */}
-<section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
-  <div className="flex flex-col items-center text-center">
-    <h3 className="text-2xl md:text-3xl font-extrabold text-white">
-      Quer se aprofundar na transmissão ZF TraXon do Iveco S-Way?
-    </h3>
+        {/* CTA FINAL – Destaque Máximo TraXon (continua) */}
+        <section className="mt-14 rounded-3xl bg-slate-900 p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Quer se aprofundar na transmissão ZF TraXon do Iveco S-Way?
+            </h3>
 
-    <p className="mt-2 max-w-2xl text-slate-300">
-      Acesse a página completa com especificações, funções inteligentes, operação,
-      integração com freio motor e boas práticas.
-    </p>
+            <p className="mt-2 max-w-2xl text-slate-300">
+              Acesse a página completa com especificações, funções inteligentes,
+              operação, integração com freio motor e boas práticas.
+            </p>
 
-    <div className="mt-6">
-      <Link
-        href="/caminhoes/caixa-iveco/s-way"
-        className="inline-flex items-center justify-center rounded-2xl
-                   bg-gradient-to-r from-sky-600 to-blue-700
-                   px-12 py-4 text-base font-extrabold text-white
-                   shadow-lg shadow-sky-600/30
-                   hover:from-sky-700 hover:to-blue-800
-                   hover:shadow-xl hover:shadow-sky-700/40
-                   focus:outline-none focus:ring-4 focus:ring-sky-300
-                   transition-all duration-200"
-      >
-        Acessar página completa TraXon
-      </Link>
-    </div>
-  </div>
-</section>
-</section>
+            <div className="mt-6">
+              <Link
+                href="/caminhoes/caixa-iveco/s-way"
+                className="inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-sky-600 to-blue-700
+                           px-12 py-4 text-base font-extrabold text-white
+                           shadow-lg shadow-sky-600/30
+                           hover:from-sky-700 hover:to-blue-800
+                           hover:shadow-xl hover:shadow-sky-700/40
+                           focus:outline-none focus:ring-4 focus:ring-sky-300
+                           transition-all duration-200"
+              >
+                Acessar página completa TraXon
+              </Link>
+            </div>
+          </div>
+        </section>
+      </section>
     </main>
   );
 }
