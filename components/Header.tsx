@@ -3,6 +3,17 @@
 import Link from "next/link";
 import { useState } from "react";
 
+const navLinks = [
+  { href: "/", label: "Início" },
+  { href: "/proposito", label: "Propósito" },
+  { href: "/caminhoes-eletricos", label: "Caminhões Elétricos ⚡" },
+  { href: "/planos", label: "Planos" },
+  { href: "/pneus", label: "Pneus" },
+  { href: "/inspecao-manutencao", label: "Inspeção e Manutenção" },
+  { href: "/treinamentos", label: "Treinamentos" },
+  { href: "/simbolos-painel", label: "Símbolos do Painel" },
+];
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -31,43 +42,34 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* MENU DESKTOP */}
-        <nav className="hidden md:flex items-center gap-8 text-[15px] font-bold">
-          <Link href="/" className="hover:underline">
-            Início
-          </Link>
+        {/* MENU DESKTOP (ESTILO BARRA + MAIÚSCULAS + SEPARADORES) */}
+        <nav className="hidden md:flex items-center text-[12px] lg:text-[13px] font-extrabold uppercase tracking-wide">
+          {navLinks.map((item, idx) => (
+            <div key={item.href} className="flex items-center">
+              <Link
+                href={item.href}
+                className="px-3 py-2 hover:underline underline-offset-4"
+              >
+                {item.label}
+              </Link>
 
-          <Link href="/proposito" className="hover:underline">
-            Propósito
-          </Link>
+              {/* Separador | (não aparece no último item) */}
+              {idx < navLinks.length - 1 && (
+                <span className="mx-1 text-white/80 select-none" aria-hidden>
+                  |
+                </span>
+              )}
+            </div>
+          ))}
 
-          <Link href="/caminhoes-eletricos" className="hover:underline">
-            Caminhões Elétricos <span aria-hidden>⚡</span>
-          </Link>
-
-          <Link href="/planos" className="hover:underline">
-            Planos
-          </Link>
-
-          <Link href="/pneus" className="hover:underline">
-            Pneus
-          </Link>
-
-          <Link href="/inspecao-manutencao" className="hover:underline">
-            Inspeção e Manutenção
-          </Link>
-
-          {/* ✅ NOVO LINK – TREINAMENTOS (DESKTOP) */}
-          <Link href="/treinamentos" className="hover:underline">
-            Treinamentos
-          </Link>
-
-          <Link href="/simbolos-painel" className="hover:underline">
-            Símbolos do Painel
-          </Link>
-
-          {/* 🔵 NOVO LINK – EBOOK DRIVER */}
-          <Link href="/ebook-driver" className="hover:underline text-yellow-300">
+          {/* EBOOK (destaque) */}
+          <span className="mx-1 text-white/80 select-none" aria-hidden>
+            |
+          </span>
+          <Link
+            href="/ebook-driver"
+            className="px-3 py-2 hover:underline underline-offset-4 text-yellow-300"
+          >
             Ebook Driver Economy
           </Link>
         </nav>
@@ -95,75 +97,20 @@ export default function Header() {
         </button>
       </div>
 
-      {/* MENU MOBILE */}
+      {/* MENU MOBILE (mantém padrão atual) */}
       {menuOpen && (
         <nav className="md:hidden px-6 pb-4 text-sm font-semibold bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] border-t border-white/20">
-          <Link
-            href="/"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Início
-          </Link>
+          {navLinks.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block py-2"
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
 
-          <Link
-            href="/proposito"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Propósito
-          </Link>
-
-          <Link
-            href="/caminhoes-eletricos"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Caminhões Elétricos ⚡
-          </Link>
-
-          <Link
-            href="/planos"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Planos
-          </Link>
-
-          <Link
-            href="/pneus"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Pneus
-          </Link>
-
-          <Link
-            href="/inspecao-manutencao"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Inspeção e Manutenção
-          </Link>
-
-          {/* ✅ NOVO LINK – TREINAMENTOS (MOBILE) */}
-          <Link
-            href="/treinamentos"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Treinamentos
-          </Link>
-
-          <Link
-            href="/simbolos-painel"
-            className="block py-2"
-            onClick={() => setMenuOpen(false)}
-          >
-            Símbolos do Painel
-          </Link>
-
-          {/* 🔵 NOVO LINK – MOBILE */}
           <Link
             href="/ebook-driver"
             className="block py-2 text-yellow-200"
