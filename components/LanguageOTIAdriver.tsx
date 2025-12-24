@@ -1,19 +1,18 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-
-type Lang = "pt" | "en" | "es";
+import { setAppLang, type Lang } from "@/components/i18n/useLang";
 
 const LANGS: Array<{ code: Lang; label: string }> = [
+  { code: "pt", label: "Português" }, // oficial
   { code: "en", label: "English" },
   { code: "es", label: "Español" },
-  { code: "pt", label: "Português" }, // oficial
 ];
 
 function normalizeLang(input: string | null): Lang | null {
   if (!input) return null;
   const v = input.toLowerCase();
-  if (v === "pt" || v === "en" || v === "es") return v;
+  if (v === "pt" || v === "en" || v === "es") return v as Lang;
   return null;
 }
 
@@ -22,31 +21,24 @@ export default function LanguageOTIAdriver() {
   const [current, setCurrent] = useState<Lang>("pt");
   const ref = useRef<HTMLDivElement | null>(null);
 
-  // Inicializa: URL -> localStorage -> pt
   useEffect(() => {
-    const fromUrl = normalizeLang(
-      new URLSearchParams(window.location.search).get("lang")
-    );
+    const fromUrl = normalizeLang(new URLSearchParams(window.location.search).get("lang"));
     const stored = normalizeLang(localStorage.getItem("otiadriver_lang"));
     const lang: Lang = fromUrl || stored || "pt";
-
     setCurrent(lang);
     document.documentElement.lang = lang;
   }, []);
 
-  // Fecha ao clicar fora + ESC
   useEffect(() => {
     function onDocMouseDown(e: MouseEvent) {
       if (!open) return;
       const el = ref.current;
       if (el && !el.contains(e.target as Node)) setOpen(false);
     }
-
     function onKeyDown(e: KeyboardEvent) {
       if (!open) return;
       if (e.key === "Escape") setOpen(false);
     }
-
     document.addEventListener("mousedown", onDocMouseDown);
     document.addEventListener("keydown", onKeyDown);
     return () => {
@@ -55,25 +47,19 @@ export default function LanguageOTIAdriver() {
     };
   }, [open]);
 
-  const currentLabel = useMemo(() => {
-    return LANGS.find((l) => l.code === current)?.label ?? "Português";
-  }, [current]);
+  const currentLabel = useMemo(
+    () => LANGS.find((l) => l.code === current)?.label ?? "Português",
+    [current]
+  );
 
   function setLang(lang: Lang) {
     setCurrent(lang);
-    localStorage.setItem("otiadriver_lang", lang);
-    document.documentElement.lang = lang;
-
-    const url = new URL(window.location.href);
-    url.searchParams.set("lang", lang);
-    window.history.replaceState({}, "", url.toString());
-
+    setAppLang(lang); // ✅ atualiza URL + localStorage + notifica toda a UI
     setOpen(false);
   }
 
   return (
     <div ref={ref} className="relative">
-      {/* Botão estilo ZF: texto + chevron */}
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -84,7 +70,6 @@ export default function LanguageOTIAdriver() {
       >
         <span className="text-sm font-semibold">{currentLabel}</span>
 
-        {/* Chevron */}
         <svg
           className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
           viewBox="0 0 20 20"
@@ -99,18 +84,15 @@ export default function LanguageOTIAdriver() {
         </svg>
       </button>
 
-      {/* Dropdown estilo ZF */}
       {open && (
         <div
           role="menu"
           className="absolute right-0 mt-2 w-44 rounded-md bg-white text-slate-900 shadow-lg ring-1 ring-black/10 overflow-hidden z-50"
         >
-          {/* Cabeçalho: Língua */}
           <div className="px-3 py-2 text-xs font-semibold text-slate-500 bg-slate-50 border-b border-slate-200">
             Língua
           </div>
 
-          {/* Itens */}
           <div className="py-1">
             {LANGS.map(({ code, label }) => {
               const active = current === code;
