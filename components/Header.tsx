@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import LanguageOTIAdriver from "@/components/LanguageOTIAdriver";
 
 const navLinks = [
   { href: "/", label: "Início" },
@@ -42,7 +43,7 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* MENU DESKTOP (ESTILO BARRA + MAIÚSCULAS + SEPARADORES) */}
+        {/* MENU DESKTOP */}
         <nav className="hidden md:flex items-center text-[12px] lg:text-[13px] font-extrabold uppercase tracking-wide">
           {navLinks.map((item, idx) => (
             <div key={item.href} className="flex items-center">
@@ -74,30 +75,36 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* BOTÃO MENU MOBILE */}
-        <button
-          className="md:hidden p-2 rounded hover:bg-white/10"
-          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {/* AÇÕES (Direita): Idioma + Menu Mobile */}
+        <div className="flex items-center gap-2">
+          {/* Seletor de idioma (aparece em todas as telas) */}
+          <LanguageOTIAdriver />
+
+          {/* BOTÃO MENU MOBILE */}
+          <button
+            className="md:hidden p-2 rounded hover:bg-white/10 transition"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
-      {/* MENU MOBILE (mantém padrão atual) */}
+      {/* MENU MOBILE */}
       {menuOpen && (
         <nav className="md:hidden px-6 pb-4 text-sm font-semibold bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] border-t border-white/20">
           {navLinks.map((item) => (
