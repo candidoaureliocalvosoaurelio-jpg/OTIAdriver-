@@ -8,7 +8,7 @@ type Track = {
   description: string;
   href?: string; // se não tiver href, mostra "Em breve"
   tone: TrackTone;
-  levelTag: string; // ex: "Trilha Base", "Nível 3", etc.
+  levelTag: string;
   bullets: string[];
 };
 
@@ -72,8 +72,8 @@ const tracks: Track[] = [
     title: "Fundamentos de Transmissão Automatizada (AMT)",
     description:
       "Entenda como o motorista influencia o algoritmo (TraXon, Opticruise e equivalentes) e como evitar desgaste.",
-    // href: "/treinamentos/transmissao-automatizada-fundamentos",
-    tone: "emerald",
+    href: "/treinamentos/conducao-economica/amt",
+    tone: "violet",
     levelTag: "Nível 3",
     bullets: [
       "Automático x Manual (o que muda na prática)",
@@ -85,7 +85,8 @@ const tracks: Track[] = [
     title: "Caminhões Eletrônicos — Leitura Técnica e Telemetria",
     description:
       "Gestão eletrônica do motor, indicadores e interpretação de dados para ajustar estilo de condução com precisão.",
-    tone: "violet",
+    href: "/treinamentos/conducao-economica/caminhoes-eletronicos",
+    tone: "emerald",
     levelTag: "Nível 4",
     bullets: [
       "Consumo, RPM, torque e carga (interpretação)",
@@ -97,6 +98,7 @@ const tracks: Track[] = [
     title: "Caminhões Elétricos — Eficiência Energética e Segurança",
     description:
       "Regeneração, autonomia real e uso de modos/pedal para maximizar eficiência sem comprometer segurança.",
+    href: "/treinamentos/conducao-economica/caminhoes-eletricos",
     tone: "amber",
     levelTag: "Nível 5",
     bullets: [
@@ -124,7 +126,6 @@ function Card({ t }: { t: Track }) {
             "focus:outline-none focus:ring-4",
             s.ring,
           ].join(" ")}
-          aria-label={`Abrir ${t.title}`}
         >
           {children}
         </Link>
@@ -134,11 +135,9 @@ function Card({ t }: { t: Track }) {
     return (
       <div
         className={[
-          "rounded-2xl border bg-white p-6 shadow-sm",
-          "opacity-95",
+          "rounded-2xl border bg-white p-6 shadow-sm opacity-95",
           s.border,
         ].join(" ")}
-        aria-label={`${t.title} (em breve)`}
       >
         {children}
       </div>
@@ -148,7 +147,7 @@ function Card({ t }: { t: Track }) {
   return (
     <Wrapper>
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div>
           <div className="flex items-center gap-2">
             <span className={["h-2.5 w-2.5 rounded-full", s.dot].join(" ")} />
             <span
@@ -161,59 +160,26 @@ function Card({ t }: { t: Track }) {
             </span>
           </div>
 
-          <h2
-            className={[
-              "mt-3 text-lg md:text-xl font-extrabold leading-snug",
-              s.title,
-            ].join(" ")}
-          >
+          <h2 className={["mt-3 text-lg font-extrabold", s.title].join(" ")}>
             {t.title}
           </h2>
 
-          <p className="mt-2 text-sm md:text-base text-slate-600">
-            {t.description}
-          </p>
+          <p className="mt-2 text-sm text-slate-600">{t.description}</p>
         </div>
 
-        <div className="shrink-0">
-          {isReady ? (
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
-              Acessar
-            </span>
-          ) : (
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600">
-              Em breve
-            </span>
-          )}
-        </div>
+        <span className="text-xs font-semibold text-slate-600">
+          {isReady ? "Acessar" : "Em breve"}
+        </span>
       </div>
 
       <ul className="mt-4 space-y-2">
-        {t.bullets.map((b, i) => (
-          <li key={i} className="flex gap-2 text-sm text-slate-700">
+        {t.bullets.map((b) => (
+          <li key={b} className="flex gap-2 text-sm text-slate-700">
             <span className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
             <span>{b}</span>
           </li>
         ))}
       </ul>
-
-      {isReady ? (
-        <div className="mt-5 flex items-center justify-between">
-          <span className="text-xs text-slate-500">
-            Clique para abrir a trilha
-          </span>
-          <span className="text-sm font-semibold text-sky-700">
-            Ver conteúdo →
-          </span>
-        </div>
-      ) : (
-        <div className="mt-5 flex items-center justify-between">
-          <span className="text-xs text-slate-500">
-            Conteúdo em produção (sem link por enquanto)
-          </span>
-          <span className="text-sm font-semibold text-slate-600">—</span>
-        </div>
-      )}
     </Wrapper>
   );
 }
@@ -221,72 +187,10 @@ function Card({ t }: { t: Track }) {
 export default function TreinamentosHubPage() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">
-      {/* Cabeçalho interno da seção */}
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-sky-700">
-              Treinamentos OTIAdriver
-            </p>
-            <h1 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
-              Trilhas técnicas para evolução do motorista
-            </h1>
-            <p className="mt-3 text-slate-600 max-w-2xl">
-              Conteúdo estruturado por níveis, com foco em eficiência, segurança,
-              produtividade e base técnica aplicável ao dia a dia real.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-sky-200 bg-sky-50 p-4 md:p-5 w-full md:max-w-sm">
-            <p className="text-sm font-extrabold text-slate-900">
-              Como usar este HUB
-            </p>
-            <p className="mt-2 text-sm text-slate-700">
-              Comece pela trilha base (Condução Econômica) e avance por níveis.
-              Os módulos “Em breve” ficam visíveis para você acompanhar o roadmap.
-            </p>
-            <div className="mt-3 text-xs text-slate-600">
-              Observação: Certificação permanece fora por enquanto.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Grid de trilhas */}
-      <section className="mt-8 grid gap-6 md:grid-cols-2">
+      <section className="grid gap-6 md:grid-cols-2">
         {tracks.map((t) => (
           <Card key={t.title} t={t} />
         ))}
-      </section>
-
-      {/* Rodapé da seção */}
-      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <h3 className="text-lg font-extrabold text-slate-900">
-              Próximo passo recomendado
-            </h3>
-            <p className="mt-1 text-slate-600">
-              Após o HUB, criamos a página “Condução Econômica” e então
-              “Fundamentos” com conteúdo completo.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link
-              href="/treinamentos/conducao-economica"
-              className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white shadow-sm hover:bg-sky-700 transition"
-            >
-              Ir para Condução Econômica →
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-extrabold text-slate-800 hover:bg-slate-50 transition"
-            >
-              Voltar para Início
-            </Link>
-          </div>
-        </div>
       </section>
     </main>
   );
