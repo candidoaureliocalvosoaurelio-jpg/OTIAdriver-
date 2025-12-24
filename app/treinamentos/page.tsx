@@ -69,19 +69,19 @@ const tracks: Track[] = [
     ],
   },
   {
-    title: "Fundamentos de Transmissão Automatizada (AMT)",
-    description:
-      "Entenda como o motorista influencia o algoritmo (TraXon, Opticruise e equivalentes) e como evitar desgaste.",
-    // href: "/treinamentos/transmissao-automatizada-fundamentos",
-    tone: "emerald",
-    levelTag: "Nível 3",
-    bullets: [
-      "Automático x Manual (o que muda na prática)",
-      "EcoRoll / Economy / Performance (quando usar)",
-      "O que desgasta embreagem e como evitar",
-    ],
-  },
-  {
+  level: "Nível 3",
+  title: "Transmissões Automatizadas (AMT)",
+  description:
+    "Como o motorista influencia o algoritmo e o que realmente causa desgaste de embreagem.",
+  href: "/treinamentos/conducao-economica/amt",
+  tone: "purple",
+  bullets: [
+    "Automático x Manual",
+    "Economy / Performance / EcoRoll",
+    "Hábitos que geram desgaste",
+  ],
+},
+{
     title: "Caminhões Eletrônicos — Leitura Técnica e Telemetria",
     description:
       "Gestão eletrônica do motor, indicadores e interpretação de dados para ajustar estilo de condução com precisão.",
