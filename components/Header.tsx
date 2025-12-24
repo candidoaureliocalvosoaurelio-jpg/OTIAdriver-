@@ -14,18 +14,27 @@ const navLinks = [
   { href: "/inspecao-manutencao", key: "nav.inspectionMaintenance" },
   { href: "/treinamentos", key: "nav.training" },
   { href: "/simbolos-painel", key: "nav.dashboardSymbols" },
-];
+] as const;
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { t } = useT();
+  const { t, lang } = useT();
+
+  // Mantém o idioma em TODAS as navegações do Header
+  function withLang(href: string) {
+    // mantém âncoras (#) corretamente
+    const [path, hash] = href.split("#");
+    const sep = path.includes("?") ? "&" : "?";
+    const next = `${path}${sep}lang=${lang}`;
+    return hash ? `${next}#${hash}` : next;
+  }
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
         {/* LOGO / MARCA */}
         <Link
-          href="/"
+          href={withLang("/")}
           className="flex items-center hover:opacity-80 transition-opacity"
         >
           <div className="leading-tight">
@@ -50,7 +59,7 @@ export default function Header() {
           {navLinks.map((item, idx) => (
             <div key={item.href} className="flex items-center">
               <Link
-                href={item.href}
+                href={withLang(item.href)}
                 className="px-3 py-2 hover:underline underline-offset-4"
               >
                 {t(item.key)}
@@ -69,7 +78,7 @@ export default function Header() {
             |
           </span>
           <Link
-            href="/ebook-driver"
+            href={withLang("/ebook-driver")}
             className="px-3 py-2 hover:underline underline-offset-4 text-yellow-300"
           >
             {t("nav.ebook")}
@@ -109,7 +118,7 @@ export default function Header() {
           {navLinks.map((item) => (
             <Link
               key={item.href}
-              href={item.href}
+              href={withLang(item.href)}
               className="block py-2"
               onClick={() => setMenuOpen(false)}
             >
@@ -118,7 +127,7 @@ export default function Header() {
           ))}
 
           <Link
-            href="/ebook-driver"
+            href={withLang("/ebook-driver")}
             className="block py-2 text-yellow-200"
             onClick={() => setMenuOpen(false)}
           >
