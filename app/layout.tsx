@@ -17,7 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
         <Header />
 
-        <div className="h-[56px]" />
+        <main className="flex-1 pt-[80px] md:pt-[88px]">{children}</main>
+
 
         <div
           id="site-hero"
