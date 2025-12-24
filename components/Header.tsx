@@ -57,6 +57,11 @@ export default function Header() {
             Inspeção e Manutenção
           </Link>
 
+          {/* ✅ NOVO LINK – TREINAMENTOS (DESKTOP) */}
+          <Link href="/treinamentos" className="hover:underline">
+            Treinamentos
+          </Link>
+
           <Link href="/simbolos-painel" className="hover:underline">
             Símbolos do Painel
           </Link>
@@ -139,6 +144,15 @@ export default function Header() {
             onClick={() => setMenuOpen(false)}
           >
             Inspeção e Manutenção
+          </Link>
+
+          {/* ✅ NOVO LINK – TREINAMENTOS (MOBILE) */}
+          <Link
+            href="/treinamentos"
+            className="block py-2"
+            onClick={() => setMenuOpen(false)}
+          >
+            Treinamentos
           </Link>
 
           <Link
