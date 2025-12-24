@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import AssinaturaHero from "@/components/AssinaturaHero"; // <-- ADICIONE
+import AssinaturaHero from "@/components/AssinaturaHero";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -15,14 +15,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
+        {/* HEADER FIXO */}
         <Header />
 
-        <main className="flex-1 pt-[80px] md:pt-[88px]">{children}</main>
-
-
+        {/* HERO GLOBAL (aparece em todas as páginas) */}
         <div
           id="site-hero"
-          className="max-w-7xl mx-auto px-4 pt-6 pb-6 md:pb-8 text-center"
+          className="max-w-7xl mx-auto px-4 pt-[92px] md:pt-[108px] pb-6 md:pb-8 text-center"
         >
           <h1 className="text-[44px] md:text-6xl font-extrabold tracking-tight leading-tight">
             <span className="text-[#1F6FEB]">OTIA</span>
@@ -36,8 +35,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* BANNER DA ASSINATURA — EM TODAS AS PÁGINAS */}
         <AssinaturaHero />
 
+        {/* CONTEÚDO DA PÁGINA (APENAS 1x) */}
         <main className="flex-1">{children}</main>
 
+        {/* FOOTER */}
         <Footer />
       </body>
     </html>
