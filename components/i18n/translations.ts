@@ -1,52 +1,57 @@
 import type { Lang } from "./useLang";
 
-export const translations: Record<Lang, Record<string, string>> = {
+export type TranslationDict = Record<string, string>;
+export type TranslationsMap = Record<Lang, TranslationDict>;
+
+export const translations: TranslationsMap = {
   pt: {
+    "brand.officialPlatform": "Plataforma Oficial",
+
     "nav.home": "Início",
     "nav.purpose": "Propósito",
-    "nav.electric": "Caminhões Elétricos ⚡",
+    "nav.electricTrucks": "Caminhões Elétricos ⚡",
     "nav.plans": "Planos",
     "nav.tires": "Pneus",
-    "nav.inspect": "Inspeção e Manutenção",
+    "nav.inspectionMaintenance": "Inspeção e Manutenção",
     "nav.training": "Treinamentos",
-    "nav.symbols": "Símbolos do Painel",
+    "nav.dashboardSymbols": "Símbolos do Painel",
     "nav.ebook": "Ebook Driver Economy",
 
-    "lang.label": "Português",
-    "lang.pt": "Português",
-    "lang.en": "English",
-    "lang.es": "Español",
+    "nav.openMenu": "Abrir menu",
+    "nav.closeMenu": "Fechar menu",
   },
+
   en: {
+    "brand.officialPlatform": "Official Platform",
+
     "nav.home": "Home",
     "nav.purpose": "Purpose",
-    "nav.electric": "Electric Trucks ⚡",
+    "nav.electricTrucks": "Electric Trucks ⚡",
     "nav.plans": "Plans",
     "nav.tires": "Tires",
-    "nav.inspect": "Inspection & Maintenance",
+    "nav.inspectionMaintenance": "Inspection & Maintenance",
     "nav.training": "Training",
-    "nav.symbols": "Dashboard Symbols",
-    "nav.ebook": "Ebook Driver Economy",
+    "nav.dashboardSymbols": "Dashboard Symbols",
+    "nav.ebook": "Driver Economy Ebook",
 
-    "lang.label": "English",
-    "lang.pt": "Portuguese",
-    "lang.en": "English",
-    "lang.es": "Spanish",
+    "nav.openMenu": "Open menu",
+    "nav.closeMenu": "Close menu",
   },
+
   es: {
+    "brand.officialPlatform": "Plataforma Oficial",
+
     "nav.home": "Inicio",
     "nav.purpose": "Propósito",
-    "nav.electric": "Camiones Eléctricos ⚡",
+    "nav.electricTrucks": "Camiones Eléctricos ⚡",
     "nav.plans": "Planes",
     "nav.tires": "Neumáticos",
-    "nav.inspect": "Inspección y Mantenimiento",
+    "nav.inspectionMaintenance": "Inspección y Mantenimiento",
     "nav.training": "Entrenamientos",
-    "nav.symbols": "Símbolos del Tablero",
-    "nav.ebook": "Ebook Driver Economy",
+    "nav.dashboardSymbols": "Símbolos del Panel",
+    "nav.ebook": "Ebook de Economía del Conductor",
 
-    "lang.label": "Español",
-    "lang.pt": "Portugués",
-    "lang.en": "Inglés",
-    "lang.es": "Español",
+    "nav.openMenu": "Abrir menú",
+    "nav.closeMenu": "Cerrar menú",
   },
 };
