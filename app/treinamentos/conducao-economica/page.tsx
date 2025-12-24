@@ -69,18 +69,19 @@ const levels: LevelCard[] = [
     ],
   },
   {
-    level: "Nível 2",
-    title: "Condução Prática — Eficiência no dia a dia",
-    description:
-      "Aplicação prática: arrancadas, cruzeiro, subidas/descidas e uso do acelerador sem perder produtividade.",
-    tone: "success",
-    bullets: [
-      "Arrancadas eficientes e controle de energia",
-      "Manutenção de velocidade de cruzeiro",
-      "Subidas, descidas e serras (estratégia)",
-    ],
-  },
-  {
+  level: "Nível 2",
+  title: "Condução Prática — Eficiência no dia a dia",
+  description:
+    "Aplicação prática: arrancadas, cruzeiro, subidas/descidas e uso do acelerador sem perder produtividade.",
+  href: "/treinamentos/conducao-economica/conducao-pratica",
+  tone: "success",
+  bullets: [
+    "Arrancadas eficientes e controle de energia",
+    "Manutenção de velocidade de cruzeiro",
+    "Subidas, descidas e serras (estratégia)",
+  ],
+},
+{
     level: "Nível 3",
     title: "Transmissões Automatizadas (AMT)",
     description:
