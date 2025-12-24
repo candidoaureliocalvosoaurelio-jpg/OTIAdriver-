@@ -95,18 +95,19 @@ const levels: LevelCard[] = [
   ],
 },
 {
-    level: "Nível 4",
-    title: "Caminhões Eletrônicos — Gestão e Telemetria",
-    description:
-      "Leitura técnica dos indicadores e interpretação de dados para ajustar estilo de condução com precisão.",
-    tone: "info",
-    bullets: [
-      "Consumo, RPM, torque e carga (indicadores)",
-      "Telemetria: como ler e agir",
-      "Ajuste de estilo de condução baseado em dados",
-    ],
-  },
-  {
+  level: "Nível 4",
+  title: "Caminhões Eletrônicos — Gestão e Telemetria",
+  description:
+    "Gestão eletrônica do motor, indicadores e interpretação de dados para ajustar estilo de condução com precisão.",
+  href: "/treinamentos/conducao-economica/caminhoes-eletronicos",
+  tone: "info",
+  bullets: [
+    "Consumo, RPM, torque e carga (indicadores)",
+    "Telemetria: como ler e agir",
+    "Ajuste de estilo de condução baseado em dados",
+  ],
+},
+{
     level: "Nível 5",
     title: "Caminhões Elétricos — Eficiência Energética",
     description:
