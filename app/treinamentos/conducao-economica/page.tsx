@@ -273,18 +273,6 @@ export default function ConducaoEconomicaPage() {
           <LevelItem key={lvl.level} item={lvl} />
         ))}
       </section>
-
-      {/* Nota de escopo */}
-      <section className="mt-8 rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-        <h3 className="text-lg font-extrabold text-slate-900">
-          Nota de escopo (importante)
-        </h3>
-        <p className="mt-2 text-slate-600">
-          O nível de Certificação foi propositalmente mantido fora por enquanto.
-          Primeiro consolidamos a base técnica e os módulos práticos com padrão
-          premium e consistência de linguagem.
-        </p>
-      </section>
     </main>
   );
 }
