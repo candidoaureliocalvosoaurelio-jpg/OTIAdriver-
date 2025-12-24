@@ -82,18 +82,19 @@ const levels: LevelCard[] = [
   ],
 },
 {
-    level: "Nível 3",
-    title: "Transmissões Automatizadas (AMT)",
-    description:
-      "Como o motorista influencia o algoritmo e o que realmente causa desgaste de embreagem (TraXon, Opticruise, etc.).",
-    tone: "purple",
-    bullets: [
-      "Automático × Manual (diferenças práticas)",
-      "EcoRoll / Economy / Performance (uso correto)",
-      "Hábitos que aumentam desgaste",
-    ],
-  },
-  {
+  level: "Nível 3",
+  title: "Transmissões Automatizadas (AMT)",
+  description:
+    "Como o motorista influencia o algoritmo e o que realmente causa desgaste de embreagem.",
+  href: "/treinamentos/conducao-economica/amt",
+  tone: "purple",
+  bullets: [
+    "Automático x Manual",
+    "Economy / Performance / EcoRoll",
+    "Hábitos que geram desgaste",
+  ],
+},
+{
     level: "Nível 4",
     title: "Caminhões Eletrônicos — Gestão e Telemetria",
     description:
