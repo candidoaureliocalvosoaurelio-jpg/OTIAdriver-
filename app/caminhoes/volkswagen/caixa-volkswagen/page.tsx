@@ -232,20 +232,24 @@ export default function CaixaVolkswagenPage() {
             <PillNav />
           </div>
 
-          {/* Imagem / bloco visual */}
-          <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-fuchsia-50">
-              <div style={{ aspectRatio: "4 / 3" }} className="relative">
-                <Image
-                src="/images/caixa-volkswagen.png"
-                alt="Caixa de mudanças Volkswagen TRAXON"
-                fill
-                className="object-contain p-4 md:p-6"
-                priority
-                />
-              </div>
-            </div>
+          {/* Imagem – padrão igual Caixa Iveco */}
+<div className="relative w-full max-w-md mx-auto">
+  <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-900/5 border border-slate-200">
+    <div style={{ aspectRatio: "4 / 3" }} className="relative">
+      <Image
+        src="/images/caixa-volkswagen.png"
+        alt="Caixa Volkswagen – Transmissão ZF TraXon"
+        fill
+        className="object-cover"
+        priority
+      />
+    </div>
+  </div>
 
+  <div className="mt-3 text-[11px] text-slate-500 text-center">
+    Imagem ilustrativa — Caixa Volkswagen (ZF TraXon).
+  </div>
+</div>
             <div className="mt-3 text-[11px] text-slate-500 text-center">
               <code className="px-1 rounded bg-slate-100">CAIXA TRAXON</code>{" "}
             </div>
