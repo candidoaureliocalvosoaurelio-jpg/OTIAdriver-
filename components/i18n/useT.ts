@@ -1,14 +1,14 @@
-// components/i18n/useT.ts
 "use client";
 
 import { useLang } from "./useLang";
 import { translations } from "./translations";
 
 export function useT() {
-  const lang = useLang(); // sem destructuring
+  const lang = useLang();
 
   function t(key: string): string {
-    return translations[lang]?.[key] ?? translations.pt?.[key] ?? key;
+    const dict = translations[lang]; // Record<string, string>
+    return dict?.[key] ?? translations.pt?.[key] ?? key;
   }
 
   return { t, lang };
