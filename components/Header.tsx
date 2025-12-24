@@ -3,20 +3,22 @@
 import Link from "next/link";
 import { useState } from "react";
 import LanguageOTIAdriver from "@/components/LanguageOTIAdriver";
+import { useT } from "@/components/i18n/useT";
 
 const navLinks = [
-  { href: "/", label: "Início" },
-  { href: "/proposito", label: "Propósito" },
-  { href: "/caminhoes-eletricos", label: "Caminhões Elétricos ⚡" },
-  { href: "/planos", label: "Planos" },
-  { href: "/pneus", label: "Pneus" },
-  { href: "/inspecao-manutencao", label: "Inspeção e Manutenção" },
-  { href: "/treinamentos", label: "Treinamentos" },
-  { href: "/simbolos-painel", label: "Símbolos do Painel" },
+  { href: "/", key: "nav.home" },
+  { href: "/proposito", key: "nav.purpose" },
+  { href: "/caminhoes-eletricos", key: "nav.electricTrucks" },
+  { href: "/planos", key: "nav.plans" },
+  { href: "/pneus", key: "nav.tires" },
+  { href: "/inspecao-manutencao", key: "nav.inspectionMaintenance" },
+  { href: "/treinamentos", key: "nav.training" },
+  { href: "/simbolos-painel", key: "nav.dashboardSymbols" },
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useT();
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
@@ -32,7 +34,7 @@ export default function Header() {
               <span className="mr-1" aria-hidden>
                 🌐
               </span>
-              Plataforma Oficial
+              {t("brand.officialPlatform")}
             </span>
 
             {/* Linha 2 – OTIAdriver */}
@@ -51,10 +53,9 @@ export default function Header() {
                 href={item.href}
                 className="px-3 py-2 hover:underline underline-offset-4"
               >
-                {item.label}
+                {t(item.key)}
               </Link>
 
-              {/* Separador | (não aparece no último item) */}
               {idx < navLinks.length - 1 && (
                 <span className="mx-1 text-white/80 select-none" aria-hidden>
                   |
@@ -71,19 +72,17 @@ export default function Header() {
             href="/ebook-driver"
             className="px-3 py-2 hover:underline underline-offset-4 text-yellow-300"
           >
-            Ebook Driver Economy
+            {t("nav.ebook")}
           </Link>
         </nav>
 
         {/* AÇÕES (Direita): Idioma + Menu Mobile */}
         <div className="flex items-center gap-2">
-          {/* Seletor de idioma (aparece em todas as telas) */}
           <LanguageOTIAdriver />
 
-          {/* BOTÃO MENU MOBILE */}
           <button
             className="md:hidden p-2 rounded hover:bg-white/10 transition"
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={menuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <svg
@@ -114,7 +113,7 @@ export default function Header() {
               className="block py-2"
               onClick={() => setMenuOpen(false)}
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
 
@@ -123,7 +122,7 @@ export default function Header() {
             className="block py-2 text-yellow-200"
             onClick={() => setMenuOpen(false)}
           >
-            Ebook Driver Economy
+            {t("nav.ebook")}
           </Link>
         </nav>
       )}
