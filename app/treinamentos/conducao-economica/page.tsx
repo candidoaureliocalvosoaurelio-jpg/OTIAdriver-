@@ -108,17 +108,18 @@ const levels: LevelCard[] = [
   ],
 },
 {
-    level: "Nível 5",
-    title: "Caminhões Elétricos — Eficiência Energética",
-    description:
-      "Regeneração, autonomia real, modos de condução e uso do pedal com segurança operacional.",
-    tone: "warning",
-    bullets: [
-      "Regeneração e uso inteligente do pedal",
-      "Autonomia real vs teórica (fatores reais)",
-      "Eficiência energética x segurança",
-    ],
-  },
+  level: "Nível 5",
+  title: "Caminhões Elétricos — Eficiência Energética",
+  description:
+    "Regeneração, autonomia real, modos de condução e uso do pedal com segurança operacional.",
+  href: "/treinamentos/conducao-economica/caminhoes-eletricos",
+  tone: "warning",
+  bullets: [
+    "Regeneração e uso inteligente do pedal",
+    "Autonomia real vs teórica (fatores reais)",
+    "Eficiência energética x segurança",
+  ],
+},
 ];
 
 function LevelItem({ item }: { item: LevelCard }) {
