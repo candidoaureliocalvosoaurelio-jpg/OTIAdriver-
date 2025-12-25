@@ -157,9 +157,7 @@ function Accordion({
   const s = toneStyles(tone);
   return (
     <details
-      className={`rounded-2xl border bg-white shadow-sm overflow-hidden ${
-        defaultOpen ? "open" : ""
-      }`}
+      className="rounded-2xl border bg-white shadow-sm overflow-hidden"
       open={defaultOpen}
     >
       <summary className="list-none cursor-pointer select-none">
@@ -185,7 +183,7 @@ function Accordion({
 export default function CaixaVolkswagenPage() {
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
-      {/* HERO — cores novas (gradiente elegante) */}
+      {/* HERO */}
       <section className="w-full border-b border-slate-200 bg-white">
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-14 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center">
           {/* Texto */}
@@ -211,7 +209,7 @@ export default function CaixaVolkswagenPage() {
               partida, alertas do sistema e cuidados com óleo e embreagem.
             </p>
 
-            {/* CTA (apenas PDF) */}
+            {/* CTA (PDF) */}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="/fichas-tecnicas/caixa-volkswagen.pdf"
@@ -232,22 +230,22 @@ export default function CaixaVolkswagenPage() {
             <PillNav />
           </div>
 
-          {/* Imagem / bloco visual */}
+          {/* Imagem – padrão igual Caixa Iveco */}
           <div className="relative w-full max-w-md mx-auto">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-gradient-to-br from-sky-50 via-white to-fuchsia-50">
+            <div className="relative rounded-3xl overflow-hidden shadow-xl bg-slate-900/5 border border-slate-200">
               <div style={{ aspectRatio: "4 / 3" }} className="relative">
                 <Image
-                src="/images/caixa-volkswagen.png"
-                alt="Caixa de mudanças Volkswagen TRAXON"
-                fill
-                className="object-contain p-4 md:p-6"
-                priority
+                  src="/images/caixa-volkswagen.png"
+                  alt="Caixa de mudanças Volkswagen TRAXON"
+                  fill
+                  className="object-cover"
+                  priority
                 />
               </div>
             </div>
 
             <div className="mt-3 text-[11px] text-slate-500 text-center">
-              <code className="px-1 rounded bg-slate-100">/public/images/caixa</code>{" "}
+              Imagem ilustrativa — Caixa Volkswagen (ZF TraXon).
             </div>
           </div>
         </div>
@@ -305,7 +303,7 @@ export default function CaixaVolkswagenPage() {
             <InfoCard
               tone="success"
               title="Dica OTIAdriver"
-              desc='Em descidas longas, prefira modo MANUAL para segurar marcha + freio motor. Isso reduz aquecimento de freios e melhora controle.'
+              desc="Em descidas longas, prefira modo MANUAL para segurar marcha + freio motor. Isso reduz aquecimento de freios e melhora controle."
             />
           </div>
         </section>
@@ -748,7 +746,7 @@ export default function CaixaVolkswagenPage() {
           <SectionTitle
             eyebrow="OTIAdriver — prática real"
             title="7) Boas práticas que aumentam a vida útil (e reduzem custo)"
-            subtitle="Checklist direto ao ponto para operar a V-Tronic com segurança, economia e menor desgaste."
+            subtitle="Checklist direto ao ponto para operar a TRAXON com segurança, economia e menor desgaste."
           />
 
           <div className="grid md:grid-cols-3 gap-5">
@@ -832,11 +830,11 @@ export default function CaixaVolkswagenPage() {
           </div>
         </section>
 
-        {/* BLOCO FINAL — CTA forte (somente PDF) */}
+        {/* BLOCO FINAL — CTA forte (PDF) */}
         <section className="mt-12 rounded-3xl p-8 md:p-10 shadow-xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950">
           <div className="flex flex-col items-center text-center">
             <h3 className="text-2xl md:text-3xl font-extrabold text-white">
-              Quer dominar a V-Tronic e reduzir custo por km?
+              Quer dominar a TRAXON e reduzir custo por km?
             </h3>
             <p className="mt-2 max-w-2xl text-slate-300">
               Abra a apostila completa em PDF e utilize este guia para treinar
@@ -867,7 +865,7 @@ export default function CaixaVolkswagenPage() {
           </div>
         </section>
 
-        {/* Navegação discreta (opcional) */}
+        {/* Navegação */}
         <section className="flex flex-wrap gap-3">
           <Link
             href="/"
