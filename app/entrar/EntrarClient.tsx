@@ -8,7 +8,6 @@ function onlyDigits(v: string) {
 }
 
 function getOrCreateDeviceId() {
-  if (typeof window === "undefined") return "";
   const key = "otia_device_id";
   let id = localStorage.getItem(key);
   if (!id) {
@@ -32,7 +31,7 @@ export default function EntrarClient() {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
-  const deviceId = useMemo(() => (typeof window !== "undefined" ? getOrCreateDeviceId() : ""), []);
+  const deviceId = useMemo(() => getOrCreateDeviceId(), []);
 
   useEffect(() => {
     if (reason === "device") {
@@ -44,6 +43,7 @@ export default function EntrarClient() {
 
   async function requestOtp() {
     setMsg(null);
+
     const cpfDigits = onlyDigits(cpf);
     const phoneDigits = onlyDigits(phone);
 
@@ -79,6 +79,7 @@ export default function EntrarClient() {
 
   async function verifyOtp() {
     setMsg(null);
+
     const cpfDigits = onlyDigits(cpf);
     const phoneDigits = onlyDigits(phone);
     const codeDigits = onlyDigits(code);
@@ -132,6 +133,7 @@ export default function EntrarClient() {
                 onChange={(e) => setCpf(e.target.value)}
                 placeholder="Somente números"
                 className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-200"
+                inputMode="numeric"
               />
             </div>
 
@@ -142,6 +144,7 @@ export default function EntrarClient() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Ex.: 11999999999"
                 className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-200"
+                inputMode="tel"
               />
             </div>
 
@@ -153,6 +156,7 @@ export default function EntrarClient() {
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="Digite o código"
                   className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-sky-200"
+                  inputMode="numeric"
                 />
               </div>
             )}
