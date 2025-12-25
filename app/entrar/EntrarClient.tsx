@@ -71,7 +71,7 @@ export default function EntrarClient() {
       }
 
       setStep("verify");
-      setMsg("Código enviado. Verifique seu WhatsApp (modo dev: o código aparece no terminal).");
+      setMsg("Código enviado. Em modo DEV, o código aparece no terminal.");
     } finally {
       setLoading(false);
     }
