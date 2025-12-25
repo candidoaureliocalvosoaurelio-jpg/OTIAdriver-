@@ -988,10 +988,10 @@ export default function InspecaoManutencaoPage() {
         {/* Modularidade */}
         <article className="rounded-3xl bg-white p-6 shadow">
           <h3 className="text-xl font-semibold">
-            Por que a modularidade é a chave
+            A modularidade é a chave
           </h3>
           <p className="mt-2 text-slate-700">
-            Fabricantes utilizam manutenção modular para agrupar serviços e
+            Utilizar a manutenção modular para agrupar serviços e
             melhorar a eficiência operacional.
           </p>
 
@@ -1018,9 +1018,6 @@ export default function InspecaoManutencaoPage() {
           </div>
 
           <div className="mt-5 text-sm text-slate-700">
-            Se você quiser, eu posso montar um exemplo prático de calendário de
-            manutenção (A/B/C/D) para um caminhão rodoviário e outro vocacional,
-            alinhado a horas de motor e severidade.
           </div>
         </article>
       </section>
