@@ -240,11 +240,11 @@ export default function TreinamentosHubPage() {
               Como usar este HUB
             </p>
             <p className="mt-2 text-sm text-slate-700">
-              Comece pela trilha base (Condução Econômica) e avance por níveis.
-              Os módulos “Em breve” ficam visíveis para acompanhar o roadmap.
+              Comece pela trilha base Condução Econômica avance por níveis.
+              Os módulos ficam visíveis para acompanhar o roadmap.
             </p>
             <div className="mt-3 text-xs text-slate-600">
-              Observação: Certificação permanece fora por enquanto.
+              
             </div>
           </div>
         </div>
