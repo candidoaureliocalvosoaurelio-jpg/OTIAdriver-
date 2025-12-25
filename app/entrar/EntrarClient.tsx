@@ -8,11 +8,9 @@ function onlyDigits(v: string) {
 }
 
 function safeGetOrCreateDeviceId() {
-  // IMPORTANTE: isso só roda no browser
   const key = "otia_device_id";
   let id = window.localStorage.getItem(key);
   if (!id) {
-    // crypto.randomUUID existe no browser moderno
     id = window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`;
     window.localStorage.setItem(key, id);
   }
@@ -22,9 +20,8 @@ function safeGetOrCreateDeviceId() {
 export default function EntrarClient() {
   const router = useRouter();
 
-  // NÃO calcule nada com window/localStorage aqui fora do useEffect
   const [mounted, setMounted] = useState(false);
-  const [deviceId, setDeviceId] = useState<string>(""); // só define depois
+  const [deviceId, setDeviceId] = useState<string>("");
   const [nextUrl, setNextUrl] = useState("/planos");
   const [msg, setMsg] = useState<string | null>(null);
 
@@ -35,7 +32,6 @@ export default function EntrarClient() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // agora sim estamos no browser
     setMounted(true);
 
     const url = new URL(window.location.href);
@@ -43,7 +39,9 @@ export default function EntrarClient() {
 
     const reason = url.searchParams.get("reason");
     if (reason === "device") {
-      setMsg("Sua conta foi acessada em outro dispositivo. Confirme novamente pelo WhatsApp.");
+      setMsg(
+        "Sua conta foi acessada em outro dispositivo. Confirme novamente pelo WhatsApp."
+      );
     } else if (reason === "auth") {
       setMsg("Faça login para continuar.");
     }
@@ -58,7 +56,8 @@ export default function EntrarClient() {
     const phoneDigits = onlyDigits(phone);
 
     if (cpfDigits.length !== 11) return setMsg("CPF inválido. Digite 11 números.");
-    if (phoneDigits.length < 10 || phoneDigits.length > 13) return setMsg("Celular inválido. Digite com DDD.");
+    if (phoneDigits.length < 10 || phoneDigits.length > 13)
+      return setMsg("Celular inválido. Digite com DDD.");
 
     setLoading(true);
     try {
@@ -75,7 +74,7 @@ export default function EntrarClient() {
       if (!res.ok) return setMsg(data?.error || "Erro ao enviar código.");
 
       setStep("verify");
-      setMsg("Código enviado. (modo DEV: aparece no terminal)");
+      setMsg("Código enviado. Verifique seu SMS.");
     } finally {
       setLoading(false);
     }
@@ -88,7 +87,7 @@ export default function EntrarClient() {
     const phoneDigits = onlyDigits(phone);
     const codeDigits = onlyDigits(code);
 
-    if (codeDigits.length < 4) return setMsg("Digite o código.");
+    if (codeDigits.length !== 6) return setMsg("Digite o código de 6 dígitos.");
 
     setLoading(true);
     try {
@@ -98,19 +97,24 @@ export default function EntrarClient() {
           "Content-Type": "application/json",
           "x-device-id": deviceId || "dev",
         },
-        body: JSON.stringify({ cpf: cpfDigits, phone: phoneDigits, code: codeDigits }),
+        body: JSON.stringify({
+          cpf: cpfDigits,
+          phone: phoneDigits,
+          code: codeDigits,
+        }),
       });
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) return setMsg(data?.error || "Código inválido.");
 
-      router.replace(nextUrl);
+      // Opção A: backend decide /app (ativo) ou /planos (inativo)
+      const redirectTo = data?.redirectTo || nextUrl || "/planos";
+      router.replace(redirectTo);
     } finally {
       setLoading(false);
     }
   }
 
-  // DURANTE PRERENDER (servidor), mounted = false, então renderiza algo neutro
   if (!mounted) {
     return <div className="min-h-screen bg-slate-50" />;
   }
@@ -140,7 +144,7 @@ export default function EntrarClient() {
 
         {step === "verify" && (
           <input
-            placeholder="Código"
+            placeholder="Código (6 dígitos)"
             value={code}
             onChange={(e) => setCode(e.target.value)}
             className="w-full border p-2 rounded"
@@ -149,11 +153,19 @@ export default function EntrarClient() {
         )}
 
         {step === "request" ? (
-          <button onClick={requestOtp} disabled={loading} className="w-full bg-blue-600 text-white p-2 rounded">
+          <button
+            onClick={requestOtp}
+            disabled={loading}
+            className="w-full bg-blue-600 text-white p-2 rounded"
+          >
             {loading ? "Enviando..." : "Enviar código"}
           </button>
         ) : (
-          <button onClick={verifyOtp} disabled={loading} className="w-full bg-green-600 text-white p-2 rounded">
+          <button
+            onClick={verifyOtp}
+            disabled={loading}
+            className="w-full bg-green-600 text-white p-2 rounded"
+          >
             {loading ? "Validando..." : "Confirmar"}
           </button>
         )}
