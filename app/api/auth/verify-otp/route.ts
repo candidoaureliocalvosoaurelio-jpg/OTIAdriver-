@@ -13,7 +13,7 @@ function onlyDigits(v: string) {
 function hasActivePlan(cpfDigits: string): boolean {
   const activeCpfs = new Set<string>([
     // Coloque aqui CPFs que você quer testar como "ativos"
-    // "12345678901",
+    // "62833030134",
   ]);
 
   return activeCpfs.has(cpfDigits);
