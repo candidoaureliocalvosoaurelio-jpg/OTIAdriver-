@@ -23,14 +23,17 @@ export default function HomePage() {
       badge: "Premium",
       meta: "Série • Premium",
     },
+
+    // ✅ TROCA FEITA AQUI (antes: Inspeção e Manutenção Preventiva)
     {
-      title: "Inspeção e Manutenção Preventiva",
-      subtitle: "Checklist profissional para frota.",
-      href: "/app/treinamentos/manutencao-preventiva?lang=pt",
-      imageSrc: "/images/home/thumb-treinamento-03.jpg",
-      badge: "Premium",
-      meta: "Guia • Premium",
+      title: "Condução Econômica Avançada",
+      subtitle: "Reduza consumo, desgaste e custos na prática.",
+      href: "/treinamentos?lang=pt",
+      imageSrc: "/images/home/thumb-conducao-economica.jpg",
+      badge: "Grátis",
+      meta: "Aula • Economia",
     },
+
     {
       title: "Direção Segura em Longas Jornadas",
       subtitle: "Fadiga, foco e tomada de decisão.",
