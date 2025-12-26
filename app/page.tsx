@@ -6,12 +6,14 @@ import RowCarousel, { RowItem } from "@/components/RowCarousel";
 export default function HomePage() {
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
+  // ✅ CORRIGIDO: Fundamentos agora usa thumb-treinamento-03.jpg (a imagem certa do card)
+  // ✅ Mantido: Condução Econômica Avançada no lugar da Inspeção Preventiva
   const rowTreinamentosDestaque: RowItem[] = [
     {
       title: "Fundamentos da Condução Econômica",
       subtitle: "Aula rápida com prática e exemplos reais.",
       href: "/treinamentos?lang=pt",
-      imageSrc: "/images/home/thumb-treinamento-01.jpg",
+      imageSrc: "/images/home/thumb-treinamento-03.jpg",
       badge: "Grátis",
       meta: "Aula • 12 min",
     },
@@ -23,8 +25,6 @@ export default function HomePage() {
       badge: "Premium",
       meta: "Série • Premium",
     },
-
-    // ✅ TROCA FEITA AQUI (antes: Inspeção e Manutenção Preventiva)
     {
       title: "Condução Econômica Avançada",
       subtitle: "Reduza consumo, desgaste e custos na prática.",
@@ -33,7 +33,6 @@ export default function HomePage() {
       badge: "Grátis",
       meta: "Aula • Economia",
     },
-
     {
       title: "Direção Segura em Longas Jornadas",
       subtitle: "Fadiga, foco e tomada de decisão.",
