@@ -215,7 +215,6 @@ export default function HomePage() {
                   </div>
 
                   <p className="mt-3 text-xs text-white/70">
-                    Use esta Home como vitrine, estilo Netflix.
                   </p>
                 </div>
               </div>
