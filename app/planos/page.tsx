@@ -11,7 +11,7 @@ export const metadata = {
   description: "Conheça os planos da plataforma OTIAdriver",
 };
 
-// Listas de recursos (ajustadas para evitar repetição e aumentar clareza)
+// Listas de recursos
 const basic = [
   "Acesso a conteúdos essenciais",
   "Fichas técnicas básicas",
@@ -35,7 +35,7 @@ const premium = [
   "Suporte prioritário",
 ];
 
-// Comparação rápida (para conversão)
+// Comparação rápida
 const compare = [
   { label: "Demonstrações e catálogo público", basic: true, pro: true, premium: true },
   { label: "Conteúdos completos (assinatura)", basic: false, pro: true, premium: true },
@@ -46,7 +46,10 @@ const compare = [
 
 function Check({ ok }: { ok: boolean }) {
   return (
-    <span aria-label={ok ? "Incluído" : "Não incluído"} className={ok ? styles.ok : styles.no}>
+    <span
+      aria-label={ok ? "Incluído" : "Não incluído"}
+      className={ok ? styles.ok : styles.no}
+    >
       {ok ? "✓" : "—"}
     </span>
   );
@@ -62,15 +65,14 @@ export default function PlanosPage() {
         </h1>
 
         <p className="mt-3 text-center text-base md:text-xl text-slate-600">
-          Evolua com conteúdo profissional para motoristas: tecnologia, segurança, eficiência e ferramentas práticas.
+          Evolua com conteúdo profissional para motoristas: tecnologia, segurança,
+          eficiência e ferramentas práticas.
         </p>
 
+        {/* ✅ Removido: Ver demonstrações */}
         <div className={styles.heroCtas}>
           <Link href="/checkout/pro" className={styles.heroPrimaryCta}>
             Assinar PRO (Recomendado)
-          </Link>
-          <Link href="/treinamentos?lang=pt" className={styles.heroSecondaryCta}>
-            Ver demonstrações
           </Link>
         </div>
 
@@ -81,16 +83,21 @@ export default function PlanosPage() {
         </div>
       </header>
 
-      {/* COMPARAÇÃO (Grátis vs PRO vs Premium) */}
+      {/* COMPARAÇÃO */}
       <section className={styles.block} aria-labelledby="compare-title">
         <h2 id="compare-title" className={styles.blockTitle}>
           Compare e escolha com clareza
         </h2>
         <p className={styles.blockDesc}>
-          A diferença não é só preço — é acesso ao conteúdo completo e às ferramentas que fazem a diferença no dia a dia.
+          A diferença não é só preço — é acesso ao conteúdo completo e às ferramentas
+          que fazem a diferença no dia a dia.
         </p>
 
-        <div className={styles.compareWrap} role="region" aria-label="Tabela comparativa de recursos">
+        <div
+          className={styles.compareWrap}
+          role="region"
+          aria-label="Tabela comparativa de recursos"
+        >
           <table className={styles.compareTable}>
             <thead>
               <tr>
@@ -104,9 +111,15 @@ export default function PlanosPage() {
               {compare.map((row) => (
                 <tr key={row.label}>
                   <td className={styles.compareLabel}>{row.label}</td>
-                  <td><Check ok={row.basic} /></td>
-                  <td><Check ok={row.pro} /></td>
-                  <td><Check ok={row.premium} /></td>
+                  <td>
+                    <Check ok={row.basic} />
+                  </td>
+                  <td>
+                    <Check ok={row.pro} />
+                  </td>
+                  <td>
+                    <Check ok={row.premium} />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -114,9 +127,9 @@ export default function PlanosPage() {
         </div>
       </section>
 
-      {/* CARDS DE PLANOS (seu layout atual) */}
+      {/* CARDS DE PLANOS */}
       <section className={styles.planosGrid} aria-label="Planos disponíveis">
-        {/* === BÁSICO === */}
+        {/* BÁSICO */}
         <article className={`${styles.card} ${styles.planoBasico}`} style={{ height: 520 }}>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Básico</h2>
           <div className={styles.preco}>
@@ -135,7 +148,7 @@ export default function PlanosPage() {
           </Link>
         </article>
 
-        {/* === PRO (RECOMENDADO) === */}
+        {/* PRO */}
         <article className={`${styles.card} ${styles.planoPro}`} style={{ height: 520 }}>
           <div className={styles.seloRecomendado}>RECOMENDADO</div>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">PRO</h2>
@@ -144,7 +157,9 @@ export default function PlanosPage() {
             <span className={styles.valor}>49,90</span>
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
-          <p className="text-sm text-slate-700 m-0">O melhor custo-benefício para evoluir na prática.</p>
+          <p className="text-sm text-slate-700 m-0">
+            O melhor custo-benefício para evoluir na prática.
+          </p>
           <ul className={styles.recursos}>
             {pro.map((item) => (
               <li key={item}>{item}</li>
@@ -155,7 +170,7 @@ export default function PlanosPage() {
           </Link>
         </article>
 
-        {/* === PREMIUM === */}
+        {/* PREMIUM */}
         <article className={`${styles.card} ${styles.planoPremium}`} style={{ height: 520 }}>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Premium</h2>
           <div className={styles.preco}>
@@ -175,7 +190,7 @@ export default function PlanosPage() {
         </article>
       </section>
 
-      {/* FAQ (remove dúvidas e aumenta conversão) */}
+      {/* FAQ */}
       <section className={styles.block} aria-labelledby="faq-title">
         <h2 id="faq-title" className={styles.blockTitle}>
           Dúvidas rápidas
@@ -185,31 +200,27 @@ export default function PlanosPage() {
           <details className={styles.faqItem}>
             <summary>Como funciona o acesso?</summary>
             <p>
-              Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar conteúdos de assinatura,
-              sem plano ativo você é direcionado para Planos (paywall).
+              Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar
+              conteúdos de assinatura, sem plano ativo você é direcionado para Planos (paywall).
             </p>
           </details>
 
           <details className={styles.faqItem}>
             <summary>O que vale mais a pena?</summary>
             <p>
-              Para a maioria dos motoristas, o PRO costuma ser o melhor custo-benefício: libera os conteúdos completos
-              e ferramentas avançadas sem pagar o valor do Premium.
+              Para a maioria dos motoristas, o PRO costuma ser o melhor custo-benefício:
+              libera os conteúdos completos e ferramentas avançadas sem pagar o valor do Premium.
             </p>
           </details>
 
           <details className={styles.faqItem}>
             <summary>Pagamento é seguro?</summary>
-            <p>
-              Sim. O fluxo é pensado para segurança e praticidade, com autenticação por SMS e checkout dedicado.
-            </p>
+            <p>Sim. O fluxo é pensado para segurança e praticidade, com autenticação por SMS e checkout dedicado.</p>
           </details>
 
           <details className={styles.faqItem}>
             <summary>Posso mudar de plano depois?</summary>
-            <p>
-              Sim. Você pode evoluir de plano conforme sua necessidade e uso da plataforma.
-            </p>
+            <p>Sim. Você pode evoluir de plano conforme sua necessidade e uso da plataforma.</p>
           </details>
         </div>
 
