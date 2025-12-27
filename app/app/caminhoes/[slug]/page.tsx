@@ -242,3 +242,4 @@ export default function CaminhaoVitrinePage({ params, searchParams }: PageProps)
     </main>
   );
 }
+
