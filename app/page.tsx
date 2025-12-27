@@ -6,34 +6,36 @@ import RowCarousel, { RowItem } from "@/components/RowCarousel";
 export default function HomePage() {
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
-  // ✅ Mantendo imagens como estão
-  // ✅ Removido: palavras "Grátis", "Premium", "Novo" (badges e textos)
+  // ✅ Regra: ao clicar em QUALQUER imagem -> vai para /entrar (CPF/telefone)
+  // ✅ Exceção: "Planos OTIAdriver" continua indo para /planos
+  const LOGIN_GATE = "/entrar?lang=pt";
+
   const rowTreinamentosDestaque: RowItem[] = [
     {
       title: "Fundamentos da Condução Econômica",
       subtitle: "Aula rápida com prática e exemplos reais.",
-      href: "/treinamentos?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-treinamento-03.jpg",
       meta: "Aula • 12 min",
     },
     {
       title: "Tecnologia e Segurança",
       subtitle: "Conteúdo completo + materiais.",
-      href: "/app/treinamentos/seguranca-tecnologia?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-treinamento-02.jpg",
       meta: "Série",
     },
     {
       title: "Condução Econômica Avançada",
       subtitle: "Reduza consumo, desgaste e custos na prática.",
-      href: "/treinamentos?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-conducao-economica.jpg",
       meta: "Aula • Economia",
     },
     {
       title: "Direção Segura em Longas Jornadas",
       subtitle: "Fadiga, foco e tomada de decisão.",
-      href: "/treinamentos?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-treinamento-04.jpg",
       meta: "Aula • 18 min",
     },
@@ -43,28 +45,28 @@ export default function HomePage() {
     {
       title: "Planos OTIAdriver",
       subtitle: "Assinatura para evoluir com tecnologia.",
-      href: "/planos?lang=pt",
+      href: "/planos?lang=pt", // ✅ exceção (continua direto para planos)
       imageSrc: "/images/home/thumb-planos.jpg",
       meta: "Assinatura",
     },
     {
       title: "Símbolos do Painel",
       subtitle: "Consulta rápida e explicações práticas.",
-      href: "/simbolos-painel?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-simbolos.jpg",
       meta: "Ferramenta",
     },
     {
       title: "Ebook Driver Economy",
       subtitle: "Condução econômica passo a passo.",
-      href: "/ebook-driver?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-ebook.jpg",
       meta: "Ebook",
     },
     {
       title: "Inspeção & Manutenção",
       subtitle: "Conteúdo prático para reduzir paradas.",
-      href: "/inspecao-e-manutencao?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-inspecao.jpg",
       meta: "Guia",
     },
@@ -74,28 +76,28 @@ export default function HomePage() {
     {
       title: "Volvo FH",
       subtitle: "Ficha e conteúdo técnico.",
-      href: "/caminhoes/volvo/fh?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-fh.jpg",
       meta: "Caminhões",
     },
     {
       title: "Scania Super",
       subtitle: "Linha pesada premium.",
-      href: "/caminhoes/scania-super?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-scania.jpg",
       meta: "Caminhões",
     },
     {
       title: "Iveco S-Way",
       subtitle: "Caixa, tecnologia e operação.",
-      href: "/caminhoes/caixa-iveco/s-way?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-iveco.jpg",
       meta: "Caminhões",
     },
     {
       title: "Volkswagen",
       subtitle: "Linha e fichas técnicas.",
-      href: "/caminhoes/volkswagen/caixa-volkswagen?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-vw.jpg",
       meta: "Caminhões",
     },
@@ -137,10 +139,10 @@ export default function HomePage() {
                   caminhões e avance para a assinatura quando estiver pronto.
                 </p>
 
-                {/* ✅ Somente links essenciais no HERO (removido "Símbolos do painel") */}
+                {/* ✅ Mantendo apenas links essenciais no HERO */}
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
-                    href="/treinamentos?lang=pt"
+                    href={LOGIN_GATE}
                     className="inline-flex items-center justify-center rounded-xl bg-sky-500 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-600"
                   >
                     Ver demonstrações
@@ -179,17 +181,17 @@ export default function HomePage() {
                     </li>
                     <li className="flex gap-2">
                       <span className="font-extrabold text-sky-300">2.</span>
-                      Ao abrir conteúdos de assinatura, você entra via SMS.
+                      Ao abrir conteúdos, você entra via SMS.
                     </li>
                     <li className="flex gap-2">
                       <span className="font-extrabold text-sky-300">3.</span>
-                      Sem assinatura ativa, você cai em Planos (paywall).
+                      Depois você escolhe o plano para liberar tudo.
                     </li>
                   </ul>
 
                   <div className="mt-5">
                     <Link
-                      href="/entrar?lang=pt"
+                      href={LOGIN_GATE}
                       className="inline-flex w-full items-center justify-center rounded-xl bg-white text-slate-900 px-4 py-3 text-sm font-extrabold hover:bg-slate-100"
                     >
                       Entrar
@@ -221,7 +223,7 @@ export default function HomePage() {
             items={rowCaminhoes}
           />
 
-          {/* CTA (removido "Ver treinamentos") */}
+          {/* CTA */}
           <section className="mt-10 px-4 md:px-6">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-extrabold text-slate-900">
