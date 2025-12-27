@@ -137,6 +137,7 @@ export default function HomePage() {
                   caminhões e avance para a assinatura quando estiver pronto.
                 </p>
 
+                {/* ✅ Somente links essenciais no HERO (removido "Símbolos do painel") */}
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href="/treinamentos?lang=pt"
@@ -150,13 +151,6 @@ export default function HomePage() {
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/25 hover:bg-white/15"
                   >
                     Assinar
-                  </Link>
-
-                  <Link
-                    href="/simbolos-painel?lang=pt"
-                    className="inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/25 hover:bg-white/15"
-                  >
-                    Símbolos do painel
                   </Link>
                 </div>
 
@@ -208,7 +202,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* ROWS */}
+          {/* ROWS (links ficam somente nas imagens/cards, via RowCarousel) */}
           <RowCarousel
             title="Treinamentos em destaque"
             description="Aulas e séries para você evoluir na prática."
@@ -227,7 +221,7 @@ export default function HomePage() {
             items={rowCaminhoes}
           />
 
-          {/* CTA */}
+          {/* CTA (removido "Ver treinamentos") */}
           <section className="mt-10 px-4 md:px-6">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-extrabold text-slate-900">
@@ -243,12 +237,6 @@ export default function HomePage() {
                   className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-700"
                 >
                   Ver planos
-                </Link>
-                <Link
-                  href="/treinamentos?lang=pt"
-                  className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
-                >
-                  Ver treinamentos
                 </Link>
               </div>
             </div>
