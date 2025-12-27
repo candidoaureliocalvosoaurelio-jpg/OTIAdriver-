@@ -6,39 +6,37 @@ import RowCarousel, { RowItem } from "@/components/RowCarousel";
 export default function HomePage() {
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
-  // ✅ CORRIGIDO: Fundamentos agora usa thumb-treinamento-03.jpg (a imagem certa do card)
-  // ✅ Mantido: Condução Econômica Avançada no lugar da Inspeção Preventiva
+  // ✅ Regra: ao clicar em QUALQUER imagem -> vai para /entrar (CPF/telefone)
+  // ✅ Exceção: "Planos OTIAdriver" continua indo para /planos
+  const LOGIN_GATE = "/entrar?lang=pt";
+
   const rowTreinamentosDestaque: RowItem[] = [
     {
       title: "Fundamentos da Condução Econômica",
       subtitle: "Aula rápida com prática e exemplos reais.",
-      href: "/treinamentos?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-treinamento-03.jpg",
-      badge: "Grátis",
       meta: "Aula • 12 min",
     },
     {
-      title: "Treinamento Premium: Tecnologia e Segurança",
+      title: "Tecnologia e Segurança",
       subtitle: "Conteúdo completo + materiais.",
-      href: "/app/treinamentos/seguranca-tecnologia?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-treinamento-02.jpg",
-      badge: "Premium",
-      meta: "Série • Premium",
+      meta: "Série",
     },
     {
       title: "Condução Econômica Avançada",
       subtitle: "Reduza consumo, desgaste e custos na prática.",
-      href: "/treinamentos?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-conducao-economica.jpg",
-      badge: "Grátis",
       meta: "Aula • Economia",
     },
     {
       title: "Direção Segura em Longas Jornadas",
       subtitle: "Fadiga, foco e tomada de decisão.",
-      href: "/treinamentos?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-treinamento-04.jpg",
-      badge: "Novo",
       meta: "Aula • 18 min",
     },
   ];
@@ -47,33 +45,29 @@ export default function HomePage() {
     {
       title: "Planos OTIAdriver",
       subtitle: "Assinatura para evoluir com tecnologia.",
-      href: "/planos?lang=pt",
+      href: "/planos?lang=pt", // ✅ exceção (continua direto para planos)
       imageSrc: "/images/home/thumb-planos.jpg",
-      badge: "Premium",
       meta: "Assinatura",
     },
     {
       title: "Símbolos do Painel",
       subtitle: "Consulta rápida e explicações práticas.",
-      href: "/simbolos-painel?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-simbolos.jpg",
-      badge: "Grátis",
       meta: "Ferramenta",
     },
     {
       title: "Ebook Driver Economy",
       subtitle: "Condução econômica passo a passo.",
-      href: "/ebook-driver?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-ebook.jpg",
-      badge: "Premium",
-      meta: "Ebook • Premium",
+      meta: "Ebook",
     },
     {
       title: "Inspeção & Manutenção",
       subtitle: "Conteúdo prático para reduzir paradas.",
-      href: "/inspecao-e-manutencao?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-inspecao.jpg",
-      badge: "Grátis",
       meta: "Guia",
     },
   ];
@@ -82,33 +76,29 @@ export default function HomePage() {
     {
       title: "Volvo FH",
       subtitle: "Ficha e conteúdo técnico.",
-      href: "/caminhoes/volvo/fh?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-fh.jpg",
-      badge: "Grátis",
       meta: "Caminhões",
     },
     {
       title: "Scania Super",
       subtitle: "Linha pesada premium.",
-      href: "/caminhoes/scania-super?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-scania.jpg",
-      badge: "Grátis",
       meta: "Caminhões",
     },
     {
       title: "Iveco S-Way",
       subtitle: "Caixa, tecnologia e operação.",
-      href: "/caminhoes/caixa-iveco/s-way?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-iveco.jpg",
-      badge: "Grátis",
       meta: "Caminhões",
     },
     {
       title: "Volkswagen",
       subtitle: "Linha e fichas técnicas.",
-      href: "/caminhoes/volkswagen/caixa-volkswagen?lang=pt",
+      href: LOGIN_GATE,
       imageSrc: "/images/home/thumb-vw.jpg",
-      badge: "Grátis",
       meta: "Caminhões",
     },
   ];
@@ -146,12 +136,13 @@ export default function HomePage() {
                 <p className="mt-4 text-white/85 max-w-2xl">
                   Uma vitrine de conteúdos e ferramentas para elevar segurança,
                   eficiência e performance. Assista demonstrações, explore
-                  caminhões e avance para o Premium quando estiver pronto.
+                  caminhões e avance para a assinatura quando estiver pronto.
                 </p>
 
+                {/* ✅ Mantendo apenas links essenciais no HERO */}
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
-                    href="/treinamentos?lang=pt"
+                    href={LOGIN_GATE}
                     className="inline-flex items-center justify-center rounded-xl bg-sky-500 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-600"
                   >
                     Ver demonstrações
@@ -161,14 +152,7 @@ export default function HomePage() {
                     href="/planos?lang=pt"
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/25 hover:bg-white/15"
                   >
-                    Assinar Premium
-                  </Link>
-
-                  <Link
-                    href="/simbolos-painel?lang=pt"
-                    className="inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/25 hover:bg-white/15"
-                  >
-                    Símbolos do painel
+                    Assinar
                   </Link>
                 </div>
 
@@ -180,7 +164,7 @@ export default function HomePage() {
                     Ferramentas rápidas
                   </span>
                   <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Premium com paywall seguro
+                    Paywall seguro
                   </span>
                 </div>
               </div>
@@ -197,35 +181,33 @@ export default function HomePage() {
                     </li>
                     <li className="flex gap-2">
                       <span className="font-extrabold text-sky-300">2.</span>
-                      Ao abrir conteúdo Premium, você entra via SMS.
+                      Ao abrir conteúdos, você entra via SMS.
                     </li>
                     <li className="flex gap-2">
                       <span className="font-extrabold text-sky-300">3.</span>
-                      Sem plano ativo, você cai em Planos (paywall).
+                      Depois você escolhe o plano para liberar tudo.
                     </li>
                   </ul>
 
                   <div className="mt-5">
                     <Link
-                      href="/entrar?lang=pt"
+                      href={LOGIN_GATE}
                       className="inline-flex w-full items-center justify-center rounded-xl bg-white text-slate-900 px-4 py-3 text-sm font-extrabold hover:bg-slate-100"
                     >
                       Entrar
                     </Link>
                   </div>
 
-                  <p className="mt-3 text-xs text-white/70">
-                    Use esta Home como vitrine, estilo Netflix.
-                  </p>
+                  <p className="mt-3 text-xs text-white/70" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* ROWS */}
+          {/* ROWS (links ficam somente nas imagens/cards, via RowCarousel) */}
           <RowCarousel
             title="Treinamentos em destaque"
-            description="Aulas e séries — algumas gratuitas e outras Premium."
+            description="Aulas e séries para você evoluir na prática."
             items={rowTreinamentosDestaque}
           />
 
@@ -248,8 +230,8 @@ export default function HomePage() {
                 Quer liberar tudo?
               </h3>
               <p className="mt-1 text-sm text-slate-600">
-                Assine o Premium para acessar os treinamentos completos e
-                materiais exclusivos.
+                Assine para acessar os treinamentos completos e materiais
+                exclusivos.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
@@ -257,12 +239,6 @@ export default function HomePage() {
                   className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-700"
                 >
                   Ver planos
-                </Link>
-                <Link
-                  href="/treinamentos?lang=pt"
-                  className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
-                >
-                  Ver catálogo
                 </Link>
               </div>
             </div>
