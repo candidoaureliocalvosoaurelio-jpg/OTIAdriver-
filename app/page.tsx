@@ -14,7 +14,7 @@ export default function HomePage() {
     {
       title: "Fundamentos da Condução Econômica",
       subtitle: "Aula rápida com prática e exemplos reais.",
-      href: LOGIN_GATE,
+      href:"/app/caminhoes?lang=pt"
       imageSrc: "/images/home/thumb-treinamento-03.jpg",
       meta: "Aula • 12 min",
     },
