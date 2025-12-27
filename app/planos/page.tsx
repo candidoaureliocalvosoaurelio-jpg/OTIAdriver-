@@ -69,11 +69,7 @@ export default function PlanosPage() {
           <Link href="/checkout/pro" className={styles.heroPrimaryCta}>
             Assinar PRO (Recomendado)
           </Link>
-          <Link href="/treinamentos?lang=pt" className={styles.heroSecondaryCta}>
-            Ver demonstrações
-          </Link>
-        </div>
-
+        
         <div className={styles.trustRow} aria-label="Informações de confiança">
           <span className={styles.trustPill}>Login por SMS</span>
           <span className={styles.trustPill}>Pagamento seguro</span>
