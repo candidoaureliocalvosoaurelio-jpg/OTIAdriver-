@@ -12,12 +12,12 @@ export default function HomePage() {
 
   const rowTreinamentosDestaque: RowItem[] = [
     {
-      title: "Fundamentos da Condução Econômica",
-      subtitle: "Aula rápida com prática e exemplos reais.",
-      href: LOGIN_GATE,
-      imageSrc: "/images/home/thumb-treinamento-03.jpg",
-      meta: "Aula • 12 min",
-    },
+  title: "Fundamentos da Condução Econômica",
+  subtitle: "Aula rápida com prática e exemplos reais.",
+  href: "/app/caminhoes?lang=pt",
+  imageSrc: "/images/home/thumb-treinamento-03.jpg",
+  meta: "Aula • 12 min",
+},
     {
       title: "Tecnologia e Segurança",
       subtitle: "Conteúdo completo + materiais.",
