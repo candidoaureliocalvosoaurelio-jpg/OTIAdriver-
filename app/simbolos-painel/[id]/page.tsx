@@ -4,12 +4,36 @@ import path from "path";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { symbolData, normalizeSlug } from "../symbolData";
 
 type SymbolPageProps = {
   params: { id: string };
 };
+
+// ✅ Planos pagos (ativos)
+const ACTIVE_PLANS = new Set(["basico", "pro", "premium"]);
+
+/**
+ * ✅ Bloqueio hard (fallback de segurança)
+ * - Se não tiver login -> /entrar
+ * - Se não tiver plano pago -> /planos
+ */
+function requirePaidAccess(nextPath: string) {
+  const c = cookies();
+  const auth = c.get("otia_auth")?.value; // "1"
+  const cpf = c.get("otia_cpf")?.value;   // "62833030134"
+  const plan = c.get("otia_plan")?.value; // "free" | "basico" | "pro" | "premium"
+
+  if (!auth || !cpf) {
+    redirect(`/entrar?reason=auth&next=${encodeURIComponent(nextPath)}`);
+  }
+
+  if (!ACTIVE_PLANS.has(plan ?? "")) {
+    redirect(`/planos?reason=paywall`);
+  }
+}
 
 // Lê os arquivos para descobrir o caminho da imagem (pasta /public/simbolos)
 function getSymbols() {
@@ -139,7 +163,9 @@ function Badge({
       : "bg-sky-50 text-sky-800 border-sky-200";
 
   return (
-    <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${styles}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold ${styles}`}
+    >
       {label}
     </span>
   );
@@ -172,8 +198,12 @@ export default function SymbolPage({ params }: SymbolPageProps) {
     }
   }
 
-  // 🔎 Busca por slug (padrão)
+  // 🔎 slug normalizado
   const safeParam = safeSlug(rawParam);
+
+  // ✅ BLOQUEIO AQUI (garante que /simbolos-painel/[id] nunca seja público)
+  requirePaidAccess(`/simbolos-painel/${safeParam}`);
+
   const symbolIndex = symbolData.findIndex((s) => safeSlug(s.slug) === safeParam);
   const symbol = symbolIndex >= 0 ? symbolData[symbolIndex] : undefined;
 
@@ -202,7 +232,7 @@ export default function SymbolPage({ params }: SymbolPageProps) {
 
   // Conteúdo estruturado com fallback seguro
   const quandoAcende =
-    symbol.when ??
+    (symbol as any).when ??
     "Quando esta luz aparece, o veículo está informando uma condição do sistema. Observe o painel e o comportamento do caminhão.";
 
   const acao =
@@ -210,14 +240,14 @@ export default function SymbolPage({ params }: SymbolPageProps) {
     "Reduza o esforço do veículo, monitore as mensagens do painel e, se a luz persistir, procure diagnóstico em oficina.";
 
   const causas =
-    symbol.causes ?? [
+    (symbol as any).causes ?? [
       "Condição operacional do veículo (temperatura, carga, aderência)",
       "Sensor/atuador com leitura fora do padrão",
       "Conexões elétricas/chicote com mau contato",
     ];
 
   const riscos =
-    symbol.risks ?? [
+    (symbol as any).risks ?? [
       "Funcionamento limitado do sistema associado",
       "Aumento de desgaste de componentes se ignorado",
       "Possível agravamento do problema ao longo do tempo",
@@ -288,7 +318,7 @@ export default function SymbolPage({ params }: SymbolPageProps) {
 
           <Card title="Causas comuns">
             <ul className="list-disc pl-5 space-y-1">
-              {causas.map((c, idx) => (
+              {causas.map((c: string, idx: number) => (
                 <li key={idx}>{c}</li>
               ))}
             </ul>
@@ -296,7 +326,7 @@ export default function SymbolPage({ params }: SymbolPageProps) {
 
           <Card title="Riscos ao ignorar">
             <ul className="list-disc pl-5 space-y-1">
-              {riscos.map((r, idx) => (
+              {riscos.map((r: string, idx: number) => (
                 <li key={idx}>{r}</li>
               ))}
             </ul>
