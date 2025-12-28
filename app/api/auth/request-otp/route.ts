@@ -2,8 +2,10 @@
 import { NextResponse } from "next/server";
 import twilio from "twilio";
 
-// Garante execução em Node.js (env funciona corretamente)
+// Garante execução em Node.js (Twilio SDK)
 export const runtime = "nodejs";
+// Evita cache acidental em rotas dinâmicas
+export const dynamic = "force-dynamic";
 
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
@@ -17,25 +19,28 @@ function toE164BR(phoneRaw: string) {
   if (p.length === 10 || p.length === 11) return `+55${p}`;
 
   // Já veio com 55 (12 ou 13 dígitos)
-  if ((p.length === 12 || p.length === 13) && p.startsWith("55")) {
-    return `+${p}`;
-  }
+  if ((p.length === 12 || p.length === 13) && p.startsWith("55")) return `+${p}`;
 
   throw new Error("Celular inválido. Use DDD + número.");
 }
 
 export async function POST(req: Request) {
   try {
-    const { cpf, phone } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const cpfDigits = onlyDigits(body?.cpf);
+    const phoneRaw = body?.phone;
 
     // Validação de CPF
-    const cpfDigits = onlyDigits(cpf);
-    if (cpfDigits.length !== 11) {
-      return NextResponse.json({ error: "CPF inválido." }, { status: 400 });
+    if (!cpfDigits || cpfDigits.length !== 11) {
+      return NextResponse.json({ error: "CPF inválido. Digite 11 números." }, { status: 400 });
     }
 
-    // Normaliza telefone
-    const to = toE164BR(phone);
+    if (!phoneRaw) {
+      return NextResponse.json({ error: "Celular obrigatório." }, { status: 400 });
+    }
+
+    // Normaliza telefone para E.164
+    const to = toE164BR(phoneRaw);
 
     // Variáveis de ambiente obrigatórias
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -52,18 +57,18 @@ export async function POST(req: Request) {
     const client = twilio(accountSid, authToken);
 
     // Envia código OTP via Twilio Verify (SMS)
-    await client.verify.v2
-      .services(serviceSid)
-      .verifications.create({
-        to,
-        channel: "sms",
-      });
+    await client.verify.v2.services(serviceSid).verifications.create({
+      to,
+      channel: "sms",
+    });
 
     return NextResponse.json({ success: true });
   } catch (e: any) {
-    console.error("request-otp error:", e);
+    // Em produção, o Twilio pode responder com erros de rate limit/blocked/invalid etc.
+    console.error("request-otp error:", e?.message || e);
+
     return NextResponse.json(
-      { error: "Erro ao enviar código. Tente novamente." },
+      { error: e?.message || "Erro ao enviar código. Tente novamente." },
       { status: 500 }
     );
   }
