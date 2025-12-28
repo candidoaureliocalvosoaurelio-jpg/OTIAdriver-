@@ -45,13 +45,16 @@ export async function POST(req: Request) {
     const result = await preference.create({
       body: {
         items: [
-          {
-            title: plan.title,
-            quantity: 1,
-            unit_price: plan.price,
-            currency_id: "BRL",
-          },
-        ],
+          items: [
+  {
+    id: `plan_${plano}`,          // 👈 ADICIONAR ISTO
+    title: plan.title,
+    quantity: 1,
+    unit_price: plan.price,
+    currency_id: "BRL",
+  },
+],
+
         back_urls: {
           success: `${siteUrl}/pagamento/concluido?plano=${plano}`,
           failure: `${siteUrl}/pagamento/erro?plano=${plano}`,
