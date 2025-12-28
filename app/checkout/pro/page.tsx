@@ -5,6 +5,16 @@ import Link from "next/link";
 import { useState } from "react";
 import s from "../Checkout.module.css";
 
+type SessionResp = {
+  authenticated: boolean;
+  cpf: string;
+  plan: string;
+};
+
+function onlyDigits(v: string) {
+  return (v || "").replace(/\D+/g, "");
+}
+
 export default function CheckoutPro() {
   const [loading, setLoading] = useState(false);
 
@@ -12,20 +22,38 @@ export default function CheckoutPro() {
     try {
       setLoading(true);
 
+      // 1) Pega CPF da sessão (recomendado)
+      const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
+      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
+
+      const cpf = onlyDigits(sess?.cpf || "");
+
+      // Se não está logado, manda para /entrar
+      if (!sess?.authenticated || cpf.length !== 11) {
+        window.location.href = `/entrar?next=/checkout/pro&reason=auth`;
+        return;
+      }
+
+      // 2) Cria preferência com CPF + plano
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plano: "pro" }),
+        body: JSON.stringify({ cpf, plano: "pro" }),
       });
 
       const data = await res.json().catch(() => ({} as any));
-      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
 
-      if (!data?.initPoint) {
-        throw new Error("Resposta inválida: initPoint não encontrado.");
+      if (!res.ok) {
+        throw new Error(data?.error || "Falha ao iniciar pagamento.");
       }
 
-      window.location.href = data.initPoint;
+      // 3) Produção → init_point | Sandbox → sandbox_init_point
+      const redirectUrl = data?.init_point || data?.sandbox_init_point;
+      if (!redirectUrl) {
+        throw new Error("Resposta inválida: init_point não encontrado.");
+      }
+
+      window.location.href = redirectUrl;
     } catch (e: any) {
       alert(e?.message ?? "Erro ao iniciar pagamento.");
     } finally {
@@ -35,7 +63,7 @@ export default function CheckoutPro() {
 
   return (
     <main className={s.wrap}>
-      {/* TOPO DE MARCA (igual Home e Básico) */}
+      {/* TOPO DE MARCA */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>
@@ -66,22 +94,11 @@ export default function CheckoutPro() {
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
 
           <ul className={s.list}>
-            <li>
-              <span className={s.check}>✓</span> Fichas Técnicas COMPLETAS
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Suporte Técnico com IA
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Análise de Imagem
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Checklists de Viagem
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Sistema de Pontuação de
-              Performance Inteligente
-            </li>
+            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
+            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
+            <li><span className={s.check}>✓</span> Análise de Imagem</li>
+            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
+            <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
           </ul>
 
           <div className={s.terms}>
@@ -91,14 +108,9 @@ export default function CheckoutPro() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">
-              Termos de Uso
-            </Link>{" "}
+            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">
-              Política de Privacidade
-            </Link>
-            .
+            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
           </div>
         </section>
 
