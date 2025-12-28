@@ -1,8 +1,38 @@
 // app/checkout/pro/page.tsx
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import s from "../Checkout.module.css";
 
 export default function CheckoutPro() {
+  const [loading, setLoading] = useState(false);
+
+  async function pagar() {
+    try {
+      setLoading(true);
+
+      const res = await fetch("/api/pagamentos/criar-preferencia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plano: "pro" }),
+      });
+
+      const data = await res.json().catch(() => ({} as any));
+      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
+
+      if (!data?.initPoint) {
+        throw new Error("Resposta inválida: initPoint não encontrado.");
+      }
+
+      window.location.href = data.initPoint;
+    } catch (e: any) {
+      alert(e?.message ?? "Erro ao iniciar pagamento.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className={s.wrap}>
       {/* TOPO DE MARCA (igual Home e Básico) */}
@@ -36,13 +66,21 @@ export default function CheckoutPro() {
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem</li>
-            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
             <li>
-              <span className={s.check}>✓</span>
-              Sistema de Pontuação de Performance Inteligente
+              <span className={s.check}>✓</span> Fichas Técnicas COMPLETAS
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Suporte Técnico com IA
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Análise de Imagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Checklists de Viagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Sistema de Pontuação de
+              Performance Inteligente
             </li>
           </ul>
 
@@ -53,11 +91,14 @@ export default function CheckoutPro() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
+            <Link href="/termos" className="underline">
+              Termos de Uso
+            </Link>{" "}
             e{" "}
             <Link href="/privacidade" className="underline">
               Política de Privacidade
-            </Link>.
+            </Link>
+            .
           </div>
         </section>
 
@@ -71,12 +112,14 @@ export default function CheckoutPro() {
             R$ 49,90 / mês
           </div>
 
-          <a
-            href="https://mpago.la/1KhUK3d"
+          <button
+            onClick={pagar}
             className={`${s.btn} ${s.proBtn}`}
+            disabled={loading}
+            aria-busy={loading}
           >
-            Pagar com Mercado Pago
-          </a>
+            {loading ? "Abrindo Mercado Pago..." : "Pagar com Mercado Pago"}
+          </button>
 
           <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
@@ -88,6 +131,12 @@ export default function CheckoutPro() {
           <div className={s.help}>
             Dúvidas? Fale com a gente:{" "}
             <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
+          </div>
+
+          <div className="text-xs text-slate-500 mt-3">
+            <Link href="/planos" className="underline">
+              Voltar aos planos
+            </Link>
           </div>
         </aside>
       </div>
