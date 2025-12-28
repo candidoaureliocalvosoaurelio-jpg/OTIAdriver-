@@ -4,12 +4,15 @@ export const metadata = {
   title: "Pagamento aprovado | OTIAdriver",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function PagamentoConcluido({
   searchParams,
 }: {
-  searchParams?: { plano?: string; payment_id?: string; status?: string };
+  searchParams?: { plano?: string; payment_id?: string; status?: string; lang?: string };
 }) {
-  const plano = searchParams?.plano ?? "pro";
+  const lang = searchParams?.lang ?? "pt";
+  const plano = searchParams?.plano; // pode vir vazio
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
 
@@ -21,7 +24,15 @@ export default function PagamentoConcluido({
         </h1>
 
         <p className="mt-2 text-slate-600">
-          Obrigado. Estamos processando a liberação do seu acesso ({plano}).
+          Obrigado. Seu pagamento foi confirmado.
+          {plano ? (
+            <>
+              {" "}
+              Vamos liberar seu acesso do plano <strong>{plano.toUpperCase()}</strong>.
+            </>
+          ) : (
+            <> Vamos liberar seu acesso.</>
+          )}
         </p>
 
         {(paymentId || status) && (
@@ -41,22 +52,23 @@ export default function PagamentoConcluido({
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href="/"
-            className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-700"
+            href={`/entrar?lang=${lang}`}
+            className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
           >
-            Ir para a página inicial
+            Entrar agora (CPF/telefone)
           </Link>
 
           <Link
-            href="/entrar?lang=pt"
+            href={`/?lang=${lang}`}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
-            Fazer login (CPF/telefone)
+            Voltar ao site
           </Link>
         </div>
 
         <p className="mt-4 text-xs text-slate-500">
-          Se seu acesso ainda não liberou, aguarde alguns segundos (confirmação via webhook).
+          Após entrar, o sistema reconhece seu CPF e libera o acesso premium automaticamente.
+          Se você cair em “Planos”, aguarde alguns instantes e tente novamente.
         </p>
       </div>
     </main>
