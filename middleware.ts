@@ -2,7 +2,18 @@
 import { NextRequest, NextResponse } from "next/server";
 
 // Rotas pagas (bloqueadas sem plano)
-const PAID_PREFIXES = ["/app", "/premium"];
+const PAID_PREFIXES = [
+  "/app",
+  "/premium",
+
+  // BLOQUEAR ATÉ PAGAR:
+  "/caminhoes-eletricos",
+  "/pneus",
+  "/inspecao-manutencao",
+  "/treinamentos",
+  "/simbolos-painel",
+  "/ebook-driver",
+];
 
 // Rotas que exigem apenas login (se um dia quiser)
 const AUTH_ONLY_PREFIXES: string[] = [];
@@ -42,7 +53,7 @@ export function middleware(req: NextRequest) {
   if (!needsPaid && !needsAuth) return NextResponse.next();
 
   const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const cpf = req.cookies.get("otia_cpf")?.value;   // "62833030134"
+  const cpf = req.cookies.get("otia_cpf")?.value; // "62833030134"
   const plan = req.cookies.get("otia_plan")?.value; // "free" | "basico" | "pro" | "premium"
 
   // 1) Precisa login
