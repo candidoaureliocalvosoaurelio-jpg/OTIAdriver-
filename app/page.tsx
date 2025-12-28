@@ -3,21 +3,26 @@ import Link from "next/link";
 import Image from "next/image";
 import RowCarousel, { RowItem } from "@/components/RowCarousel";
 
-export default function HomePage() {
+type PageProps = {
+  searchParams?: { lang?: string };
+};
+
+export default function HomePage({ searchParams }: PageProps) {
+  const lang = searchParams?.lang ?? "pt";
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
   // ✅ Regra: ao clicar em QUALQUER imagem -> vai para /entrar (CPF/telefone)
   // ✅ Exceção: "Planos OTIAdriver" continua indo para /planos
-  const LOGIN_GATE = "/entrar?lang=pt";
+  const LOGIN_GATE = `/entrar?lang=${lang}`;
 
   const rowTreinamentosDestaque: RowItem[] = [
     {
-  title: "Fundamentos da Condução Econômica",
-  subtitle: "Aula rápida com prática e exemplos reais.",
-  href: "/app/caminhoes?lang=pt",
-  imageSrc: "/images/home/thumb-treinamento-03.jpg",
-  meta: "Aula • 12 min",
-},
+      title: "Fundamentos da Condução Econômica",
+      subtitle: "Aula rápida com prática e exemplos reais.",
+      href: LOGIN_GATE, // ✅ era /app/caminhoes (vazamento). Agora é espelho correto.
+      imageSrc: "/images/home/thumb-treinamento-03.jpg",
+      meta: "Aula • 12 min",
+    },
     {
       title: "Tecnologia e Segurança",
       subtitle: "Conteúdo completo + materiais.",
@@ -45,7 +50,7 @@ export default function HomePage() {
     {
       title: "Planos OTIAdriver",
       subtitle: "Assinatura para evoluir com tecnologia.",
-      href: "/planos?lang=pt", // ✅ exceção (continua direto para planos)
+      href: `/planos?lang=${lang}`, // ✅ exceção (continua direto para planos)
       imageSrc: "/images/home/thumb-planos.jpg",
       meta: "Assinatura",
     },
@@ -110,7 +115,7 @@ export default function HomePage() {
           {/* HERO */}
           <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
             <div className="absolute inset-0">
-              <div className="relative h-full w-full">
+              <div className="relative h-full w-full min-h-[360px] md:min-h-[420px]">
                 <Image
                   src={heroImage}
                   alt="OTIAdriver"
@@ -139,7 +144,6 @@ export default function HomePage() {
                   caminhões e avance para a assinatura quando estiver pronto.
                 </p>
 
-                {/* ✅ Mantendo apenas links essenciais no HERO */}
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href={LOGIN_GATE}
@@ -149,7 +153,7 @@ export default function HomePage() {
                   </Link>
 
                   <Link
-                    href="/planos?lang=pt"
+                    href={`/planos?lang=${lang}`}
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/25 hover:bg-white/15"
                   >
                     Assinar
@@ -171,9 +175,7 @@ export default function HomePage() {
 
               <div className="hidden md:block">
                 <div className="rounded-2xl bg-white/10 ring-1 ring-white/20 p-5 backdrop-blur">
-                  <p className="text-sm font-extrabold text-white">
-                    Como funciona
-                  </p>
+                  <p className="text-sm font-extrabold text-white">Como funciona</p>
                   <ul className="mt-3 space-y-3 text-sm text-white/85">
                     <li className="flex gap-2">
                       <span className="font-extrabold text-sky-300">1.</span>
@@ -204,7 +206,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* ROWS (links ficam somente nas imagens/cards, via RowCarousel) */}
           <RowCarousel
             title="Treinamentos em destaque"
             description="Aulas e séries para você evoluir na prática."
@@ -230,12 +231,11 @@ export default function HomePage() {
                 Quer liberar tudo?
               </h3>
               <p className="mt-1 text-sm text-slate-600">
-                Assine para acessar os treinamentos completos e materiais
-                exclusivos.
+                Assine para acessar os treinamentos completos e materiais exclusivos.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
-                  href="/planos?lang=pt"
+                  href={`/planos?lang=${lang}`}
                   className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-700"
                 >
                   Ver planos
