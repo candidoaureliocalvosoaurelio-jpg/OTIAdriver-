@@ -5,6 +5,16 @@ import Link from "next/link";
 import { useState } from "react";
 import s from "../Checkout.module.css";
 
+type SessionResp = {
+  authenticated: boolean;
+  cpf: string;
+  plan: string;
+};
+
+function onlyDigits(v: string) {
+  return (v || "").replace(/\D+/g, "");
+}
+
 export default function CheckoutBasico() {
   const [loading, setLoading] = useState(false);
 
@@ -12,20 +22,35 @@ export default function CheckoutBasico() {
     try {
       setLoading(true);
 
+      // 1) Pega CPF da sessão
+      const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
+      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
+
+      const cpf = onlyDigits(sess?.cpf || "");
+
+      // Se não está logado, manda para /entrar
+      if (!sess?.authenticated || cpf.length !== 11) {
+        window.location.href = `/entrar?next=/checkout/basico&reason=auth`;
+        return;
+      }
+
+      // 2) Cria preferência com CPF + plano
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plano: "basico" }),
+        body: JSON.stringify({ cpf, plano: "basico" }),
       });
 
       const data = await res.json().catch(() => ({} as any));
       if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
 
-      if (!data?.initPoint) {
-        throw new Error("Resposta inválida: initPoint não encontrado.");
+      // 3) Produção → init_point | Sandbox → sandbox_init_point
+      const redirectUrl = data?.init_point || data?.sandbox_init_point;
+      if (!redirectUrl) {
+        throw new Error("Resposta inválida: init_point não encontrado.");
       }
 
-      window.location.href = data.initPoint;
+      window.location.href = redirectUrl;
     } catch (e: any) {
       alert(e?.message ?? "Erro ao iniciar pagamento.");
     } finally {
@@ -35,7 +60,7 @@ export default function CheckoutBasico() {
 
   return (
     <main className={s.wrap}>
-      {/* TOPO DE MARCA (igual sensação da Home) */}
+      {/* TOPO DE MARCA */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>
@@ -46,7 +71,7 @@ export default function CheckoutBasico() {
         </p>
       </section>
 
-      {/* LINHA SUPERIOR (voltar + selo de segurança) */}
+      {/* LINHA SUPERIOR */}
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
         <Link href="/planos" className="hover:underline">
           ← Voltar aos planos
