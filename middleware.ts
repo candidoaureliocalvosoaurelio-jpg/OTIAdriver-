@@ -1,11 +1,14 @@
 // middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 
-// Conteúdo premium (bloqueado)
+// Rotas pagas (bloqueadas sem plano)
 const PAID_PREFIXES = ["/app", "/premium"];
 
 // Rotas que exigem apenas login (se um dia quiser)
 const AUTH_ONLY_PREFIXES: string[] = [];
+
+// Planos pagos (ativos)
+const ACTIVE_PLANS = new Set(["basico", "pro", "premium"]);
 
 function matchesPrefix(pathname: string, prefixes: string[]) {
   return prefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
@@ -39,8 +42,8 @@ export function middleware(req: NextRequest) {
   if (!needsPaid && !needsAuth) return NextResponse.next();
 
   const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const plan = req.cookies.get("otia_plan")?.value; // "active" | "inactive"
   const cpf = req.cookies.get("otia_cpf")?.value;   // "62833030134"
+  const plan = req.cookies.get("otia_plan")?.value; // "free" | "basico" | "pro" | "premium"
 
   // 1) Precisa login
   if (!auth || !cpf) {
@@ -51,8 +54,8 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // 2) Precisa plano ativo
-  if (needsPaid && plan !== "active") {
+  // 2) Precisa plano pago (basico/pro/premium)
+  if (needsPaid && !ACTIVE_PLANS.has(plan ?? "")) {
     const url = req.nextUrl.clone();
     url.pathname = "/planos";
     url.searchParams.set("reason", "paywall");
