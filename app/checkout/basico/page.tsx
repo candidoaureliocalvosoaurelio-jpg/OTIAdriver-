@@ -1,8 +1,38 @@
 // app/checkout/basico/page.tsx
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import s from "../Checkout.module.css";
 
 export default function CheckoutBasico() {
+  const [loading, setLoading] = useState(false);
+
+  async function pagar() {
+    try {
+      setLoading(true);
+
+      const res = await fetch("/api/pagamentos/criar-preferencia", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plano: "basico" }),
+      });
+
+      const data = await res.json().catch(() => ({} as any));
+      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
+
+      if (!data?.initPoint) {
+        throw new Error("Resposta inválida: initPoint não encontrado.");
+      }
+
+      window.location.href = data.initPoint;
+    } catch (e: any) {
+      alert(e?.message ?? "Erro ao iniciar pagamento.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className={s.wrap}>
       {/* TOPO DE MARCA (igual sensação da Home) */}
@@ -74,12 +104,14 @@ export default function CheckoutBasico() {
             R$ 29,90 / mês
           </div>
 
-          <a
-            href="https://mpago.la/131Yx5T"
+          <button
+            onClick={pagar}
             className={`${s.btn} ${s.basicBtn}`}
+            disabled={loading}
+            aria-busy={loading}
           >
-            Pagar com Mercado Pago
-          </a>
+            {loading ? "Abrindo Mercado Pago..." : "Pagar com Mercado Pago"}
+          </button>
 
           <ul className={s.bullets}>
             <li>Pagamento 100% seguro via Mercado Pago</li>
@@ -91,6 +123,12 @@ export default function CheckoutBasico() {
           <div className={s.help}>
             Dúvidas? Fale com a gente:{" "}
             <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
+          </div>
+
+          <div className="text-xs text-slate-500 mt-3">
+            <Link href="/planos" className="underline">
+              Voltar aos planos
+            </Link>
           </div>
         </aside>
       </div>
