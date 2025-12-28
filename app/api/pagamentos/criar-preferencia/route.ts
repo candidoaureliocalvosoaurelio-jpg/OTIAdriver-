@@ -1,3 +1,4 @@
+// app/api/pagamentos/criar-preferencia/route.ts
 import { NextResponse } from "next/server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 
@@ -5,16 +6,17 @@ export const dynamic = "force-dynamic";
 
 type Body = {
   plano: "basico" | "pro" | "premium";
+  email?: string;
 };
 
 function getPlan(plano: Body["plano"]) {
   switch (plano) {
     case "basico":
-      return { title: "Plano Básico — OTIAdriver", price: 29.9 };
+      return { id: "plan_basico", title: "Plano Básico — OTIAdriver", price: 29.9 };
     case "pro":
-      return { title: "Plano PRO — OTIAdriver", price: 49.9 };
+      return { id: "plan_pro", title: "Plano PRO — OTIAdriver", price: 49.9 };
     case "premium":
-      return { title: "Plano Premium — OTIAdriver", price: 99.9 };
+      return { id: "plan_premium", title: "Plano Premium — OTIAdriver", price: 99.9 };
     default:
       return null;
   }
@@ -22,11 +24,16 @@ function getPlan(plano: Body["plano"]) {
 
 export async function POST(req: Request) {
   try {
-    const { plano } = (await req.json()) as Body;
+    const body = (await req.json().catch(() => null)) as Body | null;
+
+    const plano = body?.plano;
+    if (!plano) {
+      return NextResponse.json({ error: "Plano ausente." }, { status: 400 });
+    }
 
     const plan = getPlan(plano);
     if (!plan) {
-      return NextResponse.json({ error: "Plano inválido" }, { status: 400 });
+      return NextResponse.json({ error: "Plano inválido." }, { status: 400 });
     }
 
     const accessToken = process.env.MP_ACCESS_TOKEN;
@@ -34,7 +41,7 @@ export async function POST(req: Request) {
 
     if (!accessToken || !siteUrl) {
       return NextResponse.json(
-        { error: "Variáveis de ambiente ausentes" },
+        { error: "Config ausente: MP_ACCESS_TOKEN / NEXT_PUBLIC_SITE_URL" },
         { status: 500 }
       );
     }
@@ -42,34 +49,46 @@ export async function POST(req: Request) {
     const mp = new MercadoPagoConfig({ accessToken });
     const preference = new Preference(mp);
 
+    const externalReference = `otiadriver_${plano}_${Date.now()}`;
+
     const result = await preference.create({
       body: {
         items: [
-          items: [
-  {
-    id: `plan_${plano}`,          // 👈 ADICIONAR ISTO
-    title: plan.title,
-    quantity: 1,
-    unit_price: plan.price,
-    currency_id: "BRL",
-  },
-],
+          {
+            id: plan.id, // obrigatório no types do SDK
+            title: plan.title,
+            quantity: 1,
+            unit_price: plan.price,
+            currency_id: "BRL",
+          },
+        ],
 
         back_urls: {
           success: `${siteUrl}/pagamento/concluido?plano=${plano}`,
           failure: `${siteUrl}/pagamento/erro?plano=${plano}`,
           pending: `${siteUrl}/pagamento/pendente?plano=${plano}`,
         },
+
         auto_return: "approved",
         notification_url: `${siteUrl}/api/webhook/mercadopago`,
+        external_reference: externalReference,
       },
     });
 
-    return NextResponse.json({ initPoint: result.init_point });
+    // init_point é o link do checkout
+    const initPoint = (result as any)?.init_point;
+    if (!initPoint) {
+      return NextResponse.json(
+        { error: "Falha ao gerar init_point." },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ initPoint });
   } catch (err: any) {
-    console.error("MP ERROR:", err);
+    console.error("MP ERROR:", err?.message || err);
     return NextResponse.json(
-      { error: "Erro ao criar preferência" },
+      { error: err?.message ?? "Erro ao criar preferência." },
       { status: 500 }
     );
   }
