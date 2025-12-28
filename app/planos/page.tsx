@@ -209,7 +209,7 @@ export default function PlanosPage() {
             <summary>O que vale mais a pena?</summary>
             <p>
               Para a maioria dos motoristas, o PRO costuma ser o melhor custo-benefício:
-              libera os conteúdos completos e ferramentas avançadas sem pagar o valor do Premium.
+              libera os conteúdos e ferramentas avançadas.
             </p>
           </details>
 

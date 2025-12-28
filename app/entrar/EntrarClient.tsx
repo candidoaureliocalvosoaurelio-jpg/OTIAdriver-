@@ -36,6 +36,16 @@ function formatPhoneBR(v: string) {
   return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
 }
 
+/**
+ * Converte dígitos (ex: 62982868061 ou 5562982868061) para E.164 (ex: +5562982868061)
+ * Importante: Supabase Phone Auth exige E.164 com "+".
+ */
+function toE164FromDigits(digits: string) {
+  const d = onlyDigits(digits);
+  if (!d) return "";
+  return d.startsWith("55") ? `+${d}` : `+55${d}`;
+}
+
 export default function EntrarClient() {
   const router = useRouter();
 
@@ -49,7 +59,9 @@ export default function EntrarClient() {
   const [loading, setLoading] = useState(false);
   const [cooldown, setCooldown] = useState(0);
 
+  const cpfDigits = useMemo(() => onlyDigits(cpf), [cpf]);
   const phoneDigits = useMemo(() => onlyDigits(phone), [phone]);
+  const phoneE164 = useMemo(() => toE164FromDigits(phoneDigits), [phoneDigits]);
 
   useEffect(() => {
     setMounted(true);
@@ -64,15 +76,23 @@ export default function EntrarClient() {
   async function requestOtp() {
     setMsg(null);
 
-    if (onlyDigits(cpf).length !== 11) return setMsg("CPF inválido. Digite 11 números.");
+    if (cpfDigits.length !== 11) return setMsg("CPF inválido. Digite 11 números.");
     if (phoneDigits.length < 10 || phoneDigits.length > 13) return setMsg("Celular inválido. Digite com DDD.");
 
     setLoading(true);
     try {
+      // Logs para diagnóstico (F12 → Console)
+      console.log("PHONE RAW:", phone);
+      console.log("PHONE DIGITS:", phoneDigits);
+      console.log("PHONE E164:", phoneE164);
+
       const r = await fetch("/api/auth/request-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cpf: onlyDigits(cpf), phone: phoneDigits }),
+        body: JSON.stringify({
+          cpf: cpfDigits,
+          phone: phoneE164, // ✅ envia E.164 com "+"
+        }),
       });
 
       const data = await r.json().catch(() => ({}));
@@ -93,12 +113,17 @@ export default function EntrarClient() {
 
     setLoading(true);
     try {
+      // Logs para diagnóstico (F12 → Console)
+      console.log("VERIFY PHONE RAW:", phone);
+      console.log("VERIFY PHONE DIGITS:", phoneDigits);
+      console.log("VERIFY PHONE E164:", phoneE164);
+
       const r = await fetch("/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          cpf: onlyDigits(cpf),
-          phone: phoneDigits,
+          cpf: cpfDigits,
+          phone: phoneE164, // ✅ envia E.164 com "+"
           code: onlyDigits(code),
         }),
       });
