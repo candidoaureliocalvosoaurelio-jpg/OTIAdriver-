@@ -29,11 +29,16 @@ export function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
 
   // Libera rotas públicas importantes (evita loop)
-  if (pathname.startsWith("/entrar") || pathname.startsWith("/planos")) {
+  if (
+    pathname.startsWith("/entrar") ||
+    pathname.startsWith("/planos") ||
+    pathname.startsWith("/pagamento")
+  ) {
     return NextResponse.next();
   }
 
   // Ignora arquivos e rotas do Next / assets
+  // IMPORTANTE: "/simbolos" aqui é pasta de imagens em /public, NÃO é "/simbolos-painel"
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon") ||
