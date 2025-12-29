@@ -60,7 +60,7 @@ export default function CheckoutBasico() {
 
   return (
     <main className={s.wrap}>
-      {/* TOPO DE MARCA */}
+      {/* TOPO DE MARCA (igual Home) */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>

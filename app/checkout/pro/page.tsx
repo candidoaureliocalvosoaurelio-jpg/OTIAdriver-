@@ -22,7 +22,7 @@ export default function CheckoutPro() {
     try {
       setLoading(true);
 
-      // 1) Pega CPF da sessão (recomendado)
+      // 1) Pega CPF da sessão
       const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
       const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
 
@@ -42,10 +42,7 @@ export default function CheckoutPro() {
       });
 
       const data = await res.json().catch(() => ({} as any));
-
-      if (!res.ok) {
-        throw new Error(data?.error || "Falha ao iniciar pagamento.");
-      }
+      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
 
       // 3) Produção → init_point | Sandbox → sandbox_init_point
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
@@ -63,7 +60,7 @@ export default function CheckoutPro() {
 
   return (
     <main className={s.wrap}>
-      {/* TOPO DE MARCA */}
+      {/* TOPO DE MARCA (igual Home e Básico) */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>
@@ -94,11 +91,22 @@ export default function CheckoutPro() {
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem</li>
-            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
-            <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
+            <li>
+              <span className={s.check}>✓</span> Fichas Técnicas COMPLETAS
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Suporte Técnico com IA
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Análise de Imagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Checklists de Viagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Sistema de Pontuação de Performance
+              Inteligente
+            </li>
           </ul>
 
           <div className={s.terms}>
@@ -108,9 +116,14 @@ export default function CheckoutPro() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
+            <Link href="/termos" className="underline">
+              Termos de Uso
+            </Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
+            <Link href="/privacidade" className="underline">
+              Política de Privacidade
+            </Link>
+            .
           </div>
         </section>
 
