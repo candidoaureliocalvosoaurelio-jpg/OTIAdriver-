@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
-// Auxiliares de formatação
+// --- Auxiliares de Formatação ---
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
@@ -39,8 +39,10 @@ function toE164FromDigits(digits: string) {
   return d.startsWith("55") ? `+${d}` : `+55${d}`;
 }
 
+// --- Componente Principal ---
 export default function EntrarClient() {
   const router = useRouter();
+
   const [mounted, setMounted] = useState(false);
   const [cpf, setCpf] = useState("");
   const [phone, setPhone] = useState("");
@@ -54,7 +56,9 @@ export default function EntrarClient() {
   const phoneDigits = useMemo(() => onlyDigits(phone), [phone]);
   const phoneE164 = useMemo(() => toE164FromDigits(phoneDigits), [phoneDigits]);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -62,32 +66,54 @@ export default function EntrarClient() {
     return () => clearInterval(t);
   }, [cooldown]);
 
+  // --- Função: Solicitar SMS ---
   async function requestOtp() {
-    setMsg(null);
-    if (cpfDigits.length !== 11) return setMsg("CPF inválido. Digite 11 números.");
-    if (phoneDigits.length < 10 || phoneDigits.length > 13) return setMsg("Celular inválido. Digite com DDD.");
+    setMsg(null); // Limpa mensagens de erro/tarja azul
+
+    if (cpfDigits.length !== 11) {
+      setMsg("CPF inválido. Digite 11 números.");
+      return;
+    }
+    if (phoneDigits.length < 10) {
+      setMsg("Celular inválido. Digite com DDD.");
+      return;
+    }
 
     setLoading(true);
     try {
       const r = await fetch("/api/auth/request-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cpf: cpfDigits, phone: phoneE164 }),
+        body: JSON.stringify({
+          cpf: cpfDigits,
+          phone: phoneE164,
+        }),
       });
+
       const data = await r.json().catch(() => ({}));
-      if (!r.ok) return setMsg(data?.error || "Não foi possível enviar o código agora.");
+      if (!r.ok) {
+        setMsg(data?.error || "Não foi possível enviar o código agora.");
+        return;
+      }
 
       setStep("verify");
       setCooldown(30);
-      setMsg("Código enviado por SMS.");
+      setMsg("Código enviado por SMS!");
+    } catch (err) {
+      setMsg("Erro de conexão com o servidor.");
     } finally {
       setLoading(false);
     }
   }
 
+  // --- Função: Validar Código e Entrar ---
   async function verifyOtp() {
     setMsg(null);
-    if (onlyDigits(code).length !== 6) return setMsg("Digite o código de 6 dígitos.");
+
+    if (onlyDigits(code).length !== 6) {
+      setMsg("Digite o código de 6 dígitos.");
+      return;
+    }
 
     setLoading(true);
     try {
@@ -102,15 +128,16 @@ export default function EntrarClient() {
       });
 
       const data = await r.json().catch(() => ({}));
+      
       if (!r.ok) {
-        setLoading(false);
-        return setMsg(data?.error || "Código inválido. Tente novamente.");
+        setMsg(data?.error || "Código inválido. Tente novamente.");
+        setLoading(false); // Só desativa o loading se der erro
+        return;
       }
 
       setMsg("Sucesso! Redirecionando...");
       
-      // ✅ CORREÇÃO CHAVE: Força o redirecionamento via navegador
-      // Isso garante que os cookies de autenticação sejam lidos corretamente pelo servidor
+      // ✅ Redirecionamento nativo para garantir leitura de Cookies
       const destino = data?.redirectTo || "/planos";
       window.location.href = destino;
 
@@ -118,8 +145,6 @@ export default function EntrarClient() {
       setMsg("Erro ao validar código.");
       setLoading(false);
     }
-    // Nota: O finally foi removido aqui para manter o estado de 'loading' 
-    // visual enquanto a página é recarregada pelo window.location
   }
 
   if (!mounted) return <div className="min-h-screen bg-slate-50" />;
@@ -127,72 +152,79 @@ export default function EntrarClient() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-4">
-        <h1 className="text-xl font-bold">Entrar</h1>
+        <h1 className="text-xl font-bold text-slate-900">Entrar</h1>
 
         {msg && (
-          <div className={`text-sm p-2 rounded ${msg.includes("Sucesso") ? "bg-green-50 text-green-700" : "bg-blue-50 text-blue-700"}`}>
+          <div className={`text-sm p-3 rounded-lg border ${
+            msg.includes("Sucesso") 
+              ? "bg-green-50 text-green-700 border-green-200" 
+              : "bg-blue-50 text-blue-700 border-blue-100"
+          }`}>
             {msg}
           </div>
         )}
 
-        <input
-          value={cpf}
-          onChange={(e) => setCpf(formatCpf(e.target.value))}
-          placeholder="CPF"
-          className="w-full border p-2 rounded"
-          inputMode="numeric"
-          disabled={loading || step === "verify"}
-        />
-
-        <input
-          value={phone}
-          onChange={(e) => setPhone(formatPhoneBR(e.target.value))}
-          placeholder="Celular"
-          className="w-full border p-2 rounded"
-          inputMode="tel"
-          disabled={loading || step === "verify"}
-        />
-
-        {step === "verify" && (
+        <div className="space-y-3">
           <input
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            placeholder="Código SMS"
-            className="w-full border p-2 rounded border-blue-400"
+            value={cpf}
+            onChange={(e) => setCpf(formatCpf(e.target.value))}
+            placeholder="CPF"
+            className="w-full border border-slate-300 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
             inputMode="numeric"
-            autoComplete="one-time-code"
-            disabled={loading}
-            autoFocus
+            disabled={loading || step === "verify"}
           />
-        )}
 
-        {step === "request" ? (
-          <button
-            onClick={requestOtp}
-            disabled={loading}
-            className="w-full bg-blue-600 text-white p-2 rounded disabled:opacity-60 font-bold"
-          >
-            {loading ? "Enviando..." : "Enviar código"}
-          </button>
-        ) : (
-          <div className="space-y-2">
-            <button
-              onClick={verifyOtp}
+          <input
+            value={phone}
+            onChange={(e) => setPhone(formatPhoneBR(e.target.value))}
+            placeholder="Celular com DDD"
+            className="w-full border border-slate-300 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+            inputMode="tel"
+            disabled={loading || step === "verify"}
+          />
+
+          {step === "verify" && (
+            <input
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              placeholder="Código SMS de 6 dígitos"
+              className="w-full border border-blue-400 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none animate-pulse"
+              inputMode="numeric"
+              autoFocus
               disabled={loading}
-              className="w-full bg-green-600 text-white p-2 rounded disabled:opacity-60 font-bold"
-            >
-              {loading ? "Validando..." : "Confirmar"}
-            </button>
+            />
+          )}
+        </div>
 
+        <div className="pt-2">
+          {step === "request" ? (
             <button
               onClick={requestOtp}
-              disabled={loading || cooldown > 0}
-              className="w-full border border-slate-300 p-2 rounded disabled:opacity-60 text-slate-600 text-sm"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 disabled:opacity-50 transition-all"
             >
-              {cooldown > 0 ? `Reenviar em ${cooldown}s` : "Reenviar código"}
+              {loading ? "Enviando SMS..." : "Enviar código"}
             </button>
-          </div>
-        )}
+          ) : (
+            <div className="space-y-3">
+              <button
+                onClick={verifyOtp}
+                disabled={loading}
+                className="w-full bg-green-600 text-white p-3 rounded-lg font-bold hover:bg-green-700 disabled:opacity-50 transition-all"
+              >
+                {loading ? "Validando..." : "Confirmar e Entrar"}
+              </button>
+
+              <button
+                onClick={requestOtp}
+                disabled={loading || cooldown > 0}
+                className="w-full text-slate-500 text-sm hover:underline disabled:no-underline"
+              >
+                {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
