@@ -206,8 +206,10 @@ function PlanosContent() {
             <p>Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar conteúdos exclusivos, se o seu plano for o Básico, o sistema solicitará o upgrade para PRO.</p>
           </details>
           <details className={styles.faqItem}>
-            <summary>O que vale mais a pena?</summary>
-            <p>O plano PRO libera 100% da plataforma, incluindo manuais e guias que não estão disponíveis no Básico.</p>
+            <summary>Seja um profissional de elite. 🛡️</summary>
+            <p>
+               Com o Plano PRO, você vai além do óbvio. Tenha acesso exclusivo a guias de direção defensiva avançada e manuais de segurança que não estão disponíveis no plano Básico. É o conteúdo completo para quem coloca a vida e a carga em primeiro lugar e exige 100% de preparação para qualquer desafio na estrada.
+            </p>
           </details>
         </div>
       </section>
@@ -215,7 +217,7 @@ function PlanosContent() {
   );
 }
 
-// 2. Componente principal com Suspense (Essencial para o Build funcionar)
+// 2. Componente principal com Suspense
 export default function PlanosPage() {
   return (
     <main className={`${styles.rootVars} mx-auto max-w-7xl px-4 py-10`}>
