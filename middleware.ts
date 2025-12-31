@@ -1,17 +1,23 @@
-// middleware.ts
 import { NextRequest, NextResponse } from "next/server";
 
-const PAID_PREFIXES = [
-  "/app",
-  "/premium",
+/**
+ * ROTAS LIBERADAS PARA PLANO BÁSICO
+ */
+const BASIC_ALLOWED = [
+  "/caminhoes",     // Página Início dos caminhões
+  "/treinamentos",  // Página de Treinamentos
+  "/pneus",         // Página dos Pneus
+];
 
-  // BLOQUEAR ATÉ PAGAR:
-  "/caminhoes-eletricos",
-  "/pneus",
-  "/inspecao-manutencao",
-  "/treinamentos",
-  "/simbolos-painel",
-  "/ebook-driver",
+/**
+ * ROTAS PÚBLICAS (sempre acessíveis, sem login)
+ */
+const PUBLIC_PREFIXES = [
+  "/",
+  "/entrar",
+  "/planos",
+  "/pagamento",
+  "/api", // Permite chamadas de API (Webhooks, etc)
 ];
 
 const ACTIVE_PLANS = new Set(["basico", "pro", "premium"]);
@@ -23,47 +29,58 @@ function matchesPrefix(pathname: string, prefixes: string[]) {
 export function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
 
-  // Libera rotas públicas essenciais
-  if (
-    pathname.startsWith("/entrar") ||
-    pathname.startsWith("/planos") ||
-    pathname.startsWith("/pagamento")
-  ) {
-    return NextResponse.next();
-  }
-
-  // Ignora assets e rotas internas
+  // 1. Ignorar arquivos estáticos e imagens
   if (
     pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname.startsWith("/robots.txt") ||
-    pathname.startsWith("/sitemap.xml") ||
+    pathname.includes(".") || 
     pathname.startsWith("/images") ||
-    pathname.startsWith("/simbolos") || // pasta de imagens em /public/simbolos
-    pathname.startsWith("/fichas-tecnicas")
+    pathname.startsWith("/simbolos")
   ) {
     return NextResponse.next();
   }
 
-  const needsPaid = matchesPrefix(pathname, PAID_PREFIXES);
-  if (!needsPaid) return NextResponse.next();
+  // 2. Liberar Rotas Públicas
+  if (matchesPrefix(pathname, PUBLIC_PREFIXES)) {
+    return NextResponse.next();
+  }
 
+  // 3. Verificar Cookies de Sessão
   const auth = req.cookies.get("otia_auth")?.value;
   const cpf = req.cookies.get("otia_cpf")?.value;
-  const plan = req.cookies.get("otia_plan")?.value; // free | basico | pro | premium
+  const plan = req.cookies.get("otia_plan")?.value; // basico | pro | premium
 
+  // 4. Se não estiver logado -> Redireciona para login
   if (!auth || !cpf) {
     const url = req.nextUrl.clone();
     url.pathname = "/entrar";
     url.searchParams.set("next", pathname + search);
-    url.searchParams.set("reason", "auth");
     return NextResponse.redirect(url);
   }
 
+  // 5. Se não tem plano ativo -> Redireciona para escolher plano
   if (!ACTIVE_PLANS.has(plan ?? "")) {
     const url = req.nextUrl.clone();
     url.pathname = "/planos";
-    url.searchParams.set("reason", "paywall");
+    return NextResponse.redirect(url);
+  }
+
+  // 6. REGRA PLANO PRO / PREMIUM (Acesso Completo)
+  // Ambos os planos agora possuem acesso irrestrito às rotas privadas
+  if (plan === "pro" || plan === "premium") {
+    return NextResponse.next(); // Libera todas as rotas para ambos
+  }
+
+  // 7. REGRA PLANO BÁSICO (Restrito)
+  if (plan === "basico") {
+    // Se a rota está na lista permitida, libera
+    if (matchesPrefix(pathname, BASIC_ALLOWED)) {
+      return NextResponse.next();
+    }
+
+    // Se tentar acessar conteúdo exclusivo (ex: /app), redireciona para upgrade
+    const url = req.nextUrl.clone();
+    url.pathname = "/planos";
+    url.searchParams.set("reason", "upgrade"); 
     return NextResponse.redirect(url);
   }
 
@@ -71,5 +88,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|static|favicon.ico).*)"],
 };
