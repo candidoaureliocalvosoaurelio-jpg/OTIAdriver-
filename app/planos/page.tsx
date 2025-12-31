@@ -1,45 +1,38 @@
-// app/planos/page.tsx
+"use client"; // Alterado para Client Component para ler parâmetros da URL
+
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import styles from "./Planos.module.css";
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-export const fetchCache = "force-no-store";
-
-export const metadata = {
-  title: "Planos | OTIAdriver",
-  description: "Conheça os planos da plataforma OTIAdriver",
-};
 
 // Listas de recursos
 const basic = [
   "Acesso a conteúdos essenciais",
+  "Páginas de Caminhões, Treinamentos e Pneus",
   "Fichas técnicas básicas",
-  "Ferramentas públicas (quando disponíveis)",
   "Suporte básico",
 ];
 
 const pro = [
+  "Acesso TOTAL à plataforma",
   "Fichas técnicas completas",
-  "Treinamentos e conteúdos avançados (assinatura)",
+  "Treinamentos avançados e manuais",
   "Checklists e guias práticos",
   "Suporte técnico com IA",
-  "Recursos premium liberados por login SMS",
 ];
 
 const premium = [
   "Tudo do PRO",
   "Acesso prioritário a lançamentos",
   "Treinamento IA personalizado",
-  "Mais profundidade técnica e recursos avançados",
+  "Consultoria técnica direta",
   "Suporte prioritário",
 ];
 
 // Comparação rápida
 const compare = [
-  { label: "Demonstrações e catálogo público", basic: true, pro: true, premium: true },
-  { label: "Conteúdos completos (assinatura)", basic: false, pro: true, premium: true },
-  { label: "Treinamentos e materiais premium", basic: false, pro: true, premium: true },
+  { label: "Página de Caminhões e Pneus", basic: true, pro: true, premium: true },
+  { label: "Treinamentos Essenciais", basic: true, pro: true, premium: true },
+  { label: "Conteúdos Avançados (Manuais)", basic: false, pro: true, premium: true },
   { label: "Suporte com IA", basic: false, pro: true, premium: true },
   { label: "Prioridade e benefícios extras", basic: false, pro: false, premium: true },
 ];
@@ -56,8 +49,27 @@ function Check({ ok }: { ok: boolean }) {
 }
 
 export default function PlanosPage() {
+  const searchParams = useSearchParams();
+  const reason = searchParams.get("reason");
+
   return (
     <main className={`${styles.rootVars} mx-auto max-w-7xl px-4 py-10`}>
+      
+      {/* MENSAGEM DE ALERTA DO MIDDLEWARE */}
+      {reason === "upgrade" && (
+        <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-800 text-center animate-pulse">
+          <p className="font-bold text-lg">🔒 Conteúdo Exclusivo</p>
+          <p className="text-sm">Seu plano atual não permite acessar esta página. Escolha o <b>PRO</b> ou <b>Premium</b> para liberar agora!</p>
+        </div>
+      )}
+
+      {reason === "paywall" && (
+        <div className="mb-8 p-4 bg-orange-50 border border-orange-200 rounded-xl text-orange-800 text-center">
+          <p className="font-bold text-lg">Sua assinatura expirou ou não foi encontrada</p>
+          <p className="text-sm">Renove seu acesso abaixo para continuar utilizando as ferramentas.</p>
+        </div>
+      )}
+
       {/* HERO / HEADLINE */}
       <header className={styles.hero}>
         <h1 className="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
@@ -69,7 +81,6 @@ export default function PlanosPage() {
           eficiência e ferramentas práticas.
         </p>
 
-        {/* ✅ Removido: Ver demonstrações */}
         <div className={styles.heroCtas}>
           <Link href="/checkout/pro" className={styles.heroPrimaryCta}>
             Assinar PRO (Recomendado)
@@ -137,7 +148,7 @@ export default function PlanosPage() {
             <span className={styles.valor}>29,90</span>
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
-          <p className="text-sm text-slate-600 m-0">Para começar e explorar o essencial.</p>
+          <p className="text-sm text-slate-600 m-0">Início de caminhões, treinamentos e pneus.</p>
           <ul className={styles.recursos}>
             {basic.map((item) => (
               <li key={item}>{item}</li>
@@ -158,7 +169,7 @@ export default function PlanosPage() {
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
           <p className="text-sm text-slate-700 m-0">
-            O melhor custo-benefício para evoluir na prática.
+            Acesso completo e suporte com IA.
           </p>
           <ul className={styles.recursos}>
             {pro.map((item) => (
@@ -178,7 +189,7 @@ export default function PlanosPage() {
             <span className={styles.valor}>99,90</span>
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
-          <p className="text-sm m-0">Para quem quer máximo acesso e prioridade.</p>
+          <p className="text-sm m-0">Prioridade total e conteúdos exclusivos.</p>
           <ul className={styles.recursos}>
             {premium.map((item) => (
               <li key={item}>{item}</li>
@@ -201,36 +212,15 @@ export default function PlanosPage() {
             <summary>Como funciona o acesso?</summary>
             <p>
               Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar
-              conteúdos de assinatura, sem plano ativo você é direcionado para Planos (paywall).
+              conteúdos exclusivos, se o seu plano for o Básico, o sistema solicitará o upgrade para PRO.
             </p>
           </details>
-
           <details className={styles.faqItem}>
             <summary>O que vale mais a pena?</summary>
             <p>
-              Para a maioria dos motoristas, o PRO costuma ser o melhor custo-benefício:
-              libera os conteúdos e ferramentas avançadas.
+              O plano PRO libera 100% da plataforma, incluindo manuais e guias que não estão disponíveis no Básico.
             </p>
           </details>
-
-          <details className={styles.faqItem}>
-            <summary>Pagamento é seguro?</summary>
-            <p>Sim. O fluxo é pensado para segurança e praticidade, com autenticação por SMS e checkout dedicado.</p>
-          </details>
-
-          <details className={styles.faqItem}>
-            <summary>Posso mudar de plano depois?</summary>
-            <p>Sim. Você pode evoluir de plano conforme sua necessidade e uso da plataforma.</p>
-          </details>
-        </div>
-
-        <div className={styles.bottomCta}>
-          <Link href="/checkout/pro" className={styles.bottomPrimaryCta}>
-            Assinar PRO agora
-          </Link>
-          <Link href="/checkout/basico" className={styles.bottomSecondaryCta}>
-            Começar pelo Básico
-          </Link>
         </div>
       </section>
     </main>
