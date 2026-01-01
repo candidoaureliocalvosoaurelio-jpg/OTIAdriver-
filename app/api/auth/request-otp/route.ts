@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import twilio from "twilio";
 
-// Garante execução em Node.js (necessário para o SDK da Twilio)
 export const runtime = "nodejs";
-// Evita cache em rotas dinâmicas de API
 export const dynamic = "force-dynamic";
 
 function onlyDigits(v: string) {
@@ -11,26 +9,49 @@ function onlyDigits(v: string) {
 }
 
 /**
- * Normaliza o telefone para o formato E.164 exigido pelo Twilio (+55XXXXXXXXXXX)
- * Aceita números com ou sem o código do país (55)
+ * Normaliza telefone para E.164 (+55XXXXXXXXXXX)
+ * Aceita:
+ * - "62982868061" -> +5562982868061
+ * - "5562982868061" -> +5562982868061
+ * - "+55 (62) 98286-8061" -> +5562982868061
  */
 function normalizeToE164(phoneRaw: string) {
   const digits = onlyDigits(phoneRaw);
 
-  // Se já tiver o 55 (12 ou 13 dígitos: 55 + DDD + número)
+  // já com DDI (55 + DDD + número)
   if (digits.length === 12 || digits.length === 13) return `+${digits}`;
 
-  // Se tiver DDD + número (10 ou 11 dígitos), assume Brasil e adiciona +55
+  // BR sem DDI (DDD + número)
   if (digits.length === 10 || digits.length === 11) return `+55${digits}`;
 
-  // Fallback: se parecer número, tenta prefixar +
-  return digits.length > 8 ? `+${digits}` : null;
+  return null;
+}
+
+function twilioPublicMessage(err: any) {
+  const status = err?.status;
+  const code = err?.code;
+
+  // 404 costuma ser ServiceSid errado / conta errada
+  if (status === 404) {
+    return "Serviço Twilio Verify não encontrado. Verifique TWILIO_VERIFY_SERVICE_SID e a conta.";
+  }
+
+  // 429 = rate limit / tentativas demais
+  if (status === 429) {
+    return "Muitas tentativas. Aguarde um pouco e tente novamente.";
+  }
+
+  // erros comuns de parâmetro
+  if (status === 400) {
+    return "Não foi possível enviar o SMS. Verifique o número e tente novamente.";
+  }
+
+  return "Erro ao enviar o código. Tente novamente em instantes.";
 }
 
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
-
     const cpfDigits = onlyDigits(body?.cpf);
     const phoneE164 = normalizeToE164(body?.phone);
 
@@ -48,7 +69,7 @@ export async function POST(req: Request) {
 
     if (!accountSid || !authToken || !verifyServiceSid) {
       return NextResponse.json(
-        { ok: false, error: "Twilio não configurado (variáveis de ambiente ausentes)" },
+        { ok: false, error: "Twilio não configurado (env ausentes)" },
         { status: 500 }
       );
     }
@@ -62,8 +83,17 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {
+    // log técnico no servidor (não vai para o usuário)
+    console.error("request-otp Twilio error:", {
+      message: err?.message,
+      status: err?.status,
+      code: err?.code,
+      moreInfo: err?.moreInfo,
+      details: err?.details,
+    });
+
     return NextResponse.json(
-      { ok: false, error: err?.message || "Erro ao enviar OTP" },
+      { ok: false, error: twilioPublicMessage(err) },
       { status: 500 }
     );
   }
