@@ -39,6 +39,20 @@ function toE164FromDigits(digits: string) {
   return d.startsWith("55") ? `+${d}` : `+55${d}`;
 }
 
+// ✅ Extrai `next` e `lang` da URL do browser
+function getNextFromLocation() {
+  if (typeof window === "undefined") return { next: "/", lang: "pt" };
+
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get("lang") || "pt";
+
+  // se vier `next`, usa. Se não, volta para home preservando lang.
+  const nextRaw = params.get("next");
+  const next = nextRaw && nextRaw.startsWith("/") ? nextRaw : `/?lang=${lang}`;
+
+  return { next, lang };
+}
+
 // --- Componente Principal ---
 export default function EntrarClient() {
   const router = useRouter();
@@ -68,7 +82,7 @@ export default function EntrarClient() {
 
   // --- Função: Solicitar SMS ---
   async function requestOtp() {
-    setMsg(null); // Limpa mensagens de erro/tarja azul
+    setMsg(null);
 
     if (cpfDigits.length !== 11) {
       setMsg("CPF inválido. Digite 11 números.");
@@ -128,19 +142,24 @@ export default function EntrarClient() {
       });
 
       const data = await r.json().catch(() => ({}));
-      
+
       if (!r.ok) {
         setMsg(data?.error || "Código inválido. Tente novamente.");
-        setLoading(false); // Só desativa o loading se der erro
+        setLoading(false);
         return;
       }
 
-      setMsg("Sucesso! Redirecionando...");
-      
-      // ✅ Redirecionamento nativo para garantir leitura de Cookies
-      const destino = data?.redirectTo || "/planos";
-      window.location.href = destino;
+      setMsg("Sucesso! Liberando acesso...");
 
+      // ✅ 1) Respeita `next` da URL
+      const { next } = getNextFromLocation();
+
+      // ✅ 2) Sincroniza plano (cookie otia_plan = active/inactive) antes de ir para a área protegida
+      // (se não existir ou falhar, não quebra o fluxo; o middleware vai direcionar corretamente)
+      await fetch("/api/me/sync", { method: "POST", cache: "no-store" }).catch(() => null);
+
+      // ✅ 3) Redireciona (reload total para garantir cookies)
+      window.location.href = next;
     } catch (e) {
       setMsg("Erro ao validar código.");
       setLoading(false);
@@ -155,11 +174,13 @@ export default function EntrarClient() {
         <h1 className="text-xl font-bold text-slate-900">Entrar</h1>
 
         {msg && (
-          <div className={`text-sm p-3 rounded-lg border ${
-            msg.includes("Sucesso") 
-              ? "bg-green-50 text-green-700 border-green-200" 
-              : "bg-blue-50 text-blue-700 border-blue-100"
-          }`}>
+          <div
+            className={`text-sm p-3 rounded-lg border ${
+              msg.includes("Sucesso") || msg.includes("Liberando")
+                ? "bg-green-50 text-green-700 border-green-200"
+                : "bg-blue-50 text-blue-700 border-blue-100"
+            }`}
+          >
             {msg}
           </div>
         )}
@@ -220,7 +241,9 @@ export default function EntrarClient() {
                 disabled={loading || cooldown > 0}
                 className="w-full text-slate-500 text-sm hover:underline disabled:no-underline"
               >
-                {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
+                {cooldown > 0
+                  ? `Reenviar código em ${cooldown}s`
+                  : "Não recebeu? Reenviar código"}
               </button>
             </div>
           )}
