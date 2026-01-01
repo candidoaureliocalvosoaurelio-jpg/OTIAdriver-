@@ -3,8 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
 
-// Navbar está em app/components
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar"; // ✅ aqui
 
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
