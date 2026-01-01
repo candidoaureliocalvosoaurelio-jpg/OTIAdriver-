@@ -1,4 +1,3 @@
-// app/checkout/basico/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -22,19 +21,16 @@ export default function CheckoutBasico() {
     try {
       setLoading(true);
 
-      // 1) Pega CPF da sessão
       const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
       const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
 
       const cpf = onlyDigits(sess?.cpf || "");
 
-      // Se não está logado, manda para /entrar
       if (!sess?.authenticated || cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/basico&reason=auth`;
         return;
       }
 
-      // 2) Cria preferência com CPF + plano
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,11 +40,8 @@ export default function CheckoutBasico() {
       const data = await res.json().catch(() => ({} as any));
       if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
 
-      // 3) Produção → init_point | Sandbox → sandbox_init_point
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
-      if (!redirectUrl) {
-        throw new Error("Resposta inválida: init_point não encontrado.");
-      }
+      if (!redirectUrl) throw new Error("Resposta inválida: init_point não encontrado.");
 
       window.location.href = redirectUrl;
     } catch (e: any) {
@@ -60,7 +53,6 @@ export default function CheckoutBasico() {
 
   return (
     <main className={s.wrap}>
-      {/* TOPO DE MARCA (igual Home) */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>
@@ -71,16 +63,12 @@ export default function CheckoutBasico() {
         </p>
       </section>
 
-      {/* LINHA SUPERIOR */}
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
-        <Link href="/planos" className="hover:underline">
-          ← Voltar aos planos
-        </Link>
+        <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
       <div className={s.grid}>
-        {/* CARD */}
         <section className={s.card}>
           <span className={s.badge}>Essencial</span>
           <h1>Básico</h1>
@@ -90,15 +78,9 @@ export default function CheckoutBasico() {
           <p className={s.subtitle}>Ideal para uso pessoal.</p>
 
           <ul className={s.list}>
-            <li>
-              <span className={s.check}>✓</span> Fichas Técnicas Essenciais
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Acesso à Galeria
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Suporte Básico por Chat
-            </li>
+            <li><span className={s.check}>✓</span> Fichas Técnicas Essenciais</li>
+            <li><span className={s.check}>✓</span> Acesso à Galeria</li>
+            <li><span className={s.check}>✓</span> Suporte Básico por Chat</li>
           </ul>
 
           <div className={s.terms}>
@@ -108,24 +90,16 @@ export default function CheckoutBasico() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">
-              Termos de Uso
-            </Link>{" "}
+            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">
-              Política de Privacidade
-            </Link>
-            .
+            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
           </div>
         </section>
 
-        {/* ASIDE */}
         <aside className={`${s.aside} ${s.basicAside}`}>
           <div className={`${s.selected} ${s.selectedTopBox}`}>
-            Plano selecionado
-            <br />
-            <strong>Básico</strong>
-            <br />
+            Plano selecionado<br />
+            <strong>Básico</strong><br />
             R$ 29,90 / mês
           </div>
 
@@ -151,9 +125,7 @@ export default function CheckoutBasico() {
           </div>
 
           <div className="text-xs text-slate-500 mt-3">
-            <Link href="/planos" className="underline">
-              Voltar aos planos
-            </Link>
+            <Link href="/planos" className="underline">Voltar aos planos</Link>
           </div>
         </aside>
       </div>
