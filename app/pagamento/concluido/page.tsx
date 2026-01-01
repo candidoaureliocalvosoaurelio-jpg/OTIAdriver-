@@ -1,3 +1,4 @@
+// app/pagamento/concluido/page.tsx
 import Link from "next/link";
 
 export const metadata = {
@@ -9,12 +10,22 @@ export const dynamic = "force-dynamic";
 export default function PagamentoConcluido({
   searchParams,
 }: {
-  searchParams?: { plano?: string; payment_id?: string; status?: string; lang?: string };
+  searchParams?: {
+    plano?: string;
+    payment_id?: string;
+    status?: string;
+    lang?: string;
+    next?: string;
+  };
 }) {
   const lang = searchParams?.lang ?? "pt";
   const plano = searchParams?.plano; // pode vir vazio
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
+
+  // ✅ Para onde voltar depois do login
+  // Se vier ?next=..., usa ele; senão, volta para Home
+  const next = searchParams?.next || `/?lang=${lang}`;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
@@ -28,7 +39,8 @@ export default function PagamentoConcluido({
           {plano ? (
             <>
               {" "}
-              Vamos liberar seu acesso do plano <strong>{plano.toUpperCase()}</strong>.
+              Vamos liberar seu acesso do plano{" "}
+              <strong>{plano.toUpperCase()}</strong>.
             </>
           ) : (
             <> Vamos liberar seu acesso.</>
@@ -51,15 +63,16 @@ export default function PagamentoConcluido({
         )}
 
         <div className="mt-6 flex flex-wrap gap-3">
+          {/* ✅ Agora passa next para voltar ao início após login */}
           <Link
-            href={`/entrar?lang=${lang}`}
+            href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
           >
             Entrar agora (CPF/telefone)
           </Link>
 
           <Link
-            href={`/?lang=${lang}`}
+            href={next}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
             Voltar ao site
@@ -67,8 +80,9 @@ export default function PagamentoConcluido({
         </div>
 
         <p className="mt-4 text-xs text-slate-500">
-          Após entrar, o sistema reconhece seu CPF e libera o acesso premium automaticamente.
-          Se você cair em “Planos”, aguarde alguns instantes e tente novamente.
+          Após entrar, o sistema reconhece seu CPF e libera o acesso premium
+          automaticamente. Se você cair em “Planos”, aguarde alguns instantes e
+          tente novamente.
         </p>
       </div>
     </main>
