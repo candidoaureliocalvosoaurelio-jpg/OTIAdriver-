@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 function isPublicPath(pathname: string) {
-  // rotas públicas (ajuste conforme seu projeto)
   if (pathname === "/") return true;
 
   const publicPrefixes = [
@@ -28,32 +27,37 @@ function isProtectedPath(pathname: string) {
     "/caminhoes",
     "/simbolos-painel",
     "/ebook-driver",
+
+    // ✅ Protege as rotas que estavam abertas (ajuste se seu caminho real for diferente)
+    "/pneus",
+    "/inspecao",
+    "/inspecao-manutencao",
+    "/caminhoes-eletricos",
   ];
+
   return protectedPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
-  // Se for público, deixa passar
+  // Público -> passa
   if (isPublicPath(pathname)) return NextResponse.next();
 
-  // Se não for área protegida, deixa passar (ou trate como protegido por padrão, se preferir)
+  // Se não estiver na lista de protegidas -> passa
   if (!isProtectedPath(pathname)) return NextResponse.next();
 
-  // 1) Verifica se está logado
-  const session = req.cookies.get("otia_session")?.value; // você vai criar esse cookie no login
-  if (!session) {
+  // 1) Verifica login (alinhado com verify-otp)
+  const auth = req.cookies.get("otia_auth")?.value; // "1"
+  if (auth !== "1") {
     const url = req.nextUrl.clone();
     url.pathname = "/entrar";
-    // mantém o lang se existir
     if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
-    // guarda pra voltar depois
     url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
 
-  // 2) Verifica se tem assinatura ativa
+  // 2) Verifica plano ativo
   const planStatus = req.cookies.get("otia_plan")?.value; // "active" | "inactive"
   if (planStatus !== "active") {
     const url = req.nextUrl.clone();
@@ -67,6 +71,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // roda em tudo, exceto arquivos estáticos do Next
   matcher: ["/((?!_next/static|_next/image).*)"],
 };
