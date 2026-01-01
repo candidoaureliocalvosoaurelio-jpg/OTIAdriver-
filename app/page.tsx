@@ -11,36 +11,35 @@ export default function HomePage({ searchParams }: PageProps) {
   const lang = searchParams?.lang ?? "pt";
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
-  // ✅ Regra: ao clicar em QUALQUER imagem -> vai para /entrar (CPF/telefone)
-  // ✅ Exceção: "Planos OTIAdriver" continua indo para /planos
-  const LOGIN_GATE = `/entrar?lang=${lang}`;
+  // 🔒 Regra final: TODA a Home leva para /planos
+  const PLANOS_LINK = `/planos?lang=${lang}`;
 
   const rowTreinamentosDestaque: RowItem[] = [
     {
       title: "Fundamentos da Condução Econômica",
       subtitle: "Aula rápida com prática e exemplos reais.",
-      href: LOGIN_GATE, // ✅ era /app/caminhoes (vazamento). Agora é espelho correto.
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-treinamento-03.jpg",
       meta: "Aula • 12 min",
     },
     {
       title: "Tecnologia e Segurança",
       subtitle: "Conteúdo completo + materiais.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-treinamento-02.jpg",
       meta: "Série",
     },
     {
       title: "Condução Econômica Avançada",
       subtitle: "Reduza consumo, desgaste e custos na prática.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-conducao-economica.jpg",
       meta: "Aula • Economia",
     },
     {
       title: "Direção Segura em Longas Jornadas",
       subtitle: "Fadiga, foco e tomada de decisão.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-treinamento-04.jpg",
       meta: "Aula • 18 min",
     },
@@ -50,28 +49,28 @@ export default function HomePage({ searchParams }: PageProps) {
     {
       title: "Planos OTIAdriver",
       subtitle: "Assinatura para evoluir com tecnologia.",
-      href: `/planos?lang=${lang}`, // ✅ exceção (continua direto para planos)
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-planos.jpg",
       meta: "Assinatura",
     },
     {
       title: "Símbolos do Painel",
       subtitle: "Consulta rápida e explicações práticas.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-simbolos.jpg",
       meta: "Ferramenta",
     },
     {
       title: "Ebook Driver Economy",
       subtitle: "Condução econômica passo a passo.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-ebook.jpg",
       meta: "Ebook",
     },
     {
       title: "Inspeção & Manutenção",
       subtitle: "Conteúdo prático para reduzir paradas.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-inspecao.jpg",
       meta: "Guia",
     },
@@ -81,28 +80,28 @@ export default function HomePage({ searchParams }: PageProps) {
     {
       title: "Volvo FH",
       subtitle: "Ficha e conteúdo técnico.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-fh.jpg",
       meta: "Caminhões",
     },
     {
       title: "Scania Super",
       subtitle: "Linha pesada premium.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-scania.jpg",
       meta: "Caminhões",
     },
     {
       title: "Iveco S-Way",
       subtitle: "Caixa, tecnologia e operação.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-iveco.jpg",
       meta: "Caminhões",
     },
     {
       title: "Volkswagen",
       subtitle: "Linha e fichas técnicas.",
-      href: LOGIN_GATE,
+      href: PLANOS_LINK,
       imageSrc: "/images/home/thumb-vw.jpg",
       meta: "Caminhões",
     },
@@ -140,36 +139,24 @@ export default function HomePage({ searchParams }: PageProps) {
 
                 <p className="mt-4 text-white/85 max-w-2xl">
                   Uma vitrine de conteúdos e ferramentas para elevar segurança,
-                  eficiência e performance. Assista demonstrações, explore
-                  caminhões e avance para a assinatura quando estiver pronto.
+                  eficiência e performance. Conheça os planos e libere o acesso
+                  completo à plataforma.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
-                    href={LOGIN_GATE}
+                    href={PLANOS_LINK}
                     className="inline-flex items-center justify-center rounded-xl bg-sky-500 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-600"
                   >
-                    Ver demonstrações
+                    Iniciar agora
                   </Link>
 
                   <Link
-                    href={`/planos?lang=${lang}`}
+                    href={PLANOS_LINK}
                     className="inline-flex items-center justify-center rounded-xl bg-white/10 px-5 py-3 text-sm font-extrabold text-white ring-1 ring-white/25 hover:bg-white/15"
                   >
-                    Assinar
+                    Ver planos
                   </Link>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-3 text-xs text-white/80">
-                  <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Conteúdos práticos
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Ferramentas rápidas
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Paywall seguro
-                  </span>
                 </div>
               </div>
 
@@ -177,30 +164,19 @@ export default function HomePage({ searchParams }: PageProps) {
                 <div className="rounded-2xl bg-white/10 ring-1 ring-white/20 p-5 backdrop-blur">
                   <p className="text-sm font-extrabold text-white">Como funciona</p>
                   <ul className="mt-3 space-y-3 text-sm text-white/85">
-                    <li className="flex gap-2">
-                      <span className="font-extrabold text-sky-300">1.</span>
-                      Explore o catálogo e as demonstrações públicas.
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="font-extrabold text-sky-300">2.</span>
-                      Ao abrir conteúdos, você entra via SMS.
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="font-extrabold text-sky-300">3.</span>
-                      Depois você escolhe o plano para liberar tudo.
-                    </li>
+                    <li><strong>1.</strong> Conheça os planos da plataforma.</li>
+                    <li><strong>2.</strong> Escolha o ideal para você.</li>
+                    <li><strong>3.</strong> Acesse todo o conteúdo exclusivo.</li>
                   </ul>
 
                   <div className="mt-5">
                     <Link
-                      href={LOGIN_GATE}
+                      href={PLANOS_LINK}
                       className="inline-flex w-full items-center justify-center rounded-xl bg-white text-slate-900 px-4 py-3 text-sm font-extrabold hover:bg-slate-100"
                     >
-                      Entrar
+                      Ver planos
                     </Link>
                   </div>
-
-                  <p className="mt-3 text-xs text-white/70" />
                 </div>
               </div>
             </div>
@@ -224,18 +200,18 @@ export default function HomePage({ searchParams }: PageProps) {
             items={rowCaminhoes}
           />
 
-          {/* CTA */}
+          {/* CTA FINAL */}
           <section className="mt-10 px-4 md:px-6">
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-extrabold text-slate-900">
                 Quer liberar tudo?
               </h3>
               <p className="mt-1 text-sm text-slate-600">
-                Assine para acessar os treinamentos completos e materiais exclusivos.
+                Assine para acessar treinamentos completos e materiais exclusivos.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
-                  href={`/planos?lang=${lang}`}
+                  href={PLANOS_LINK}
                   className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-700"
                 >
                   Ver planos
