@@ -2,7 +2,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
-import Header from "@/components/Header";
+import Navbar from "@/app/components/Navbar"; // <- NOVO
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 
@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* HEADER FIXO */}
-        <Header />
+        {/* NAVBAR FIXO */}
+        <Navbar />
 
         {/* HERO GLOBAL (aparece em todas as páginas) */}
         <div
