@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
+  
 }
 
 /**
