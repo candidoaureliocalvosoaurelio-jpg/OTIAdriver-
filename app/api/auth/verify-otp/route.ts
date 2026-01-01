@@ -1,145 +1,98 @@
-// app/api/auth/verify-otp/route.ts
 import { NextResponse } from "next/server";
 import twilio from "twilio";
-import { createClient } from "@supabase/supabase-js";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
-// Converte telefone BR para E.164 (+55XXXXXXXXXXX)
-function toE164BR(phoneRaw: string) {
-  const p = onlyDigits(phoneRaw);
-
-  if (p.length === 10 || p.length === 11) return `+55${p}`;
-  if ((p.length === 12 || p.length === 13) && p.startsWith("55")) return `+${p}`;
-
-  throw new Error("Celular inválido. Use DDD + número.");
-}
-
-function getSupabaseAdmin() {
-  const url = process.env.SUPABASE_URL!;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-  if (!url || !serviceKey) {
-    throw new Error("SUPABASE_URL / SERVICE_ROLE_KEY ausentes");
-  }
-
-  return createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
+/** Normaliza telefone para E.164 (+55XXXXXXXXXXX) */
+function normalizeToE164(phoneRaw: string) {
+  const digits = onlyDigits(phoneRaw);
+  if (digits.length === 12 || digits.length === 13) return `+${digits}`; // já com DDI
+  if (digits.length === 10 || digits.length === 11) return `+55${digits}`; // BR sem DDI
+  return digits.length > 8 ? `+${digits}` : null;
 }
 
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
+    const { code, cpf, phone } = body as { code?: string; cpf?: string; phone?: string };
 
-    const cpf = onlyDigits(body?.cpf);
-    const phoneRaw = body?.phone;
-    const code = onlyDigits(body?.code);
+    const cpfDigits = onlyDigits(cpf || "");
+    const phoneE164 = normalizeToE164(phone || "");
 
-    if (!cpf || !phoneRaw || !code) {
-      return NextResponse.json({ error: "Dados incompletos." }, { status: 400 });
+    if (!code || cpfDigits.length !== 11 || !phoneE164) {
+      return NextResponse.json(
+        { ok: false, error: "Dados incompletos" },
+        { status: 400 }
+      );
     }
 
-    if (cpf.length !== 11) {
-      return NextResponse.json({ error: "CPF inválido." }, { status: 400 });
-    }
-
-    if (code.length !== 6) {
-      return NextResponse.json({ error: "Código inválido." }, { status: 400 });
-    }
-
-    // ===== 1) Verifica OTP na Twilio =====
-    const accountSid = process.env.TWILIO_ACCOUNT_SID!;
-    const authToken = process.env.TWILIO_AUTH_TOKEN!;
-    const verifyServiceSid = process.env.TWILIO_VERIFY_SERVICE_SID!;
+    const accountSid = process.env.TWILIO_ACCOUNT_SID;
+    const authToken = process.env.TWILIO_AUTH_TOKEN;
+    const verifyServiceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
 
     if (!accountSid || !authToken || !verifyServiceSid) {
-      return NextResponse.json({ error: "Twilio não configurado." }, { status: 500 });
-    }
-
-    const to = toE164BR(phoneRaw);
-    const client = twilio(accountSid, authToken);
-
-    const check = await client.verify.v2
-      .services(verifyServiceSid)
-      .verificationChecks.create({ to, code });
-
-    if (check.status !== "approved") {
-      return NextResponse.json({ error: "Código incorreto." }, { status: 400 });
-    }
-
-    // ===== 2) Busca perfil e plano no Supabase =====
-    const supabase = getSupabaseAdmin();
-
-    const { data: profile, error } = await supabase
-      .from("profiles")
-      .select("plano")
-      .eq("cpf", cpf)
-      .maybeSingle();
-
-    if (error) {
       return NextResponse.json(
-        { error: "Erro ao buscar perfil." },
+        { ok: false, error: "Configuração ausente (Twilio env)" },
         { status: 500 }
       );
     }
 
-    const plano =
-      profile?.plano && ["basico", "pro", "premium"].includes(profile.plano)
-        ? profile.plano
-        : "free";
+    // Dica: Service SID de Verify deve começar com "VA"
+    // (não bloqueio por isso, mas ajuda a evitar confusão)
+    const client = twilio(accountSid, authToken);
 
-    const redirectTo = plano === "free" ? "/planos" : "/app";
+    const verification = await client.verify.v2
+      .services(verifyServiceSid)
+      .verificationChecks.create({ to: phoneE164, code });
 
-    // ===== 3) Atualiza telefone (opcional) =====
-    await supabase
-      .from("profiles")
-      .upsert(
-        { cpf, phone: to },
-        { onConflict: "cpf" }
+    if (verification.status !== "approved") {
+      return NextResponse.json(
+        { ok: false, error: "Código incorreto ou expirado" },
+        { status: 400 }
       );
+    }
 
-    // ===== 4) Cookies =====
-    const res = NextResponse.json({
-      success: true,
-      plano,
-      redirectTo,
-    });
+    // ✅ Login aprovado
+    const response = NextResponse.json({ ok: true });
 
-    const secure = process.env.NODE_ENV === "production";
-
-    res.cookies.set("otia_auth", "1", {
-      httpOnly: true,
-      sameSite: "lax",
-      secure,
+    // Cookies de sessão (recomendo httpOnly + sameSite)
+    const cookieBase = {
       path: "/",
-      maxAge: 60 * 60 * 24 * 30,
-    });
-
-    res.cookies.set("otia_plan", plano, {
+      maxAge: 60 * 60 * 24 * 30, // 30 dias
       httpOnly: true,
-      sameSite: "lax",
-      secure,
-      path: "/",
-      maxAge: 60 * 60 * 24 * 30,
+      sameSite: "lax" as const,
+      secure: process.env.NODE_ENV === "production",
+    };
+
+    response.cookies.set("otia_auth", "1", cookieBase);
+    response.cookies.set("otia_cpf", cpfDigits, cookieBase);
+
+    // ✅ MUITO IMPORTANTE: definir plano para não voltar pra /planos sempre
+    // Até você integrar com DB/pagamento, defina "basico" como default.
+    response.cookies.set("otia_plan", "basico", cookieBase);
+
+    return response;
+  } catch (err: any) {
+    // Log completo ajuda MUITO quando é 404 do Twilio
+    console.error("Erro na verificação Twilio:", {
+      message: err?.message,
+      status: err?.status,
+      code: err?.code,
+      moreInfo: err?.moreInfo,
+      details: err?.details,
     });
 
-    res.cookies.set("otia_cpf", cpf, {
-      httpOnly: true,
-      sameSite: "lax",
-      secure,
-      path: "/",
-      maxAge: 60 * 60 * 24 * 30,
-    });
+    // Se for erro de serviço não encontrado, devolve mensagem mais clara
+    const msg =
+      err?.status === 404
+        ? "Serviço de verificação Twilio (VERIFY_SERVICE_SID) não encontrado. Confirme o Service SID e a conta."
+        : "Erro ao validar código. Tente reenviar o SMS.";
 
-    return res;
-  } catch (e: any) {
-    return NextResponse.json(
-      { error: e?.message || "Erro ao verificar código." },
-      { status: 500 }
-    );
+    return NextResponse.json({ ok: false, error: msg }, { status: 500 });
   }
 }

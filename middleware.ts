@@ -1,86 +1,65 @@
-import { NextRequest, NextResponse } from "next/server";
+// middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-/**
- * ROTAS LIBERADAS PARA PLANO BÁSICO
- */
-const BASIC_ALLOWED = [
-  "/caminhoes",     // Página Início dos caminhões
-  "/treinamentos",  // Página de Treinamentos
-  "/pneus",         // Página dos Pneus
-];
+function isPublicPath(pathname: string) {
+  // rotas públicas (ajuste conforme seu projeto)
+  if (pathname === "/") return true;
 
-/**
- * ROTAS PÚBLICAS (sempre acessíveis, sem login)
- */
-const PUBLIC_PREFIXES = [
-  "/",
-  "/entrar",
-  "/planos",
-  "/pagamento",
-  "/api", // Permite chamadas de API (Webhooks, etc)
-];
+  const publicPrefixes = [
+    "/entrar",
+    "/planos",
+    "/checkout",
+    "/pagamento",
+    "/api/webhook",
+    "/favicon.ico",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/images",
+    "/fichas-tecnicas",
+  ];
 
-const ACTIVE_PLANS = new Set(["basico", "pro", "premium"]);
+  return publicPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
+}
 
-function matchesPrefix(pathname: string, prefixes: string[]) {
-  return prefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
+function isProtectedPath(pathname: string) {
+  const protectedPrefixes = [
+    "/treinamentos",
+    "/caminhoes",
+    "/simbolos-painel",
+    "/ebook-driver",
+  ];
+  return protectedPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
 export function middleware(req: NextRequest) {
-  const { pathname, search } = req.nextUrl;
+  const { pathname, searchParams } = req.nextUrl;
 
-  // 1. Ignorar arquivos estáticos e imagens
-  if (
-    pathname.startsWith("/_next") ||
-    pathname.includes(".") || 
-    pathname.startsWith("/images") ||
-    pathname.startsWith("/simbolos")
-  ) {
-    return NextResponse.next();
-  }
+  // Se for público, deixa passar
+  if (isPublicPath(pathname)) return NextResponse.next();
 
-  // 2. Liberar Rotas Públicas
-  if (matchesPrefix(pathname, PUBLIC_PREFIXES)) {
-    return NextResponse.next();
-  }
+  // Se não for área protegida, deixa passar (ou trate como protegido por padrão, se preferir)
+  if (!isProtectedPath(pathname)) return NextResponse.next();
 
-  // 3. Verificar Cookies de Sessão
-  const auth = req.cookies.get("otia_auth")?.value;
-  const cpf = req.cookies.get("otia_cpf")?.value;
-  const plan = req.cookies.get("otia_plan")?.value; // basico | pro | premium
-
-  // 4. Se não estiver logado -> Redireciona para login
-  if (!auth || !cpf) {
+  // 1) Verifica se está logado
+  const session = req.cookies.get("otia_session")?.value; // você vai criar esse cookie no login
+  if (!session) {
     const url = req.nextUrl.clone();
     url.pathname = "/entrar";
-    url.searchParams.set("next", pathname + search);
+    // mantém o lang se existir
+    if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
+    // guarda pra voltar depois
+    url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
 
-  // 5. Se não tem plano ativo -> Redireciona para escolher plano
-  if (!ACTIVE_PLANS.has(plan ?? "")) {
+  // 2) Verifica se tem assinatura ativa
+  const planStatus = req.cookies.get("otia_plan")?.value; // "active" | "inactive"
+  if (planStatus !== "active") {
     const url = req.nextUrl.clone();
     url.pathname = "/planos";
-    return NextResponse.redirect(url);
-  }
-
-  // 6. REGRA PLANO PRO / PREMIUM (Acesso Completo)
-  // Ambos os planos agora possuem acesso irrestrito às rotas privadas
-  if (plan === "pro" || plan === "premium") {
-    return NextResponse.next(); // Libera todas as rotas para ambos
-  }
-
-  // 7. REGRA PLANO BÁSICO (Restrito)
-  if (plan === "basico") {
-    // Se a rota está na lista permitida, libera
-    if (matchesPrefix(pathname, BASIC_ALLOWED)) {
-      return NextResponse.next();
-    }
-
-    // Se tentar acessar conteúdo exclusivo (ex: /app), redireciona para upgrade
-    const url = req.nextUrl.clone();
-    url.pathname = "/planos";
-    url.searchParams.set("reason", "upgrade"); 
+    if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
+    url.searchParams.set("next", pathname);
     return NextResponse.redirect(url);
   }
 
@@ -88,5 +67,6 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next|static|favicon.ico).*)"],
+  // roda em tudo, exceto arquivos estáticos do Next
+  matcher: ["/((?!_next/static|_next/image).*)"],
 };
