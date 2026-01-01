@@ -18,61 +18,58 @@ function NavbarContent() {
     plan: null,
   });
 
-  // Lê cookie no browser com segurança
-  function getCookie(name: string) {
+  // Ler cookie no browser
+  const getCookie = (name: string) => {
     if (typeof document === "undefined") return null;
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      return parts.pop()?.split(";").shift() ?? null;
-    }
+    if (parts.length === 2) return parts.pop()?.split(";").shift() ?? null;
     return null;
-  }
+  };
 
-  // Atualiza estado do usuário ao trocar de rota
   useEffect(() => {
     const auth = getCookie("otia_auth");
     const plan = getCookie("otia_plan");
 
     if (auth === "1") {
-      setUser({
-        isLogged: true,
-        plan: plan ?? "basico",
-      });
+      setUser({ isLogged: true, plan: plan || "básico" });
     } else {
-      setUser({
-        isLogged: false,
-        plan: null,
-      });
+      setUser({ isLogged: false, plan: null });
     }
   }, [pathname]);
 
-  function handleLogout() {
-    const cookies = ["otia_auth", "otia_cpf", "otia_plan"];
-
-    cookies.forEach((name) => {
-      document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT;`;
+  const handleLogout = () => {
+    const cookiesToClear = ["otia_auth", "otia_cpf", "otia_plan"];
+    cookiesToClear.forEach((name) => {
+      document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     });
 
     setUser({ isLogged: false, plan: null });
     router.push("/");
     router.refresh();
-  }
+  };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white border-b border-slate-200 shadow-sm">
-      <div className="max-w-7xl mx-auto h-16 px-4 flex items-center justify-between">
+    <nav className="w-full bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm font-sans">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-1">
-          <span className="text-blue-600 font-black text-lg">OTIA</span>
-          <span className="text-emerald-400 font-black text-lg">driver</span>
+        <Link
+          href="/"
+          className="flex items-center gap-2 hover:opacity-90 transition-opacity"
+        >
+          <div className="bg-blue-600 text-white font-black px-2 py-1 rounded text-lg tracking-tighter">
+            OTIA
+          </div>
+          <span className="font-bold text-slate-800 text-lg hidden xs:inline">
+            driver
+          </span>
         </Link>
 
-        {/* AÇÕES */}
-        <div className="flex items-center gap-3">
+        {/* LINKS / AÇÕES */}
+        <div className="flex items-center gap-3 sm:gap-6">
           <Link
             href="/planos"
-            className={`text-sm font-semibold ${
+            className={`text-sm font-semibold transition-colors ${
               pathname === "/planos"
                 ? "text-blue-600"
                 : "text-slate-500 hover:text-blue-600"
@@ -82,28 +79,27 @@ function NavbarContent() {
           </Link>
 
           {user.isLogged ? (
-            <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
-              {/* Plano */}
-              <div className="hidden md:flex flex-col items-end leading-tight">
-                <span className="text-[10px] font-bold text-slate-400 uppercase">
-                  Plano
+            <div className="flex items-center gap-3 sm:gap-4 pl-3 border-l border-slate-200">
+              <div className="hidden md:flex flex-col items-end">
+                <span className="text-[10px] font-bold text-slate-400 uppercase leading-none">
+                  Acesso
                 </span>
-                <span className="text-xs font-black text-blue-600 uppercase">
+                <span className="text-xs font-black text-blue-600 uppercase italic">
                   {user.plan}
                 </span>
               </div>
 
               <Link
                 href="/meus-dados"
-                className="text-sm font-bold bg-blue-50 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition"
+                className="text-sm font-bold bg-blue-50 text-blue-700 px-4 py-2 rounded-lg hover:bg-blue-100 transition-all active:scale-95"
               >
                 Perfil
               </Link>
 
               <button
                 onClick={handleLogout}
+                className="p-2 text-slate-400 hover:text-red-500 transition-colors"
                 title="Sair"
-                className="p-2 text-slate-400 hover:text-red-500 transition"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +121,7 @@ function NavbarContent() {
           ) : (
             <Link
               href="/entrar"
-              className="text-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 transition"
+              className="text-sm font-bold bg-blue-600 text-white px-5 py-2.5 rounded-xl hover:bg-blue-700 shadow-md shadow-blue-100 transition-all active:scale-95"
             >
               Entrar
             </Link>
@@ -136,10 +132,11 @@ function NavbarContent() {
   );
 }
 
-// Export com Suspense (build seguro na Vercel)
 export default function Navbar() {
   return (
-    <Suspense fallback={<div className="h-16 w-full bg-white border-b" />}>
+    <Suspense
+      fallback={<div className="h-16 w-full bg-white border-b border-slate-200" />}
+    >
       <NavbarContent />
     </Suspense>
   );
