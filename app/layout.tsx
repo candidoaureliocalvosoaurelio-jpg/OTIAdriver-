@@ -1,3 +1,4 @@
+// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
@@ -31,7 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         <AssinaturaHero />
+
         <main className="flex-1">{children}</main>
+
         <Footer />
       </body>
     </html>
