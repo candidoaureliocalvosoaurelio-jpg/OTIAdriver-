@@ -21,10 +21,16 @@ export default function CheckoutPro() {
     try {
       setLoading(true);
 
-      // 1) Pega CPF da sessão
+      // 1) Pega CPF da sessão (sem disparar alert quando a API responder 401/403)
       const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
-      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
 
+      if (!sessRes.ok) {
+        // sessão bloqueada / não autenticado
+        window.location.href = `/entrar?next=/checkout/pro&reason=auth`;
+        return;
+      }
+
+      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
       const cpf = onlyDigits(sess?.cpf || "");
 
       // Se não está logado, manda para /entrar
@@ -85,11 +91,21 @@ export default function CheckoutPro() {
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem</li>
-            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
-            <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
+            <li>
+              <span className={s.check}>✓</span> Fichas Técnicas COMPLETAS
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Suporte Técnico com IA
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Análise de Imagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Checklists de Viagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente
+            </li>
           </ul>
 
           <div className={s.terms}>
@@ -99,16 +115,23 @@ export default function CheckoutPro() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
+            <Link href="/termos" className="underline">
+              Termos de Uso
+            </Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
+            <Link href="/privacidade" className="underline">
+              Política de Privacidade
+            </Link>
+            .
           </div>
         </section>
 
         <aside className={`${s.aside} ${s.proAside}`}>
           <div className={`${s.selected} ${s.selectedTopBox}`}>
-            Plano selecionado<br />
-            <strong>PRO</strong><br />
+            Plano selecionado
+            <br />
+            <strong>PRO</strong>
+            <br />
             R$ 49,90 / mês
           </div>
 
@@ -134,7 +157,9 @@ export default function CheckoutPro() {
           </div>
 
           <div className="text-xs text-slate-500 mt-3">
-            <Link href="/planos" className="underline">Voltar aos planos</Link>
+            <Link href="/planos" className="underline">
+              Voltar aos planos
+            </Link>
           </div>
         </aside>
       </div>
