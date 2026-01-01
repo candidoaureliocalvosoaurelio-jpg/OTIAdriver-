@@ -1,11 +1,8 @@
-// app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
 
-// Navbar está em app/components
-import Navbar from "./components/Navbar";
-
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 
@@ -34,9 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         <AssinaturaHero />
-
         <main className="flex-1">{children}</main>
-
         <Footer />
       </body>
     </html>
