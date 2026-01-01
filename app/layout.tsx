@@ -2,7 +2,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
-import Navbar from "@/app/components/Navbar"; // <- NOVO
+
+// IMPORTA O NAVBAR NOVO (fica em app/components)
+import Navbar from "@/components/Navbar";
+
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 
