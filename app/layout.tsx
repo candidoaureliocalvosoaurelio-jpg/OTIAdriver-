@@ -3,8 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import React from "react";
 
-// IMPORTA O NAVBAR NOVO (fica em app/components)
-import Navbar from "@/components/Navbar";
+// Navbar está em app/components
+import Navbar from "./components/Navbar";
 
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
@@ -18,10 +18,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* NAVBAR FIXO */}
         <Navbar />
 
-        {/* HERO GLOBAL (aparece em todas as páginas) */}
         <div
           id="site-hero"
           className="max-w-7xl mx-auto px-4 pt-[92px] md:pt-[108px] pb-6 md:pb-8 text-center"
@@ -35,13 +33,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </p>
         </div>
 
-        {/* BANNER DA ASSINATURA — EM TODAS AS PÁGINAS */}
         <AssinaturaHero />
 
-        {/* CONTEÚDO DA PÁGINA (APENAS 1x) */}
         <main className="flex-1">{children}</main>
 
-        {/* FOOTER */}
         <Footer />
       </body>
     </html>
