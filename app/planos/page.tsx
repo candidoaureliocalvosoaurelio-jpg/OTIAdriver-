@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Suspense } from "react"; 
+import { Suspense } from "react";
 import styles from "./Planos.module.css";
 
 // Listas de recursos
@@ -40,10 +40,7 @@ const compare = [
 
 function Check({ ok }: { ok: boolean }) {
   return (
-    <span
-      aria-label={ok ? "Incluído" : "Não incluído"}
-      className={ok ? styles.ok : styles.no}
-    >
+    <span aria-label={ok ? "Incluído" : "Não incluído"} className={ok ? styles.ok : styles.no}>
       {ok ? "✓" : "—"}
     </span>
   );
@@ -60,7 +57,10 @@ function PlanosContent() {
       {reason === "upgrade" && (
         <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-800 text-center animate-pulse">
           <p className="font-bold text-lg">🔒 Conteúdo Exclusivo</p>
-          <p className="text-sm">Seu plano atual não permite acessar esta página. Escolha o <b>PRO</b> ou <b>Premium</b> para liberar agora!</p>
+          <p className="text-sm">
+            Seu plano atual não permite acessar esta página. Escolha o <b>PRO</b> ou <b>Premium</b>{" "}
+            para liberar agora!
+          </p>
         </div>
       )}
 
@@ -78,8 +78,8 @@ function PlanosContent() {
         </h1>
 
         <p className="mt-3 text-center text-base md:text-xl text-slate-600">
-          Evolua com conteúdo profissional para motoristas: tecnologia, segurança,
-          eficiência e ferramentas práticas.
+          Evolua com conteúdo profissional para motoristas: tecnologia, segurança, eficiência e
+          ferramentas práticas.
         </p>
 
         <div className={styles.heroCtas}>
@@ -101,15 +101,11 @@ function PlanosContent() {
           Compare e escolha com clareza
         </h2>
         <p className={styles.blockDesc}>
-          A diferença não é só preço — é acesso ao conteúdo completo e às ferramentas
-          que fazem a diferença no dia a dia.
+          A diferença não é só preço — é acesso ao conteúdo completo e às ferramentas que fazem a
+          diferença no dia a dia.
         </p>
 
-        <div
-          className={styles.compareWrap}
-          role="region"
-          aria-label="Tabela comparativa de recursos"
-        >
+        <div className={styles.compareWrap} role="region" aria-label="Tabela comparativa de recursos">
           <table className={styles.compareTable}>
             <thead>
               <tr>
@@ -199,16 +195,25 @@ function PlanosContent() {
 
       {/* FAQ */}
       <section className={styles.block} aria-labelledby="faq-title">
-        <h2 id="faq-title" className={styles.blockTitle}>Dúvidas rápidas</h2>
+        <h2 id="faq-title" className={styles.blockTitle}>
+          Dúvidas rápidas
+        </h2>
         <div className={styles.faqGrid}>
           <details className={styles.faqItem}>
             <summary>Como funciona o acesso?</summary>
-            <p>Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar conteúdos exclusivos, se o seu plano for o Básico, o sistema solicitará o upgrade para PRO.</p>
+            <p>
+              Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar conteúdos
+              exclusivos, se o seu plano for o Básico, o sistema solicitará o upgrade para PRO.
+            </p>
           </details>
+
           <details className={styles.faqItem}>
             <summary>Seja um profissional de elite. 🛡️</summary>
             <p>
-               Com o Plano PRO, você vai além do óbvio. Tenha acesso exclusivo a guias de direção defensiva avançada e manuais de segurança que não estão disponíveis no plano Básico. É o conteúdo completo para quem coloca a vida e a carga em primeiro lugar e exige 100% de preparação para qualquer desafio na estrada.
+              Com o Plano PRO, você vai além do óbvio. Tenha acesso exclusivo a guias de direção
+              defensiva avançada e manuais de segurança que não estão disponíveis no plano Básico. É
+              o conteúdo completo para quem coloca a vida e a carga em primeiro lugar e exige 100% de
+              preparação para qualquer desafio na estrada.
             </p>
           </details>
         </div>
