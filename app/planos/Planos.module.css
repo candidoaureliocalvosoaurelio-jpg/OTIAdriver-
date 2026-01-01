@@ -1,172 +1,229 @@
-/* ============================================================
-   OTIAdriver — Planos (CSS Modules) - CORRIGIDO
-   ============================================================ */
+"use client";
 
-.rootVars {
-  --azul-escuro: #1a237e;
-  --azul-escuro-2: #0d1252;
-  --pro-base: #e0f7f3;
-  --pro-borda: #1a9688;
-  --pro-hover: #3b9441;
-  --premium-card: #1a237e;
-  --premium-btn: #273385;
-  --premium-btn-hover: #0d1252;
-  --shadow-md: 0 4px 20px rgba(0,0,0,.10);
-  --shadow-lg: 0 8px 25px rgba(26,150,136,.40);
-  --radius: 12px;
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { Suspense } from "react"; 
+import styles from "./Planos.module.css";
+
+// Listas de recursos
+const basic = [
+  "Acesso a conteúdos essenciais",
+  "Páginas de Caminhões, Treinamentos e Pneus",
+  "Fichas técnicas básicas",
+  "Suporte básico",
+];
+
+const pro = [
+  "Acesso TOTAL à plataforma",
+  "Fichas técnicas completas",
+  "Treinamentos avançados e manuais",
+  "Checklists e guias práticos",
+  "Suporte técnico com IA",
+];
+
+const premium = [
+  "Tudo do PRO",
+  "Acesso prioritário a lançamentos",
+  "Treinamento IA personalizado",
+  "Consultoria técnica direta",
+  "Suporte prioritário",
+];
+
+// Comparação rápida
+const compare = [
+  { label: "Página de Caminhões e Pneus", basic: true, pro: true, premium: true },
+  { label: "Treinamentos Essenciais", basic: true, pro: true, premium: true },
+  { label: "Conteúdos Avançados (Manuais)", basic: false, pro: true, premium: true },
+  { label: "Suporte com IA", basic: false, pro: true, premium: true },
+  { label: "Prioridade e benefícios extras", basic: false, pro: false, premium: true },
+];
+
+function Check({ ok }: { ok: boolean }) {
+  return (
+    <span
+      aria-label={ok ? "Incluído" : "Não incluído"}
+      className={ok ? styles.ok : styles.no}
+    >
+      {ok ? "✓" : "—"}
+    </span>
+  );
 }
 
-/* --- HERO & CABEÇALHO --- */
-.hero {
-  margin-bottom: 26px;
-  text-align: center;
+// 1. Componente interno que consome os parâmetros da URL
+function PlanosContent() {
+  const searchParams = useSearchParams();
+  const reason = searchParams.get("reason");
+
+  return (
+    <>
+      {/* MENSAGEM DE ALERTA DO MIDDLEWARE */}
+      {reason === "upgrade" && (
+        <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-800 text-center animate-pulse">
+          <p className="font-bold text-lg">🔒 Conteúdo Exclusivo</p>
+          <p className="text-sm">Seu plano atual não permite acessar esta página. Escolha o <b>PRO</b> ou <b>Premium</b> para liberar agora!</p>
+        </div>
+      )}
+
+      {reason === "paywall" && (
+        <div className="mb-8 p-4 bg-orange-50 border border-orange-200 rounded-xl text-orange-800 text-center">
+          <p className="font-bold text-lg">Sua assinatura expirou ou não foi encontrada</p>
+          <p className="text-sm">Renove seu acesso abaixo para continuar utilizando as ferramentas.</p>
+        </div>
+      )}
+
+      {/* HERO / HEADLINE */}
+      <header className={styles.hero}>
+        <h1 className="text-center text-4xl md:text-5xl font-extrabold tracking-tight">
+          Desbloqueie o melhor da OTIAdriver
+        </h1>
+
+        <p className="mt-3 text-center text-base md:text-xl text-slate-600">
+          Evolua com conteúdo profissional para motoristas: tecnologia, segurança,
+          eficiência e ferramentas práticas.
+        </p>
+
+        <div className={styles.heroCtas}>
+          <Link href="/checkout/pro" className={styles.heroPrimaryCta}>
+            Assinar PRO (Recomendado)
+          </Link>
+        </div>
+
+        <div className={styles.trustRow} aria-label="Informações de confiança">
+          <span className={styles.trustPill}>Login por SMS</span>
+          <span className={styles.trustPill}>Pagamento seguro</span>
+          <span className={styles.trustPill}>Sem complicação</span>
+        </div>
+      </header>
+
+      {/* COMPARAÇÃO */}
+      <section className={styles.block} aria-labelledby="compare-title">
+        <h2 id="compare-title" className={styles.blockTitle}>
+          Compare e escolha com clareza
+        </h2>
+        <p className={styles.blockDesc}>
+          A diferença não é só preço — é acesso ao conteúdo completo e às ferramentas
+          que fazem a diferença no dia a dia.
+        </p>
+
+        <div
+          className={styles.compareWrap}
+          role="region"
+          aria-label="Tabela comparativa de recursos"
+        >
+          <table className={styles.compareTable}>
+            <thead>
+              <tr>
+                <th>Recursos</th>
+                <th>Básico</th>
+                <th>PRO</th>
+                <th>Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              {compare.map((row) => (
+                <tr key={row.label}>
+                  <td className={styles.compareLabel}>{row.label}</td>
+                  <td>
+                    <Check ok={row.basic} />
+                  </td>
+                  <td>
+                    <Check ok={row.pro} />
+                  </td>
+                  <td>
+                    <Check ok={row.premium} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* CARDS DE PLANOS */}
+      <section className={styles.planosGrid} aria-label="Planos disponíveis">
+        <article className={`${styles.card} ${styles.planoBasico}`} style={{ height: 520 }}>
+          <h2 className="text-2xl md:text-3xl font-extrabold m-0">Básico</h2>
+          <div className={styles.preco}>
+            <span className={styles.cifra}>R$&nbsp;</span>
+            <span className={styles.valor}>29,90</span>
+            <span className={styles.periodo}>&nbsp;/ mês</span>
+          </div>
+          <p className="text-sm text-slate-600 m-0">Início de caminhões, treinamentos e pneus.</p>
+          <ul className={styles.recursos}>
+            {basic.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <Link href="/checkout/basico" className={`${styles.btn} ${styles["btn-basico"]}`}>
+            Assinar Básico
+          </Link>
+        </article>
+
+        <article className={`${styles.card} ${styles.planoPro}`} style={{ height: 520 }}>
+          <div className={styles.seloRecomendado}>RECOMENDADO</div>
+          <h2 className="text-2xl md:text-3xl font-extrabold m-0">PRO</h2>
+          <div className={styles.preco}>
+            <span className={styles.cifra}>R$&nbsp;</span>
+            <span className={styles.valor}>49,90</span>
+            <span className={styles.periodo}>&nbsp;/ mês</span>
+          </div>
+          <p className="text-sm text-slate-700 m-0">Acesso completo e suporte com IA.</p>
+          <ul className={styles.recursos}>
+            {pro.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <Link href="/checkout/pro" className={`${styles.btn} ${styles["btn-pro"]}`}>
+            Assinar PRO
+          </Link>
+        </article>
+
+        <article className={`${styles.card} ${styles.planoPremium}`} style={{ height: 520 }}>
+          <h2 className="text-2xl md:text-3xl font-extrabold m-0">Premium</h2>
+          <div className={styles.preco}>
+            <span className={styles.cifra}>R$&nbsp;</span>
+            <span className={styles.valor}>99,90</span>
+            <span className={styles.periodo}>&nbsp;/ mês</span>
+          </div>
+          <p className="text-sm m-0">Prioridade total e conteúdos exclusivos.</p>
+          <ul className={styles.recursos}>
+            {premium.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <Link href="/checkout/premium" className={`${styles.btn} ${styles["btn-premium"]}`}>
+            Assinar Premium
+          </Link>
+        </article>
+      </section>
+
+      {/* FAQ */}
+      <section className={styles.block} aria-labelledby="faq-title">
+        <h2 id="faq-title" className={styles.blockTitle}>Dúvidas rápidas</h2>
+        <div className={styles.faqGrid}>
+          <details className={styles.faqItem}>
+            <summary>Como funciona o acesso?</summary>
+            <p>Você entra com CPF e telefone, recebe um código por SMS e pronto. Ao acessar conteúdos exclusivos, se o seu plano for o Básico, o sistema solicitará o upgrade para PRO.</p>
+          </details>
+          <details className={styles.faqItem}>
+            <summary>Seja um profissional de elite. 🛡️</summary>
+            <p>
+               Com o Plano PRO, você vai além do óbvio. Tenha acesso exclusivo a guias de direção defensiva avançada e manuais de segurança que não estão disponíveis no plano Básico. É o conteúdo completo para quem coloca a vida e a carga em primeiro lugar e exige 100% de preparação para qualquer desafio na estrada.
+            </p>
+          </details>
+        </div>
+      </section>
+    </>
+  );
 }
 
-.heroCtas {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 18px;
-}
-
-.heroPrimaryCta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 900;
-  text-decoration: none;
-  color: #fff;
-  background: var(--azul-escuro);
-  transition: background-color .2s ease, transform .05s ease;
-}
-.heroPrimaryCta:hover { background: var(--azul-escuro-2); }
-
-.trustRow {
-  margin-top: 14px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.trustPill {
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(15,23,42,.05);
-  border: 1px solid rgba(15,23,42,.08);
-  color: #334155;
-  font-weight: 800;
-  font-size: .85rem;
-}
-
-/* --- GRID DE PLANOS --- */
-.planosGrid {
-  display: flex;
-  gap: 30px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 50px;
-}
-
-.card {
-  position: relative;
-  width: 300px;
-  min-height: 520px;
-  padding: 30px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  background: #f8fafc;
-  transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.planoBasico { background: #f0f3f5; color: #2b2b2b; }
-
-.planoPro {
-  background: var(--pro-base);
-  border: 3px solid var(--pro-borda);
-  transform: scale(1.03);
-  box-shadow: var(--shadow-lg);
-  z-index: 10;
-}
-
-.planoPremium { background: var(--premium-card); color: #fff; }
-
-/* --- PREÇO E RECURSOS --- */
-.preco { margin: 15px 0 25px; line-height: 1; }
-.preco .valor { font-size: 3.2rem; font-weight: 800; }
-.preco .cifra, .preco .periodo { font-size: 1.15rem; color: #666; }
-
-.recursos {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-  margin-bottom: 28px;
-  flex-grow: 1;
-}
-.recursos li {
-  padding: 8px 0;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border-bottom: 1px solid rgba(0,0,0,.08);
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 800;
-  margin-top: auto;
-  color: #fff;
-}
-.btn-pro { background: #4caf50; }
-.btn-pro:hover { background: var(--pro-hover); }
-
-/* --- COMPARAÇÃO & FAQ --- */
-.block {
-  margin-top: 50px;
-  padding: 24px;
-  border-radius: 16px;
-  background: #fff;
-  border: 1px solid rgba(15,23,42,.08);
-}
-
-.compareWrap { overflow-x: auto; border-radius: 12px; border: 1px solid rgba(15,23,42,.08); }
-.compareTable { width: 100%; border-collapse: collapse; min-width: 600px; }
-.compareLabel { text-align: left !important; font-weight: 800; }
-
-.ok { color: #16a34a; background: rgba(34,197,94,.12); border-radius: 50%; padding: 4px 8px; }
-.no { color: #64748b; background: rgba(148,163,184,.20); border-radius: 50%; padding: 4px 8px; }
-
-.faqGrid { margin-top: 20px; display: grid; grid-template-columns: 1fr; gap: 15px; }
-.faqItem { border-radius: 12px; border: 1px solid rgba(15,23,42,.10); background: #f8fafc; padding: 15px; }
-
-/* --- CORREÇÃO DO ERRO DE BUILD (:global) --- */
-@keyframes pulseGlow {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-  50% { transform: scale(1.01); box-shadow: 0 0 15px 5px rgba(59, 130, 246, 0.2); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-}
-
-/* Agora o seletor é "puro" pois está vinculado à classe local .rootVars */
-.rootVars :global(.animate-pulse) {
-  animation: pulseGlow 2s infinite ease-in-out;
-}
-
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 768px) {
-  .card { width: 100%; max-width: 340px; min-height: auto; margin: 0 auto; }
-  .planoPro { transform: none; margin: 10px auto; }
-}
-
-@media (min-width: 900px) {
-  .faqGrid { grid-template-columns: 1fr 1fr; }
+// 2. Componente principal com Suspense
+export default function PlanosPage() {
+  return (
+    <main className={`${styles.rootVars} mx-auto max-w-7xl px-4 py-10`}>
+      <Suspense fallback={<div className="text-center p-10">Carregando planos...</div>}>
+        <PlanosContent />
+      </Suspense>
+    </main>
+  );
 }
