@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import LanguageOTIAdriver from "@/components/LanguageOTIAdriver";
 import { useT } from "@/components/i18n/useT";
 
-type UserState = { isLogged: boolean; plan: string | null };
+type MeResp = {
+  authenticated: boolean;
+  plan?: string; // "active" | "inactive" | undefined
+};
 
 const navLinks = [
   { href: "/", key: "nav.home" },
@@ -19,30 +22,24 @@ const navLinks = [
   { href: "/simbolos-painel", key: "nav.dashboardSymbols" },
 ] as const;
 
-function getCookie(name: string) {
-  if (typeof document === "undefined") return null;
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(";").shift() ?? null;
-  return null;
-}
-
-function normalizePlanLabel(plan: string | null) {
+function normalizePlanLabel(plan?: string) {
   if (!plan) return null;
-  const p = plan.toLowerCase();
+  const p = String(plan).toLowerCase();
+  if (p === "active") return "PREMIUM";
+  if (p === "inactive") return "INATIVO";
   if (p === "basico") return "BÁSICO";
   if (p === "pro") return "PRO";
   if (p === "premium") return "PREMIUM";
-  return plan.toUpperCase();
+  return p.toUpperCase();
 }
 
 export default function Header() {
-  const router = useRouter();
   const pathname = usePathname();
   const { t, lang } = useT();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [user, setUser] = useState<UserState>({ isLogged: false, plan: null });
+  const [loadingMe, setLoadingMe] = useState(true);
+  const [me, setMe] = useState<MeResp | null>(null);
 
   // Mantém o idioma em TODAS as navegações do Header
   const withLang = useMemo(() => {
@@ -54,30 +51,63 @@ export default function Header() {
     };
   }, [lang]);
 
+  // Busca o estado real via API (cookies httpOnly -> só o server lê)
   useEffect(() => {
-    const auth = getCookie("otia_auth");
-    const plan = getCookie("otia_plan");
-    const isLogged = auth === "1";
-    setUser({ isLogged, plan: isLogged ? (plan || null) : null });
+    let alive = true;
+
+    setLoadingMe(true);
+    fetch("/api/me", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!alive) return;
+        setMe(data);
+      })
+      .catch(() => {
+        if (!alive) return;
+        setMe(null);
+      })
+      .finally(() => {
+        if (!alive) return;
+        setLoadingMe(false);
+      });
+
+    return () => {
+      alive = false;
+    };
   }, [pathname]);
 
-  const handleLogout = () => {
-    const cookiesToClear = ["otia_auth", "otia_cpf", "otia_plan"];
-    cookiesToClear.forEach((name) => {
-      document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
-    });
-    setUser({ isLogged: false, plan: null });
-    setMenuOpen(false);
-    router.push(withLang("/"));
-    router.refresh();
-  };
+  const isLogged = !!me?.authenticated;
+  const isPremium = me?.plan === "active";
+
+  // Destinos principais
+  const homeHref = isLogged && isPremium ? withLang("/catalogo") : withLang("/");
+  const entrarHref = withLang("/entrar");
+  const planosHref = withLang("/planos");
+  const catalogoHref = withLang("/catalogo");
+
+  // Logout com preservação do lang + retorno seguro
+  const logoutHref = `/api/auth/logout?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
+    isPremium ? "/catalogo" : "/"
+  )}`;
+
+  // Evita flicker no topo
+  if (loadingMe) {
+    return (
+      <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
+          <div className="h-8 w-40 bg-white/20 rounded-lg" />
+          <div className="h-8 w-40 bg-white/20 rounded-lg" />
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] text-white border-b border-white/20 shadow">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 md:py-4">
         {/* LOGO */}
         <Link
-          href={withLang("/")}
+          href={homeHref}
           className="flex items-center hover:opacity-80 transition-opacity"
           onClick={() => setMenuOpen(false)}
         >
@@ -117,6 +147,7 @@ export default function Header() {
           <span className="mx-1 text-white/80 select-none" aria-hidden>
             |
           </span>
+
           <Link
             href={withLang("/ebook-driver")}
             className="px-3 py-2 hover:underline underline-offset-4 text-yellow-300"
@@ -131,26 +162,27 @@ export default function Header() {
 
           {/* STATUS + BOTÕES (DESKTOP) */}
           <div className="hidden md:flex items-center gap-3 pl-3 border-l border-white/20">
-            {user.isLogged ? (
+            {isLogged ? (
               <>
                 <div className="flex flex-col items-end leading-none">
                   <span className="text-[10px] font-black text-white/70 uppercase">
                     Acesso
                   </span>
                   <span className="text-xs font-black text-yellow-200 uppercase italic">
-                    {normalizePlanLabel(user.plan) ?? "—"}
+                    {normalizePlanLabel(me?.plan) ?? "—"}
                   </span>
                 </div>
 
+                {/* Se Premium: Catálogo. Se não: Planos */}
                 <Link
-                  href={withLang("/meus-dados")}
+                  href={isPremium ? catalogoHref : planosHref}
                   className="text-sm font-black bg-white/15 px-4 py-2 rounded-xl hover:bg-white/20 transition"
                 >
-                  Perfil
+                  {isPremium ? "Catálogo" : "Planos"}
                 </Link>
 
-                <button
-                  onClick={handleLogout}
+                <Link
+                  href={logoutHref}
                   className="p-2 text-white/80 hover:text-red-200 transition-colors"
                   title="Sair"
                   aria-label="Sair"
@@ -170,15 +202,24 @@ export default function Header() {
                     <polyline points="16 17 21 12 16 7" />
                     <line x1="21" y1="12" x2="9" y2="12" />
                   </svg>
-                </button>
+                </Link>
               </>
             ) : (
-              <Link
-                href={withLang("/entrar")}
-                className="text-sm font-black bg-white text-[#003F9A] px-5 py-2.5 rounded-xl hover:opacity-90 transition"
-              >
-                Entrar
-              </Link>
+              <>
+                <Link
+                  href={planosHref}
+                  className="text-sm font-black bg-white/15 px-4 py-2 rounded-xl hover:bg-white/20 transition"
+                >
+                  Planos
+                </Link>
+
+                <Link
+                  href={entrarHref}
+                  className="text-sm font-black bg-white text-[#003F9A] px-5 py-2.5 rounded-xl hover:opacity-90 transition"
+                >
+                  Entrar
+                </Link>
+              </>
             )}
           </div>
 
@@ -210,26 +251,28 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden px-6 pb-4 text-sm font-semibold bg-gradient-to-r from-[#1F6FEB] to-[#40E0D0] border-t border-white/20">
           <div className="pt-3 pb-2">
-            {user.isLogged ? (
+            {isLogged ? (
               <div className="flex items-center justify-between bg-white/10 rounded-xl px-3 py-2">
                 <div>
                   <div className="text-[10px] font-black text-white/70 uppercase">
                     Acesso
                   </div>
                   <div className="text-sm font-black text-yellow-200 uppercase italic">
-                    {normalizePlanLabel(user.plan) ?? "—"}
+                    {normalizePlanLabel(me?.plan) ?? "—"}
                   </div>
                 </div>
-                <button
-                  onClick={handleLogout}
+
+                <Link
+                  href={logoutHref}
                   className="text-xs font-black bg-white/15 px-3 py-2 rounded-lg"
+                  onClick={() => setMenuOpen(false)}
                 >
                   Sair
-                </button>
+                </Link>
               </div>
             ) : (
               <Link
-                href={withLang("/entrar")}
+                href={entrarHref}
                 className="block text-center font-black bg-white text-[#003F9A] px-4 py-3 rounded-xl"
                 onClick={() => setMenuOpen(false)}
               >
@@ -257,13 +300,16 @@ export default function Header() {
             {t("nav.ebook")}
           </Link>
 
-          <Link
-            href={withLang("/meus-dados")}
-            className="block py-2 text-white/95"
-            onClick={() => setMenuOpen(false)}
-          >
-            Perfil
-          </Link>
+          {/* Acesso rápido quando premium */}
+          {isLogged && (
+            <Link
+              href={isPremium ? catalogoHref : planosHref}
+              className="block py-2 text-white/95"
+              onClick={() => setMenuOpen(false)}
+            >
+              {isPremium ? "Catálogo" : "Planos"}
+            </Link>
+          )}
         </div>
       )}
     </header>
