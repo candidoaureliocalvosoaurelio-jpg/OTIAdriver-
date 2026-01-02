@@ -23,7 +23,7 @@ export function TruckGrid({
           const href =
             mode === "premium"
               ? `/caminhoes/${t.slug}?lang=${lang}` // ✅ corrigido (sem /app)
-              : gate;
+              : gate; // espelho: tudo vai pro login
 
           return (
             <Link
@@ -32,10 +32,7 @@ export function TruckGrid({
               className="group block rounded-2xl overflow-hidden shadow-lg bg-white transition-transform duration-300 hover:scale-[1.02]"
               title={t.name}
             >
-              <div
-                className="relative w-full bg-gray-50"
-                style={{ aspectRatio: "3 / 2" }}
-              >
+              <div className="relative w-full bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
                 <Image
                   src={t.file}
                   alt={t.name}
