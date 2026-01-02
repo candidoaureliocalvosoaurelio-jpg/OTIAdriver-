@@ -58,12 +58,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "Código incorreto ou expirado" }, { status: 400 });
     }
 
-    // ✅ Login aprovado
+    // ✅ Login aprovado pela Twilio
     const response = NextResponse.json({ ok: true });
 
     const cookieBase = {
       path: "/",
-      maxAge: 60 * 60 * 24 * 30,
+      maxAge: 60 * 60 * 24 * 30, // 30 dias
       httpOnly: true,
       sameSite: "lax" as const,
       secure: process.env.NODE_ENV === "production",
@@ -74,8 +74,8 @@ export async function POST(req: Request) {
     response.cookies.set("otia_cpf", cpfDigits, cookieBase);
 
     // ✅ Plano real: consulta no Supabase
-    // O middleware espera: otia_plan = "active" | "inactive"
-    let planCookieValue: "active" | "inactive" = "inactive";
+    // O middleware agora espera um destes: "basico" | "pro" | "premium"
+    let planCookieValue = "none"; 
 
     try {
       const supabase = getSupabaseAdmin();
@@ -85,31 +85,39 @@ export async function POST(req: Request) {
         .eq("cpf", cpfDigits)
         .single();
 
-      // Se existe um plano no perfil, consideramos "active"
-      // (se você tiver uma coluna de status, aqui é onde você valida)
+      // Mapeia o valor do banco para o que o Middleware aceita
       if (!error && data?.plano) {
-        planCookieValue = "active";
+        // Converte para minúsculas para bater com a lista VALID_PLANS do middleware
+        const planoDb = data.plano.toLowerCase().trim();
+        
+        // Se for um plano reconhecido, atribui ao cookie
+        if (["basico", "pro", "premium"].includes(planoDb)) {
+          planCookieValue = planoDb;
+        } else {
+          // Caso exista um plano mas o nome seja diferente (ex: "BASIC"), define o padrão
+          planCookieValue = "basico"; 
+        }
       }
     } catch (e) {
-      // Se o Supabase falhar, não libera acesso
-      planCookieValue = "inactive";
+      console.error("Erro ao buscar plano no Supabase:", e);
+      planCookieValue = "none";
     }
 
+    // Grava o cookie com o nome oficial do plano para o Middleware liberar as marcas
     response.cookies.set("otia_plan", planCookieValue, cookieBase);
 
     return response;
+
   } catch (err: any) {
-    console.error("Erro na verificação Twilio:", {
+    console.error("Erro técnico na verificação:", {
       message: err?.message,
       status: err?.status,
       code: err?.code,
-      moreInfo: err?.moreInfo,
-      details: err?.details,
     });
 
     const msg =
       err?.status === 404
-        ? "Serviço de verificação Twilio (VERIFY_SERVICE_SID) não encontrado. Confirme o Service SID e a conta."
+        ? "Sessão de verificação não encontrada. Solicite um novo código SMS."
         : "Erro ao validar código. Tente reenviar o SMS.";
 
     return NextResponse.json({ ok: false, error: msg }, { status: 500 });
