@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 function isPublicPath(pathname: string) {
-  // OBS: "/" é público, mas vamos tratar o redirect do premium ANTES disso no middleware()
   if (pathname === "/") return true;
 
   const publicPrefixes = [
@@ -11,8 +10,9 @@ function isPublicPath(pathname: string) {
     "/planos",
     "/checkout",
     "/pagamento",
-    "/catalogo", // ✅ início real da plataforma (espelho controlado pela página)
-    "/api/me",   // ✅ libera /api/me/sync
+    "/catalogo",
+    "/api/me",
+    "/api/auth",      // ✅ recomendado
     "/api/webhook",
     "/favicon.ico",
     "/robots.txt",
@@ -30,8 +30,6 @@ function isProtectedPath(pathname: string) {
     "/caminhoes",
     "/simbolos-painel",
     "/ebook-driver",
-
-    // ✅ rotas que estavam abertas (ajuste os slugs conforme seu projeto)
     "/pneus",
     "/inspecao",
     "/inspecao-manutencao",
@@ -44,47 +42,50 @@ function isProtectedPath(pathname: string) {
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
-  // 🔁 Se usuário logado + plano ativo acessar "/" → manda para /catalogo
-  // (resolve o "voltar" cair na vitrine)
+  // 🔁 Premium em "/" vai para o catálogo
   if (pathname === "/") {
-    const auth = req.cookies.get("otia_auth")?.value; // "1"
-    const plan = req.cookies.get("otia_plan")?.value; // "active" | "inactive"
+    const auth = req.cookies.get("otia_auth")?.value;
+    const plan = req.cookies.get("otia_plan")?.value;
 
     if (auth === "1" && plan === "active") {
       const url = req.nextUrl.clone();
       url.pathname = "/catalogo";
-      // preserva lang se existir na URL da home
       if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
       return NextResponse.redirect(url);
     }
 
-    // visitante (ou sem plano) continua vendo a vitrine
     return NextResponse.next();
   }
 
   // Público -> passa
   if (isPublicPath(pathname)) return NextResponse.next();
 
-  // Se não estiver na lista de protegidas -> passa
+  // Se não estiver protegido -> passa
   if (!isProtectedPath(pathname)) return NextResponse.next();
 
-  // 1) Verifica login (alinhado com verify-otp)
-  const auth = req.cookies.get("otia_auth")?.value; // "1"
+  // 1) Login
+  const auth = req.cookies.get("otia_auth")?.value;
   if (auth !== "1") {
     const url = req.nextUrl.clone();
     url.pathname = "/entrar";
     if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
-    url.searchParams.set("next", pathname);
+
+    // ✅ preserva query do destino também
+    url.searchParams.set("next", req.nextUrl.pathname + req.nextUrl.search);
+
     return NextResponse.redirect(url);
   }
 
-  // 2) Verifica plano ativo
-  const planStatus = req.cookies.get("otia_plan")?.value; // "active" | "inactive"
+  // 2) Plano ativo
+  const planStatus = req.cookies.get("otia_plan")?.value;
   if (planStatus !== "active") {
     const url = req.nextUrl.clone();
     url.pathname = "/planos";
     if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
-    url.searchParams.set("next", pathname);
+
+    // ✅ preserva query do destino também
+    url.searchParams.set("next", req.nextUrl.pathname + req.nextUrl.search);
+
     return NextResponse.redirect(url);
   }
 
@@ -92,6 +93,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // roda em tudo, exceto arquivos estáticos do Next
   matcher: ["/((?!_next/static|_next/image).*)"],
 };
