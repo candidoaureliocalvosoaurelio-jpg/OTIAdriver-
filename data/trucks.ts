@@ -1,5 +1,5 @@
 // data/trucks.ts
-// Caminhões — mapeamento EXATO com /app/caminhoes
+// Caminhões a Diesel — cards da página inicial OTIAdriver
 
 export type Truck = {
   slug: string;
@@ -10,7 +10,131 @@ export type Truck = {
 };
 
 export const trucks: Truck[] = [
-  // 1) DAF CF Semipesado
+  // 1) VOLVO FH
+  {
+    slug: "volvo-fh-2025",
+    name: "Volvo FH",
+    file: "/images/trucks/volvo-fh.jpg",
+    description:
+      "Plataforma rodoviária premium da Volvo para longa distância, focada em segurança, conforto e baixo consumo.",
+    specs: {
+      Motor: "D13K 500–540",
+      Potência: "até 540 cv",
+      Transmissão: "I-Shift (automatizada)",
+      Aplicação: "Longa distância / cargas pesadas",
+    },
+  },
+
+  // 2) VOLVO FMX
+  {
+    slug: "volvo-fmx",
+    name: "Volvo FMX",
+    file: "/images/trucks/volvo-fmx.jpg",
+    description:
+      "Caminhão vocacional fora de estrada da Volvo, projetado para construção pesada, mineração e operações severas.",
+    specs: {
+      Motor: "D13K 420–500",
+      Potência: "até 500 cv",
+      Transmissão: "I-Shift com super-reduzidas",
+      Aplicação: "Construção pesada / mineração / fora de estrada",
+    },
+  },
+
+  // 3) VOLVO VM / VMX
+  {
+    slug: "volvo-vm",
+    name: "Volvo VM / VMX",
+    file: "/images/trucks/volvo-vm.jpg",
+    description:
+      "Linha versátil da Volvo para distribuição urbana, regional e aplicações vocacionais customizadas.",
+    specs: {
+      Motor: "D8K / D11K",
+      Potência: "até ~360 cv",
+      Transmissão: "I-Shift ou manual",
+      Aplicação: "Distribuição, betoneira, coleta de resíduos, serviços",
+    },
+  },
+
+  // 4) SCANIA SUPER
+  {
+    slug: "scania-super",
+    name: "Scania Super",
+    file: "/images/trucks/scania-super.jpg",
+    description:
+      "Plataforma Scania Super de 13 litros, referência em eficiência de combustível, torque alto em baixa rotação e TCO otimizado.",
+    specs: {
+      Motor: "Scania Super 13L",
+      Potência: "420–560 hp",
+      Torque: "2.300–2.800 Nm",
+      Transmissão: "Opticruise",
+      Aplicação: "Longa distância e cargas pesadas",
+    },
+  },
+
+  // 4.1) SCANIA SUPER XT — vocacional
+  {
+    slug: "scania-super-xt",
+    name: "Scania Super XT",
+    file: "/images/trucks/scania-super-xt.jpg",
+    description:
+      "Linha vocacional Scania SUPER XT, desenvolvida para operações severas como construção pesada, mineração e florestal, combinando trem de força Super com robustez estrutural extrema.",
+    specs: {
+      Motor: "Família Super (6L / V8)",
+      Potência: "420–770 hp",
+      Torque: "alto em baixa rotação",
+      Transmissão: "Opticruise HD (Heavy Duty)",
+      Aplicação: "Construção pesada, mineração e operações florestais",
+    },
+  },
+
+  // 4.2) SCANIA P320 8x2 — distribuição
+  {
+    slug: "scania-p320-8x2",
+    name: "Scania P320 8x2",
+    file: "/images/trucks/scania-p320-8x2.jpg",
+    description:
+      "Caminhão rígido 8x2 da Scania para distribuição regional e urbana de alto volume, com cabine P de fácil acesso, motor D9 320 hp e foco em máxima carga útil com baixo TCO.",
+    specs: {
+      Motor: "D9 – 6 cilindros",
+      Potência: "320 hp",
+      Configuração: "8x2 rígido com eixo auxiliar levantável",
+      Aplicação:
+        "Distribuição regional/urbana de alto volume (bebidas, alimentos, baú, sider)",
+    },
+  },
+
+  // 5) DAF XF — rodoviário
+  {
+    slug: "daf-xf",
+    name: "DAF XF",
+    file: "/images/trucks/daf-xf.jpg",
+    description:
+      "Caminhão rodoviário de longa distância com foco em aerodinâmica, conforto e eficiência.",
+    specs: {
+      Motor: "PACCAR MX-13",
+      Potência: "até 530 cv",
+      Transmissão: "TraXon 12v",
+      Aplicação: "Transporte rodoviário nacional e internacional",
+    },
+  },
+
+  // 5.1) DAF XF OFF-ROAD
+  {
+    slug: "daf-xf-offroad",
+    name: "DAF XF OFF-ROAD",
+    file: "/images/trucks/daf-xf-offroad.jpg",
+    description:
+      "Versão reforçada do DAF XF para mineração, florestal, cana e operações severas, com chassi reforçado e trem de força preparado para alto esforço.",
+    specs: {
+      Motor: "PACCAR MX-13",
+      Potência: "530 cv",
+      Tração: "6x4",
+      Suspensão: "Heavy-Duty / reforçada",
+      Aplicação: "Mineração, florestal, cana e operações severas off-road",
+    },
+  },
+
+  // 5.2) DAF CF Semipesado
   {
     slug: "daf-cf-semipesado",
     name: "DAF CF Semipesado",
@@ -26,70 +150,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 2) DAF XF OFF-ROAD
-  {
-    slug: "daf-xf-offroad",
-    name: "DAF XF Off-Road",
-    file: "/images/trucks/daf-xf-offroad.jpg",
-    description:
-      "Versão reforçada do DAF XF para mineração, florestal, cana e operações severas, com chassi reforçado e trem de força preparado para alto esforço.",
-    specs: {
-      Motor: "PACCAR MX-13",
-      Potência: "530 cv",
-      Tração: "6x4",
-      Suspensão: "Heavy-Duty / reforçada",
-      Aplicação: "Mineração, florestal, cana e operações severas off-road",
-    },
-  },
-
-  // 3) DAF XF
-  {
-    slug: "daf-xf",
-    name: "DAF XF",
-    file: "/images/trucks/daf-xf.jpg",
-    description:
-      "Caminhão rodoviário de longa distância com foco em aerodinâmica, conforto e eficiência.",
-    specs: {
-      Motor: "PACCAR MX-13",
-      Potência: "até 530 cv",
-      Transmissão: "TraXon 12v",
-      Aplicação: "Transporte rodoviário nacional e internacional",
-    },
-  },
-
-  // 4) IVECO S-WAY 540 6x4
-  {
-    slug: "iveco-s-way-540-6x4",
-    name: "Iveco S-Way 540 6x4",
-    file: "/images/trucks/iveco-s-way-540-6x4.jpg",
-    description:
-      "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
-    specs: {
-      Motor: "FPT Cursor 13 – 12,9 litros",
-      Potência: "540 cv",
-      Torque: "cerca de 2.450 Nm",
-      Transmissão: "Automatizada Hi-Tronix, 12 marchas",
-      Aplicação: "Longa distância / composições extrapesadas 6x4",
-    },
-  },
-
-  // 5) IVECO Tector 24-280 6x2 e 8x2
-  {
-    slug: "iveco-tector-24280-6x2-8x2",
-    name: "Iveco Tector 24-280 (6x2 e 8x2)",
-    file: "/images/trucks/iveco-tector-24280-6x2-8x2.jpg",
-    description:
-      "Semipesado IVECO voltado para distribuição urbana, entregas intermunicipais e aplicações vocacionais nas versões 6x2 e 8x2.",
-    specs: {
-      Motor: "6 cilindros eletrônico – cerca de 280 cv",
-      Potência: "280 cv",
-      Transmissão: "Opções manual ou automatizada",
-      Aplicação:
-        "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
-    },
-  },
-
-  // 6) MERCEDES ACTROS EVOLUTION 2653 S 6x4
+  // 6) MERCEDES ACTROS
   {
     slug: "mercedes-actros-evolution-2653s-6x4",
     name: "Mercedes-Benz Actros Evolution 2653 S 6x4",
@@ -104,7 +165,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 7) MERCEDES AROCS 3353 S 6x4
+  // 6.1) MERCEDES AROCS 3353 S 6x4 – vocacional
   {
     slug: "mercedes-arocs-3353s-6x4",
     name: "Mercedes-Benz Arocs 3353 S 6x4",
@@ -119,7 +180,7 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 8) MERCEDES ATEGO 2433 P 6x2
+  // 6.2) MERCEDES ATEGO 2433 P 6x2
   {
     slug: "mercedes-atego-2433p-6x2",
     name: "Mercedes-Benz Atego 2433 P 6x2",
@@ -129,105 +190,99 @@ export const trucks: Truck[] = [
     specs: {
       Motor: "OM 926 – 6 cilindros em linha",
       Potência: "cerca de 321 cv",
+      PBT: "24,1 t (PBT técnico da versão)",
       Configuração: "6x2 rígido com eixo auxiliar levantável",
       Aplicação:
-        "Distribuição regional/urbana (baú, sider, tanque, carga geral)",
+        "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
     },
   },
 
-  // 9) MERCEDES G340 (subpasta: mercedes/g340)
-  {
-    slug: "mercedes/g340",
-    name: "Mercedes-Benz G340",
-    file: "/images/trucks/mercedes-g340.jpg",
-    description:
-      "Conteúdo técnico do Mercedes-Benz G340, com foco em aplicação, características e operação (conforme página do projeto).",
-    specs: {
-      Aplicação: "Operações mistas / vocacional (conforme versão)",
-      Foco: "Conteúdo técnico e operação",
-    },
+  // =====================
+// 8) VW METEOR HIGHLINE 29.530 (NOVO)
+// =====================
+{
+  slug: "volkswagen-meteor-highline-29530",
+  name: "Volkswagen Meteor Highline 29.530",
+  file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
+  description:
+    "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em alta conectividade e eficiência para longas distâncias.",
+  specs: {
+    Motor: "MAN D26 – 13 litros",
+    Potência: "530 cv",
+    Torque: "até 2.600 Nm",
+    Transmissão: "Automatizada V-Tronic (ZF 12TX)",
+    Aplicação: "Longa distância / extrapesado até 74 toneladas",
   },
+},
 
-  // 10) SCANIA P320 8x2
+  // ======================
+  // 9) VW CONSTELLATION 33.480 6x4
+  // ======================
   {
-    slug: "scania-p320-8x2",
-    name: "Scania P320 8x2",
-    file: "/images/trucks/scania-p320-8x2.jpg",
+    slug: "vw-constellation-33480-6x4",
+    name: "Volkswagen Constellation 33.480 6x4",
+    file: "/images/trucks/vw-constellation-33480-6x4.jpg",
     description:
-      "Caminhão rígido 8x2 da Scania para distribuição regional e urbana de alto volume, com cabine P, motor D9 320 hp e foco em máxima carga útil.",
+      "Caminhão extrapesado da família Constellation, equipado com motor MAN D26 de 480 cv e tração 6x4, voltado para operações rodoviárias e mistas com composições de alto PBTC.",
     specs: {
-      Motor: "D9 – 6 cilindros",
-      Potência: "320 hp",
-      Configuração: "8x2 rígido com eixo auxiliar levantável",
+      Motor: "MAN D26 – 13 litros, 6 cilindros em linha",
+      Potência: "480 cv",
+      Torque: "até 2.400 Nm",
+      Transmissão: "Automatizada V-Tronic (ZF TraXon) de 12 marchas",
       Aplicação:
-        "Distribuição regional/urbana (bebidas, alimentos, baú, sider)",
+        "Longa distância / extrapesado com PBTC elevado em rodovias e rotas mistas",
     },
   },
 
-  // 11) SCANIA SUPER XT
-  {
-    slug: "scania-super-xt",
-    name: "Scania Super XT",
-    file: "/images/trucks/scania-super-xt.jpg",
-    description:
-      "Linha vocacional Scania SUPER XT, desenvolvida para operações severas como construção pesada, mineração e florestal, combinando trem de força Super com robustez estrutural.",
-    specs: {
-      Motor: "Família Super (6L / V8)",
-      Potência: "420–770 hp",
-      Transmissão: "Opticruise HD (Heavy Duty)",
-      Aplicação: "Construção pesada, mineração e florestal",
-    },
+// ================================
+// 10) VW CONSTELLATION 26.320 6x2
+// ================================
+{
+  slug: "volkswagen-constellation-26320-6x2",
+  name: "Volkswagen Constellation 26.320 6x2",
+  file: "/images/trucks/vw-constellation-26320-6x2.jpg",
+  description:
+    "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e pacote de segurança ativa de série, focado em distribuição regional e urbana de alto volume.",
+  specs: {
+    Motor: "MAN D08 – 6 cilindros em linha",
+    Potência: "320 cv",
+    Torque: "1.200 Nm",
+    Transmissão: "Manual 9 marchas ou automatizada V-Tronic 12 marchas",
+    Aplicação: "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
   },
+},
 
-  // 12) SCANIA SUPER
-  {
-    slug: "scania-super",
-    name: "Scania Super",
-    file: "/images/trucks/scania-super.jpg",
-    description:
-      "Plataforma Scania Super de 13 litros, referência em eficiência, torque em baixa rotação e TCO otimizado.",
-    specs: {
-      Motor: "Scania Super 13L",
-      Potência: "420–560 hp",
-      Torque: "2.300–2.800 Nm",
-      Transmissão: "Opticruise",
-      Aplicação: "Longa distância e cargas pesadas",
-    },
+ // 11) IVECO S-WAY 540 6x4
+{
+  slug: "iveco-s-way-540-6x4",
+  name: "Iveco S-Way 540 6x4",
+  file: "/images/trucks/iveco-s-way-540-6x4.jpg",
+  description:
+    "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
+  specs: {
+    Motor: "FPT Cursor 13 – 12,9 litros, 6 cilindros em linha",
+    Potência: "540 cv",
+    Torque: "cerca de 2.450 Nm",
+    Transmissão: "Automatizada Hi-Tronix, 12 marchas",
+    Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
   },
+},
 
-  // 13) VOLKSWAGEN CONSTELLATION 26.320 6x2
+    // 12) IVECO Tector 24-280 6x2 e 8x2
   {
-    slug: "volkswagen-constellation-26320-6x2",
-    name: "Volkswagen Constellation 26.320 6x2",
-    file: "/images/trucks/volkswagen-constellation-26320-6x2.jpg",
+    slug: "iveco-tector-24280-6x2-8x2",
+    name: "IVECO Tector 24-280 6x2 e 8x2",
+    file: "/images/trucks/iveco-tector-24280-6x2-8x2.jpg",
     description:
-      "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e foco em distribuição regional e urbana de alto volume.",
+      "Semipesado IVECO voltado para distribuição urbana, entregas intermunicipais e aplicações vocacionais nas versões 6x2 e 8x2.",
     specs: {
-      Motor: "MAN D08 – 6 cilindros em linha",
-      Potência: "320 cv",
-      Torque: "1.200 Nm",
-      Transmissão: "Manual 9 marchas ou automatizada",
-      Aplicação:
-        "Distribuição regional/urbana (baú, sider, tanque, carga geral)",
+      Motor: "6 cilindros eletrônico – cerca de 280 cv",
+      Potência: "280 cv (linha 24-280)",
+      Transmissão: "Opções manual ou automatizada",
+      Aplicação: "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
     },
   },
-
-  // 14) VOLKSWAGEN METEOR HIGHLINE 29.530
-  {
-    slug: "volkswagen-meteor-highline-29530",
-    name: "Volkswagen Meteor Highline 29.530",
-    file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
-    description:
-      "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em conectividade e eficiência para longas distâncias.",
-    specs: {
-      Motor: "MAN D26 – 13 litros",
-      Potência: "530 cv",
-      Torque: "até 2.600 Nm",
-      Transmissão: "Automatizada V-Tronic (ZF 12TX)",
-      Aplicação: "Longa distância / extrapesado",
-    },
-  },
-];
+  ];
 
 // Helper
 export function getTruckBySlug(slug: string) {
