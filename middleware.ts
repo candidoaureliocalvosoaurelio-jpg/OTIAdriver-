@@ -1,7 +1,9 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+/**
+ * Rotas que não exigem login nem plano
+ */
 function isPublicPath(pathname: string) {
   if (pathname === "/") return true;
 
@@ -12,7 +14,7 @@ function isPublicPath(pathname: string) {
     "/pagamento",
     "/catalogo",
     "/api/me",
-    "/api/auth",      // ✅ recomendado
+    "/api/auth",
     "/api/webhook",
     "/favicon.ico",
     "/robots.txt",
@@ -24,6 +26,9 @@ function isPublicPath(pathname: string) {
   return publicPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
+/**
+ * Rotas que exigem login e plano ativo
+ */
 function isProtectedPath(pathname: string) {
   const protectedPrefixes = [
     "/treinamentos",
@@ -39,59 +44,56 @@ function isProtectedPath(pathname: string) {
   return protectedPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
+// Lista de valores aceitos como "plano válido"
+const VALID_PLANS = ["basico", "pro", "premium", "active"];
+
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
+  const auth = req.cookies.get("otia_auth")?.value;
+  const planStatus = req.cookies.get("otia_plan")?.value;
 
-  // 🔁 Premium em "/" vai para o catálogo
+  // 1) Redirecionamento da Home para o Catálogo se já estiver logado e ativo
   if (pathname === "/") {
-    const auth = req.cookies.get("otia_auth")?.value;
-    const plan = req.cookies.get("otia_plan")?.value;
-
-    if (auth === "1" && plan === "active") {
+    if (auth === "1" && VALID_PLANS.includes(planStatus || "")) {
       const url = req.nextUrl.clone();
       url.pathname = "/catalogo";
-      if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
       return NextResponse.redirect(url);
     }
-
     return NextResponse.next();
   }
 
-  // Público -> passa
-  if (isPublicPath(pathname)) return NextResponse.next();
-
-  // Se não estiver protegido -> passa
-  if (!isProtectedPath(pathname)) return NextResponse.next();
-
-  // 1) Login
-  const auth = req.cookies.get("otia_auth")?.value;
-  if (auth !== "1") {
-    const url = req.nextUrl.clone();
-    url.pathname = "/entrar";
-    if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
-
-    // ✅ preserva query do destino também
-    url.searchParams.set("next", req.nextUrl.pathname + req.nextUrl.search);
-
-    return NextResponse.redirect(url);
+  // 2) Liberar rotas públicas (Imagens, Login, API Auth, etc)
+  if (isPublicPath(pathname)) {
+    return NextResponse.next();
   }
 
-  // 2) Plano ativo
-  const planStatus = req.cookies.get("otia_plan")?.value;
-  if (planStatus !== "active") {
-    const url = req.nextUrl.clone();
-    url.pathname = "/planos";
-    if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
+  // 3) Verificar proteção de rotas de conteúdo
+  if (isProtectedPath(pathname)) {
+    
+    // A) Bloqueio por falta de Login
+    if (auth !== "1") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/entrar";
+      url.searchParams.set("next", pathname + req.nextUrl.search);
+      url.searchParams.set("reason", "auth");
+      return NextResponse.redirect(url);
+    }
 
-    // ✅ preserva query do destino também
-    url.searchParams.set("next", req.nextUrl.pathname + req.nextUrl.search);
-
-    return NextResponse.redirect(url);
+    // B) Bloqueio por falta de Plano Ativo
+    // Se o cookie otia_plan não estiver na lista de válidos, manda para /planos
+    if (!VALID_PLANS.includes(planStatus || "")) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/planos";
+      url.searchParams.set("next", pathname + req.nextUrl.search);
+      url.searchParams.set("reason", "paywall");
+      return NextResponse.redirect(url);
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image).*)"],
+  // Executa em tudo exceto arquivos estáticos internos do Next.js
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
