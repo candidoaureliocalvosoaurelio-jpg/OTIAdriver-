@@ -41,14 +41,17 @@ function toE164FromDigits(digits: string) {
 
 // ✅ Extrai `next` e `lang` da URL do browser
 function getNextFromLocation() {
-  if (typeof window === "undefined") return { next: "/", lang: "pt" };
+  if (typeof window === "undefined") return { next: "/catalogo?lang=pt", lang: "pt" };
 
   const params = new URLSearchParams(window.location.search);
   const lang = params.get("lang") || "pt";
 
-  // se vier `next`, usa. Se não, volta para home preservando lang.
+  // ✅ se vier `next`, usa. Se não, vai SEMPRE para /catalogo (inicio real)
   const nextRaw = params.get("next");
-  const next = nextRaw && nextRaw.startsWith("/") ? nextRaw : `/?lang=${lang}`;
+  const next =
+    nextRaw && nextRaw.startsWith("/")
+      ? nextRaw
+      : `/catalogo?lang=${lang}`;
 
   return { next, lang };
 }
@@ -151,11 +154,10 @@ export default function EntrarClient() {
 
       setMsg("Sucesso! Liberando acesso...");
 
-      // ✅ 1) Respeita `next` da URL
+      // ✅ 1) Respeita `next` da URL (default = /catalogo)
       const { next } = getNextFromLocation();
 
-      // ✅ 2) Sincroniza plano (cookie otia_plan = active/inactive) antes de ir para a área protegida
-      // (se não existir ou falhar, não quebra o fluxo; o middleware vai direcionar corretamente)
+      // ✅ 2) Sincroniza plano antes de seguir (cookie otia_plan = active/inactive)
       await fetch("/api/me/sync", { method: "POST", cache: "no-store" }).catch(() => null);
 
       // ✅ 3) Redireciona (reload total para garantir cookies)
@@ -241,9 +243,7 @@ export default function EntrarClient() {
                 disabled={loading || cooldown > 0}
                 className="w-full text-slate-500 text-sm hover:underline disabled:no-underline"
               >
-                {cooldown > 0
-                  ? `Reenviar código em ${cooldown}s`
-                  : "Não recebeu? Reenviar código"}
+                {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
               </button>
             </div>
           )}

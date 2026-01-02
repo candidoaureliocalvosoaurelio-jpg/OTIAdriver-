@@ -24,8 +24,8 @@ export default function PagamentoConcluido({
   const status = searchParams?.status ?? "";
 
   // ✅ Para onde voltar depois do login
-  // Se vier ?next=..., usa ele; senão, volta para Home
-  const next = searchParams?.next || `/?lang=${lang}`;
+  // Se vier ?next=..., usa ele; senão, SEMPRE volta para /catalogo (início real)
+  const next = searchParams?.next || `/catalogo?lang=${lang}`;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
@@ -63,7 +63,7 @@ export default function PagamentoConcluido({
         )}
 
         <div className="mt-6 flex flex-wrap gap-3">
-          {/* ✅ Agora passa next para voltar ao início após login */}
+          {/* ✅ Passa next para voltar ao /catalogo após login */}
           <Link
             href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
@@ -75,7 +75,7 @@ export default function PagamentoConcluido({
             href={next}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
-            Voltar ao site
+            Ir para o catálogo
           </Link>
         </div>
 

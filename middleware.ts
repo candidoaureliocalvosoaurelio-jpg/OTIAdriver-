@@ -10,6 +10,8 @@ function isPublicPath(pathname: string) {
     "/planos",
     "/checkout",
     "/pagamento",
+    "/catalogo",        // ✅ início real da plataforma (espelho controlado pela página)
+    "/api/me",          // ✅ libera /api/me/sync
     "/api/webhook",
     "/favicon.ico",
     "/robots.txt",
@@ -28,7 +30,7 @@ function isProtectedPath(pathname: string) {
     "/simbolos-painel",
     "/ebook-driver",
 
-    // ✅ Protege as rotas que estavam abertas (ajuste se seu caminho real for diferente)
+    // ✅ rotas que estavam abertas (ajuste os slugs conforme seu projeto)
     "/pneus",
     "/inspecao",
     "/inspecao-manutencao",
