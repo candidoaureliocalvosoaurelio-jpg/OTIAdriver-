@@ -52,7 +52,6 @@ export async function POST(req: Request) {
     if (status !== "approved") return NextResponse.json({ ok: true });
     if (!cpfDinamico || cpfDinamico.length !== 11) return NextResponse.json({ ok: true });
 
-    // Fallback de Plano
     if (!["basico", "pro", "premium"].includes(planoDinamico)) {
       const title = String(payment?.additional_info?.items?.[0]?.title || "").toLowerCase();
       if (title.includes("premium")) planoDinamico = "premium";
@@ -61,22 +60,40 @@ export async function POST(req: Request) {
       else return NextResponse.json({ ok: true });
     }
 
-    // --- LÓGICA DE 30 DIAS ---
-    // Cria a data de hoje e soma 30 dias
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 30); 
-    const planExpiresAt = expirationDate.toISOString();
-
-    // 5. ATUALIZAÇÃO NO BANCO
     const supabase = getSupabaseAdmin();
+
+    // --- LÓGICA DE SOMA INTELIGENTE (30 DIAS) ---
+    // 1. Busca a expiração atual do usuário
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("plan_expires_at")
+      .eq("cpf", cpfDinamico)
+      .single();
+
+    let baseDate = new Date(); // Data base é HOJE
+    const now = new Date();
+
+    // 2. Se o usuário já tiver um plano ativo que NÃO venceu, soma a partir do vencimento futuro
+    if (profile?.plan_expires_at) {
+      const currentExpiration = new Date(profile.plan_expires_at);
+      if (currentExpiration > now) {
+        baseDate = currentExpiration;
+      }
+    }
+
+    // 3. Adiciona os 30 dias
+    baseDate.setDate(baseDate.getDate() + 30);
+    const newPlanExpiresAt = baseDate.toISOString();
+
+    // 4. ATUALIZAÇÃO NO BANCO
     const { error: dbError } = await supabase
       .from("profiles")
       .upsert(
         {
           cpf: cpfDinamico,
           plano: planoDinamico,
-          plan_expires_at: planExpiresAt, // <--- Aqui registra a expiração
-          updated_at: new Date().toISOString(),
+          plan_expires_at: newPlanExpiresAt, 
+          updated_at: now.toISOString(),
         },
         { onConflict: "cpf" }
       );
@@ -86,7 +103,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    console.log(`MP_WEBHOOK SUCESSO: Plano ${planoDinamico.toUpperCase()} (30 dias) para CPF ${cpfDinamico}`);
+    console.log(`MP_WEBHOOK SUCESSO: CPF ${cpfDinamico} renovado até ${newPlanExpiresAt}`);
     return NextResponse.json({ ok: true });
 
   } catch (e: any) {
