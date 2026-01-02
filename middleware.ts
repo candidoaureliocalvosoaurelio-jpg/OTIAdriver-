@@ -28,7 +28,6 @@ function isPublicPath(pathname: string) {
 
 /**
  * Rotas que exigem login e plano ativo (Protegidas)
- * Agora inclui todos os prefixos necessários para as marcas de caminhões
  */
 function isProtectedPath(pathname: string) {
   const protectedPrefixes = [
@@ -47,7 +46,6 @@ function isProtectedPath(pathname: string) {
 
 /**
  * LISTA OFICIAL DE PLANOS OTIAdriver
- * O middleware aceitará qualquer um destes valores no cookie 'otia_plan'
  */
 const VALID_PLANS = ["basico", "pro", "premium", "active"];
 
@@ -57,6 +55,13 @@ export function middleware(req: NextRequest) {
   // Recuperação dos cookies de sessão
   const auth = req.cookies.get("otia_auth")?.value;
   const planStatus = req.cookies.get("otia_plan")?.value;
+
+  // 🕵️‍♂️ SISTEMA DE DEBUG (Olhe o terminal do VS Code após clicar no site)
+  console.log("--- DEBUG ACESSO OTIAdriver ---");
+  console.log("Caminho:", pathname);
+  console.log("Cookie Auth:", auth || "AUSENTE");
+  console.log("Cookie Plano:", planStatus || "AUSENTE");
+  console.log("-------------------------------");
 
   // 1) Redirecionamento da Home para o Catálogo se já estiver logado e com plano
   if (pathname === "/") {
@@ -73,21 +78,19 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 3) Verificar proteção de rotas de conteúdo (Caminhões, Treinamentos, etc.)
+  // 3) Verificar proteção de rotas de conteúdo
   if (isProtectedPath(pathname)) {
     
-    // A) Bloqueio por falta de Login: Se não houver cookie de auth, vai para /entrar
+    // A) Bloqueio por falta de Login
     if (auth !== "1") {
       const url = req.nextUrl.clone();
       url.pathname = "/entrar";
-      // Preserva a página que o usuário tentou acessar para voltar depois do login
       url.searchParams.set("next", pathname + req.nextUrl.search);
       url.searchParams.set("reason", "auth");
       return NextResponse.redirect(url);
     }
 
-    // B) Bloqueio por falta de Plano Ativo:
-    // Se o plano gravado (basico, pro, ou premium) não for reconhecido, vai para /planos
+    // B) Bloqueio por falta de Plano Ativo
     if (!VALID_PLANS.includes(planStatus || "")) {
       const url = req.nextUrl.clone();
       url.pathname = "/planos";
@@ -101,6 +104,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // O matcher evita que o middleware rode em arquivos de sistema e imagens otimizadas
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };
