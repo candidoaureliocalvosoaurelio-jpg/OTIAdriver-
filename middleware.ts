@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 function isPublicPath(pathname: string) {
+  // OBS: "/" é público, mas vamos tratar o redirect do premium ANTES disso no middleware()
   if (pathname === "/") return true;
 
   const publicPrefixes = [
@@ -10,8 +11,8 @@ function isPublicPath(pathname: string) {
     "/planos",
     "/checkout",
     "/pagamento",
-    "/catalogo",        // ✅ início real da plataforma (espelho controlado pela página)
-    "/api/me",          // ✅ libera /api/me/sync
+    "/catalogo", // ✅ início real da plataforma (espelho controlado pela página)
+    "/api/me",   // ✅ libera /api/me/sync
     "/api/webhook",
     "/favicon.ico",
     "/robots.txt",
@@ -43,6 +44,24 @@ function isProtectedPath(pathname: string) {
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
+  // 🔁 Se usuário logado + plano ativo acessar "/" → manda para /catalogo
+  // (resolve o "voltar" cair na vitrine)
+  if (pathname === "/") {
+    const auth = req.cookies.get("otia_auth")?.value; // "1"
+    const plan = req.cookies.get("otia_plan")?.value; // "active" | "inactive"
+
+    if (auth === "1" && plan === "active") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/catalogo";
+      // preserva lang se existir na URL da home
+      if (searchParams.get("lang")) url.searchParams.set("lang", searchParams.get("lang")!);
+      return NextResponse.redirect(url);
+    }
+
+    // visitante (ou sem plano) continua vendo a vitrine
+    return NextResponse.next();
+  }
+
   // Público -> passa
   if (isPublicPath(pathname)) return NextResponse.next();
 
@@ -73,5 +92,6 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
+  // roda em tudo, exceto arquivos estáticos do Next
   matcher: ["/((?!_next/static|_next/image).*)"],
 };
