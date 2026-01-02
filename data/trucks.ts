@@ -99,7 +99,21 @@ export const trucks: Truck[] = [
       Potência: "320 hp",
       Configuração: "8x2 rígido com eixo auxiliar levantável",
       Aplicação:
-        "Distribuição regional/urbana de alto volume (bebidas, alimentos, baú, sider)",
+        "Distribuição regional/urbana de alto volume (bebidas, alimentos, baú, sider, etc.)",
+    },
+  },
+
+  // 4.3) SCANIA OPTICRUISE (subpasta: scania/opticruise)
+  {
+    slug: "scania/opticruise",
+    name: "Scania Opticruise",
+    file: "/images/trucks/scania-opticruise.jpg",
+    description:
+      "Sistema de transmissão automatizada da Scania, com foco em eficiência, redução de consumo e melhor dirigibilidade em diversas operações.",
+    specs: {
+      Tipo: "Automatizada",
+      Foco: "Eficiência e conforto",
+      Aplicação: "Rodoviário / vocacional (conforme configuração)",
     },
   },
 
@@ -150,6 +164,20 @@ export const trucks: Truck[] = [
     },
   },
 
+  // 5.3) DAF — Caixa transmissão XF (subpasta: daf/caixa-transmissao-xf)
+  {
+    slug: "daf/caixa-transmissao-xf",
+    name: "DAF • Caixa TraXon (XF)",
+    file: "/images/trucks/daf-caixa-traxon-xf.jpg",
+    description:
+      "Conteúdo técnico sobre a transmissão TraXon aplicada ao DAF XF: operação, características e boas práticas.",
+    specs: {
+      Transmissão: "ZF TraXon",
+      Aplicação: "DAF XF",
+      Foco: "Operação / manutenção / boas práticas",
+    },
+  },
+
   // 6) MERCEDES ACTROS
   {
     slug: "mercedes-actros-evolution-2653s-6x4",
@@ -197,27 +225,81 @@ export const trucks: Truck[] = [
     },
   },
 
-  // =====================
-// 8) VW METEOR HIGHLINE 29.530 (NOVO)
-// =====================
-{
-  slug: "volkswagen-meteor-highline-29530",
-  name: "Volkswagen Meteor Highline 29.530",
-  file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
-  description:
-    "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em alta conectividade e eficiência para longas distâncias.",
-  specs: {
-    Motor: "MAN D26 – 13 litros",
-    Potência: "530 cv",
-    Torque: "até 2.600 Nm",
-    Transmissão: "Automatizada V-Tronic (ZF 12TX)",
-    Aplicação: "Longa distância / extrapesado até 74 toneladas",
+  // 6.3) MERCEDES G340 (subpasta: mercedes/g340)
+  {
+    slug: "mercedes/g340",
+    name: "Mercedes-Benz G340",
+    file: "/images/trucks/mercedes-g340.jpg",
+    description:
+      "Conteúdo técnico do Mercedes-Benz G340, com foco em aplicação, características e operação (conforme página do projeto).",
+    specs: {
+      Aplicação: "Operações mistas / vocacional (conforme versão)",
+      Foco: "Conteúdo técnico e operação",
+    },
   },
-},
 
-  // ======================
-  // 9) VW CONSTELLATION 33.480 6x4
-  // ======================
+  // 7) IVECO S-WAY 540 6x4
+  {
+    slug: "iveco-s-way-540-6x4",
+    name: "Iveco S-Way 540 6x4",
+    file: "/images/trucks/iveco-s-way-540-6x4.jpg",
+    description:
+      "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
+    specs: {
+      Motor: "FPT Cursor 13 – 12,9 litros, 6 cilindros em linha",
+      Potência: "540 cv",
+      Torque: "cerca de 2.450 Nm",
+      Transmissão: "Automatizada Hi-Tronix, 12 marchas",
+      Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
+    },
+  },
+
+  // 7.1) IVECO — Caixa S-Way (subpasta: caixa-iveco/s-way)
+  {
+    slug: "caixa-iveco/s-way",
+    name: "Iveco • Caixa (S-Way)",
+    file: "/images/trucks/iveco-caixa-s-way.jpg",
+    description:
+      "Conteúdo técnico sobre a caixa/transmissão aplicada ao Iveco S-Way (conforme página do projeto).",
+    specs: {
+      Aplicação: "Iveco S-Way",
+      Foco: "Operação / características / manutenção",
+    },
+  },
+
+  // 8) IVECO Tector 24-280 6x2 e 8x2
+  {
+    slug: "iveco-tector-24280-6x2-8x2",
+    name: "IVECO Tector 24-280 6x2 e 8x2",
+    file: "/images/trucks/iveco-tector-24280-6x2-8x2.jpg",
+    description:
+      "Semipesado IVECO voltado para distribuição urbana, entregas intermunicipais e aplicações vocacionais nas versões 6x2 e 8x2.",
+    specs: {
+      Motor: "6 cilindros eletrônico – cerca de 280 cv",
+      Potência: "280 cv (linha 24-280)",
+      Transmissão: "Opções manual ou automatizada",
+      Aplicação:
+        "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
+    },
+  },
+
+  // 9) VW METEOR HIGHLINE 29.530
+  {
+    slug: "volkswagen-meteor-highline-29530",
+    name: "Volkswagen Meteor Highline 29.530",
+    file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
+    description:
+      "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em alta conectividade e eficiência para longas distâncias.",
+    specs: {
+      Motor: "MAN D26 – 13 litros",
+      Potência: "530 cv",
+      Torque: "até 2.600 Nm",
+      Transmissão: "Automatizada V-Tronic (ZF 12TX)",
+      Aplicação: "Longa distância / extrapesado até 74 toneladas",
+    },
+  },
+
+  // 10) VW CONSTELLATION 33.480 6x4
   {
     slug: "vw-constellation-33480-6x4",
     name: "Volkswagen Constellation 33.480 6x4",
@@ -234,55 +316,36 @@ export const trucks: Truck[] = [
     },
   },
 
-// ================================
-// 10) VW CONSTELLATION 26.320 6x2
-// ================================
-{
-  slug: "volkswagen-constellation-26320-6x2",
-  name: "Volkswagen Constellation 26.320 6x2",
-  file: "/images/trucks/vw-constellation-26320-6x2.jpg",
-  description:
-    "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e pacote de segurança ativa de série, focado em distribuição regional e urbana de alto volume.",
-  specs: {
-    Motor: "MAN D08 – 6 cilindros em linha",
-    Potência: "320 cv",
-    Torque: "1.200 Nm",
-    Transmissão: "Manual 9 marchas ou automatizada V-Tronic 12 marchas",
-    Aplicação: "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
-  },
-},
-
- // 11) IVECO S-WAY 540 6x4
-{
-  slug: "iveco-s-way-540-6x4",
-  name: "Iveco S-Way 540 6x4",
-  file: "/images/trucks/iveco-s-way-540-6x4.jpg",
-  description:
-    "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
-  specs: {
-    Motor: "FPT Cursor 13 – 12,9 litros, 6 cilindros em linha",
-    Potência: "540 cv",
-    Torque: "cerca de 2.450 Nm",
-    Transmissão: "Automatizada Hi-Tronix, 12 marchas",
-    Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
-  },
-},
-
-    // 12) IVECO Tector 24-280 6x2 e 8x2
+  // 11) VW CONSTELLATION 26.320 6x2
   {
-    slug: "iveco-tector-24280-6x2-8x2",
-    name: "IVECO Tector 24-280 6x2 e 8x2",
-    file: "/images/trucks/iveco-tector-24280-6x2-8x2.jpg",
+    slug: "volkswagen-constellation-26320-6x2",
+    name: "Volkswagen Constellation 26.320 6x2",
+    file: "/images/trucks/vw-constellation-26320-6x2.jpg",
     description:
-      "Semipesado IVECO voltado para distribuição urbana, entregas intermunicipais e aplicações vocacionais nas versões 6x2 e 8x2.",
+      "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e pacote de segurança ativa de série, focado em distribuição regional e urbana de alto volume.",
     specs: {
-      Motor: "6 cilindros eletrônico – cerca de 280 cv",
-      Potência: "280 cv (linha 24-280)",
-      Transmissão: "Opções manual ou automatizada",
-      Aplicação: "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
+      Motor: "MAN D08 – 6 cilindros em linha",
+      Potência: "320 cv",
+      Torque: "1.200 Nm",
+      Transmissão: "Manual 9 marchas ou automatizada V-Tronic 12 marchas",
+      Aplicação:
+        "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
     },
   },
-  ];
+
+  // 11.1) VW — Caixa Volkswagen (subpasta: volkswagen/caixa-volkswagen)
+  {
+    slug: "volkswagen/caixa-volkswagen",
+    name: "Volkswagen • Caixa (Transmissão)",
+    file: "/images/trucks/volkswagen-caixa.jpg",
+    description:
+      "Conteúdo técnico sobre a caixa/transmissão Volkswagen (conforme página do projeto).",
+    specs: {
+      Marca: "Volkswagen",
+      Foco: "Operação / manutenção / características",
+    },
+  },
+];
 
 // Helper
 export function getTruckBySlug(slug: string) {
