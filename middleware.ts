@@ -44,6 +44,11 @@ function isProtectedPath(pathname: string) {
   return protectedPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
+/**
+ * LISTA OFICIAL DE PLANOS OTIAdriver
+ */
+const VALID_PLANS = ["basico", "pro", "premium", "active"];
+
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 

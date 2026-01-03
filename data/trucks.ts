@@ -110,7 +110,7 @@ export const trucks: Truck[] = [
     name: "Mercedes-Benz Arocs 3353 S 6x4",
     file: "/images/trucks/mercedes-arocs-3353s-6x4.jpg",
     description:
-      "Cavalo mecânico vocacional para mineração, construção pesada e operações severas com CMT de até 150 toneladas.",
+      "Cavalo mecânico vocacional para mineração, construção pesada e operações severas.",
     specs: {
       Motor: "OM 471 – 530 cv",
       Tração: "6x4 com redução nos cubos",
@@ -125,7 +125,7 @@ export const trucks: Truck[] = [
     name: "Mercedes-Benz Atego 2433 P 6x2",
     file: "/images/trucks/mercedes-atego-2433p-6x2.jpg",
     description:
-      "Caminhão rígido semipesado 6x2 com eixo auxiliar levantável, voltado para distribuição regional e urbana de alto volume, com foco em alta carga útil e boa economia de combustível.",
+      "Caminhão rígido semipesado 6x2 com foco em alta carga útil e economia.",
     specs: {
       Motor: "OM 926 – 6 cilindros em linha",
       Potência: "cerca de 321 cv",
