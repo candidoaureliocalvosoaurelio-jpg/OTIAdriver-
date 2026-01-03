@@ -197,23 +197,27 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 8) VW METEOR HIGHLINE 29.530
-  {
-    slug: "volkswagen-meteor-highline-29530",
-    name: "Volkswagen Meteor Highline 29.530",
-    file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
-    description:
-      "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em alta conectividade e eficiência para longas distâncias.",
-    specs: {
-      Motor: "MAN D26 – 13 litros",
-      Potência: "530 cv",
-      Torque: "até 2.600 Nm",
-      Transmissão: "Automatizada V-Tronic (ZF 12TX)",
-      Aplicação: "Longa distância / extrapesado até 74 toneladas",
-    },
+  // =====================
+// 8) VW METEOR HIGHLINE 29.530 (NOVO)
+// =====================
+{
+  slug: "volkswagen-meteor-highline-29530",
+  name: "Volkswagen Meteor Highline 29.530",
+  file: "/images/trucks/volkswagen-meteor-highline-29530.jpg",
+  description:
+    "Versão premium do Meteor extrapesado, com motor MAN de 530 cv, painel digital, multimídia avançada e foco em alta conectividade e eficiência para longas distâncias.",
+  specs: {
+    Motor: "MAN D26 – 13 litros",
+    Potência: "530 cv",
+    Torque: "até 2.600 Nm",
+    Transmissão: "Automatizada V-Tronic (ZF 12TX)",
+    Aplicação: "Longa distância / extrapesado até 74 toneladas",
   },
+},
 
+  // ======================
   // 9) VW CONSTELLATION 33.480 6x4
+  // ======================
   {
     slug: "vw-constellation-33480-6x4",
     name: "Volkswagen Constellation 33.480 6x4",
@@ -230,40 +234,41 @@ export const trucks: Truck[] = [
     },
   },
 
-  // 10) VW CONSTELLATION 26.320 6x2
-  {
-    slug: "volkswagen-constellation-26320-6x2",
-    name: "Volkswagen Constellation 26.320 6x2",
-    file: "/images/trucks/vw-constellation-26320-6x2.jpg",
-    description:
-      "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e pacote de segurança ativa de série, focado em distribuição regional e urbana de alto volume.",
-    specs: {
-      Motor: "MAN D08 – 6 cilindros em linha",
-      Potência: "320 cv",
-      Torque: "1.200 Nm",
-      Transmissão: "Manual 9 marchas ou automatizada V-Tronic 12 marchas",
-      Aplicação:
-        "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
-    },
+// ================================
+// 10) VW CONSTELLATION 26.320 6x2
+// ================================
+{
+  slug: "volkswagen-constellation-26320-6x2",
+  name: "Volkswagen Constellation 26.320 6x2",
+  file: "/images/trucks/vw-constellation-26320-6x2.jpg",
+  description:
+    "Caminhão semipesado 6x2 com eixo auxiliar levantável, motor MAN D08 de 320 cv e pacote de segurança ativa de série, focado em distribuição regional e urbana de alto volume.",
+  specs: {
+    Motor: "MAN D08 – 6 cilindros em linha",
+    Potência: "320 cv",
+    Torque: "1.200 Nm",
+    Transmissão: "Manual 9 marchas ou automatizada V-Tronic 12 marchas",
+    Aplicação: "Distribuição regional/urbana de alto volume (baú, sider, tanque, carga geral)",
   },
+},
 
-  // 11) IVECO S-WAY 540 6x4
-  {
-    slug: "iveco-s-way-540-6x4",
-    name: "Iveco S-Way 540 6x4",
-    file: "/images/trucks/iveco-s-way-540-6x4.jpg",
-    description:
-      "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
-    specs: {
-      Motor: "FPT Cursor 13 – 12,9 litros, 6 cilindros em linha",
-      Potência: "540 cv",
-      Torque: "cerca de 2.450 Nm",
-      Transmissão: "Automatizada Hi-Tronix, 12 marchas",
-      Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
-    },
+ // 11) IVECO S-WAY 540 6x4
+{
+  slug: "iveco-s-way-540-6x4",
+  name: "Iveco S-Way 540 6x4",
+  file: "/images/trucks/iveco-s-way-540-6x4.jpg",
+  description:
+    "Extrapesado rodoviário da Iveco com foco em aerodinâmica, economia de combustível, conectividade e conforto para longa distância.",
+  specs: {
+    Motor: "FPT Cursor 13 – 12,9 litros, 6 cilindros em linha",
+    Potência: "540 cv",
+    Torque: "cerca de 2.450 Nm",
+    Transmissão: "Automatizada Hi-Tronix, 12 marchas",
+    Aplicação: "Longa distância rodoviária / composições extrapesadas 6x4",
   },
+},
 
-  // 12) IVECO Tector 24-280 6x2 e 8x2
+    // 12) IVECO Tector 24-280 6x2 e 8x2
   {
     slug: "iveco-tector-24280-6x2-8x2",
     name: "IVECO Tector 24-280 6x2 e 8x2",
@@ -274,11 +279,10 @@ export const trucks: Truck[] = [
       Motor: "6 cilindros eletrônico – cerca de 280 cv",
       Potência: "280 cv (linha 24-280)",
       Transmissão: "Opções manual ou automatizada",
-      Aplicação:
-        "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
+      Aplicação: "Distribuição urbana/intermunicipal e usos vocacionais (basculante, coleta, serviços públicos)",
     },
   },
-];
+  ];
 
 // Helper
 export function getTruckBySlug(slug: string) {
