@@ -1,3 +1,4 @@
+// app/api/auth/verify-otp/route.ts
 import { NextResponse } from "next/server";
 import twilio from "twilio";
 import { createClient } from "@supabase/supabase-js";
@@ -57,18 +58,25 @@ export async function POST(req: Request) {
 
     const response = NextResponse.json({ ok: true });
 
+    // ✅ FIX: cookie para www e sem www (produção)
+    const cookieDomain =
+      process.env.NODE_ENV === "production"
+        ? process.env.COOKIE_DOMAIN // ex: ".otiadriver.com.br"
+        : undefined;
+
     const cookieBase = {
       path: "/",
-      maxAge: 60 * 60 * 24 * 30, // Cookie dura 30 dias
+      maxAge: 60 * 60 * 24 * 30, // 30 dias
       httpOnly: true,
       sameSite: "lax" as const,
       secure: process.env.NODE_ENV === "production",
+      ...(cookieDomain ? { domain: cookieDomain } : {}),
     };
 
     response.cookies.set("otia_auth", "1", cookieBase);
     response.cookies.set("otia_cpf", cpfDigits, cookieBase);
 
-    // --- LÓGICA DE VALIDAÇÃO DO PLANO E EXPIRAÇÃO ---
+    // --- LÓGICA DO PLANO (lê do banco) ---
     let planCookieValue = "none";
 
     try {
@@ -80,26 +88,19 @@ export async function POST(req: Request) {
         .single();
 
       if (!error && data?.plano) {
-        const planoNome = data.plano.toLowerCase().trim();
-        
-        // Se houver data de expiração, verificamos se ainda é válida
+        const planoNome = String(data.plano).toLowerCase().trim();
+
         if (data.plan_expires_at) {
           const agora = new Date();
           const expiraEm = new Date(data.plan_expires_at);
 
-          if (agora < expiraEm) {
-            // Plano ainda é válido!
-            planCookieValue = planoNome;
-          } else {
-            // Plano venceu os 30 dias
-            planCookieValue = "expired";
-          }
+          if (agora < expiraEm) planCookieValue = planoNome;
+          else planCookieValue = "expired";
         } else {
-          // Fallback caso não tenha data (usuários antigos ou manuais)
           planCookieValue = planoNome;
         }
       }
-    } catch (e) {
+    } catch {
       planCookieValue = "none";
     }
 

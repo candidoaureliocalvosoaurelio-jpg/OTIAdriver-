@@ -1,3 +1,4 @@
+// app/api/webhook/mercadopago/route.ts
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -63,36 +64,30 @@ export async function POST(req: Request) {
     const supabase = getSupabaseAdmin();
 
     // --- LÓGICA DE SOMA INTELIGENTE (30 DIAS) ---
-    // 1. Busca a expiração atual do usuário
     const { data: profile } = await supabase
       .from("profiles")
       .select("plan_expires_at")
       .eq("cpf", cpfDinamico)
       .single();
 
-    let baseDate = new Date(); // Data base é HOJE
+    let baseDate = new Date();
     const now = new Date();
 
-    // 2. Se o usuário já tiver um plano ativo que NÃO venceu, soma a partir do vencimento futuro
     if (profile?.plan_expires_at) {
       const currentExpiration = new Date(profile.plan_expires_at);
-      if (currentExpiration > now) {
-        baseDate = currentExpiration;
-      }
+      if (currentExpiration > now) baseDate = currentExpiration;
     }
 
-    // 3. Adiciona os 30 dias
     baseDate.setDate(baseDate.getDate() + 30);
     const newPlanExpiresAt = baseDate.toISOString();
 
-    // 4. ATUALIZAÇÃO NO BANCO
     const { error: dbError } = await supabase
       .from("profiles")
       .upsert(
         {
           cpf: cpfDinamico,
           plano: planoDinamico,
-          plan_expires_at: newPlanExpiresAt, 
+          plan_expires_at: newPlanExpiresAt,
           updated_at: now.toISOString(),
         },
         { onConflict: "cpf" }
@@ -105,8 +100,7 @@ export async function POST(req: Request) {
 
     console.log(`MP_WEBHOOK SUCESSO: CPF ${cpfDinamico} renovado até ${newPlanExpiresAt}`);
     return NextResponse.json({ ok: true });
-
-  } catch (e: any) {
+  } catch {
     return NextResponse.json({ ok: true });
   }
 }

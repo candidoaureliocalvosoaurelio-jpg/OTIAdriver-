@@ -1,5 +1,6 @@
 // app/pagamento/concluido/page.tsx
 import Link from "next/link";
+import SyncAfterPayment from "./SyncAfterPayment";
 
 export const metadata = {
   title: "Pagamento aprovado | OTIAdriver",
@@ -19,12 +20,11 @@ export default function PagamentoConcluido({
   };
 }) {
   const lang = searchParams?.lang ?? "pt";
-  const plano = searchParams?.plano; // pode vir vazio
+  const plano = searchParams?.plano;
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
 
-  // ✅ Para onde voltar depois do login
-  // Se vier ?next=..., usa ele; senão, SEMPRE volta para /catalogo (início real)
+  // ✅ Para onde voltar depois
   const next = searchParams?.next || `/catalogo?lang=${lang}`;
 
   return (
@@ -39,8 +39,7 @@ export default function PagamentoConcluido({
           {plano ? (
             <>
               {" "}
-              Vamos liberar seu acesso do plano{" "}
-              <strong>{plano.toUpperCase()}</strong>.
+              Vamos liberar seu acesso do plano <strong>{plano.toUpperCase()}</strong>.
             </>
           ) : (
             <> Vamos liberar seu acesso.</>
@@ -62,8 +61,10 @@ export default function PagamentoConcluido({
           </div>
         )}
 
+        {/* ✅ Sincroniza plano/cookies e redireciona automaticamente se já estiver logado */}
+        <SyncAfterPayment nextUrl={next} lang={lang} />
+
         <div className="mt-6 flex flex-wrap gap-3">
-          {/* ✅ Passa next para voltar ao /catalogo após login */}
           <Link
             href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
@@ -71,18 +72,18 @@ export default function PagamentoConcluido({
             Entrar agora (CPF/telefone)
           </Link>
 
-          <Link
+          <a
             href={next}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
             Ir para o catálogo
-          </Link>
+          </a>
         </div>
 
         <p className="mt-4 text-xs text-slate-500">
-          Após entrar, o sistema reconhece seu CPF e libera o acesso premium
-          automaticamente. Se você cair em “Planos”, aguarde alguns instantes e
-          tente novamente.
+          Após o pagamento, o sistema sincroniza seu plano pelo CPF e libera o acesso.
+          Se cair em “Entrar” ou “Planos”, geralmente é porque o cookie não está sendo
+          reconhecido (www/sem www) ou a sincronização ainda não ocorreu.
         </p>
       </div>
     </main>
