@@ -51,53 +51,52 @@ const VALID_PLANS = ["basico", "pro", "premium", "active"];
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
-  
-  // Recuperação dos cookies de sessão
-  const auth = req.cookies.get("otia_auth")?.value;
-  const planStatus = req.cookies.get("otia_plan")?.value;
 
-  // 🕵️‍♂️ SISTEMA DE DEBUG (Olhe o terminal do VS Code após clicar no site)
-  console.log("--- DEBUG ACESSO OTIAdriver ---");
-  console.log("Caminho:", pathname);
-  console.log("Cookie Auth:", auth || "AUSENTE");
-  console.log("Cookie Plano:", planStatus || "AUSENTE");
-  console.log("-------------------------------");
+  // Cookies de sessão
+  const auth = req.cookies.get("otia_auth")?.value; // "1"
+  const planStatus = req.cookies.get("otia_plan_status")?.value; // "active" | "inactive" | undefined
 
-  // 1) Redirecionamento da Home para o Catálogo se já estiver logado e com plano
+  // helper: preserva lang se existir
+  const lang = searchParams.get("lang");
+
+  // 1) Home: se logado + plano ativo => /catalogo
   if (pathname === "/") {
-    if (auth === "1" && VALID_PLANS.includes(planStatus || "")) {
+    if (auth === "1" && planStatus === "active") {
       const url = req.nextUrl.clone();
       url.pathname = "/catalogo";
+      if (lang) url.searchParams.set("lang", lang);
       return NextResponse.redirect(url);
     }
     return NextResponse.next();
   }
 
-  // 2) Liberar rotas públicas imediatamente
-  if (isPublicPath(pathname)) {
-    return NextResponse.next();
+  // 2) Rotas públicas passam direto
+  if (isPublicPath(pathname)) return NextResponse.next();
+
+  // 3) Se não é protegida, passa
+  if (!isProtectedPath(pathname)) return NextResponse.next();
+
+  // 4) Protegida: exige login
+  if (auth !== "1") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/entrar";
+    if (lang) url.searchParams.set("lang", lang);
+
+    // next = rota completa (pathname + query atual)
+    url.searchParams.set("next", pathname + req.nextUrl.search);
+    url.searchParams.set("reason", "auth");
+    return NextResponse.redirect(url);
   }
 
-  // 3) Verificar proteção de rotas de conteúdo
-  if (isProtectedPath(pathname)) {
-    
-    // A) Bloqueio por falta de Login
-    if (auth !== "1") {
-      const url = req.nextUrl.clone();
-      url.pathname = "/entrar";
-      url.searchParams.set("next", pathname + req.nextUrl.search);
-      url.searchParams.set("reason", "auth");
-      return NextResponse.redirect(url);
-    }
+  // 5) Protegida: exige plano ativo
+  if (planStatus !== "active") {
+    const url = req.nextUrl.clone();
+    url.pathname = "/planos";
+    if (lang) url.searchParams.set("lang", lang);
 
-    // B) Bloqueio por falta de Plano Ativo
-    if (!VALID_PLANS.includes(planStatus || "")) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/planos";
-      url.searchParams.set("next", pathname + req.nextUrl.search);
-      url.searchParams.set("reason", "paywall");
-      return NextResponse.redirect(url);
-    }
+    url.searchParams.set("next", pathname + req.nextUrl.search);
+    url.searchParams.set("reason", "paywall");
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();
