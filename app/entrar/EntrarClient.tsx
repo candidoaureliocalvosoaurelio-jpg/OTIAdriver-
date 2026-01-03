@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-// --- Auxiliares de Formatação ---
+// ================= UTILIDADES =================
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
@@ -17,6 +17,7 @@ function formatCpf(v: string) {
 
 function formatPhoneBR(v: string) {
   const d = onlyDigits(v).slice(0, 13);
+
   if (d.startsWith("55")) {
     const ddd = d.slice(2, 4);
     const rest = d.slice(4);
@@ -24,6 +25,7 @@ function formatPhoneBR(v: string) {
     const p2 = rest.slice(rest.length >= 9 ? 5 : 4);
     return `+55 (${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
   }
+
   const ddd = d.slice(0, 2);
   const rest = d.slice(2);
   const p1 = rest.slice(0, rest.length >= 9 ? 5 : 4);
@@ -32,15 +34,23 @@ function formatPhoneBR(v: string) {
   return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
 }
 
-function toE164FromDigits(digits: string) {
-  const d = onlyDigits(digits);
+/**
+ * ✅ Sempre converte para E.164
+ * Ex: "(62) 98286-8061" -> "+5562982868061"
+ */
+function toE164(phoneRaw: string) {
+  const d = onlyDigits(phoneRaw);
   if (!d) return "";
   return d.startsWith("55") ? `+${d}` : `+55${d}`;
 }
 
-// ✅ Extrai `next` e `lang` e garante que `next` tenha lang
+/**
+ * ✅ Extrai next/lang e garante fallback seguro
+ */
 function getNextFromLocation() {
-  if (typeof window === "undefined") return { next: "/catalogo?lang=pt", lang: "pt" };
+  if (typeof window === "undefined") {
+    return { next: "/catalogo?lang=pt", lang: "pt" };
+  }
 
   const params = new URLSearchParams(window.location.search);
   const lang = params.get("lang") || "pt";
@@ -51,16 +61,14 @@ function getNextFromLocation() {
       ? nextRaw
       : `/catalogo?lang=${lang}`;
 
-  // garante lang em next
-  const hasLang = safeNext.includes("lang=");
-  const next = hasLang
+  const next = safeNext.includes("lang=")
     ? safeNext
     : `${safeNext}${safeNext.includes("?") ? "&" : "?"}lang=${lang}`;
 
   return { next, lang };
 }
 
-// --- Componente Principal ---
+// ================= COMPONENTE =================
 export default function EntrarClient() {
   const [mounted, setMounted] = useState(false);
   const [cpf, setCpf] = useState("");
@@ -73,7 +81,7 @@ export default function EntrarClient() {
 
   const cpfDigits = useMemo(() => onlyDigits(cpf), [cpf]);
   const phoneDigits = useMemo(() => onlyDigits(phone), [phone]);
-  const phoneE164 = useMemo(() => toE164FromDigits(phoneDigits), [phoneDigits]);
+  const phoneE164 = useMemo(() => toE164(phone), [phone]);
 
   useEffect(() => {
     setMounted(true);
@@ -85,7 +93,7 @@ export default function EntrarClient() {
     return () => clearInterval(t);
   }, [cooldown]);
 
-  // --- Função: Solicitar SMS ---
+  // ================= SOLICITAR OTP =================
   async function requestOtp() {
     setMsg(null);
 
@@ -93,6 +101,7 @@ export default function EntrarClient() {
       setMsg("CPF inválido. Digite 11 números.");
       return;
     }
+
     if (phoneDigits.length < 10) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -113,7 +122,7 @@ export default function EntrarClient() {
 
       const data = await r.json().catch(() => ({}));
       if (!r.ok) {
-        setMsg(data?.error || "Não foi possível enviar o código agora.");
+        setMsg(data?.error || "Não foi possível enviar o código.");
         return;
       }
 
@@ -127,7 +136,7 @@ export default function EntrarClient() {
     }
   }
 
-  // --- Função: Validar Código e Entrar ---
+  // ================= VALIDAR OTP =================
   async function verifyOtp() {
     setMsg(null);
 
@@ -138,7 +147,7 @@ export default function EntrarClient() {
 
     setLoading(true);
     try {
-      // 1) valida OTP (isso deve setar otia_auth + otia_cpf via cookies httpOnly)
+      // 1) valida OTP (seta cookies httpOnly)
       const r = await fetch("/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -153,7 +162,7 @@ export default function EntrarClient() {
 
       const data = await r.json().catch(() => ({}));
       if (!r.ok) {
-        setMsg(data?.error || "Código inválido. Tente novamente.");
+        setMsg(data?.error || "Código inválido.");
         return;
       }
 
@@ -161,21 +170,14 @@ export default function EntrarClient() {
 
       const { next } = getNextFromLocation();
 
-      // 2) sincroniza plano (otia_plan=active) antes de seguir
+      // 2) sincroniza plano (define otia_plan)
       await fetch("/api/me/sync", {
         method: "POST",
         credentials: "include",
         cache: "no-store",
       }).catch(() => null);
 
-      // 3) (recomendado) confirma que o server já está lendo os cookies
-      await fetch("/api/me", {
-        method: "GET",
-        credentials: "include",
-        cache: "no-store",
-      }).catch(() => null);
-
-      // 4) redireciona com reload total
+      // 3) reload total (garante cookies em middleware)
       window.location.href = next;
     } catch {
       setMsg("Erro ao validar código.");
@@ -186,19 +188,14 @@ export default function EntrarClient() {
 
   if (!mounted) return <div className="min-h-screen bg-slate-50" />;
 
+  // ================= UI =================
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-4">
         <h1 className="text-xl font-bold text-slate-900">Entrar</h1>
 
         {msg && (
-          <div
-            className={`text-sm p-3 rounded-lg border ${
-              msg.includes("Sucesso") || msg.includes("Liberando")
-                ? "bg-green-50 text-green-700 border-green-200"
-                : "bg-blue-50 text-blue-700 border-blue-100"
-            }`}
-          >
+          <div className="text-sm p-3 rounded-lg border bg-blue-50 text-blue-700 border-blue-100">
             {msg}
           </div>
         )}
@@ -208,7 +205,7 @@ export default function EntrarClient() {
             value={cpf}
             onChange={(e) => setCpf(formatCpf(e.target.value))}
             placeholder="CPF"
-            className="w-full border border-slate-300 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full border border-slate-300 p-2 rounded"
             inputMode="numeric"
             disabled={loading || step === "verify"}
           />
@@ -217,7 +214,7 @@ export default function EntrarClient() {
             value={phone}
             onChange={(e) => setPhone(formatPhoneBR(e.target.value))}
             placeholder="Celular com DDD"
-            className="w-full border border-slate-300 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full border border-slate-300 p-2 rounded"
             inputMode="tel"
             disabled={loading || step === "verify"}
           />
@@ -226,8 +223,8 @@ export default function EntrarClient() {
             <input
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              placeholder="Código SMS de 6 dígitos"
-              className="w-full border border-blue-400 p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none animate-pulse"
+              placeholder="Código SMS"
+              className="w-full border border-blue-400 p-2 rounded"
               inputMode="numeric"
               autoFocus
               disabled={loading}
@@ -235,35 +232,35 @@ export default function EntrarClient() {
           )}
         </div>
 
-        <div className="pt-2">
-          {step === "request" ? (
+        {step === "request" ? (
+          <button
+            onClick={requestOtp}
+            disabled={loading}
+            className="w-full bg-blue-600 text-white p-3 rounded-lg font-bold"
+          >
+            {loading ? "Enviando..." : "Enviar código"}
+          </button>
+        ) : (
+          <>
+            <button
+              onClick={verifyOtp}
+              disabled={loading}
+              className="w-full bg-green-600 text-white p-3 rounded-lg font-bold"
+            >
+              {loading ? "Validando..." : "Confirmar e Entrar"}
+            </button>
+
             <button
               onClick={requestOtp}
-              disabled={loading}
-              className="w-full bg-blue-600 text-white p-3 rounded-lg font-bold hover:bg-blue-700 disabled:opacity-50 transition-all"
+              disabled={loading || cooldown > 0}
+              className="w-full text-slate-500 text-sm"
             >
-              {loading ? "Enviando SMS..." : "Enviar código"}
+              {cooldown > 0
+                ? `Reenviar código em ${cooldown}s`
+                : "Não recebeu? Reenviar código"}
             </button>
-          ) : (
-            <div className="space-y-3">
-              <button
-                onClick={verifyOtp}
-                disabled={loading}
-                className="w-full bg-green-600 text-white p-3 rounded-lg font-bold hover:bg-green-700 disabled:opacity-50 transition-all"
-              >
-                {loading ? "Validando..." : "Confirmar e Entrar"}
-              </button>
-
-              <button
-                onClick={requestOtp}
-                disabled={loading || cooldown > 0}
-                className="w-full text-slate-500 text-sm hover:underline disabled:no-underline"
-              >
-                {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
-              </button>
-            </div>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </main>
   );

@@ -47,16 +47,21 @@ function isProtectedPath(pathname: string) {
 
 /**
  * Planos considerados "ativos" para liberar conteúdo
- * (aceita "active" por compatibilidade se você já usou isso)
  */
 const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
+  // ✅ MODO INAUGURAÇÃO (libera tudo sem login/plano)
+  // Ative com OPEN_BETA=1 na Vercel
+  if (process.env.OPEN_BETA === "1") {
+    return NextResponse.next();
+  }
+
   // Cookies de sessão
   const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const plan = req.cookies.get("otia_plan")?.value; // "basico" | "pro" | "premium" | "expired" | "none" | "active" | undefined
+  const plan = req.cookies.get("otia_plan")?.value; // basico|pro|premium|...
 
   // helper: preserva lang se existir
   const lang = searchParams.get("lang");
@@ -87,7 +92,6 @@ export function middleware(req: NextRequest) {
     url.pathname = "/entrar";
     if (lang) url.searchParams.set("lang", lang);
 
-    // next = rota completa (pathname + query atual)
     url.searchParams.set("next", pathname + req.nextUrl.search);
     url.searchParams.set("reason", "auth");
     return NextResponse.redirect(url);
