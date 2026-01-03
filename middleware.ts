@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Rotas que não exigem login nem plano (Públicas)
+ * Rotas públicas (não exigem login nem plano)
  */
 function isPublicPath(pathname: string) {
   if (pathname === "/") return true;
@@ -28,7 +28,7 @@ function isPublicPath(pathname: string) {
 }
 
 /**
- * Rotas que exigem login e plano ativo (Protegidas)
+ * Rotas protegidas (exigem login; e normalmente exigem plano)
  */
 function isProtectedPath(pathname: string) {
   const protectedPrefixes = [
@@ -46,32 +46,30 @@ function isProtectedPath(pathname: string) {
 }
 
 /**
- * Planos considerados "ativos" para liberar conteúdo
+ * Planos considerados ativos
  */
 const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
-  // ✅ MODO INAUGURAÇÃO (libera tudo sem login/plano)
-  // Ative com OPEN_BETA=1 na Vercel
-  if (process.env.OPEN_BETA === "1") {
-    return NextResponse.next();
-  }
-
-  // Cookies de sessão
+  // Cookies
   const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const plan = req.cookies.get("otia_plan")?.value; // basico|pro|premium|...
+  const plan = req.cookies.get("otia_plan")?.value; // "basico" | "pro" | "premium" | etc
 
-  // helper: preserva lang se existir
   const lang = searchParams.get("lang");
 
   const hasAuth = auth === "1";
   const hasActivePlan = !!plan && ACTIVE_PLANS.has(plan);
 
-  // 1) Home: se logado + plano ativo => /catalogo
+  // ✅ MODO INAUGURAÇÃO (OPEN_BETA=1):
+  // - Continua exigindo LOGIN nas rotas protegidas
+  // - NÃO exige plano ativo nas rotas protegidas (libera após login)
+  const openBeta = process.env.OPEN_BETA === "1";
+
+  // 1) Home: se logado e (plano ativo OU openBeta) => /catalogo
   if (pathname === "/") {
-    if (hasAuth && hasActivePlan) {
+    if (hasAuth && (hasActivePlan || openBeta)) {
       const url = req.nextUrl.clone();
       url.pathname = "/catalogo";
       if (lang) url.searchParams.set("lang", lang);
@@ -80,13 +78,13 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2) Rotas públicas passam direto
+  // 2) Rotas públicas
   if (isPublicPath(pathname)) return NextResponse.next();
 
   // 3) Se não é protegida, passa
   if (!isProtectedPath(pathname)) return NextResponse.next();
 
-  // 4) Protegida: exige login
+  // 4) Protegida: exige login SEMPRE
   if (!hasAuth) {
     const url = req.nextUrl.clone();
     url.pathname = "/entrar";
@@ -97,8 +95,8 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // 5) Protegida: exige plano ativo
-  if (!hasActivePlan) {
+  // 5) Protegida: exige plano, EXCETO se OPEN_BETA=1
+  if (!openBeta && !hasActivePlan) {
     const url = req.nextUrl.clone();
     url.pathname = "/planos";
     if (lang) url.searchParams.set("lang", lang);
