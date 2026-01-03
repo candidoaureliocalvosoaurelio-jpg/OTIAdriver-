@@ -32,8 +32,13 @@ function formatPhoneBR(v: string) {
   return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
 }
 
-function toE164FromDigits(digits: string) {
-  const d = onlyDigits(digits);
+/**
+ * ✅ Converte QUALQUER entrada BR em E.164
+ * Aceita: "62982868061", "(62) 98286-8061", "+55 (62) 98286-8061", etc
+ * Sempre retorna: "+5562982868061"
+ */
+function toE164(phoneRaw: string) {
+  const d = onlyDigits(phoneRaw);
   if (!d) return "";
   return d.startsWith("55") ? `+${d}` : `+55${d}`;
 }
@@ -46,10 +51,14 @@ function getNextFromLocation() {
   const lang = params.get("lang") || "pt";
 
   const nextRaw = params.get("next");
+<<<<<<< HEAD
   const safeNext =
     nextRaw && nextRaw.startsWith("/")
       ? nextRaw
       : `/catalogo?lang=${lang}`;
+=======
+  const next = nextRaw && nextRaw.startsWith("/") ? nextRaw : `/catalogo?lang=${lang}`;
+>>>>>>> 4147455 (fix(otp): phone E.164 + credentials include)
 
   // garante lang em next
   const hasLang = safeNext.includes("lang=");
@@ -73,7 +82,9 @@ export default function EntrarClient() {
 
   const cpfDigits = useMemo(() => onlyDigits(cpf), [cpf]);
   const phoneDigits = useMemo(() => onlyDigits(phone), [phone]);
-  const phoneE164 = useMemo(() => toE164FromDigits(phoneDigits), [phoneDigits]);
+
+  // ✅ O QUE IMPORTA: sempre enviar E.164 vindo do INPUT (não do phoneDigits)
+  const phoneE164 = useMemo(() => toE164(phone), [phone]);
 
   useEffect(() => {
     setMounted(true);
@@ -161,13 +172,18 @@ export default function EntrarClient() {
 
       const { next } = getNextFromLocation();
 
+<<<<<<< HEAD
       // 2) sincroniza plano (otia_plan=active) antes de seguir
+=======
+      // ✅ sincroniza plano antes de seguir
+>>>>>>> 4147455 (fix(otp): phone E.164 + credentials include)
       await fetch("/api/me/sync", {
         method: "POST",
         credentials: "include",
         cache: "no-store",
       }).catch(() => null);
 
+<<<<<<< HEAD
       // 3) (recomendado) confirma que o server já está lendo os cookies
       await fetch("/api/me", {
         method: "GET",
@@ -176,6 +192,9 @@ export default function EntrarClient() {
       }).catch(() => null);
 
       // 4) redireciona com reload total
+=======
+      // ✅ reload total para garantir cookies
+>>>>>>> 4147455 (fix(otp): phone E.164 + credentials include)
       window.location.href = next;
     } catch {
       setMsg("Erro ao validar código.");
