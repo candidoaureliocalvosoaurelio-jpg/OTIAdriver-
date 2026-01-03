@@ -206,13 +206,7 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link
-                  href={planosHref}
-                  className="text-sm font-black bg-white/15 px-4 py-2 rounded-xl hover:bg-white/20 transition"
-                >
-                  Planos
-                </Link>
-
+                
                 <Link
                   href={entrarHref}
                   className="text-sm font-black bg-white text-[#003F9A] px-5 py-2.5 rounded-xl hover:opacity-90 transition"
