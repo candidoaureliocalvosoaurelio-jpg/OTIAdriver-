@@ -10,25 +10,15 @@ function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
-/**
- * Normaliza telefone BR para E.164 (+55DDDNXXXXXXXX ou +55DDDXXXXXXXX)
- * Aceita entradas como:
- *  - "(62) 98286-8061"
- *  - "62982868061"
- *  - "+55 (62) 98286-8061"
- */
-function normalizeToE164(phoneRaw: string): string | null {
-  const d = onlyDigits(phoneRaw);
+/** Normaliza telefone para E.164 (+55XXXXXXXXXXX) */
+function normalizeToE164(phoneRaw: string) {
+  const digits = onlyDigits(phoneRaw);
 
-  // Já veio com 55 + DDD + número (13 dígitos para celular, 12 para fixo)
-  if (d.startsWith("55") && (d.length === 12 || d.length === 13)) {
-    return `+${d}`;
-  }
+  // já com DDI 55 (55 + DDD + número)
+  if (digits.length === 12 || digits.length === 13) return `+${digits}`;
 
-  // Veio como DDD + número (11 celular, 10 fixo)
-  if (d.length === 10 || d.length === 11) {
-    return `+55${d}`;
-  }
+  // BR sem DDI (DDD + número)
+  if (digits.length === 10 || digits.length === 11) return `+55${digits}`;
 
   return null;
 }
@@ -40,6 +30,19 @@ function getSupabaseAdmin() {
   return createClient(url, serviceKey, { auth: { persistSession: false } });
 }
 
+function publicTwilioError(err: any) {
+  const status = err?.status;
+  const code = err?.code;
+
+  // exemplos úteis
+  if (status === 404) return "Twilio Verify Service não encontrado (SID errado).";
+  if (status === 429) return "Muitas tentativas. Aguarde e tente novamente.";
+  if (status === 400) return "Código inválido ou expirado. Solicite um novo código.";
+  if (code) return `Falha na validação (Twilio ${code}). Solicite novo código.`;
+
+  return "Erro ao validar código. Tente novamente.";
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -47,16 +50,13 @@ export async function POST(req: Request) {
 
     const cpfDigits = onlyDigits(cpf || "");
     const phoneE164 = normalizeToE164(phone || "");
-    const codeDigits = onlyDigits(code || "");
+    const otp = onlyDigits(code || "");
 
-    if (cpfDigits.length !== 11) {
-      return NextResponse.json({ ok: false, error: "CPF inválido" }, { status: 400 });
-    }
-    if (!phoneE164) {
-      return NextResponse.json({ ok: false, error: "Telefone inválido (use DDD)" }, { status: 400 });
-    }
-    if (codeDigits.length !== 6) {
-      return NextResponse.json({ ok: false, error: "Código deve ter 6 dígitos" }, { status: 400 });
+    if (cpfDigits.length !== 11 || !phoneE164 || otp.length !== 6) {
+      return NextResponse.json(
+        { ok: false, error: "Dados incompletos (CPF/telefone/código)." },
+        { status: 400 }
+      );
     }
 
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -64,31 +64,37 @@ export async function POST(req: Request) {
     const verifyServiceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
 
     if (!accountSid || !authToken || !verifyServiceSid) {
-      return NextResponse.json({ ok: false, error: "Configuração Twilio ausente" }, { status: 500 });
+      return NextResponse.json(
+        { ok: false, error: "Configuração Twilio ausente (env)." },
+        { status: 500 }
+      );
     }
 
     const client = twilio(accountSid, authToken);
 
-    // Log leve (não expõe dados completos)
-    console.log("VERIFY_OTP: start", {
-      cpfLast2: cpfDigits.slice(-2),
-      phoneTail: phoneE164.slice(-4),
-      serviceTail: verifyServiceSid.slice(-6),
+    // LOG cirúrgico (Vercel Logs)
+    console.log("VERIFY_OTP: input", {
+      cpf_last4: cpfDigits.slice(-4),
+      to: phoneE164,
+      code_len: otp.length,
+      service: verifyServiceSid,
     });
 
-    // Validação do código no Twilio (to + code precisam bater com o request-otp)
+    // Validação do código no Twilio
     const verification = await client.verify.v2
       .services(verifyServiceSid)
-      .verificationChecks.create({
-        to: phoneE164,
-        code: codeDigits,
-      });
+      .verificationChecks.create({ to: phoneE164, code: otp });
 
-    console.log("VERIFY_OTP: twilio status", { status: verification.status });
+    console.log("VERIFY_OTP: twilio response", {
+      status: verification?.status,
+      valid: verification?.valid,
+      sid: verification?.sid,
+      to: verification?.to,
+    });
 
     if (verification.status !== "approved") {
       return NextResponse.json(
-        { ok: false, error: "Código incorreto ou expirado" },
+        { ok: false, error: "Código incorreto ou expirado. Solicite um novo código." },
         { status: 400 }
       );
     }
@@ -111,9 +117,8 @@ export async function POST(req: Request) {
     response.cookies.set("otia_auth", "1", cookieBase);
     response.cookies.set("otia_cpf", cpfDigits, cookieBase);
 
-    // --- PLANO (lê do banco) ---
+    // Lê plano do banco
     let planCookieValue = "none";
-
     try {
       const supabase = getSupabaseAdmin();
       const { data, error } = await supabase
@@ -124,7 +129,6 @@ export async function POST(req: Request) {
 
       if (!error && data?.plano) {
         const planoNome = String(data.plano).toLowerCase().trim();
-
         if (data.plan_expires_at) {
           const agora = new Date();
           const expiraEm = new Date(data.plan_expires_at);
@@ -133,32 +137,20 @@ export async function POST(req: Request) {
           planCookieValue = planoNome;
         }
       }
-    } catch {
-      planCookieValue = "none";
-    }
+    } catch {}
 
     response.cookies.set("otia_plan", planCookieValue, cookieBase);
 
-    console.log("VERIFY_OTP: ok", { planCookieValue });
     return response;
-
   } catch (err: any) {
-    // Se for erro do Twilio, ele costuma vir com "code" e "message"
     console.error("VERIFY_OTP: error", {
-      code: err?.code,
       message: err?.message,
-      moreInfo: err?.moreInfo,
       status: err?.status,
+      code: err?.code,
+      moreInfo: err?.moreInfo,
+      details: err?.details,
     });
 
-    // Ajuda a diagnosticar rápido no frontend (sem expor segredos)
-    return NextResponse.json(
-      {
-        ok: false,
-        error: "Erro ao validar código",
-        twilio_code: err?.code ?? null,
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ ok: false, error: publicTwilioError(err) }, { status: 500 });
   }
 }
