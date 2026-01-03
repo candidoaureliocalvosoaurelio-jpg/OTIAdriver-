@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 
 // --- Auxiliares de Formatação ---
 function onlyDigits(v: string) {
@@ -39,27 +38,30 @@ function toE164FromDigits(digits: string) {
   return d.startsWith("55") ? `+${d}` : `+55${d}`;
 }
 
-// ✅ Extrai `next` e `lang` da URL do browser
+// ✅ Extrai `next` e `lang` e garante que `next` tenha lang
 function getNextFromLocation() {
   if (typeof window === "undefined") return { next: "/catalogo?lang=pt", lang: "pt" };
 
   const params = new URLSearchParams(window.location.search);
   const lang = params.get("lang") || "pt";
 
-  // ✅ se vier `next`, usa. Se não, vai SEMPRE para /catalogo (inicio real)
   const nextRaw = params.get("next");
-  const next =
+  const safeNext =
     nextRaw && nextRaw.startsWith("/")
       ? nextRaw
       : `/catalogo?lang=${lang}`;
+
+  // garante lang em next
+  const hasLang = safeNext.includes("lang=");
+  const next = hasLang
+    ? safeNext
+    : `${safeNext}${safeNext.includes("?") ? "&" : "?"}lang=${lang}`;
 
   return { next, lang };
 }
 
 // --- Componente Principal ---
 export default function EntrarClient() {
-  const router = useRouter();
-
   const [mounted, setMounted] = useState(false);
   const [cpf, setCpf] = useState("");
   const [phone, setPhone] = useState("");
@@ -101,6 +103,8 @@ export default function EntrarClient() {
       const r = await fetch("/api/auth/request-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        cache: "no-store",
         body: JSON.stringify({
           cpf: cpfDigits,
           phone: phoneE164,
@@ -116,7 +120,7 @@ export default function EntrarClient() {
       setStep("verify");
       setCooldown(30);
       setMsg("Código enviado por SMS!");
-    } catch (err) {
+    } catch {
       setMsg("Erro de conexão com o servidor.");
     } finally {
       setLoading(false);
@@ -134,9 +138,12 @@ export default function EntrarClient() {
 
     setLoading(true);
     try {
+      // 1) valida OTP (isso deve setar otia_auth + otia_cpf via cookies httpOnly)
       const r = await fetch("/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        cache: "no-store",
         body: JSON.stringify({
           cpf: cpfDigits,
           phone: phoneE164,
@@ -145,25 +152,34 @@ export default function EntrarClient() {
       });
 
       const data = await r.json().catch(() => ({}));
-
       if (!r.ok) {
         setMsg(data?.error || "Código inválido. Tente novamente.");
-        setLoading(false);
         return;
       }
 
       setMsg("Sucesso! Liberando acesso...");
 
-      // ✅ 1) Respeita `next` da URL (default = /catalogo)
       const { next } = getNextFromLocation();
 
-      // ✅ 2) Sincroniza plano antes de seguir (cookie otia_plan = active/inactive)
-      await fetch("/api/me/sync", { method: "POST", cache: "no-store" }).catch(() => null);
+      // 2) sincroniza plano (otia_plan=active) antes de seguir
+      await fetch("/api/me/sync", {
+        method: "POST",
+        credentials: "include",
+        cache: "no-store",
+      }).catch(() => null);
 
-      // ✅ 3) Redireciona (reload total para garantir cookies)
+      // 3) (recomendado) confirma que o server já está lendo os cookies
+      await fetch("/api/me", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store",
+      }).catch(() => null);
+
+      // 4) redireciona com reload total
       window.location.href = next;
-    } catch (e) {
+    } catch {
       setMsg("Erro ao validar código.");
+    } finally {
       setLoading(false);
     }
   }

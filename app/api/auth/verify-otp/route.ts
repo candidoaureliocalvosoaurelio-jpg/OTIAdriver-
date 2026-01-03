@@ -104,9 +104,11 @@ export async function POST(req: Request) {
       planCookieValue = "none";
     }
 
+    // Grava o cookie final que o Middleware vai ler
     response.cookies.set("otia_plan", planCookieValue, cookieBase);
 
     return response;
+
   } catch (err: any) {
     console.error("Erro na verificação:", err);
     return NextResponse.json({ ok: false, error: "Erro ao validar código" }, { status: 500 });
