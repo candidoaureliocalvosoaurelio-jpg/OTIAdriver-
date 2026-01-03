@@ -10,12 +10,27 @@ function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
-/** Normaliza telefone para E.164 (+55XXXXXXXXXXX) */
-function normalizeToE164(phoneRaw: string) {
-  const digits = onlyDigits(phoneRaw);
-  if (digits.length === 12 || digits.length === 13) return `+${digits}`;
-  if (digits.length === 10 || digits.length === 11) return `+55${digits}`;
-  return digits.length > 8 ? `+${digits}` : null;
+/**
+ * Normaliza telefone BR para E.164 (+55DDDNXXXXXXXX ou +55DDDXXXXXXXX)
+ * Aceita entradas como:
+ *  - "(62) 98286-8061"
+ *  - "62982868061"
+ *  - "+55 (62) 98286-8061"
+ */
+function normalizeToE164(phoneRaw: string): string | null {
+  const d = onlyDigits(phoneRaw);
+
+  // Já veio com 55 + DDD + número (13 dígitos para celular, 12 para fixo)
+  if (d.startsWith("55") && (d.length === 12 || d.length === 13)) {
+    return `+${d}`;
+  }
+
+  // Veio como DDD + número (11 celular, 10 fixo)
+  if (d.length === 10 || d.length === 11) {
+    return `+55${d}`;
+  }
+
+  return null;
 }
 
 function getSupabaseAdmin() {
@@ -32,9 +47,16 @@ export async function POST(req: Request) {
 
     const cpfDigits = onlyDigits(cpf || "");
     const phoneE164 = normalizeToE164(phone || "");
+    const codeDigits = onlyDigits(code || "");
 
-    if (!code || cpfDigits.length !== 11 || !phoneE164) {
-      return NextResponse.json({ ok: false, error: "Dados incompletos" }, { status: 400 });
+    if (cpfDigits.length !== 11) {
+      return NextResponse.json({ ok: false, error: "CPF inválido" }, { status: 400 });
+    }
+    if (!phoneE164) {
+      return NextResponse.json({ ok: false, error: "Telefone inválido (use DDD)" }, { status: 400 });
+    }
+    if (codeDigits.length !== 6) {
+      return NextResponse.json({ ok: false, error: "Código deve ter 6 dígitos" }, { status: 400 });
     }
 
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -47,26 +69,39 @@ export async function POST(req: Request) {
 
     const client = twilio(accountSid, authToken);
 
-    // Validação do código no Twilio
+    // Log leve (não expõe dados completos)
+    console.log("VERIFY_OTP: start", {
+      cpfLast2: cpfDigits.slice(-2),
+      phoneTail: phoneE164.slice(-4),
+      serviceTail: verifyServiceSid.slice(-6),
+    });
+
+    // Validação do código no Twilio (to + code precisam bater com o request-otp)
     const verification = await client.verify.v2
       .services(verifyServiceSid)
-      .verificationChecks.create({ to: phoneE164, code });
+      .verificationChecks.create({
+        to: phoneE164,
+        code: codeDigits,
+      });
+
+    console.log("VERIFY_OTP: twilio status", { status: verification.status });
 
     if (verification.status !== "approved") {
-      return NextResponse.json({ ok: false, error: "Código incorreto ou expirado" }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "Código incorreto ou expirado" },
+        { status: 400 }
+      );
     }
 
     const response = NextResponse.json({ ok: true });
 
-    // ✅ FIX: cookie para www e sem www (produção)
+    // Cookie domain (www e sem www)
     const cookieDomain =
-      process.env.NODE_ENV === "production"
-        ? process.env.COOKIE_DOMAIN // ex: ".otiadriver.com.br"
-        : undefined;
+      process.env.NODE_ENV === "production" ? process.env.COOKIE_DOMAIN : undefined;
 
     const cookieBase = {
       path: "/",
-      maxAge: 60 * 60 * 24 * 30, // 30 dias
+      maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
       sameSite: "lax" as const,
       secure: process.env.NODE_ENV === "production",
@@ -76,7 +111,7 @@ export async function POST(req: Request) {
     response.cookies.set("otia_auth", "1", cookieBase);
     response.cookies.set("otia_cpf", cpfDigits, cookieBase);
 
-    // --- LÓGICA DO PLANO (lê do banco) ---
+    // --- PLANO (lê do banco) ---
     let planCookieValue = "none";
 
     try {
@@ -93,9 +128,7 @@ export async function POST(req: Request) {
         if (data.plan_expires_at) {
           const agora = new Date();
           const expiraEm = new Date(data.plan_expires_at);
-
-          if (agora < expiraEm) planCookieValue = planoNome;
-          else planCookieValue = "expired";
+          planCookieValue = agora < expiraEm ? planoNome : "expired";
         } else {
           planCookieValue = planoNome;
         }
@@ -104,13 +137,28 @@ export async function POST(req: Request) {
       planCookieValue = "none";
     }
 
-    // Grava o cookie final que o Middleware vai ler
     response.cookies.set("otia_plan", planCookieValue, cookieBase);
 
+    console.log("VERIFY_OTP: ok", { planCookieValue });
     return response;
 
   } catch (err: any) {
-    console.error("Erro na verificação:", err);
-    return NextResponse.json({ ok: false, error: "Erro ao validar código" }, { status: 500 });
+    // Se for erro do Twilio, ele costuma vir com "code" e "message"
+    console.error("VERIFY_OTP: error", {
+      code: err?.code,
+      message: err?.message,
+      moreInfo: err?.moreInfo,
+      status: err?.status,
+    });
+
+    // Ajuda a diagnosticar rápido no frontend (sem expor segredos)
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Erro ao validar código",
+        twilio_code: err?.code ?? null,
+      },
+      { status: 500 }
+    );
   }
 }
