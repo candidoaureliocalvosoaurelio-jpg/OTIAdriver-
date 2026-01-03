@@ -1,3 +1,4 @@
+// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -45,23 +46,27 @@ function isProtectedPath(pathname: string) {
 }
 
 /**
- * LISTA OFICIAL DE PLANOS OTIAdriver
+ * Planos considerados "ativos" para liberar conteúdo
+ * (aceita "active" por compatibilidade se você já usou isso)
  */
-const VALID_PLANS = ["basico", "pro", "premium", "active"];
+const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
 
   // Cookies de sessão
   const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const planStatus = req.cookies.get("otia_plan_status")?.value; // "active" | "inactive" | undefined
+  const plan = req.cookies.get("otia_plan")?.value; // "basico" | "pro" | "premium" | "expired" | "none" | "active" | undefined
 
   // helper: preserva lang se existir
   const lang = searchParams.get("lang");
 
+  const hasAuth = auth === "1";
+  const hasActivePlan = !!plan && ACTIVE_PLANS.has(plan);
+
   // 1) Home: se logado + plano ativo => /catalogo
   if (pathname === "/") {
-    if (auth === "1" && planStatus === "active") {
+    if (hasAuth && hasActivePlan) {
       const url = req.nextUrl.clone();
       url.pathname = "/catalogo";
       if (lang) url.searchParams.set("lang", lang);
@@ -77,7 +82,7 @@ export function middleware(req: NextRequest) {
   if (!isProtectedPath(pathname)) return NextResponse.next();
 
   // 4) Protegida: exige login
-  if (auth !== "1") {
+  if (!hasAuth) {
     const url = req.nextUrl.clone();
     url.pathname = "/entrar";
     if (lang) url.searchParams.set("lang", lang);
@@ -89,7 +94,7 @@ export function middleware(req: NextRequest) {
   }
 
   // 5) Protegida: exige plano ativo
-  if (planStatus !== "active") {
+  if (!hasActivePlan) {
     const url = req.nextUrl.clone();
     url.pathname = "/planos";
     if (lang) url.searchParams.set("lang", lang);
