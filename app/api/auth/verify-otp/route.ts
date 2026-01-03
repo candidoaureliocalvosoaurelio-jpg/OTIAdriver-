@@ -34,27 +34,39 @@ function cookieBase() {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json().catch(() => ({}));
+    const body = await req.json().catch(() => ({} as any));
     const { code, cpf, phone } = body;
 
     const cpfDigits = onlyDigits(cpf || "");
     const phoneE164 = normalizeToE164(phone || "");
     const otp = onlyDigits(code || "");
 
+    // Validação antes de chamar serviços externos
     if (cpfDigits.length !== 11 || phoneE164 === "" || otp.length !== 6) {
-      return NextResponse.json({ ok: false, error: "Dados inválidos." }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "Dados inválidos." },
+        { status: 400 }
+      );
     }
 
-    const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    // ---- TWILIO VERIFY ----
+    const client = twilio(
+      process.env.TWILIO_ACCOUNT_SID,
+      process.env.TWILIO_AUTH_TOKEN
+    );
 
     const verification = await client.verify.v2
       .services(process.env.TWILIO_VERIFY_SERVICE_SID!)
       .verificationChecks.create({ to: phoneE164, code: otp });
 
     if (verification.status !== "approved") {
-      return NextResponse.json({ ok: false, error: "Código incorreto." }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "Código incorreto." },
+        { status: 400 }
+      );
     }
 
+    // Resposta OK (já prepara cookies)
     const res = NextResponse.json({ ok: true });
 
     // ✅ cookies de sessão
@@ -62,20 +74,47 @@ export async function POST(req: Request) {
     res.cookies.set("otia_auth", "1", base);
     res.cookies.set("otia_cpf", cpfDigits, base);
 
-    // ✅ busca plano no banco
+    // ---- SUPABASE: busca plano ----
     const supabase = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
       { auth: { persistSession: false } }
     );
 
-    const { data } = await supabase.from("profiles").select("plano").eq("cpf", cpfDigits).maybeSingle();
+    // maybeSingle evita exceção quando não achar registro
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("plano")
+      .eq("cpf", cpfDigits)
+      .maybeSingle();
+
+    // Se der erro no supabase, não derruba login — só registra
+    if (error) {
+      console.error("SUPABASE_PROFILE_LOOKUP_ERROR", {
+        message: error.message,
+        details: (error as any).details,
+        hint: (error as any).hint,
+        code: (error as any).code,
+      });
+    }
 
     res.cookies.set("otia_plan", data?.plano || "none", base);
 
     return res;
-  } catch (err) {
-    console.error("VERIFY_OTP_ERROR:", err);
-    return NextResponse.json({ ok: false, error: "Erro no servidor." }, { status: 500 });
+  } catch (err: any) {
+    console.error("VERIFY_OTP_ERROR", {
+      message: err?.message,
+      stack: err?.stack,
+      hasTwilioSid: !!process.env.TWILIO_ACCOUNT_SID,
+      hasTwilioToken: !!process.env.TWILIO_AUTH_TOKEN,
+      hasTwilioService: !!process.env.TWILIO_VERIFY_SERVICE_SID,
+      hasSupabaseUrl: !!process.env.SUPABASE_URL,
+      hasSupabaseServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+    });
+
+    return NextResponse.json(
+      { ok: false, error: "Erro no servidor." },
+      { status: 500 }
+    );
   }
 }
