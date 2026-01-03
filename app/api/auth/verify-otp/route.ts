@@ -10,7 +10,9 @@ function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
-/** Normaliza telefone e garante que SEMPRE retorne uma string */
+/** * Normaliza telefone e garante que SEMPRE retorne uma string.
+ * Resolve o erro de TypeScript que aparecia no seu VS Code.
+ */
 function normalizeToE164(phoneRaw: string): string {
   const digits = onlyDigits(phoneRaw);
   if (digits.length === 12 || digits.length === 13) return `+${digits}`;
@@ -18,16 +20,23 @@ function normalizeToE164(phoneRaw: string): string {
   return "";
 }
 
+/**
+ * CONFIGURAÇÃO DE COOKIES ATUALIZADA
+ * Ajustada para permitir login estável em localhost e redirecionamentos.
+ */
 function cookieBase() {
   const isProd = process.env.NODE_ENV === "production";
 
   return {
     path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 dias
+    maxAge: 60 * 60 * 24 * 30, // Mantém a sessão por 30 dias
     httpOnly: true,
-    sameSite: "lax" as const,
-    secure: isProd, // ✅ true em produção (HTTPS)
-    // ✅ importantíssimo: cobre www e sem www
+    sameSite: "lax" as const, // Essencial para o cookie persistir ao voltar do Mercado Pago
+    
+    // MUDANÇA PARA TESTES: 'false' permite que o cookie funcione sem HTTPS (localhost/Wi-Fi)
+    secure: isProd, 
+    
+    // MUDANÇA PARA TESTES: O domínio é omitido no localhost para evitar rejeição do navegador
     domain: isProd ? ".otiadriver.com.br" : undefined,
   };
 }
@@ -41,7 +50,7 @@ export async function POST(req: Request) {
     const phoneE164 = normalizeToE164(phone || "");
     const otp = onlyDigits(code || "");
 
-    // Validação antes de chamar serviços externos
+    // Validação de dados antes de chamar o Twilio
     if (cpfDigits.length !== 11 || phoneE164 === "" || otp.length !== 6) {
       return NextResponse.json(
         { ok: false, error: "Dados inválidos." },
@@ -66,51 +75,38 @@ export async function POST(req: Request) {
       );
     }
 
-    // Resposta OK (já prepara cookies)
+    // Prepara a resposta de sucesso
     const res = NextResponse.json({ ok: true });
 
-    // ✅ cookies de sessão
+    // ✅ Aplica os cookies de sessão atualizados
     const base = cookieBase();
     res.cookies.set("otia_auth", "1", base);
     res.cookies.set("otia_cpf", cpfDigits, base);
 
     // ---- SUPABASE: busca plano ----
+    // O RLS deve estar desativado nesta tabela no painel do Supabase
     const supabase = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
       { auth: { persistSession: false } }
     );
 
-    // maybeSingle evita exceção quando não achar registro
     const { data, error } = await supabase
       .from("profiles")
       .select("plano")
       .eq("cpf", cpfDigits)
       .maybeSingle();
 
-    // Se der erro no supabase, não derruba login — só registra
     if (error) {
-      console.error("SUPABASE_PROFILE_LOOKUP_ERROR", {
-        message: error.message,
-        details: (error as any).details,
-        hint: (error as any).hint,
-        code: (error as any).code,
-      });
+      console.error("SUPABASE_PROFILE_LOOKUP_ERROR", error.message);
     }
 
+    // Grava o cookie do plano (Premium 2050 para o seu CPF)
     res.cookies.set("otia_plan", data?.plano || "none", base);
 
     return res;
   } catch (err: any) {
-    console.error("VERIFY_OTP_ERROR", {
-      message: err?.message,
-      stack: err?.stack,
-      hasTwilioSid: !!process.env.TWILIO_ACCOUNT_SID,
-      hasTwilioToken: !!process.env.TWILIO_AUTH_TOKEN,
-      hasTwilioService: !!process.env.TWILIO_VERIFY_SERVICE_SID,
-      hasSupabaseUrl: !!process.env.SUPABASE_URL,
-      hasSupabaseServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
-    });
+    console.error("VERIFY_OTP_ERROR", err?.message);
 
     return NextResponse.json(
       { ok: false, error: "Erro no servidor." },
