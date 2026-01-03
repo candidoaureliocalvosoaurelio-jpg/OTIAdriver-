@@ -1,7 +1,9 @@
+// app/api/pagamentos/criar-preferencia/route.ts
 import { NextResponse } from "next/server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 // Remove tudo que não for número
 function onlyDigits(v: string) {
@@ -15,19 +17,39 @@ const PLAN_PRICES: Record<"basico" | "pro" | "premium", number> = {
   premium: 99.9,
 };
 
+function getCookie(req: Request, name: string) {
+  const cookie = req.headers.get("cookie") || "";
+  const m = cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return m ? decodeURIComponent(m[1]) : "";
+}
+
+function isLocalhost(url: string) {
+  return /localhost|127\.0\.0\.1/i.test(url);
+}
+
+function normalizeBaseUrl(url: string) {
+  // remove barra final para evitar //pagamento/...
+  return (url || "").trim().replace(/\/+$/, "");
+}
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json().catch(() => ({}));
+    const body = (await req.json().catch(() => ({}))) as any;
 
-    const cpf = onlyDigits(body?.cpf);
-    const plano = String(body?.plano || "").toLowerCase() as
-      | "basico"
-      | "pro"
-      | "premium";
+    // 1) CPF: primeiro cookie (se existir), depois body (fallback)
+    let cpf = onlyDigits(getCookie(req, "otia_cpf"));
+    if (!cpf || cpf.length !== 11) {
+      cpf = onlyDigits(body?.cpf);
+    }
+
+    const plano = String(body?.plano || "").toLowerCase() as "basico" | "pro" | "premium";
 
     // Validações
     if (!cpf || cpf.length !== 11) {
-      return NextResponse.json({ error: "CPF inválido" }, { status: 400 });
+      return NextResponse.json(
+        { error: "CPF ausente ou inválido no checkout." },
+        { status: 400 }
+      );
     }
 
     if (!PLAN_PRICES[plano]) {
@@ -35,18 +57,22 @@ export async function POST(req: Request) {
     }
 
     const accessToken = process.env.MP_ACCESS_TOKEN;
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-
-    if (!accessToken || !baseUrl) {
-      return NextResponse.json(
-        { error: "MP_ACCESS_TOKEN ou NEXT_PUBLIC_SITE_URL ausentes" },
-        { status: 500 }
-      );
+    if (!accessToken) {
+      return NextResponse.json({ error: "MP_ACCESS_TOKEN ausente" }, { status: 500 });
     }
 
-    // Mercado Pago client
+    // 2) Base URL: env > origin > fallback
+    const envBaseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const origin = req.headers.get("origin") || "";
+    const baseUrl = normalizeBaseUrl(envBaseUrl || origin || "https://www.otiadriver.com.br");
+    const local = isLocalhost(baseUrl);
+
+    // 3) Mercado Pago client
     const mp = new MercadoPagoConfig({ accessToken });
     const preference = new Preference(mp);
+
+    // Localhost não recebe webhook do Mercado Pago
+    const notification_url = local ? undefined : `${baseUrl}/api/webhook/mercadopago`;
 
     const pref = await preference.create({
       body: {
@@ -71,7 +97,7 @@ export async function POST(req: Request) {
           failure: `${baseUrl}/pagamento/erro`,
         },
         auto_return: "approved",
-        notification_url: `${baseUrl}/api/webhook/mercadopago`,
+        ...(notification_url ? { notification_url } : {}),
       },
     });
 
@@ -81,6 +107,11 @@ export async function POST(req: Request) {
       sandbox_init_point: pref.sandbox_init_point,
     });
   } catch (e: any) {
+    console.error("MP_PREF_ERROR:", {
+      message: e?.message,
+      stack: e?.stack,
+    });
+
     return NextResponse.json(
       { error: e?.message || "Erro ao criar preferência" },
       { status: 500 }
