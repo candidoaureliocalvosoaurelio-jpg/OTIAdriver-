@@ -4,14 +4,17 @@ import Link from "next/link";
 import { useState } from "react";
 import s from "../Checkout.module.css";
 
-type SessionResp = {
-  authenticated: boolean;
-  cpf: string;
-  plan: string;
-};
-
+/** util */
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
+}
+
+function getCookie(name: string) {
+  if (typeof document === "undefined") return "";
+  return document.cookie
+    .split("; ")
+    .find((c) => c.startsWith(name + "="))
+    ?.split("=")[1] || "";
 }
 
 export default function CheckoutPro() {
@@ -21,25 +24,16 @@ export default function CheckoutPro() {
     try {
       setLoading(true);
 
-      // 1) Pega CPF da sessão (sem disparar alert quando a API responder 401/403)
-      const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
+      // ✅ 1) Lê CPF DIRETO do cookie (sem session / sem auth)
+      const cpf = onlyDigits(getCookie("otia_cpf"));
 
-      if (!sessRes.ok) {
-        // sessão bloqueada / não autenticado
+      // Se não tiver CPF válido, volta para o fluxo de entrada
+      if (cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/pro&reason=auth`;
         return;
       }
 
-      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
-      const cpf = onlyDigits(sess?.cpf || "");
-
-      // Se não está logado, manda para /entrar
-      if (!sess?.authenticated || cpf.length !== 11) {
-        window.location.href = `/entrar?next=/checkout/pro&reason=auth`;
-        return;
-      }
-
-      // 2) Cria preferência com CPF + plano
+      // ✅ 2) Cria preferência no backend (rota pública)
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,15 +41,21 @@ export default function CheckoutPro() {
       });
 
       const data = await res.json().catch(() => ({} as any));
-      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
+      if (!res.ok) {
+        throw new Error("Não foi possível iniciar o pagamento agora.");
+      }
 
-      // 3) Produção → init_point | Sandbox → sandbox_init_point
+      // Produção → init_point | Sandbox → sandbox_init_point
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
-      if (!redirectUrl) throw new Error("Resposta inválida: init_point não encontrado.");
+      if (!redirectUrl) {
+        throw new Error("Resposta inválida do gateway de pagamento.");
+      }
 
+      // ✅ 3) Redireciona para o Mercado Pago
       window.location.href = redirectUrl;
-    } catch (e: any) {
-      alert(e?.message ?? "Erro ao iniciar pagamento.");
+    } catch (err) {
+      console.error("CheckoutPro error:", err);
+      alert("Não foi possível iniciar o pagamento. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -91,21 +91,11 @@ export default function CheckoutPro() {
           <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
 
           <ul className={s.list}>
-            <li>
-              <span className={s.check}>✓</span> Fichas Técnicas COMPLETAS
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Suporte Técnico com IA
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Análise de Imagem
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Checklists de Viagem
-            </li>
-            <li>
-              <span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente
-            </li>
+            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
+            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
+            <li><span className={s.check}>✓</span> Análise de Imagem</li>
+            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
+            <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
           </ul>
 
           <div className={s.terms}>
@@ -115,14 +105,9 @@ export default function CheckoutPro() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">
-              Termos de Uso
-            </Link>{" "}
+            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">
-              Política de Privacidade
-            </Link>
-            .
+            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
           </div>
         </section>
 
