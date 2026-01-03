@@ -34,7 +34,6 @@ function publicTwilioError(err: any) {
   const status = err?.status;
   const code = err?.code;
 
-  // exemplos úteis
   if (status === 404) return "Twilio Verify Service não encontrado (SID errado).";
   if (status === 429) return "Muitas tentativas. Aguarde e tente novamente.";
   if (status === 400) return "Código inválido ou expirado. Solicite um novo código.";
@@ -72,25 +71,12 @@ export async function POST(req: Request) {
 
     const client = twilio(accountSid, authToken);
 
-    // LOG cirúrgico (Vercel Logs)
-    console.log("VERIFY_OTP: input", {
-      cpf_last4: cpfDigits.slice(-4),
-      to: phoneE164,
-      code_len: otp.length,
-      service: verifyServiceSid,
-    });
+    // LOG de depuração
+    console.log("VERIFY_OTP: tentando validar", { to: phoneE164, service: verifyServiceSid });
 
-    // Validação do código no Twilio
     const verification = await client.verify.v2
       .services(verifyServiceSid)
       .verificationChecks.create({ to: phoneE164, code: otp });
-
-    console.log("VERIFY_OTP: twilio response", {
-      status: verification?.status,
-      valid: verification?.valid,
-      sid: verification?.sid,
-      to: verification?.to,
-    });
 
     if (verification.status !== "approved") {
       return NextResponse.json(
@@ -101,23 +87,22 @@ export async function POST(req: Request) {
 
     const response = NextResponse.json({ ok: true });
 
-    // Cookie domain (www e sem www)
-    const cookieDomain =
-      process.env.NODE_ENV === "production" ? process.env.COOKIE_DOMAIN : undefined;
-
+    // --- BLOCO DE COOKIES ATUALIZADO PARA COMPATIBILIDADE COM SMARTPHONE ---
     const cookieBase = {
       path: "/",
-      maxAge: 60 * 60 * 24 * 30,
+      maxAge: 60 * 60 * 24 * 30, // 30 dias
       httpOnly: true,
       sameSite: "lax" as const,
+      // Deixamos 'false' se não estiver em produção para facilitar testes no Wi-Fi
       secure: process.env.NODE_ENV === "production",
-      ...(cookieDomain ? { domain: cookieDomain } : {}),
+      // Comentamos o domain para aceitar acessos via IP ou domínios variados no celular
+      // domain: process.env.COOKIE_DOMAIN, 
     };
 
     response.cookies.set("otia_auth", "1", cookieBase);
     response.cookies.set("otia_cpf", cpfDigits, cookieBase);
 
-    // Lê plano do banco
+    // Busca o plano no Supabase
     let planCookieValue = "none";
     try {
       const supabase = getSupabaseAdmin();
@@ -137,20 +122,15 @@ export async function POST(req: Request) {
           planCookieValue = planoNome;
         }
       }
-    } catch {}
+    } catch (e) {
+      console.error("Erro ao buscar plano:", e);
+    }
 
     response.cookies.set("otia_plan", planCookieValue, cookieBase);
 
     return response;
   } catch (err: any) {
-    console.error("VERIFY_OTP: error", {
-      message: err?.message,
-      status: err?.status,
-      code: err?.code,
-      moreInfo: err?.moreInfo,
-      details: err?.details,
-    });
-
+    console.error("VERIFY_OTP: erro crítico", err);
     return NextResponse.json({ ok: false, error: publicTwilioError(err) }, { status: 500 });
   }
 }
