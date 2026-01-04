@@ -38,9 +38,6 @@ function isPublicPath(pathname: string) {
   return publicPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
-/**
- * Rotas protegidas (exigem login; e normalmente exigem plano)
- */
 function isProtectedPath(pathname: string) {
   const protectedPrefixes = [
     "/treinamentos",
@@ -56,33 +53,40 @@ function isProtectedPath(pathname: string) {
   return protectedPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
-/**
- * Planos considerados ativos
- */
-const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
-
 export function middleware(req: NextRequest) {
+  const { pathname, searchParams } = req.nextUrl;
+
   // ✅ 0) Em produção, forçar www (estabiliza cookies e fluxo no celular)
-  const host = req.headers.get("host") || "";
-  if (process.env.NODE_ENV === "production" && host === "otiadriver.com.br") {
+  // Mas NÃO redirecionar webhooks/APIs (evita quebrar chamadas server-to-server).
+  const host = (req.headers.get("host") || "").toLowerCase();
+  const hostNoPort = host.split(":")[0];
+
+  const isApi = pathname.startsWith("/api/");
+  const isWebhook = pathname.startsWith("/api/webhook/");
+
+  if (
+    process.env.NODE_ENV === "production" &&
+    hostNoPort === "otiadriver.com.br" &&
+    !isApi &&
+    !isWebhook
+  ) {
     const url = req.nextUrl.clone();
     url.host = "www.otiadriver.com.br";
     url.protocol = "https:";
     return NextResponse.redirect(url, 308);
   }
 
-  const { pathname, searchParams } = req.nextUrl;
-
   // Cookies
   const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const plan = req.cookies.get("otia_plan")?.value; // "basico" | "pro" | "premium" | etc
+  const planStatus = req.cookies.get("otia_plan_status")?.value; // "active" | "inactive"
+  const plan = req.cookies.get("otia_plan")?.value; // fallback (basico|pro|premium|none)
 
   const lang = searchParams.get("lang");
 
   const hasAuth = auth === "1";
-  const hasActivePlan = !!plan && ACTIVE_PLANS.has(plan);
+  const hasActivePlan =
+    planStatus === "active" || ["basico", "pro", "premium", "active"].includes(String(plan || "").toLowerCase());
 
-  // Modo inauguração (se estiver usando)
   const openBeta = process.env.OPEN_BETA === "1";
 
   // 1) Home: se logado e (plano ativo OU openBeta) => /catalogo
