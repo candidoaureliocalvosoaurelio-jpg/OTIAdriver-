@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import s from "../Checkout.module.css";
 
 type SessionResp = {
@@ -15,8 +15,33 @@ function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
+function getLangFromLocation() {
+  if (typeof window === "undefined") return "pt";
+  const p = new URLSearchParams(window.location.search);
+  return p.get("lang") || "pt";
+}
+
+function buildEntrarUrl(nextPath: string) {
+  const lang = getLangFromLocation();
+  const nextWithLang = nextPath.includes("lang=")
+    ? nextPath
+    : `${nextPath}${nextPath.includes("?") ? "&" : "?"}lang=${lang}`;
+
+  // marca origem (ajuda a evitar regressões / debugging)
+  const nextWithFrom = nextWithLang.includes("from=")
+    ? nextWithLang
+    : `${nextWithLang}${nextWithLang.includes("?") ? "&" : "?"}from=checkout`;
+
+  return `/entrar?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
+    nextWithFrom
+  )}&reason=auth`;
+}
+
 export default function CheckoutPro() {
   const [loading, setLoading] = useState(false);
+
+  const lang = useMemo(() => getLangFromLocation(), []);
+  const nextAfterLogin = useMemo(() => `/checkout/pro?lang=${lang}`, [lang]);
 
   async function pagar() {
     try {
@@ -24,24 +49,36 @@ export default function CheckoutPro() {
 
       // 1) Sessão (cookies)
       const sessRes = await fetch("/api/auth/session", {
+        method: "GET",
         cache: "no-store",
         credentials: "include",
+        headers: { "Cache-Control": "no-store" },
       });
-      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
+
+      if (!sessRes.ok) {
+        window.location.href = buildEntrarUrl(nextAfterLogin);
+        return;
+      }
+
+      const sess = (await sessRes.json().catch(() => null)) as SessionResp | null;
 
       const cpf = onlyDigits(sess?.cpf || "");
 
       if (!sess?.authenticated || cpf.length !== 11) {
-        window.location.href = `/entrar?next=/checkout/pro&reason=auth`;
+        window.location.href = buildEntrarUrl(nextAfterLogin);
         return;
       }
 
       // 2) Cria preferência no MP
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         credentials: "include",
-        body: JSON.stringify({ cpf, plano: "pro" }), // <-- IMPORTANTÍSSIMO: "pro" minúsculo
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+        body: JSON.stringify({ cpf, plano: "pro" }),
       });
 
       const data = await res.json().catch(() => ({} as any));
@@ -50,8 +87,8 @@ export default function CheckoutPro() {
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
       if (!redirectUrl) throw new Error("Resposta inválida: init_point não encontrado.");
 
-      // 3) Vai para o Mercado Pago
-      window.location.href = redirectUrl;
+      // 3) Vai para o Mercado Pago (troca sem manter histórico)
+      window.location.replace(redirectUrl);
     } catch (e: any) {
       alert(e?.message ?? "Erro ao iniciar pagamento.");
     } finally {
@@ -74,7 +111,7 @@ export default function CheckoutPro() {
 
       {/* LINHA SUPERIOR */}
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
-        <Link href="/planos" className="hover:underline">
+        <Link href={`/planos?lang=${lang}`} className="hover:underline">
           ← Voltar aos planos
         </Link>
         <span>Checkout seguro via Mercado Pago</span>
@@ -89,12 +126,20 @@ export default function CheckoutPro() {
           <div className={s.price}>
             R$ 49,90 <small>/ mês</small>
           </div>
-          <p className={s.subtitle}>Ideal para motoristas profissionais e uso intenso.</p>
+          <p className={s.subtitle}>
+            Ideal para motoristas profissionais e uso intenso.
+          </p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Conteúdo avançado e atualizado</li>
-            <li><span className={s.check}>✓</span> Acesso ampliado a materiais</li>
-            <li><span className={s.check}>✓</span> Suporte priorizado</li>
+            <li>
+              <span className={s.check}>✓</span> Conteúdo avançado e atualizado
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Acesso ampliado a materiais
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Suporte priorizado
+            </li>
           </ul>
 
           <div className={s.terms}>
@@ -104,17 +149,24 @@ export default function CheckoutPro() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
+            <Link href="/termos" className="underline">
+              Termos de Uso
+            </Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
+            <Link href="/privacidade" className="underline">
+              Política de Privacidade
+            </Link>
+            .
           </div>
         </section>
 
         {/* ASIDE */}
         <aside className={s.aside}>
           <div className={s.selected}>
-            Plano selecionado<br />
-            <strong>Pro</strong><br />
+            Plano selecionado
+            <br />
+            <strong>Pro</strong>
+            <br />
             R$ 49,90 / mês
           </div>
 
@@ -140,7 +192,9 @@ export default function CheckoutPro() {
           </div>
 
           <div className="text-xs text-slate-500 mt-3">
-            <Link href="/planos" className="underline">Voltar aos planos</Link>
+            <Link href={`/planos?lang=${lang}`} className="underline">
+              Voltar aos planos
+            </Link>
           </div>
         </aside>
       </div>
