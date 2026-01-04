@@ -23,16 +23,16 @@ function normalizeToE164(phoneRaw: string): string {
  * entregue os cookies ao servidor sem bloqueios de HTTPS/SSL.
  */
 function cookieBase() {
+  const isProd = process.env.NODE_ENV === "production";
   return {
     path: "/",
     maxAge: 60 * 60 * 24 * 30, // 30 dias
     httpOnly: true,
     sameSite: "lax" as const,
-    secure: true, // HTTPS
+    secure: isProd, // HTTPS em produção
     // ✅ NÃO definir domain (deixe o browser/Vercel cuidar)
   };
 }
-
 
 export async function POST(req: Request) {
   try {
