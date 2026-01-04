@@ -15,7 +15,7 @@ export async function irParaMercadoPago(planoId: string) {
   if (auth !== "1" || cpf.length !== 11) {
     return {
       error: "not_authenticated",
-      debug: { auth, cpfLength: cpf.length }, // <- ajuda MUITO a diagnosticar
+      debug: { auth, cpfLength: cpf.length },
     };
   }
 
@@ -29,31 +29,34 @@ export async function irParaMercadoPago(planoId: string) {
   const unit_price =
     planoId === "premium" ? 99.9 : planoId === "pro" ? 49.9 : 29.9;
 
-  const response = await fetch("https://api.mercadopago.com/checkout/preferences", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      items: [
-        {
-          title: `Assinatura OTIAdriver - ${String(planoId).toUpperCase()}`,
-          quantity: 1,
-          unit_price,
-          currency_id: "BRL",
-        },
-      ],
-      external_reference: cpf,
-      metadata: { cpf, plano: planoId },
-      back_urls: {
-        success: `${siteUrl}/pagamento/concluido`,
-        failure: `${siteUrl}/planos`,
+  const response = await fetch(
+    "https://api.mercadopago.com/checkout/preferences",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      auto_return: "approved",
-    }),
-    cache: "no-store",
-  });
+      body: JSON.stringify({
+        items: [
+          {
+            title: `Assinatura OTIAdriver - ${planoId.toUpperCase()}`,
+            quantity: 1,
+            unit_price,
+            currency_id: "BRL",
+          },
+        ],
+        external_reference: cpf,
+        metadata: { cpf, plano: planoId },
+        back_urls: {
+          success: `${siteUrl}/pagamento/concluido`,
+          failure: `${siteUrl}/planos`,
+        },
+        auto_return: "approved",
+      }),
+      cache: "no-store",
+    }
+  );
 
   const data = await response.json().catch(() => ({}));
 
