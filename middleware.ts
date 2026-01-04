@@ -56,23 +56,24 @@ function isProtectedPath(pathname: string) {
   return protectedPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
+/**
+ * Planos considerados ativos
+ */
 const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
 
 export function middleware(req: NextRequest) {
+  // ✅ 0) Em produção, forçar www (estabiliza cookies e fluxo no celular)
   const host = req.headers.get("host") || "";
-  const url = req.nextUrl.clone();
-
-  // ✅ 0) Em produção, forçar www (isso estabiliza cookies e fluxo)
-  if (process.env.NODE_ENV === "production") {
-    if (host === "otiadriver.com.br") {
-      url.host = "www.otiadriver.com.br";
-      url.protocol = "https:";
-      return NextResponse.redirect(url, 308);
-    }
+  if (process.env.NODE_ENV === "production" && host === "otiadriver.com.br") {
+    const url = req.nextUrl.clone();
+    url.host = "www.otiadriver.com.br";
+    url.protocol = "https:";
+    return NextResponse.redirect(url, 308);
   }
 
   const { pathname, searchParams } = req.nextUrl;
 
+  // Cookies
   const auth = req.cookies.get("otia_auth")?.value; // "1"
   const plan = req.cookies.get("otia_plan")?.value; // "basico" | "pro" | "premium" | etc
 
@@ -81,7 +82,7 @@ export function middleware(req: NextRequest) {
   const hasAuth = auth === "1";
   const hasActivePlan = !!plan && ACTIVE_PLANS.has(plan);
 
-  // Se você usa esse modo:
+  // Modo inauguração (se estiver usando)
   const openBeta = process.env.OPEN_BETA === "1";
 
   // 1) Home: se logado e (plano ativo OU openBeta) => /catalogo
@@ -106,6 +107,7 @@ export function middleware(req: NextRequest) {
     const go = req.nextUrl.clone();
     go.pathname = "/entrar";
     if (lang) go.searchParams.set("lang", lang);
+
     go.searchParams.set("next", pathname + req.nextUrl.search);
     go.searchParams.set("reason", "auth");
     return NextResponse.redirect(go);
@@ -116,6 +118,7 @@ export function middleware(req: NextRequest) {
     const go = req.nextUrl.clone();
     go.pathname = "/planos";
     if (lang) go.searchParams.set("lang", lang);
+
     go.searchParams.set("next", pathname + req.nextUrl.search);
     go.searchParams.set("reason", "paywall");
     return NextResponse.redirect(go);
