@@ -35,10 +35,6 @@ function formatPhoneBR(v: string) {
   return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
 }
 
-/**
- * ✅ Sempre converte para E.164
- * Ex: "(62) 98286-8061" -> "+5562982868061"
- */
 function toE164(phoneRaw: string) {
   const d = onlyDigits(phoneRaw);
   if (!d) return "";
@@ -47,9 +43,6 @@ function toE164(phoneRaw: string) {
   return d.length >= 8 ? `+55${d}` : "";
 }
 
-/**
- * ✅ Extrai next/lang e garante fallback seguro
- */
 function getNextFromLocation() {
   if (typeof window === "undefined") {
     return { next: "/catalogo?lang=pt", lang: "pt" };
@@ -83,9 +76,7 @@ export default function EntrarClient() {
   const cpfDigits = useMemo(() => onlyDigits(cpf), [cpf]);
   const phoneE164 = useMemo(() => toE164(phone), [phone]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -93,7 +84,6 @@ export default function EntrarClient() {
     return () => clearInterval(t);
   }, [cooldown]);
 
-  // ================= SOLICITAR OTP =================
   async function requestOtp() {
     setMsg(null);
 
@@ -101,7 +91,6 @@ export default function EntrarClient() {
       setMsg("CPF inválido. Digite 11 números.");
       return;
     }
-
     if (!phoneE164) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -114,10 +103,7 @@ export default function EntrarClient() {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         cache: "no-store",
-        body: JSON.stringify({
-          cpf: cpfDigits,
-          phone: phoneE164,
-        }),
+        body: JSON.stringify({ cpf: cpfDigits, phone: phoneE164 }),
       });
 
       const data = await r.json().catch(() => ({}));
@@ -136,7 +122,6 @@ export default function EntrarClient() {
     }
   }
 
-  // ================= VALIDAR OTP =================
   async function verifyOtp() {
     setMsg(null);
 
@@ -144,7 +129,6 @@ export default function EntrarClient() {
       setMsg("Digite o código de 6 dígitos.");
       return;
     }
-
     if (!phoneE164) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -152,7 +136,6 @@ export default function EntrarClient() {
 
     setLoading(true);
     try {
-      // 1) valida OTP (seta cookies httpOnly)
       const r = await fetch("/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -175,14 +158,13 @@ export default function EntrarClient() {
 
       const { next } = getNextFromLocation();
 
-      // 2) sincroniza plano (define otia_plan)
       await fetch("/api/me/sync", {
         method: "POST",
         credentials: "include",
         cache: "no-store",
       }).catch(() => null);
 
-      // 3) marca que veio do checkout e faz reload total (evita "/" -> "/catalogo")
+      // ✅ adiciona marcador para o checkout saber que veio do login
       const nextWithFromCheckout = next.includes("?")
         ? `${next}&from=checkout`
         : `${next}?from=checkout`;
@@ -197,7 +179,6 @@ export default function EntrarClient() {
 
   if (!mounted) return <div className="min-h-screen bg-slate-50" />;
 
-  // ================= UI =================
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-4">
@@ -264,9 +245,7 @@ export default function EntrarClient() {
               disabled={loading || cooldown > 0}
               className="w-full text-slate-500 text-sm"
             >
-              {cooldown > 0
-                ? `Reenviar código em ${cooldown}s`
-                : "Não recebeu? Reenviar código"}
+              {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
             </button>
           </>
         )}
