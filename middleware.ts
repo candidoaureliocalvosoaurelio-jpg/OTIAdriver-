@@ -5,39 +5,41 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl;
   const { hostname, pathname } = url;
 
-  // ✅ FORÇA WWW SEM EXCEÇÕES
+  // 🔁 Força WWW
   if (hostname === "otiadriver.com.br") {
     const newUrl = url.clone();
     newUrl.hostname = "www.otiadriver.com.br";
     return NextResponse.redirect(newUrl, 308);
   }
 
-  // (o resto da sua lógica continua aqui)
-  const auth = req.cookies.get("otia_auth")?.value;
-  const plan = req.cookies.get("otia_plan")?.value;
+  const auth = req.cookies.get("otia_auth")?.value || "";
+  const plan = req.cookies.get("otia_plan")?.value || "none";
 
+  // 🔓 Checkout: só exige login (para pagar)
   if (pathname.startsWith("/checkout")) {
     if (auth !== "1") {
       const nextUrl = req.nextUrl.clone();
       nextUrl.pathname = "/entrar";
-      nextUrl.searchParams.set("next", pathname);
       return NextResponse.redirect(nextUrl);
     }
     return NextResponse.next();
   }
 
-  if (
+  // 🛡️ Conteúdo da plataforma (só entra quem PAGOU)
+  const isProtected =
     pathname.startsWith("/catalogo") ||
+    pathname.startsWith("/caminhoes") ||
     pathname.startsWith("/treinamentos") ||
-    pathname.startsWith("/pneus")
-  ) {
+    pathname.startsWith("/pneus");
+
+  if (isProtected) {
     if (auth !== "1") {
       const loginUrl = req.nextUrl.clone();
       loginUrl.pathname = "/entrar";
-      loginUrl.searchParams.set("reason", "auth");
       return NextResponse.redirect(loginUrl);
     }
 
+    // 🚨 REGRA DE FATURAMENTO
     if (!plan || plan === "none") {
       const planosUrl = req.nextUrl.clone();
       planosUrl.pathname = "/planos";
