@@ -1,28 +1,36 @@
 // app/api/auth/session/route.ts
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function onlyDigits(v: string) {
-  return (v || "").replace(/\D+/g, "");
-}
+export async function GET() {
+  try {
+    const c = cookies();
 
-export async function GET(req: Request) {
-  const cookie = req.headers.get("cookie") || "";
+    const auth = c.get("otia_auth")?.value || "";
+    const cpf = c.get("otia_cpf")?.value || "";
+    const plan = c.get("otia_plan")?.value || "none";
 
-  const getCookie = (name: string) => {
-    const m = cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
-    return m ? decodeURIComponent(m[1]) : "";
-  };
+    const authenticated = auth === "1" && cpf.length === 11;
 
-  const auth = getCookie("otia_auth"); // "1"
-  const cpf = onlyDigits(getCookie("otia_cpf")); // "628..."
-  const plan = getCookie("otia_plan"); // "free" | "basico" | "pro" | "premium"
+    if (!authenticated) {
+      return NextResponse.json(
+        { authenticated: false, cpf: "", plan: "none" },
+        { status: 401 }
+      );
+    }
 
-  return NextResponse.json({
-    authenticated: auth === "1" && cpf.length === 11,
-    cpf: cpf.length === 11 ? cpf : "",
-    plan: plan || "free",
-  });
+    return NextResponse.json(
+      { authenticated: true, cpf, plan },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error("AUTH_SESSION_ERROR:", err);
+    return NextResponse.json(
+      { authenticated: false, cpf: "", plan: "none" },
+      { status: 500 }
+    );
+  }
 }

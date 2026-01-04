@@ -1,20 +1,18 @@
+// app/checkout/pro/page.tsx
 "use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import s from "../Checkout.module.css";
 
-/** util */
+type SessionResp = {
+  authenticated: boolean;
+  cpf: string;
+  plan: string;
+};
+
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
-}
-
-function getCookie(name: string) {
-  if (typeof document === "undefined") return "";
-  return document.cookie
-    .split("; ")
-    .find((c) => c.startsWith(name + "="))
-    ?.split("=")[1] || "";
 }
 
 export default function CheckoutPro() {
@@ -24,38 +22,38 @@ export default function CheckoutPro() {
     try {
       setLoading(true);
 
-      // ✅ 1) Lê CPF DIRETO do cookie (sem session / sem auth)
-      const cpf = onlyDigits(getCookie("otia_cpf"));
+      // 1) Sessão (cookies)
+      const sessRes = await fetch("/api/auth/session", {
+        cache: "no-store",
+        credentials: "include",
+      });
+      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
 
-      // Se não tiver CPF válido, volta para o fluxo de entrada
-      if (cpf.length !== 11) {
+      const cpf = onlyDigits(sess?.cpf || "");
+
+      if (!sess?.authenticated || cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/pro&reason=auth`;
         return;
       }
 
-      // ✅ 2) Cria preferência no backend (rota pública)
+      // 2) Cria preferência no MP
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cpf, plano: "pro" }),
+        credentials: "include",
+        body: JSON.stringify({ cpf, plano: "pro" }), // <-- IMPORTANTÍSSIMO: "pro" minúsculo
       });
 
       const data = await res.json().catch(() => ({} as any));
-      if (!res.ok) {
-        throw new Error("Não foi possível iniciar o pagamento agora.");
-      }
+      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
 
-      // Produção → init_point | Sandbox → sandbox_init_point
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
-      if (!redirectUrl) {
-        throw new Error("Resposta inválida do gateway de pagamento.");
-      }
+      if (!redirectUrl) throw new Error("Resposta inválida: init_point não encontrado.");
 
-      // ✅ 3) Redireciona para o Mercado Pago
+      // 3) Vai para o Mercado Pago
       window.location.href = redirectUrl;
-    } catch (err) {
-      console.error("CheckoutPro error:", err);
-      alert("Não foi possível iniciar o pagamento. Tente novamente.");
+    } catch (e: any) {
+      alert(e?.message ?? "Erro ao iniciar pagamento.");
     } finally {
       setLoading(false);
     }
@@ -63,6 +61,7 @@ export default function CheckoutPro() {
 
   return (
     <main className={s.wrap}>
+      {/* TOPO DE MARCA */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>
@@ -73,6 +72,7 @@ export default function CheckoutPro() {
         </p>
       </section>
 
+      {/* LINHA SUPERIOR */}
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
         <Link href="/planos" className="hover:underline">
           ← Voltar aos planos
@@ -81,21 +81,20 @@ export default function CheckoutPro() {
       </div>
 
       <div className={s.grid}>
-        <section className={`${s.card} ${s.proCard}`}>
-          <span className={s.badge}>RECOMENDADO</span>
+        {/* CARD */}
+        <section className={s.card}>
+          <span className={s.badge}>Profissional</span>
 
-          <h1>PRO</h1>
+          <h1>Pro</h1>
           <div className={s.price}>
             R$ 49,90 <small>/ mês</small>
           </div>
-          <p className={s.subtitle}>Ideal para Profissionais Exigentes.</p>
+          <p className={s.subtitle}>Ideal para motoristas profissionais e uso intenso.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem</li>
-            <li><span className={s.check}>✓</span> Checklists de Viagem</li>
-            <li><span className={s.check}>✓</span> Sistema de Pontuação de Performance Inteligente</li>
+            <li><span className={s.check}>✓</span> Conteúdo avançado e atualizado</li>
+            <li><span className={s.check}>✓</span> Acesso ampliado a materiais</li>
+            <li><span className={s.check}>✓</span> Suporte priorizado</li>
           </ul>
 
           <div className={s.terms}>
@@ -111,18 +110,17 @@ export default function CheckoutPro() {
           </div>
         </section>
 
-        <aside className={`${s.aside} ${s.proAside}`}>
-          <div className={`${s.selected} ${s.selectedTopBox}`}>
-            Plano selecionado
-            <br />
-            <strong>PRO</strong>
-            <br />
+        {/* ASIDE */}
+        <aside className={s.aside}>
+          <div className={s.selected}>
+            Plano selecionado<br />
+            <strong>Pro</strong><br />
             R$ 49,90 / mês
           </div>
 
           <button
             onClick={pagar}
-            className={`${s.btn} ${s.proBtn}`}
+            className={s.btn}
             disabled={loading}
             aria-busy={loading}
           >
@@ -142,9 +140,7 @@ export default function CheckoutPro() {
           </div>
 
           <div className="text-xs text-slate-500 mt-3">
-            <Link href="/planos" className="underline">
-              Voltar aos planos
-            </Link>
+            <Link href="/planos" className="underline">Voltar aos planos</Link>
           </div>
         </aside>
       </div>

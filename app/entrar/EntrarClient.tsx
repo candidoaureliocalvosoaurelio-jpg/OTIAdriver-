@@ -1,3 +1,4 @@
+// app/entrar/EntrarClient.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -34,27 +35,14 @@ function formatPhoneBR(v: string) {
   return `(${ddd}) ${p1}${p2 ? "-" + p2 : ""}`;
 }
 
-/**
- * ✅ Sempre converte para E.164
- * Ex: "(62) 98286-8061" -> "+5562982868061"
- * Regras:
- * - se já vier com 55 (ex: 5562...) => +5562...
- * - se vier só DDD+número (ex: 62...) => +5562...
- */
 function toE164(phoneRaw: string) {
   const d = onlyDigits(phoneRaw);
   if (!d) return "";
-  // 55 + DDD + número (12 ou 13 dígitos) OU qualquer coisa iniciando com 55
   if (d.startsWith("55")) return `+${d}`;
-  // BR sem DDI: DDD + número (10 ou 11 dígitos)
   if (d.length === 10 || d.length === 11) return `+55${d}`;
-  // fallback: tenta prefixar 55 mesmo assim (evita vazio quando o usuário digita incompleto)
   return d.length >= 8 ? `+55${d}` : "";
 }
 
-/**
- * ✅ Extrai next/lang e garante fallback seguro
- */
 function getNextFromLocation() {
   if (typeof window === "undefined") {
     return { next: "/catalogo?lang=pt", lang: "pt" };
@@ -86,12 +74,9 @@ export default function EntrarClient() {
   const [cooldown, setCooldown] = useState(0);
 
   const cpfDigits = useMemo(() => onlyDigits(cpf), [cpf]);
-  const phoneDigits = useMemo(() => onlyDigits(phone), [phone]);
   const phoneE164 = useMemo(() => toE164(phone), [phone]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (cooldown <= 0) return;
@@ -99,7 +84,6 @@ export default function EntrarClient() {
     return () => clearInterval(t);
   }, [cooldown]);
 
-  // ================= SOLICITAR OTP =================
   async function requestOtp() {
     setMsg(null);
 
@@ -107,8 +91,6 @@ export default function EntrarClient() {
       setMsg("CPF inválido. Digite 11 números.");
       return;
     }
-
-    // ✅ valida pelo E.164 (não pelo length cru)
     if (!phoneE164) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -121,10 +103,7 @@ export default function EntrarClient() {
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         cache: "no-store",
-        body: JSON.stringify({
-          cpf: cpfDigits,
-          phone: phoneE164,
-        }),
+        body: JSON.stringify({ cpf: cpfDigits, phone: phoneE164 }),
       });
 
       const data = await r.json().catch(() => ({}));
@@ -143,7 +122,6 @@ export default function EntrarClient() {
     }
   }
 
-  // ================= VALIDAR OTP =================
   async function verifyOtp() {
     setMsg(null);
 
@@ -151,8 +129,6 @@ export default function EntrarClient() {
       setMsg("Digite o código de 6 dígitos.");
       return;
     }
-
-    // ✅ também valida E.164 aqui (evita request com telefone inválido)
     if (!phoneE164) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -160,7 +136,6 @@ export default function EntrarClient() {
 
     setLoading(true);
     try {
-      // 1) valida OTP (seta cookies httpOnly)
       const r = await fetch("/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -183,15 +158,18 @@ export default function EntrarClient() {
 
       const { next } = getNextFromLocation();
 
-      // 2) sincroniza plano (define otia_plan)
       await fetch("/api/me/sync", {
         method: "POST",
         credentials: "include",
         cache: "no-store",
       }).catch(() => null);
 
-      // 3) reload total (garante cookies em middleware)
-      window.location.href = next;
+      // ✅ adiciona marcador para o checkout saber que veio do login
+      const nextWithFromCheckout = next.includes("?")
+        ? `${next}&from=checkout`
+        : `${next}?from=checkout`;
+
+      window.location.href = nextWithFromCheckout;
     } catch {
       setMsg("Erro ao validar código.");
     } finally {
@@ -201,7 +179,6 @@ export default function EntrarClient() {
 
   if (!mounted) return <div className="min-h-screen bg-slate-50" />;
 
-  // ================= UI =================
   return (
     <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-4">
@@ -268,9 +245,7 @@ export default function EntrarClient() {
               disabled={loading || cooldown > 0}
               className="w-full text-slate-500 text-sm"
             >
-              {cooldown > 0
-                ? `Reenviar código em ${cooldown}s`
-                : "Não recebeu? Reenviar código"}
+              {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
             </button>
           </>
         )}

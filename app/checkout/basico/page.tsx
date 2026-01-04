@@ -4,48 +4,53 @@ import Link from "next/link";
 import { useState } from "react";
 import s from "../Checkout.module.css";
 
-type SessionResp = {
-  authenticated: boolean;
-  cpf: string;
-  plan: string;
-};
-
-function onlyDigits(v: string) {
-  return (v || "").replace(/\D+/g, "");
-}
-
 export default function CheckoutBasico() {
   const [loading, setLoading] = useState(false);
+
+  function getCookie(name: string) {
+    if (typeof document === "undefined") return "";
+    const m = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+
+  function onlyDigits(v: string) {
+    return (v || "").replace(/\D+/g, "");
+  }
 
   async function pagar() {
     try {
       setLoading(true);
 
-      const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
-      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
+      // ✅ CPF direto do cookie (setado no login)
+      const cpf = onlyDigits(getCookie("otia_cpf"));
 
-      const cpf = onlyDigits(sess?.cpf || "");
-
-      if (!sess?.authenticated || cpf.length !== 11) {
+      // Se não tiver CPF válido, manda para login
+      if (cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/basico&reason=auth`;
         return;
       }
 
+      // ✅ Cria preferência (backend deve pegar/validar CPF do cookie também)
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cpf, plano: "basico" }),
+        body: JSON.stringify({ plano: "basico" }),
       });
 
       const data = await res.json().catch(() => ({} as any));
-      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
+
+      if (!res.ok) {
+        console.error("criar-preferencia basico error:", data);
+        throw new Error(data?.error || "Não foi possível iniciar o pagamento. Tente novamente.");
+      }
 
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
-      if (!redirectUrl) throw new Error("Resposta inválida: init_point não encontrado.");
+      if (!redirectUrl) throw new Error("Resposta inválida do gateway de pagamento.");
 
       window.location.href = redirectUrl;
-    } catch (e: any) {
-      alert(e?.message ?? "Erro ao iniciar pagamento.");
+    } catch (err) {
+      console.error("CheckoutBasico error:", err);
+      alert("Não foi possível iniciar o pagamento. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -64,23 +69,26 @@ export default function CheckoutBasico() {
       </section>
 
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
-        <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
+        <Link href="/planos" className="hover:underline">
+          ← Voltar aos planos
+        </Link>
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
       <div className={s.grid}>
-        <section className={s.card}>
-          <span className={s.badge}>Essencial</span>
+        <section className={`${s.card} ${s.basicCard ?? ""}`}>
+          <span className={s.badge}>ESSENCIAL</span>
+
           <h1>Básico</h1>
           <div className={s.price}>
             R$ 29,90 <small>/ mês</small>
           </div>
-          <p className={s.subtitle}>Ideal para uso pessoal.</p>
+          <p className={s.subtitle}>Ideal para começar com segurança.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas Essenciais</li>
-            <li><span className={s.check}>✓</span> Acesso à Galeria</li>
-            <li><span className={s.check}>✓</span> Suporte Básico por Chat</li>
+            <li><span className={s.check}>✓</span> Conteúdos essenciais</li>
+            <li><span className={s.check}>✓</span> Acesso à plataforma</li>
+            <li><span className={s.check}>✓</span> Atualizações do material</li>
           </ul>
 
           <div className={s.terms}>
@@ -96,16 +104,18 @@ export default function CheckoutBasico() {
           </div>
         </section>
 
-        <aside className={`${s.aside} ${s.basicAside}`}>
+        <aside className={`${s.aside} ${s.basicAside ?? ""}`}>
           <div className={`${s.selected} ${s.selectedTopBox}`}>
-            Plano selecionado<br />
-            <strong>Básico</strong><br />
+            Plano selecionado
+            <br />
+            <strong>Básico</strong>
+            <br />
             R$ 29,90 / mês
           </div>
 
           <button
             onClick={pagar}
-            className={`${s.btn} ${s.basicBtn}`}
+            className={`${s.btn} ${s.basicBtn ?? ""}`}
             disabled={loading}
             aria-busy={loading}
           >
@@ -125,7 +135,9 @@ export default function CheckoutBasico() {
           </div>
 
           <div className="text-xs text-slate-500 mt-3">
-            <Link href="/planos" className="underline">Voltar aos planos</Link>
+            <Link href="/planos" className="underline">
+              Voltar aos planos
+            </Link>
           </div>
         </aside>
       </div>

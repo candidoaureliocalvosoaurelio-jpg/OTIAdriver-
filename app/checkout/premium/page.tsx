@@ -22,35 +22,50 @@ export default function CheckoutPremium() {
     try {
       setLoading(true);
 
-      // 1) Pega CPF da sessão
-      const sessRes = await fetch("/api/auth/session", { cache: "no-store" });
-      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
+      // 1) Sessão (FORÇA cookies + sem cache)
+      const sessRes = await fetch("/api/auth/session", {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store",
+        headers: { "Cache-Control": "no-store" },
+      });
 
+      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
       const cpf = onlyDigits(sess?.cpf || "");
 
-      // Se não está logado, manda para /entrar
+      if (!sessRes.ok) {
+        throw new Error("Falha ao ler sessão (/api/auth/session).");
+      }
+
       if (!sess?.authenticated || cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/premium&reason=auth`;
         return;
       }
 
-      // 2) Cria preferência com CPF + plano
+      // 2) Cria preferência (FORÇA cookies + sem cache)
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
         body: JSON.stringify({ cpf, plano: "premium" }),
       });
 
       const data = await res.json().catch(() => ({} as any));
-      if (!res.ok) throw new Error(data?.error || "Falha ao iniciar pagamento.");
-
-      // 3) Produção → init_point | Sandbox → sandbox_init_point
-      const redirectUrl = data?.init_point || data?.sandbox_init_point;
-      if (!redirectUrl) {
-        throw new Error("Resposta inválida: init_point não encontrado.");
+      if (!res.ok) {
+        throw new Error(data?.error || "Falha ao criar preferência no Mercado Pago.");
       }
 
-      window.location.href = redirectUrl;
+      const redirectUrl = data?.init_point || data?.sandbox_init_point;
+      if (!redirectUrl) {
+        throw new Error("Resposta inválida: init_point/sandbox_init_point não encontrado.");
+      }
+
+      // 3) Redireciona para o Mercado Pago
+      window.location.assign(redirectUrl);
     } catch (e: any) {
       alert(e?.message ?? "Erro ao iniciar pagamento.");
     } finally {
@@ -60,7 +75,6 @@ export default function CheckoutPremium() {
 
   return (
     <main className={s.wrap}>
-      {/* TOPO DE MARCA */}
       <section className="text-center pt-8 pb-6">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none">
           <span className="text-blue-600">OTIA</span>
@@ -71,19 +85,14 @@ export default function CheckoutPremium() {
         </p>
       </section>
 
-      {/* LINHA SUPERIOR */}
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
-        <Link href="/planos" className="hover:underline">
-          ← Voltar aos planos
-        </Link>
+        <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
       <div className={s.grid}>
-        {/* CARD */}
         <section className={`${s.card} ${s.premiumCard}`}>
           <span className={s.badge}>MAIS VENDIDO</span>
-
           <h1>Premium</h1>
           <div className={s.price}>
             R$ 99,90 <small>/ mês</small>
@@ -105,24 +114,16 @@ export default function CheckoutPremium() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">
-              Termos de Uso
-            </Link>{" "}
+            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">
-              Política de Privacidade
-            </Link>
-            .
+            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
           </div>
         </section>
 
-        {/* ASIDE */}
         <aside className={`${s.aside} ${s.premiumAside}`}>
           <div className={`${s.selected} ${s.selectedTopBox}`}>
-            Plano selecionado
-            <br />
-            <strong>Premium</strong>
-            <br />
+            Plano selecionado<br />
+            <strong>Premium</strong><br />
             R$ 99,90 / mês
           </div>
 
@@ -134,24 +135,6 @@ export default function CheckoutPremium() {
           >
             {loading ? "Abrindo Mercado Pago..." : "Pagar com Mercado Pago"}
           </button>
-
-          <ul className={s.bullets}>
-            <li>Pagamento 100% seguro via Mercado Pago</li>
-            <li>Renovação automática a cada 30 dias</li>
-            <li>Cancelamento livre antes da próxima cobrança</li>
-            <li>Suporte ao assinante</li>
-          </ul>
-
-          <div className={s.help}>
-            Dúvidas? Fale com a gente:{" "}
-            <a href="mailto:otiadriver@gmail.com">otiadriver@gmail.com</a>
-          </div>
-
-          <div className="text-xs text-slate-500 mt-3">
-            <Link href="/planos" className="underline">
-              Voltar aos planos
-            </Link>
-          </div>
         </aside>
       </div>
     </main>
