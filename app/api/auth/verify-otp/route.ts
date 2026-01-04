@@ -28,8 +28,13 @@ function cookieBase() {
     maxAge: 60 * 60 * 24 * 30, // 30 dias
     httpOnly: true,
     sameSite: "lax" as const,
+<<<<<<< HEAD
     secure: true,                  // 🔒 OBRIGATÓRIO em HTTPS
     domain: ".otiadriver.com.br",   // 🌐 cobre www e sem www
+=======
+    secure: true, // HTTPS
+    // ✅ NÃO definir domain (deixe o browser/Vercel cuidar)
+>>>>>>> 59898d8 (fix: remove cookie domain to allow server auth)
   };
 }
 
