@@ -15,22 +15,30 @@ export async function GET() {
 
     const authenticated = auth === "1" && cpf.length === 11;
 
-    if (!authenticated) {
-      return NextResponse.json(
-        { authenticated: false, cpf: "", plan: "none" },
-        { status: 401 }
-      );
-    }
-
+    // ✅ IMPORTANTE: sessão SEM LOGIN NÃO É ERRO → retorna 200 com authenticated=false
     return NextResponse.json(
-      { authenticated: true, cpf, plan },
-      { status: 200 }
+      {
+        authenticated,
+        cpf: authenticated ? cpf : "",
+        plan: authenticated ? plan : "none",
+      },
+      {
+        status: 200,
+        headers: {
+          // ✅ evita cache "enganando" mobile/edge cases
+          "Cache-Control": "no-store, max-age=0",
+        },
+      }
     );
   } catch (err) {
     console.error("AUTH_SESSION_ERROR:", err);
+    // ✅ até erro interno retorna 200 para não derrubar checkout por "falha de sessão"
     return NextResponse.json(
       { authenticated: false, cpf: "", plan: "none" },
-      { status: 500 }
+      {
+        status: 200,
+        headers: { "Cache-Control": "no-store, max-age=0" },
+      }
     );
   }
 }
