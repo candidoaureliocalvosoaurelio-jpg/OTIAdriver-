@@ -3,37 +3,19 @@ import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
   const url = req.nextUrl;
-  const { pathname, hostname } = url;
+  const { hostname, pathname } = url;
 
-  // =========================================================
-  // 1) ✅ FORÇAR WWW EM PRODUÇÃO (Opção A)
-  // =========================================================
-  // Se alguém acessar sem www, redireciona para www mantendo path + query.
-  // Importante: isso deve vir ANTES da lógica de auth/planos.
-  const isProd = process.env.NODE_ENV === "production";
-
-  // Evita mexer em rotas internas/arquivos estáticos
-  const isStatic =
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname.startsWith("/robots.txt") ||
-    pathname.startsWith("/sitemap") ||
-    pathname.match(/\.(png|jpg|jpeg|webp|svg|ico|css|js|map|txt|xml|pdf)$/);
-
-  if (isProd && !isStatic && hostname === "otiadriver.com.br") {
+  // ✅ FORÇA WWW SEM EXCEÇÕES
+  if (hostname === "otiadriver.com.br") {
     const newUrl = url.clone();
     newUrl.hostname = "www.otiadriver.com.br";
     return NextResponse.redirect(newUrl, 308);
   }
 
-  // =========================================================
-  // 2) ✅ SUA LÓGICA ATUAL DE AUTENTICAÇÃO / PAYWALL
-  // =========================================================
+  // (o resto da sua lógica continua aqui)
   const auth = req.cookies.get("otia_auth")?.value;
   const plan = req.cookies.get("otia_plan")?.value;
 
-  // 🔓 REGRA DE OURO PARA FATURAR:
-  // checkout exige apenas login, nunca plano
   if (pathname.startsWith("/checkout")) {
     if (auth !== "1") {
       const nextUrl = req.nextUrl.clone();
@@ -44,7 +26,6 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 🛡️ PROTEÇÃO DO CONTEÚDO
   if (
     pathname.startsWith("/catalogo") ||
     pathname.startsWith("/treinamentos") ||
@@ -68,10 +49,6 @@ export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// =========================================================
-// 3) Matcher: precisa pegar TUDO para forçar www
-//    mas ignorar _next e arquivos via "isStatic" acima
-// =========================================================
 export const config = {
   matcher: ["/:path*"],
 };
