@@ -8,6 +8,21 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
+function safeNext(nextRaw: string | undefined, lang: string) {
+  const fallback = `/catalogo?lang=${lang}`;
+
+  if (!nextRaw) return fallback;
+
+  // Aceita apenas caminhos internos iniciando com "/"
+  if (nextRaw.startsWith("/")) {
+    // Garante lang no destino final (se não tiver)
+    if (nextRaw.includes("lang=")) return nextRaw;
+    return `${nextRaw}${nextRaw.includes("?") ? "&" : "?"}lang=${lang}`;
+  }
+
+  return fallback;
+}
+
 export default function PagamentoConcluido({
   searchParams,
 }: {
@@ -24,8 +39,8 @@ export default function PagamentoConcluido({
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
 
-  // ✅ Para onde voltar depois
-  const next = searchParams?.next || `/catalogo?lang=${lang}`;
+  // ✅ Destino final seguro (apenas interno)
+  const next = safeNext(searchParams?.next, lang);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
@@ -39,7 +54,8 @@ export default function PagamentoConcluido({
           {plano ? (
             <>
               {" "}
-              Vamos liberar seu acesso do plano <strong>{plano.toUpperCase()}</strong>.
+              Vamos liberar seu acesso do plano{" "}
+              <strong>{plano.toUpperCase()}</strong>.
             </>
           ) : (
             <> Vamos liberar seu acesso.</>
@@ -61,29 +77,30 @@ export default function PagamentoConcluido({
           </div>
         )}
 
-        {/* ✅ Sincroniza plano/cookies e redireciona automaticamente se já estiver logado */}
+        {/* ✅ Se estiver logado: sync + redirect automático */}
         <SyncAfterPayment nextUrl={next} lang={lang} />
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}`}
+            href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}&reason=auth`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
           >
             Entrar agora (CPF/telefone)
           </Link>
 
-          <a
+          <Link
             href={next}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
             Ir para o catálogo
-          </a>
+          </Link>
         </div>
 
         <p className="mt-4 text-xs text-slate-500">
-          Após o pagamento, o sistema sincroniza seu plano pelo CPF e libera o acesso.
-          Se cair em “Entrar” ou “Planos”, geralmente é porque o cookie não está sendo
-          reconhecido (www/sem www) ou a sincronização ainda não ocorreu.
+          Após o pagamento, o sistema sincroniza seu plano e libera o acesso. Se
+          você cair em “Entrar” ou “Planos”, normalmente é porque ainda não há
+          sessão (cookies) no aparelho — então basta entrar uma vez para amarrar
+          o CPF ao plano.
         </p>
       </div>
     </main>
