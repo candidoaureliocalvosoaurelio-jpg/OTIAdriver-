@@ -4,6 +4,8 @@ import type { NextRequest } from "next/server";
 
 /**
  * Rotas públicas (não exigem login nem plano)
+ * ✅ Checkout é público (o próprio checkout faz o "redirect para /entrar" via fetch /api/auth/session)
+ * ✅ APIs de pagamento também são públicas (para o browser conseguir criar preferência)
  */
 function isPublicPath(pathname: string) {
   if (pathname === "/") return true;
@@ -11,12 +13,20 @@ function isPublicPath(pathname: string) {
   const publicPrefixes = [
     "/entrar",
     "/planos",
+
+    // 🔥 CHECKOUT NUNCA PODE SER PROTEGIDO PELO MIDDLEWARE
     "/checkout",
+
     "/pagamento",
     "/catalogo",
+
+    // APIs
     "/api/me",
     "/api/auth",
+    "/api/pagamentos",
     "/api/webhook",
+
+    // Assets
     "/favicon.ico",
     "/robots.txt",
     "/sitemap.xml",
