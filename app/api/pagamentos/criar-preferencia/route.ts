@@ -5,12 +5,10 @@ import { MercadoPagoConfig, Preference } from "mercadopago";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Remove tudo que não for número
 function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
-// Preços oficiais dos planos
 const PLAN_PRICES: Record<"basico" | "pro" | "premium", number> = {
   basico: 29.9,
   pro: 49.9,
@@ -28,50 +26,62 @@ function isLocalhost(url: string) {
 }
 
 function normalizeBaseUrl(url: string) {
-  // remove barra final para evitar //pagamento/...
   return (url || "").trim().replace(/\/+$/, "");
+}
+
+function prodWwwBaseUrl(baseUrl: string) {
+  const isProd = process.env.NODE_ENV === "production";
+  if (!isProd) return baseUrl;
+
+  // garante www em produção
+  if (baseUrl.includes("://otiadriver.com.br")) {
+    return baseUrl.replace("://otiadriver.com.br", "://www.otiadriver.com.br");
+  }
+  return baseUrl;
 }
 
 export async function POST(req: Request) {
   try {
     const body = (await req.json().catch(() => ({}))) as any;
 
-    // 1) CPF: primeiro cookie (se existir), depois body (fallback)
+    // CPF: cookie -> body
     let cpf = onlyDigits(getCookie(req, "otia_cpf"));
-    if (!cpf || cpf.length !== 11) {
-      cpf = onlyDigits(body?.cpf);
-    }
+    if (!cpf || cpf.length !== 11) cpf = onlyDigits(body?.cpf);
 
     const plano = String(body?.plano || "").toLowerCase() as "basico" | "pro" | "premium";
 
-    // Validações
     if (!cpf || cpf.length !== 11) {
       return NextResponse.json(
         { error: "CPF ausente ou inválido no checkout." },
-        { status: 400 }
+        { status: 400, headers: { "Cache-Control": "no-store, max-age=0" } }
       );
     }
 
     if (!PLAN_PRICES[plano]) {
-      return NextResponse.json({ error: "Plano inválido" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Plano inválido" },
+        { status: 400, headers: { "Cache-Control": "no-store, max-age=0" } }
+      );
     }
 
     const accessToken = process.env.MP_ACCESS_TOKEN;
     if (!accessToken) {
-      return NextResponse.json({ error: "MP_ACCESS_TOKEN ausente" }, { status: 500 });
+      return NextResponse.json(
+        { error: "MP_ACCESS_TOKEN ausente" },
+        { status: 500, headers: { "Cache-Control": "no-store, max-age=0" } }
+      );
     }
 
-    // 2) Base URL: env > origin > fallback
-    const envBaseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+    const envBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
     const origin = req.headers.get("origin") || "";
-    const baseUrl = normalizeBaseUrl(envBaseUrl || origin || "https://www.otiadriver.com.br");
+    let baseUrl = normalizeBaseUrl(envBaseUrl || origin || "https://www.otiadriver.com.br");
+    baseUrl = prodWwwBaseUrl(baseUrl);
+
     const local = isLocalhost(baseUrl);
 
-    // 3) Mercado Pago client
     const mp = new MercadoPagoConfig({ accessToken });
     const preference = new Preference(mp);
 
-    // Localhost não recebe webhook do Mercado Pago
     const notification_url = local ? undefined : `${baseUrl}/api/webhook/mercadopago`;
 
     const pref = await preference.create({
@@ -85,12 +95,8 @@ export async function POST(req: Request) {
             currency_id: "BRL",
           },
         ],
-        external_reference: cpf, // vínculo com o usuário
-        metadata: {
-          cpf,
-          plano,
-          product: "otiadriver-subscription",
-        },
+        external_reference: cpf,
+        metadata: { cpf, plano, product: "otiadriver-subscription" },
         back_urls: {
           success: `${baseUrl}/pagamento/concluido`,
           pending: `${baseUrl}/pagamento/pendente`,
@@ -101,21 +107,20 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json({
-      id: pref.id,
-      init_point: pref.init_point,
-      sandbox_init_point: pref.sandbox_init_point,
-    });
+    return NextResponse.json(
+      {
+        id: pref.id,
+        init_point: pref.init_point,
+        sandbox_init_point: pref.sandbox_init_point,
+      },
+      { headers: { "Cache-Control": "no-store, max-age=0" } }
+    );
   } catch (e: any) {
-    console.error("MP_PREF_ERROR:", {
-      message: e?.message,
-      stack: e?.stack,
-    });
+    console.error("MP_PREF_ERROR:", { message: e?.message, stack: e?.stack });
 
     return NextResponse.json(
       { error: e?.message || "Erro ao criar preferência" },
-      { status: 500 }
+      { status: 500, headers: { "Cache-Control": "no-store, max-age=0" } }
     );
   }
 }
-
