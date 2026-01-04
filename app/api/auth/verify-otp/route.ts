@@ -28,10 +28,11 @@ function cookieBase() {
     maxAge: 60 * 60 * 24 * 30, // 30 dias
     httpOnly: true,
     sameSite: "lax" as const,
-    secure: true,                  // 🔒 OBRIGATÓRIO em HTTPS
-    domain: ".otiadriver.com.br",   // 🌐 cobre www e sem www
+    secure: true, // HTTPS
+    // ✅ NÃO definir domain (deixe o browser/Vercel cuidar)
   };
 }
+
 
 export async function POST(req: Request) {
   try {
