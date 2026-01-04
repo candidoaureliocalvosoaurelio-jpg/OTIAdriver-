@@ -12,7 +12,7 @@ function cookieBase() {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: isProd,
-    ...(isProd ? { domain: ".otiadriver.com.br" } : {}),
+    domain: isProd ? ".otiadriver.com.br" : undefined,
   };
 }
 
@@ -29,10 +29,13 @@ export async function GET(req: NextRequest) {
   const next = safeNext(nextRaw, lang);
 
   const res = NextResponse.redirect(new URL(next, req.url));
+  const base = cookieBase();
 
-  res.cookies.set("otia_auth", "", { ...cookieBase(), maxAge: 0 });
-  res.cookies.set("otia_cpf", "", { ...cookieBase(), maxAge: 0 });
-  res.cookies.set("otia_plan", "", { ...cookieBase(), maxAge: 0 });
+  // 🔥 limpa todos os cookies de auth/plano (inclui status)
+  res.cookies.set("otia_auth", "", { ...base, maxAge: 0 });
+  res.cookies.set("otia_cpf", "", { ...base, maxAge: 0 });
+  res.cookies.set("otia_plan", "", { ...base, maxAge: 0 });
+  res.cookies.set("otia_plan_status", "", { ...base, maxAge: 0 });
 
   return res;
 }
