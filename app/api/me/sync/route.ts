@@ -24,8 +24,8 @@ function cookieBase() {
     sameSite: "lax" as const,
     path: "/",
     maxAge: 60 * 60 * 24 * 30, // 30 dias
-    secure: isProd,
-    domain: isProd ? ".otiadriver.com.br" : undefined,
+    secure: isProd, // HTTPS em produção
+    // ✅ NÃO definir domain (deixe o browser/Vercel cuidar)
   };
 }
 
