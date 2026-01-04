@@ -8,20 +8,18 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const cookieStore = cookies();
 
-  const auth = cookieStore.get("otia_auth")?.value; // "1"
-  const planCookie = cookieStore.get("otia_plan")?.value; // "active" | "inactive" | undefined
+  const auth = cookieStore.get("otia_auth")?.value || "";
+  const plan = cookieStore.get("otia_plan")?.value || "none";
+  const planStatus = cookieStore.get("otia_plan_status")?.value || "inactive";
 
   const authenticated = auth === "1";
 
-  // Normaliza para o que o middleware entende
-  const plan = authenticated && planCookie === "active" ? "active" : "inactive";
-
   const res = NextResponse.json({
     authenticated,
-    plan,
+    plan,         // basico | pro | premium | none
+    planStatus,   // active | inactive
   });
 
-  // evita qualquer cache intermediário
   res.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.headers.set("Pragma", "no-cache");
   res.headers.set("Expires", "0");
