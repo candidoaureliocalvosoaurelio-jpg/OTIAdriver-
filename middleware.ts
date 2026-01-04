@@ -77,15 +77,18 @@ export function middleware(req: NextRequest) {
   // - NÃO exige plano ativo nas rotas protegidas (libera após login)
   const openBeta = process.env.OPEN_BETA === "1";
 
-  // 1) Home: se logado e (plano ativo OU openBeta) => /catalogo
-  if (pathname === "/") {
-    if (hasAuth && (hasActivePlan || openBeta)) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/catalogo";
-      if (lang) url.searchParams.set("lang", lang);
-      return NextResponse.redirect(url);
-    }
-    return NextResponse.next();
+  // 1) Home: redireciona APENAS se NÃO estiver vindo de checkout
+if (pathname === "/") {
+  const cameFromCheckout = searchParams.get("from") === "checkout";
+
+  if (!cameFromCheckout && hasAuth && (hasActivePlan || openBeta)) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/catalogo";
+    if (lang) url.searchParams.set("lang", lang);
+    return NextResponse.redirect(url);
+  }
+}
+return NextResponse.next();
   }
 
   // 2) Rotas públicas
