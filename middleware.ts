@@ -1,11 +1,9 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 /**
- * Rotas públicas (não exigem login nem plano)
- * ✅ Checkout é público (o checkout decide via /api/auth/session)
- * ✅ /api/pagamentos é público para criar preferência
+ * Rotas que não exigem verificação de plano ou login.
+ * Inclui o checkout para permitir que o usuário inicie o pagamento.
  */
 function isPublicPath(pathname: string) {
   if (pathname === "/") return true;
@@ -13,21 +11,13 @@ function isPublicPath(pathname: string) {
   const publicPrefixes = [
     "/entrar",
     "/planos",
-
-    // checkout e retornos do pagamento
     "/checkout",
     "/pagamento",
-
-    // áreas públicas
     "/catalogo",
-
-    // APIs
     "/api/me",
     "/api/auth",
     "/api/pagamentos",
     "/api/webhook",
-
-    // Assets / estáticos
     "/favicon.ico",
     "/robots.txt",
     "/sitemap.xml",
@@ -38,6 +28,9 @@ function isPublicPath(pathname: string) {
   return publicPrefixes.some((p) => pathname === p || pathname.startsWith(p + "/"));
 }
 
+/**
+ * Rotas que exigem obrigatoriamente login e plano ativo.
+ */
 function isProtectedPath(pathname: string) {
   const protectedPrefixes = [
     "/treinamentos",
@@ -55,15 +48,18 @@ function isProtectedPath(pathname: string) {
 
 export function middleware(req: NextRequest) {
   const { pathname, searchParams } = req.nextUrl;
-
-  // ✅ 0) Em produção, forçar www (estabiliza cookies e fluxo no celular)
-  // Mas NÃO redirecionar webhooks/APIs (evita quebrar chamadas server-to-server).
   const host = (req.headers.get("host") || "").toLowerCase();
   const hostNoPort = host.split(":")[0];
-
   const isApi = pathname.startsWith("/api/");
   const isWebhook = pathname.startsWith("/api/webhook/");
 
+  // 1) Ignorar assets internos do Next.js e arquivos estáticos
+  if (pathname.startsWith("/_next") || pathname.includes("/static")) {
+    return NextResponse.next();
+  }
+
+  // 2) Normalização de Domínio (Forçar WWW em produção)
+  // Fazemos isso ANTES da verificação de autenticação para evitar inconsistência de cookies
   if (
     process.env.NODE_ENV === "production" &&
     hostNoPort === "otiadriver.com.br" &&
@@ -76,20 +72,20 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(url, 308);
   }
 
-  // Cookies
-  const auth = req.cookies.get("otia_auth")?.value; // "1"
-  const planStatus = req.cookies.get("otia_plan_status")?.value; // "active" | "inactive"
-  const plan = req.cookies.get("otia_plan")?.value; // fallback (basico|pro|premium|none)
-
-  const lang = searchParams.get("lang");
+  // Captura dos Cookies de Sessão
+  const auth = req.cookies.get("otia_auth")?.value; 
+  const planStatus = req.cookies.get("otia_plan_status")?.value;
+  const plan = req.cookies.get("otia_plan")?.value;
 
   const hasAuth = auth === "1";
   const hasActivePlan =
-    planStatus === "active" || ["basico", "pro", "premium", "active"].includes(String(plan || "").toLowerCase());
-
+    planStatus === "active" || 
+    ["basico", "pro", "premium", "active"].includes(String(plan || "").toLowerCase());
+  
   const openBeta = process.env.OPEN_BETA === "1";
+  const lang = searchParams.get("lang");
 
-  // 1) Home: se logado e (plano ativo OU openBeta) => /catalogo
+  // 3) Redirecionamento da Home (/) para usuários já ativos
   if (pathname === "/") {
     if (hasAuth && (hasActivePlan || openBeta)) {
       const go = req.nextUrl.clone();
@@ -100,32 +96,32 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // 2) Rotas públicas passam
-  if (isPublicPath(pathname)) return NextResponse.next();
-
-  // 3) Se não é protegida, passa
-  if (!isProtectedPath(pathname)) return NextResponse.next();
-
-  // 4) Protegida: exige login
-  if (!hasAuth) {
-    const go = req.nextUrl.clone();
-    go.pathname = "/entrar";
-    if (lang) go.searchParams.set("lang", lang);
-
-    go.searchParams.set("next", pathname + req.nextUrl.search);
-    go.searchParams.set("reason", "auth");
-    return NextResponse.redirect(go);
+  // 4) Liberar Rotas Públicas (Checkout, APIs de autenticação, etc)
+  if (isPublicPath(pathname)) {
+    return NextResponse.next();
   }
 
-  // 5) Protegida: exige plano (exceto open beta)
-  if (!openBeta && !hasActivePlan) {
-    const go = req.nextUrl.clone();
-    go.pathname = "/planos";
-    if (lang) go.searchParams.set("lang", lang);
+  // 5) Verificação de Rotas Protegidas
+  if (isProtectedPath(pathname)) {
+    // Se não estiver logado -> Login
+    if (!hasAuth) {
+      const go = req.nextUrl.clone();
+      go.pathname = "/entrar";
+      if (lang) go.searchParams.set("lang", lang);
+      go.searchParams.set("next", pathname + req.nextUrl.search);
+      go.searchParams.set("reason", "auth");
+      return NextResponse.redirect(go);
+    }
 
-    go.searchParams.set("next", pathname + req.nextUrl.search);
-    go.searchParams.set("reason", "paywall");
-    return NextResponse.redirect(go);
+    // Se logado mas sem plano -> Planos (bloqueio por paywall)
+    if (!openBeta && !hasActivePlan) {
+      const go = req.nextUrl.clone();
+      go.pathname = "/planos";
+      if (lang) go.searchParams.set("lang", lang);
+      go.searchParams.set("next", pathname + req.nextUrl.search);
+      go.searchParams.set("reason", "paywall");
+      return NextResponse.redirect(go);
+    }
   }
 
   return NextResponse.next();
