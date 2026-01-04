@@ -25,10 +25,12 @@ function cookieBase() {
   const isProd = process.env.NODE_ENV === "production";
   return {
     path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 dias
+    maxAge: 60 * 60 * 24 * 30,
     httpOnly: true,
     sameSite: "lax" as const,
-    secure: isProd,
+    // 🔥 AJUSTE CRÍTICO: No seu PC (localhost), isso DEVE ser false
+    secure: isProd, 
+    // 🔥 AJUSTE CRÍTICO: No localhost, o domain deve ser omitido
     ...(isProd ? { domain: ".otiadriver.com.br" } : {}),
   };
 }
