@@ -1,4 +1,3 @@
-// app/api/auth/session/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
@@ -7,38 +6,42 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const c = cookies();
+    // No Next.js 15+, cookies() deve ser aguardado
+    const cookieStore = await cookies();
 
-    const auth = c.get("otia_auth")?.value || "";
-    const cpf = c.get("otia_cpf")?.value || "";
-    const plan = c.get("otia_plan")?.value || "none";
+    // Pegamos os valores brutos
+    const auth = cookieStore.get("otia_auth")?.value || "";
+    const cpf = cookieStore.get("otia_cpf")?.value || "";
+    const plan = cookieStore.get("otia_plan")?.value || "none";
 
-    const authenticated = auth === "1" && cpf.length === 11;
+    // Limpeza de CPF (remove pontos/traços caso existam no cookie)
+    const cleanCpf = cpf.replace(/\D/g, "");
+    
+    // Validação rigorosa
+    const authenticated = auth === "1" && cleanCpf.length === 11;
 
-    // ✅ IMPORTANTE: sessão SEM LOGIN NÃO É ERRO → retorna 200 com authenticated=false
+    console.log(`[AUTH_SESSION] Check: auth=${auth}, cpfLength=${cleanCpf.length}, result=${authenticated}`);
+
     return NextResponse.json(
       {
         authenticated,
-        cpf: authenticated ? cpf : "",
+        cpf: authenticated ? cleanCpf : "",
         plan: authenticated ? plan : "none",
       },
       {
         status: 200,
         headers: {
-          // ✅ evita cache "enganando" mobile/edge cases
-          "Cache-Control": "no-store, max-age=0",
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0",
         },
       }
     );
   } catch (err) {
     console.error("AUTH_SESSION_ERROR:", err);
-    // ✅ até erro interno retorna 200 para não derrubar checkout por "falha de sessão"
     return NextResponse.json(
       { authenticated: false, cpf: "", plan: "none" },
-      {
-        status: 200,
-        headers: { "Cache-Control": "no-store, max-age=0" },
-      }
+      { status: 200 }
     );
   }
 }
