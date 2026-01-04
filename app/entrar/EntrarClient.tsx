@@ -1,4 +1,3 @@
-// app/entrar/EntrarClient.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -45,7 +44,7 @@ function toE164(phoneRaw: string) {
 
 function getNextFromLocation() {
   if (typeof window === "undefined") {
-    return { next: "/catalogo?lang=pt", lang: "pt" };
+    return { next: "/planos?lang=pt", lang: "pt" };
   }
 
   const params = new URLSearchParams(window.location.search);
@@ -53,7 +52,7 @@ function getNextFromLocation() {
 
   const nextRaw = params.get("next");
   const safeNext =
-    nextRaw && nextRaw.startsWith("/") ? nextRaw : `/catalogo?lang=${lang}`;
+    nextRaw && nextRaw.startsWith("/") ? nextRaw : `/planos?lang=${lang}`;
 
   const next = safeNext.includes("lang=")
     ? safeNext
@@ -164,12 +163,13 @@ export default function EntrarClient() {
         cache: "no-store",
       }).catch(() => null);
 
-      // ✅ adiciona marcador para o checkout saber que veio do login
-      const nextWithFromCheckout = next.includes("?")
-        ? `${next}&from=checkout`
-        : `${next}?from=checkout`;
+      // 🔥 MARCA DEFINITIVA DE CHECKOUT
+      const nextWithCheckout = next.includes("?")
+        ? `${next}&from=checkout&fc=1`
+        : `${next}?from=checkout&fc=1`;
 
-      window.location.href = nextWithFromCheckout;
+      // 🔥 replace evita loop e interceptação
+      window.location.replace(nextWithCheckout);
     } catch {
       setMsg("Erro ao validar código.");
     } finally {
@@ -245,7 +245,9 @@ export default function EntrarClient() {
               disabled={loading || cooldown > 0}
               className="w-full text-slate-500 text-sm"
             >
-              {cooldown > 0 ? `Reenviar código em ${cooldown}s` : "Não recebeu? Reenviar código"}
+              {cooldown > 0
+                ? `Reenviar código em ${cooldown}s`
+                : "Não recebeu? Reenviar código"}
             </button>
           </>
         )}
