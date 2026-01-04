@@ -6,11 +6,13 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 function cookieBase() {
+  const isProd = process.env.NODE_ENV === "production";
   return {
     path: "/",
     httpOnly: true,
     sameSite: "lax" as const,
-    secure: process.env.NODE_ENV === "production",
+    secure: isProd,
+    ...(isProd ? { domain: ".otiadriver.com.br" } : {}),
   };
 }
 
@@ -28,7 +30,6 @@ export async function GET(req: NextRequest) {
 
   const res = NextResponse.redirect(new URL(next, req.url));
 
-  // 🔐 Limpa cookies de autenticação
   res.cookies.set("otia_auth", "", { ...cookieBase(), maxAge: 0 });
   res.cookies.set("otia_cpf", "", { ...cookieBase(), maxAge: 0 });
   res.cookies.set("otia_plan", "", { ...cookieBase(), maxAge: 0 });
