@@ -6,15 +6,15 @@ import { createClient } from "@supabase/supabase-js";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+function onlyDigits(v: string) {
+  return (v || "").replace(/\D+/g, "");
+}
+
 function getSupabaseAdmin() {
   const url = process.env.SUPABASE_URL!;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
   if (!url || !serviceKey) throw new Error("Configurações do Supabase ausentes.");
   return createClient(url, serviceKey, { auth: { persistSession: false } });
-}
-
-function normalizePlan(v?: string | null) {
-  return String(v || "").trim().toLowerCase();
 }
 
 function cookieBase() {
@@ -32,14 +32,18 @@ function cookieBase() {
 export async function POST() {
   try {
     const cookieStore = cookies();
-    const cpf = cookieStore.get("otia_cpf")?.value || "";
+    const cpfRaw = cookieStore.get("otia_cpf")?.value || "";
+    const cpf = onlyDigits(cpfRaw);
 
-    if (!cpf) {
+    // Precisa de CPF válido para sincronizar
+    if (cpf.length !== 11) {
       return NextResponse.json({ ok: false, reason: "not_authenticated" }, { status: 401 });
     }
 
     const supabase = getSupabaseAdmin();
 
+    // ✅ Para faturar AGORA: se no banco estiver com qualquer plano pago, libera TUDO
+    // (Opcionalmente, você pode checar plan_expires_at depois; agora vamos simplificar.)
     const { data, error } = await supabase
       .from("profiles")
       .select("plano")
@@ -50,20 +54,28 @@ export async function POST() {
       return NextResponse.json({ ok: false, reason: "db_error" }, { status: 500 });
     }
 
-    const planoDoBanco = normalizePlan(data?.plano);
-
+    const planoDoBanco = String(data?.plano || "").trim().toLowerCase();
     const paidPlans = new Set(["basico", "pro", "premium", "active"]);
-    const planStatus = paidPlans.has(planoDoBanco) ? "active" : "inactive";
 
-    const res = NextResponse.json({
-      ok: true,
-      plano: planoDoBanco || "none",
-      status: planStatus,
-    });
+    const isPaid = paidPlans.has(planoDoBanco);
+
+    // 🔥 MODO FATURAMENTO: pagou = acesso total
+    const planoFinal = isPaid ? "premium" : "none";
+    const planStatus = isPaid ? "active" : "inactive";
+
+    const res = NextResponse.json(
+      { ok: true, plano: planoFinal, status: planStatus },
+      { headers: { "Cache-Control": "no-store, max-age=0" } }
+    );
 
     const base = cookieBase();
 
-    res.cookies.set("otia_plan", planoDoBanco || "none", base);
+    // ✅ garante sessão "logada" no servidor
+    res.cookies.set("otia_auth", "1", base);
+    res.cookies.set("otia_cpf", cpf, base);
+
+    // ✅ libera acesso total
+    res.cookies.set("otia_plan", planoFinal, base);
     res.cookies.set("otia_plan_status", planStatus, base);
 
     return res;
