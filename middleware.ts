@@ -77,9 +77,15 @@ export function middleware(req: NextRequest) {
   // - NÃO exige plano ativo nas rotas protegidas (libera após login)
   const openBeta = process.env.OPEN_BETA === "1";
 
+  // ✅ IMPORTANTÍSSIMO:
+  // Se o usuário está no fluxo de pagamento (login com next=/checkout/...)
+  // NÃO pode redirecionar "/" -> "/catalogo" automaticamente.
+  const fromCheckout = searchParams.get("from") === "checkout";
+
   // 1) Home: se logado e (plano ativo OU openBeta) => /catalogo
+  //    MAS: não faz isso se estiver vindo do checkout.
   if (pathname === "/") {
-    if (hasAuth && (hasActivePlan || openBeta)) {
+    if (!fromCheckout && hasAuth && (hasActivePlan || openBeta)) {
       const url = req.nextUrl.clone();
       url.pathname = "/catalogo";
       if (lang) url.searchParams.set("lang", lang);
