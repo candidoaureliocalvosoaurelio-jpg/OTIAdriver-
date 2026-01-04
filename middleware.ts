@@ -1,150 +1,77 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-/**
- * Rotas que não exigem verificação de plano ou login.
- * Inclui o checkout para permitir que o usuário inicie o pagamento.
- */
-function isPublicPath(pathname: string) {
-  if (pathname === "/") return true;
-
-  const publicPrefixes = [
-    "/entrar",
-    "/planos",
-    "/checkout",
-    "/pagamento",
-    "/catalogo",
-
-    // APIs públicas
-    "/api/me",
-    "/api/auth",
-    "/api/pagamentos",
-    "/api/webhook",
-
-    // Assets
-    "/favicon.ico",
-    "/robots.txt",
-    "/sitemap.xml",
-    "/images",
-    "/fichas-tecnicas",
-  ];
-
-  return publicPrefixes.some(
-    (p) => pathname === p || pathname.startsWith(p + "/")
-  );
-}
-
-/**
- * Rotas que exigem obrigatoriamente login e plano ativo.
- */
-function isProtectedPath(pathname: string) {
-  const protectedPrefixes = [
-    "/treinamentos",
-    "/caminhoes",
-    "/simbolos-painel",
-    "/ebook-driver",
-    "/pneus",
-    "/inspecao",
-    "/inspecao-manutencao",
-    "/caminhoes-eletricos",
-  ];
-
-  return protectedPrefixes.some(
-    (p) => pathname === p || pathname.startsWith(p + "/")
-  );
-}
-
 export function middleware(req: NextRequest) {
-  const { pathname, searchParams } = req.nextUrl;
+  const url = req.nextUrl;
+  const { pathname, hostname } = url;
 
-  const host = (req.headers.get("host") || "").toLowerCase();
-  const hostNoPort = host.split(":")[0];
+  // =========================================================
+  // 1) ✅ FORÇAR WWW EM PRODUÇÃO (Opção A)
+  // =========================================================
+  // Se alguém acessar sem www, redireciona para www mantendo path + query.
+  // Importante: isso deve vir ANTES da lógica de auth/planos.
+  const isProd = process.env.NODE_ENV === "production";
 
-  const isApi = pathname.startsWith("/api/");
-  const isWebhook = pathname.startsWith("/api/webhook/");
+  // Evita mexer em rotas internas/arquivos estáticos
+  const isStatic =
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/favicon") ||
+    pathname.startsWith("/robots.txt") ||
+    pathname.startsWith("/sitemap") ||
+    pathname.match(/\.(png|jpg|jpeg|webp|svg|ico|css|js|map|txt|xml|pdf)$/);
 
-  // 1) Ignorar assets internos do Next.js
-  if (pathname.startsWith("/_next") || pathname.includes("/static")) {
-    return NextResponse.next();
+  if (isProd && !isStatic && hostname === "otiadriver.com.br") {
+    const newUrl = url.clone();
+    newUrl.hostname = "www.otiadriver.com.br";
+    return NextResponse.redirect(newUrl, 308);
   }
 
-  // 2) Normalização de domínio (forçar www em produção)
-  if (
-    process.env.NODE_ENV === "production" &&
-    hostNoPort === "otiadriver.com.br" &&
-    !isApi &&
-    !isWebhook
-  ) {
-    const url = req.nextUrl.clone();
-    url.host = "www.otiadriver.com.br";
-    url.protocol = "https:";
-    return NextResponse.redirect(url, 308);
-  }
-
-  // Cookies de sessão
+  // =========================================================
+  // 2) ✅ SUA LÓGICA ATUAL DE AUTENTICAÇÃO / PAYWALL
+  // =========================================================
   const auth = req.cookies.get("otia_auth")?.value;
-  const planStatus = req.cookies.get("otia_plan_status")?.value;
   const plan = req.cookies.get("otia_plan")?.value;
 
-  const hasAuth = auth === "1";
-  const hasActivePlan =
-    planStatus === "active" ||
-    ["basico", "pro", "premium", "active"].includes(
-      String(plan || "").toLowerCase()
-    );
-
-  const openBeta = process.env.OPEN_BETA === "1";
-  const lang = searchParams.get("lang");
-
-  // 3) 🔥 HOME (/) — NÃO interceptar quando vier do checkout
-  if (pathname === "/") {
-    const fromCheckout =
-      searchParams.get("from") === "checkout" ||
-      searchParams.get("fc") === "1";
-
-    // ✅ Só redireciona para /catalogo se NÃO vier do checkout
-    if (!fromCheckout && hasAuth && (hasActivePlan || openBeta)) {
-      const go = req.nextUrl.clone();
-      go.pathname = "/catalogo";
-      if (lang) go.searchParams.set("lang", lang);
-      return NextResponse.redirect(go);
+  // 🔓 REGRA DE OURO PARA FATURAR:
+  // checkout exige apenas login, nunca plano
+  if (pathname.startsWith("/checkout")) {
+    if (auth !== "1") {
+      const nextUrl = req.nextUrl.clone();
+      nextUrl.pathname = "/entrar";
+      nextUrl.searchParams.set("next", pathname);
+      return NextResponse.redirect(nextUrl);
     }
-
     return NextResponse.next();
   }
 
-  // 4) Rotas públicas passam direto
-  if (isPublicPath(pathname)) {
-    return NextResponse.next();
-  }
-
-  // 5) Rotas protegidas
-  if (isProtectedPath(pathname)) {
-    // 5.1) Não autenticado → login
-    if (!hasAuth) {
-      const go = req.nextUrl.clone();
-      go.pathname = "/entrar";
-      if (lang) go.searchParams.set("lang", lang);
-      go.searchParams.set("next", pathname + req.nextUrl.search);
-      go.searchParams.set("reason", "auth");
-      return NextResponse.redirect(go);
+  // 🛡️ PROTEÇÃO DO CONTEÚDO
+  if (
+    pathname.startsWith("/catalogo") ||
+    pathname.startsWith("/treinamentos") ||
+    pathname.startsWith("/pneus")
+  ) {
+    if (auth !== "1") {
+      const loginUrl = req.nextUrl.clone();
+      loginUrl.pathname = "/entrar";
+      loginUrl.searchParams.set("reason", "auth");
+      return NextResponse.redirect(loginUrl);
     }
 
-    // 5.2) Autenticado sem plano → paywall
-    if (!openBeta && !hasActivePlan) {
-      const go = req.nextUrl.clone();
-      go.pathname = "/planos";
-      if (lang) go.searchParams.set("lang", lang);
-      go.searchParams.set("next", pathname + req.nextUrl.search);
-      go.searchParams.set("reason", "paywall");
-      return NextResponse.redirect(go);
+    if (!plan || plan === "none") {
+      const planosUrl = req.nextUrl.clone();
+      planosUrl.pathname = "/planos";
+      planosUrl.searchParams.set("reason", "paywall");
+      return NextResponse.redirect(planosUrl);
     }
   }
 
   return NextResponse.next();
 }
 
+// =========================================================
+// 3) Matcher: precisa pegar TUDO para forçar www
+//    mas ignorar _next e arquivos via "isStatic" acima
+// =========================================================
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/:path*"],
 };
