@@ -1,4 +1,3 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -12,7 +11,7 @@ export function middleware(req: NextRequest) {
   const isAuthenticated = auth === "1";
   const hasActivePlan = plan && ACTIVE_PLANS.includes(plan.toLowerCase());
 
-  // 🔓 REGRA DE OURO: Checkout deve ser público ou exigir apenas login, nunca o plano!
+  // SOLUÇÃO: Se for CHECKOUT, exige apenas LOGIN, nunca PLANO
   if (pathname.startsWith("/checkout")) {
     if (!isAuthenticated) {
       const url = req.nextUrl.clone();
@@ -20,20 +19,16 @@ export function middleware(req: NextRequest) {
       url.searchParams.set("next", pathname);
       return NextResponse.redirect(url);
     }
-    return NextResponse.next(); // Libera o acesso ao Mercado Pago se estiver logado
+    return NextResponse.next(); // Libera para o Mercado Pago
   }
 
-  // 🛡️ PROTEÇÃO DO CATÁLOGO: Exige login E plano
+  // PROTEÇÃO DO CATÁLOGO: Aqui sim exige ambos
   if (pathname.startsWith("/catalogo") || pathname.startsWith("/treinamentos")) {
     if (!isAuthenticated) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/entrar";
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(new URL("/entrar", req.url));
     }
     if (!hasActivePlan) {
-      const url = req.nextUrl.clone();
-      url.pathname = "/planos";
-      return NextResponse.redirect(url);
+      return NextResponse.redirect(new URL("/planos", req.url));
     }
   }
 
