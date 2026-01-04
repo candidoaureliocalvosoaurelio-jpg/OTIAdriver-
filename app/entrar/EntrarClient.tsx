@@ -1,3 +1,4 @@
+// app/entrar/EntrarClient.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -37,18 +38,12 @@ function formatPhoneBR(v: string) {
 /**
  * ✅ Sempre converte para E.164
  * Ex: "(62) 98286-8061" -> "+5562982868061"
- * Regras:
- * - se já vier com 55 (ex: 5562...) => +5562...
- * - se vier só DDD+número (ex: 62...) => +5562...
  */
 function toE164(phoneRaw: string) {
   const d = onlyDigits(phoneRaw);
   if (!d) return "";
-  // 55 + DDD + número (12 ou 13 dígitos) OU qualquer coisa iniciando com 55
   if (d.startsWith("55")) return `+${d}`;
-  // BR sem DDI: DDD + número (10 ou 11 dígitos)
   if (d.length === 10 || d.length === 11) return `+55${d}`;
-  // fallback: tenta prefixar 55 mesmo assim (evita vazio quando o usuário digita incompleto)
   return d.length >= 8 ? `+55${d}` : "";
 }
 
@@ -86,7 +81,6 @@ export default function EntrarClient() {
   const [cooldown, setCooldown] = useState(0);
 
   const cpfDigits = useMemo(() => onlyDigits(cpf), [cpf]);
-  const phoneDigits = useMemo(() => onlyDigits(phone), [phone]);
   const phoneE164 = useMemo(() => toE164(phone), [phone]);
 
   useEffect(() => {
@@ -108,7 +102,6 @@ export default function EntrarClient() {
       return;
     }
 
-    // ✅ valida pelo E.164 (não pelo length cru)
     if (!phoneE164) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -152,7 +145,6 @@ export default function EntrarClient() {
       return;
     }
 
-    // ✅ também valida E.164 aqui (evita request com telefone inválido)
     if (!phoneE164) {
       setMsg("Celular inválido. Digite com DDD.");
       return;
@@ -190,8 +182,12 @@ export default function EntrarClient() {
         cache: "no-store",
       }).catch(() => null);
 
-      // 3) reload total (garante cookies em middleware)
-      window.location.href = next;
+      // 3) marca que veio do checkout e faz reload total (evita "/" -> "/catalogo")
+      const nextWithFromCheckout = next.includes("?")
+        ? `${next}&from=checkout`
+        : `${next}?from=checkout`;
+
+      window.location.href = nextWithFromCheckout;
     } catch {
       setMsg("Erro ao validar código.");
     } finally {
