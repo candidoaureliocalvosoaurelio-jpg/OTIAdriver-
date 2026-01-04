@@ -51,7 +51,7 @@ function Check({ ok }: { ok: boolean }) {
 function PlanosContent() {
   const searchParams = useSearchParams();
   const reason = searchParams.get("reason");
-  const [loading, setLoading] = useState<string | null>(null);
+  const [loading, setLoading] = useState<"basico" | "pro" | "premium" | null>(null);
 
   async function handleAssinar(planoId: "basico" | "pro" | "premium") {
     try {
@@ -65,7 +65,8 @@ function PlanosContent() {
       }
 
       if (result?.error === "not_authenticated") {
-        window.location.href = "/entrar?reason=auth";
+        // volta para /planos após login
+        window.location.href = "/entrar?reason=auth&next=/planos";
         return;
       }
 
@@ -110,9 +111,20 @@ function PlanosContent() {
         </p>
 
         <div className={styles.heroCtas}>
-          {/* CTA rápido para PRO (pode manter Link se existir /checkout/pro) */}
-          <Link href="/checkout/pro" className={styles.heroPrimaryCta}>
-            Assinar PRO (Recomendado)
+          {/* ✅ CTA do HERO agora usa o MESMO fluxo do Mercado Pago (não vai mais para /checkout/pro) */}
+          <button
+            type="button"
+            onClick={() => handleAssinar("pro")}
+            className={styles.heroPrimaryCta}
+            disabled={loading !== null}
+            aria-busy={loading === "pro"}
+          >
+            {loading === "pro" ? "Processando..." : "Assinar PRO (Recomendado)"}
+          </button>
+
+          {/* opcional: manter um link secundário para detalhes */}
+          <Link href="#compare-title" className={styles.heroSecondaryCta ?? ""}>
+            Ver comparação
           </Link>
         </div>
 
