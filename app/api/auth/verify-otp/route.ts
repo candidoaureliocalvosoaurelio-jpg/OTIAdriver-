@@ -25,11 +25,11 @@ function normalizeToE164(phoneRaw: string): string {
 function cookieBase() {
   return {
     path: "/",
-    maxAge: 60 * 60 * 24 * 30, // Mantém logado por 30 dias
+    maxAge: 60 * 60 * 24 * 30, // 30 dias
     httpOnly: true,
     sameSite: "lax" as const,
-    secure: false, // 🔓 Destrava o envio do cookie em qualquer conexão (HTTP/HTTPS)
-    // domain: ".otiadriver.com.br" // 🔓 Comentado para evitar conflitos de subdomínio
+    secure: true,                  // 🔒 OBRIGATÓRIO em HTTPS
+    domain: ".otiadriver.com.br",   // 🌐 cobre www e sem www
   };
 }
 
