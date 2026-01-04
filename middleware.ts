@@ -60,17 +60,20 @@ export function middleware(req: NextRequest) {
 
   // 2) Normalização de Domínio (Forçar WWW em produção)
   // Fazemos isso ANTES da verificação de autenticação para evitar inconsistência de cookies
-  if (
-    process.env.NODE_ENV === "production" &&
-    hostNoPort === "otiadriver.com.br" &&
-    !isApi &&
-    !isWebhook
-  ) {
-    const url = req.nextUrl.clone();
-    url.host = "www.otiadriver.com.br";
-    url.protocol = "https:";
-    return NextResponse.redirect(url, 308);
+  
+  if (pathname === "/") {
+  // ✅ se veio do checkout, NÃO intercepta
+  const fromCheckout = searchParams.get("from") === "checkout=1";
+
+  if (!fromCheckout && hasAuth && (hasActivePlan || openBeta)) {
+    const go = req.nextUrl.clone();
+    go.pathname = "/catalogo";
+    if (lang) go.searchParams.set("lang", lang);
+    return NextResponse.redirect(go);
   }
+
+  return NextResponse.next();
+}
 
   // Captura dos Cookies de Sessão
   const auth = req.cookies.get("otia_auth")?.value; 
