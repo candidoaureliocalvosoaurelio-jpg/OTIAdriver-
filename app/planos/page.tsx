@@ -2,10 +2,11 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import styles from "./Planos.module.css";
+import { irParaMercadoPago } from "./actions";
 
-// Listas de recursos
+// ================= LISTAS DE RECURSOS =================
 const basic = [
   "Acesso a conteúdos essenciais",
   "Páginas de Caminhões, Treinamentos e Pneus",
@@ -29,7 +30,7 @@ const premium = [
   "Suporte prioritário",
 ];
 
-// Comparação rápida
+// ================= COMPARAÇÃO RÁPIDA =================
 const compare = [
   { label: "Página de Caminhões e Pneus", basic: true, pro: true, premium: true },
   { label: "Treinamentos Essenciais", basic: true, pro: true, premium: true },
@@ -46,14 +47,41 @@ function Check({ ok }: { ok: boolean }) {
   );
 }
 
-// 1. Componente interno que consome os parâmetros da URL
+// ================= CONTEÚDO (usa searchParams) =================
 function PlanosContent() {
   const searchParams = useSearchParams();
   const reason = searchParams.get("reason");
+  const [loading, setLoading] = useState<"basico" | "pro" | "premium" | null>(null);
+
+  async function handleAssinar(planoId: "basico" | "pro" | "premium") {
+    try {
+      setLoading(planoId);
+
+      const result = await irParaMercadoPago(planoId);
+
+      if (result?.init_point) {
+        window.location.href = result.init_point;
+        return;
+      }
+
+      if (result?.error === "not_authenticated") {
+        // volta para /planos após login
+        window.location.href = "/entrar?reason=auth&next=/planos";
+        return;
+      }
+
+      alert("Falha ao gerar pagamento. Tente novamente.");
+      setLoading(null);
+    } catch (e) {
+      console.error("[PLANOS] Erro ao iniciar pagamento:", e);
+      alert("Erro inesperado ao gerar pagamento. Tente novamente.");
+      setLoading(null);
+    }
+  }
 
   return (
     <>
-      {/* MENSAGEM DE ALERTA DO MIDDLEWARE */}
+      {/* MENSAGEM DE ALERTA (por reason) */}
       {reason === "upgrade" && (
         <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-800 text-center animate-pulse">
           <p className="font-bold text-lg">🔒 Conteúdo Exclusivo</p>
@@ -83,8 +111,20 @@ function PlanosContent() {
         </p>
 
         <div className={styles.heroCtas}>
-          <Link href="/checkout/pro" className={styles.heroPrimaryCta}>
-            Assinar PRO (Recomendado)
+          {/* ✅ CTA do HERO agora usa o MESMO fluxo do Mercado Pago (não vai mais para /checkout/pro) */}
+          <button
+            type="button"
+            onClick={() => handleAssinar("pro")}
+            className={styles.heroPrimaryCta}
+            disabled={loading !== null}
+            aria-busy={loading === "pro"}
+          >
+            {loading === "pro" ? "Processando..." : "Assinar PRO (Recomendado)"}
+          </button>
+
+          {/* opcional: manter um link secundário para detalhes */}
+          <Link href="#compare-title" className={styles.heroSecondaryCta ?? ""}>
+            Ver comparação
           </Link>
         </div>
 
@@ -137,59 +177,95 @@ function PlanosContent() {
 
       {/* CARDS DE PLANOS */}
       <section className={styles.planosGrid} aria-label="Planos disponíveis">
+        {/* BÁSICO */}
         <article className={`${styles.card} ${styles.planoBasico}`} style={{ height: 520 }}>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Básico</h2>
+
           <div className={styles.preco}>
             <span className={styles.cifra}>R$&nbsp;</span>
             <span className={styles.valor}>29,90</span>
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
+
           <p className="text-sm text-slate-600 m-0">Início de caminhões, treinamentos e pneus.</p>
+
           <ul className={styles.recursos}>
             {basic.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <Link href="/checkout/basico" className={`${styles.btn} ${styles["btn-basico"]}`}>
-            Assinar Básico
-          </Link>
+
+          {/* Botão Mercado Pago */}
+          <button
+            type="button"
+            onClick={() => handleAssinar("basico")}
+            className={`${styles.btn} ${styles["btn-basico"] ?? ""}`}
+            disabled={loading !== null}
+            aria-busy={loading === "basico"}
+          >
+            {loading === "basico" ? "Processando..." : "Assinar Básico"}
+          </button>
         </article>
 
+        {/* PRO */}
         <article className={`${styles.card} ${styles.planoPro}`} style={{ height: 520 }}>
           <div className={styles.seloRecomendado}>RECOMENDADO</div>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">PRO</h2>
+
           <div className={styles.preco}>
             <span className={styles.cifra}>R$&nbsp;</span>
             <span className={styles.valor}>49,90</span>
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
+
           <p className="text-sm text-slate-700 m-0">Acesso completo e suporte com IA.</p>
+
           <ul className={styles.recursos}>
             {pro.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <Link href="/checkout/pro" className={`${styles.btn} ${styles["btn-pro"]}`}>
-            Assinar PRO
-          </Link>
+
+          {/* Botão Mercado Pago */}
+          <button
+            type="button"
+            onClick={() => handleAssinar("pro")}
+            className={`${styles.btn} ${styles["btn-pro"]}`}
+            disabled={loading !== null}
+            aria-busy={loading === "pro"}
+          >
+            {loading === "pro" ? "Processando..." : "Assinar PRO"}
+          </button>
         </article>
 
+        {/* PREMIUM */}
         <article className={`${styles.card} ${styles.planoPremium}`} style={{ height: 520 }}>
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Premium</h2>
+
           <div className={styles.preco}>
             <span className={styles.cifra}>R$&nbsp;</span>
             <span className={styles.valor}>99,90</span>
             <span className={styles.periodo}>&nbsp;/ mês</span>
           </div>
+
           <p className="text-sm m-0">Prioridade total e conteúdos exclusivos.</p>
+
           <ul className={styles.recursos}>
             {premium.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <Link href="/checkout/premium" className={`${styles.btn} ${styles["btn-premium"]}`}>
-            Assinar Premium
-          </Link>
+
+          {/* Botão Mercado Pago */}
+          <button
+            type="button"
+            onClick={() => handleAssinar("premium")}
+            className={`${styles.btn} ${styles["btn-premium"] ?? ""}`}
+            disabled={loading !== null}
+            aria-busy={loading === "premium"}
+          >
+            {loading === "premium" ? "Processando..." : "Assinar Premium"}
+          </button>
         </article>
       </section>
 
@@ -198,6 +274,7 @@ function PlanosContent() {
         <h2 id="faq-title" className={styles.blockTitle}>
           Dúvidas rápidas
         </h2>
+
         <div className={styles.faqGrid}>
           <details className={styles.faqItem}>
             <summary>Como funciona o acesso?</summary>
@@ -208,11 +285,11 @@ function PlanosContent() {
           </details>
 
           <details className={styles.faqItem}>
-            <summary>Seja um profissional de elite. 🛡️</summary>
+            <summary>Seja um profissional de elite.</summary>
             <p>
-              Com o Plano PRO, você vai além do óbvio. Tenha acesso exclusivo a guias de direção
-              defensiva avançada e manuais de segurança que não estão disponíveis no plano Básico. É
-              o conteúdo completo para quem coloca a vida e a carga em primeiro lugar e exige 100% de
+              Com o Plano PRO, você vai além do óbvio. Tenha acesso a guias de direção defensiva
+              avançada e manuais de segurança que não estão disponíveis no plano Básico. É o
+              conteúdo completo para quem coloca a vida e a carga em primeiro lugar e exige 100% de
               preparação para qualquer desafio na estrada.
             </p>
           </details>
@@ -222,7 +299,7 @@ function PlanosContent() {
   );
 }
 
-// 2. Componente principal com Suspense
+// ================= PÁGINA (com Suspense) =================
 export default function PlanosPage() {
   return (
     <main className={`${styles.rootVars} mx-auto max-w-7xl px-4 py-10`}>

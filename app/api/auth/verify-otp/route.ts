@@ -1,4 +1,3 @@
-// app/api/auth/verify-otp/route.ts
 import { NextResponse } from "next/server";
 import twilio from "twilio";
 import { createClient } from "@supabase/supabase-js";
@@ -12,24 +11,25 @@ function onlyDigits(v: string) {
 
 function normalizeToE164(phoneRaw: string): string {
   const digits = onlyDigits(phoneRaw);
-  // aceita 12/13 apenas se começar com 55
+  // Aceita 12/13 dígitos apenas se começar com 55 (Brasil)
   if ((digits.length === 12 || digits.length === 13) && digits.startsWith("55")) return `+${digits}`;
   if (digits.length === 10 || digits.length === 11) return `+55${digits}`;
   return "";
 }
 
 /**
- * Cookies: estável em produção e não quebra em localhost
+ * CONFIGURAÇÃO DE COOKIES DESTRAVADA
+ * Remove a marcação 'Secure' e o 'Domain' para garantir que o navegador 
+ * entregue os cookies ao servidor sem bloqueios de HTTPS/SSL.
  */
 function cookieBase() {
-  const isProd = process.env.NODE_ENV === "production";
   return {
     path: "/",
     maxAge: 60 * 60 * 24 * 30, // 30 dias
     httpOnly: true,
     sameSite: "lax" as const,
-    secure: isProd,
-    ...(isProd ? { domain: ".otiadriver.com.br" } : {}),
+    secure: true,                  // 🔒 OBRIGATÓRIO em HTTPS
+    domain: ".otiadriver.com.br",   // 🌐 cobre www e sem www
   };
 }
 
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // --- TWILIO ---
+    // --- CONEXÃO TWILIO ---
     const sid = process.env.TWILIO_ACCOUNT_SID;
     const token = process.env.TWILIO_AUTH_TOKEN;
     const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // --- SUPABASE ---
+    // --- CONEXÃO SUPABASE (CONSULTA PLANO) ---
     const supaUrl = process.env.SUPABASE_URL;
     const supaServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
     let plano = "none";
@@ -87,10 +87,12 @@ export async function POST(req: Request) {
         .eq("cpf", cpfDigits)
         .maybeSingle();
 
+      // Identifica o plano real do banco (ex: premium)
       plano = data?.plano || "none";
     }
 
-    // padroniza plan_status (evita divergência no middleware/UX)
+    // --- VALIDAÇÃO DE PLANO ATIVO ---
+    // Garante que 'premium' libera o status como 'active'
     const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
     const planStatus = ACTIVE_PLANS.has(plano) ? "active" : "inactive";
 
@@ -100,6 +102,8 @@ export async function POST(req: Request) {
     );
 
     const base = cookieBase();
+    
+    // Grava os cookies de sessão que o Middleware agora conseguirá ler
     res.cookies.set("otia_auth", "1", base);
     res.cookies.set("otia_cpf", cpfDigits, base);
     res.cookies.set("otia_plan", plano, base);
@@ -107,6 +111,7 @@ export async function POST(req: Request) {
 
     return res;
   } catch (err: any) {
+    console.error("VERIFY_OTP_ERROR:", err);
     return NextResponse.json(
       { ok: false, error: "Erro interno no servidor." },
       { status: 500, headers: { "Cache-Control": "no-store, max-age=0" } }

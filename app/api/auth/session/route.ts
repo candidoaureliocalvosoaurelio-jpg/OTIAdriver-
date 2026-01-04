@@ -7,37 +7,44 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const c = cookies();
+    // ✅ Next 14: cookies() NÃO é async
+    const cookieStore = cookies();
 
-    const auth = c.get("otia_auth")?.value || "";
-    const cpf = c.get("otia_cpf")?.value || "";
-    const plan = c.get("otia_plan")?.value || "none";
+    const auth = cookieStore.get("otia_auth")?.value || "";
+    const cpfRaw = cookieStore.get("otia_cpf")?.value || "";
+    const plan = cookieStore.get("otia_plan")?.value || "none";
 
-    const authenticated = auth === "1" && cpf.length === 11;
+    const cleanCpf = cpfRaw.replace(/\D/g, "");
+    const authenticated = auth === "1" && cleanCpf.length === 11;
 
-    // ✅ IMPORTANTE: sessão SEM LOGIN NÃO É ERRO → retorna 200 com authenticated=false
+    // opcional: log (vai para logs da Vercel)
+    console.log(
+      `[AUTH_SESSION] auth=${auth} cpfLength=${cleanCpf.length} authenticated=${authenticated} plan=${plan}`
+    );
+
     return NextResponse.json(
       {
         authenticated,
-        cpf: authenticated ? cpf : "",
+        cpf: authenticated ? cleanCpf : "",
         plan: authenticated ? plan : "none",
       },
       {
         status: 200,
         headers: {
-          // ✅ evita cache "enganando" mobile/edge cases
-          "Cache-Control": "no-store, max-age=0",
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
         },
       }
     );
   } catch (err) {
     console.error("AUTH_SESSION_ERROR:", err);
-    // ✅ até erro interno retorna 200 para não derrubar checkout por "falha de sessão"
+
     return NextResponse.json(
       { authenticated: false, cpf: "", plan: "none" },
       {
-        status: 200,
-        headers: { "Cache-Control": "no-store, max-age=0" },
+        status: 500, // ✅ importante
+        headers: { "Cache-Control": "no-store" },
       }
     );
   }

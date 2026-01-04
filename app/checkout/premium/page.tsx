@@ -1,4 +1,3 @@
-// app/checkout/premium/page.tsx
 "use client";
 
 import Link from "next/link";
@@ -19,30 +18,40 @@ export default function CheckoutPremium() {
   const [loading, setLoading] = useState(false);
 
   async function pagar() {
+    if (loading) return;
+
     try {
       setLoading(true);
 
-      // 1) Sessão (FORÇA cookies + sem cache)
+      // 1) Validação de Sessão
+      // credentials: "include" é essencial para enviar os cookies otia_auth
       const sessRes = await fetch("/api/auth/session", {
         method: "GET",
         credentials: "include",
         cache: "no-store",
-        headers: { "Cache-Control": "no-store" },
+        headers: { 
+          "Cache-Control": "no-store",
+          "Pragma": "no-cache" 
+        },
       });
 
-      const sess = (await sessRes.json().catch(() => ({}))) as SessionResp;
-      const cpf = onlyDigits(sess?.cpf || "");
-
+      // Se a API de sessão falhar ou retornar 401/403
       if (!sessRes.ok) {
-        throw new Error("Falha ao ler sessão (/api/auth/session).");
+        window.location.href = `/entrar?next=/checkout/premium&reason=auth`;
+        return;
       }
 
+      const sess: SessionResp = await sessRes.json().catch(() => ({}));
+      const cpf = onlyDigits(sess?.cpf || "");
+
+      // 2) Verifica se está autenticado e tem CPF válido
+      // Se não estiver, redirecionamos para o login preservando o destino
       if (!sess?.authenticated || cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/premium&reason=auth`;
         return;
       }
 
-      // 2) Cria preferência (FORÇA cookies + sem cache)
+      // 3) Cria preferência no Mercado Pago
       const res = await fetch("/api/pagamentos/criar-preferencia", {
         method: "POST",
         credentials: "include",
@@ -54,20 +63,25 @@ export default function CheckoutPremium() {
         body: JSON.stringify({ cpf, plano: "premium" }),
       });
 
-      const data = await res.json().catch(() => ({} as any));
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        throw new Error(data?.error || "Falha ao criar preferência no Mercado Pago.");
+        throw new Error(data?.error || "Falha ao gerar o link de pagamento.");
       }
 
       const redirectUrl = data?.init_point || data?.sandbox_init_point;
+
       if (!redirectUrl) {
-        throw new Error("Resposta inválida: init_point/sandbox_init_point não encontrado.");
+        throw new Error("Erro na plataforma de pagamento: Link não gerado.");
       }
 
-      // 3) Redireciona para o Mercado Pago
-      window.location.assign(redirectUrl);
+      // 4) Redirecionamento Final
+      // Usamos replace para que o usuário não volte para o loading ao clicar em "Voltar"
+      window.location.replace(redirectUrl);
+
     } catch (e: any) {
-      alert(e?.message ?? "Erro ao iniciar pagamento.");
+      console.error("Erro no Checkout:", e);
+      alert(e?.message ?? "Não foi possível iniciar o pagamento. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -93,7 +107,7 @@ export default function CheckoutPremium() {
       <div className={s.grid}>
         <section className={`${s.card} ${s.premiumCard}`}>
           <span className={s.badge}>MAIS VENDIDO</span>
-          <h1>Premium</h1>
+          <h1 className="font-bold text-2xl mb-2">Premium</h1>
           <div className={s.price}>
             R$ 99,90 <small>/ mês</small>
           </div>
