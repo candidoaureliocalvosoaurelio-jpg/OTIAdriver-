@@ -1,3 +1,4 @@
+// app/api/auth/session/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
@@ -6,21 +7,20 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    // No Next.js 15+, cookies() deve ser aguardado
-    const cookieStore = await cookies();
+    // ✅ Next 14: cookies() NÃO é async
+    const cookieStore = cookies();
 
-    // Pegamos os valores brutos
     const auth = cookieStore.get("otia_auth")?.value || "";
-    const cpf = cookieStore.get("otia_cpf")?.value || "";
+    const cpfRaw = cookieStore.get("otia_cpf")?.value || "";
     const plan = cookieStore.get("otia_plan")?.value || "none";
 
-    // Limpeza de CPF (remove pontos/traços caso existam no cookie)
-    const cleanCpf = cpf.replace(/\D/g, "");
-    
-    // Validação rigorosa
+    const cleanCpf = cpfRaw.replace(/\D/g, "");
     const authenticated = auth === "1" && cleanCpf.length === 11;
 
-    console.log(`[AUTH_SESSION] Check: auth=${auth}, cpfLength=${cleanCpf.length}, result=${authenticated}`);
+    // opcional: log (vai para logs da Vercel)
+    console.log(
+      `[AUTH_SESSION] auth=${auth} cpfLength=${cleanCpf.length} authenticated=${authenticated} plan=${plan}`
+    );
 
     return NextResponse.json(
       {
@@ -32,16 +32,20 @@ export async function GET() {
         status: 200,
         headers: {
           "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-          "Pragma": "no-cache",
-          "Expires": "0",
+          Pragma: "no-cache",
+          Expires: "0",
         },
       }
     );
   } catch (err) {
     console.error("AUTH_SESSION_ERROR:", err);
+
     return NextResponse.json(
       { authenticated: false, cpf: "", plan: "none" },
-      { status: 200 }
+      {
+        status: 500, // ✅ importante
+        headers: { "Cache-Control": "no-store" },
+      }
     );
   }
 }
