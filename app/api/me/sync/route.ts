@@ -23,9 +23,9 @@ function cookieBase() {
     httpOnly: true,
     sameSite: "lax" as const,
     path: "/",
-    maxAge: 60 * 60 * 24 * 30, // 30 dias
-    secure: isProd, // HTTPS em produção
-    // ✅ NÃO definir domain (deixe o browser/Vercel cuidar)
+    maxAge: 60 * 60 * 24 * 30,
+    secure: isProd,
+    // ✅ sem domain
   };
 }
 
