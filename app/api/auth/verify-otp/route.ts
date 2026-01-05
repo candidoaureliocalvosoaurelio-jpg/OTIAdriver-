@@ -1,3 +1,4 @@
+// app/api/auth/verify-otp/route.ts
 import { NextResponse } from "next/server";
 import twilio from "twilio";
 import { createClient } from "@supabase/supabase-js";
@@ -11,16 +12,24 @@ function onlyDigits(v: string) {
 
 function normalizeToE164(phoneRaw: string): string {
   const digits = onlyDigits(phoneRaw);
+
   // Aceita 12/13 dígitos apenas se começar com 55 (Brasil)
-  if ((digits.length === 12 || digits.length === 13) && digits.startsWith("55")) return `+${digits}`;
-  if (digits.length === 10 || digits.length === 11) return `+55${digits}`;
+  if ((digits.length === 12 || digits.length === 13) && digits.startsWith("55")) {
+    return `+${digits}`;
+  }
+
+  // Aceita 10/11 dígitos (DDD + número) e prefixa +55
+  if (digits.length === 10 || digits.length === 11) {
+    return `+55${digits}`;
+  }
+
   return "";
 }
 
 /**
- * CONFIGURAÇÃO DE COOKIES DESTRAVADA
- * Remove a marcação 'Secure' e o 'Domain' para garantir que o navegador 
- * entregue os cookies ao servidor sem bloqueios de HTTPS/SSL.
+ * Cookies de sessão (compatível com Vercel/HTTPS em produção)
+ * - secure somente em produção
+ * - NÃO definir domain para evitar conflitos de host/subdomínio
  */
 function cookieBase() {
   const isProd = process.env.NODE_ENV === "production";
@@ -30,7 +39,7 @@ function cookieBase() {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: isProd, // HTTPS em produção
-    // ✅ NÃO definir domain (deixe o browser/Vercel cuidar)
+    // ✅ não definir domain
   };
 }
 
@@ -50,7 +59,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // --- CONEXÃO TWILIO ---
+    // --- TWILIO ---
     const sid = process.env.TWILIO_ACCOUNT_SID;
     const token = process.env.TWILIO_AUTH_TOKEN;
     const serviceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
@@ -63,10 +72,12 @@ export async function POST(req: Request) {
     }
 
     const client = twilio(sid, token);
-    const verification = await client.verify.v2.services(serviceSid).verificationChecks.create({
-      to: phoneE164,
-      code: otp,
-    });
+    const verification = await client.verify.v2
+      .services(serviceSid)
+      .verificationChecks.create({
+        to: phoneE164,
+        code: otp,
+      });
 
     if (verification.status !== "approved") {
       return NextResponse.json(
@@ -75,25 +86,27 @@ export async function POST(req: Request) {
       );
     }
 
-    // --- CONEXÃO SUPABASE (CONSULTA PLANO) ---
+    // --- SUPABASE: consulta plano ---
     const supaUrl = process.env.SUPABASE_URL;
     const supaServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
     let plano = "none";
 
     if (supaUrl && supaServiceKey) {
-      const supabase = createClient(supaUrl, supaServiceKey, { auth: { persistSession: false } });
+      const supabase = createClient(supaUrl, supaServiceKey, {
+        auth: { persistSession: false },
+      });
+
       const { data } = await supabase
         .from("profiles")
         .select("plano")
         .eq("cpf", cpfDigits)
         .maybeSingle();
 
-      // Identifica o plano real do banco (ex: premium)
-      plano = data?.plano || "none";
+      plano = String(data?.plano || "none").toLowerCase();
     }
 
-    // --- VALIDAÇÃO DE PLANO ATIVO ---
-    // Garante que 'premium' libera o status como 'active'
+    // --- status do plano ---
     const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
     const planStatus = ACTIVE_PLANS.has(plano) ? "active" : "inactive";
 
@@ -103,8 +116,8 @@ export async function POST(req: Request) {
     );
 
     const base = cookieBase();
-    
-    // Grava os cookies de sessão que o Middleware agora conseguirá ler
+
+    // Cookies de sessão para middleware/API lerem
     res.cookies.set("otia_auth", "1", base);
     res.cookies.set("otia_cpf", cpfDigits, base);
     res.cookies.set("otia_plan", plano, base);
