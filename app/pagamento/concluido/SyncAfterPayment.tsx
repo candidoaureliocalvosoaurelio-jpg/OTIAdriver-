@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 
 type Props = {
-  nextUrl: string;
+  nextUrl: string; // mantido por compatibilidade (não usamos mais para o destino final)
   lang?: string;
 };
 
@@ -14,25 +15,24 @@ type SyncResp = {
   reason?: string;
 };
 
-function addParam(url: string, key: string, value: string) {
-  try {
-    const u = new URL(url, window.location.origin);
-    u.searchParams.set(key, value);
-    return u.pathname + "?" + u.searchParams.toString();
-  } catch {
-    return url;
-  }
-}
-
-export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
+export default function SyncAfterPayment({ lang = "pt" }: Props) {
   const [state, setState] = useState<
     "idle" | "syncing" | "waiting" | "needs_login" | "done" | "error"
   >("idle");
 
+  // ✅ Pós-pagamento: sempre volta para a home da plataforma (lista de caminhões)
   const finalNext = useMemo(() => {
-    // reforça lang no destino
-    return addParam(nextUrl, "lang", lang);
-  }, [nextUrl, lang]);
+    return `/caminhoes?lang=${encodeURIComponent(lang)}`;
+  }, [lang]);
+
+  // ✅ Se precisar login, manda o usuário para /entrar e depois volta para /pagamento/concluido
+  // (assim ele não se perde e o sync tenta de novo automaticamente ao voltar)
+  const loginUrl = useMemo(() => {
+    const backToConcluido = `/pagamento/concluido?lang=${encodeURIComponent(lang)}`;
+    return `/entrar?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
+      backToConcluido
+    )}&reason=auth`;
+  }, [lang]);
 
   useEffect(() => {
     let cancelled = false;
@@ -49,6 +49,8 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
           const r = await fetch("/api/me/sync", {
             method: "POST",
             cache: "no-store",
+            credentials: "include", // ✅ garante cookies
+            headers: { "Cache-Control": "no-store" },
           });
 
           // Se não tem CPF cookie, pede login
@@ -78,7 +80,6 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
             }
           }
 
-          // aguarda antes da próxima tentativa
           await new Promise((res) => setTimeout(res, delayMs));
         }
 
@@ -102,8 +103,25 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
         <p className="font-bold">Quase lá.</p>
         <p className="text-sm mt-1">
           Para concluir a liberação, faça o login (CPF/telefone) neste aparelho.
-          Depois disso, volte aqui e o acesso será liberado automaticamente.
+          Ao terminar, você voltará para esta página e liberaremos automaticamente.
         </p>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            href={loginUrl}
+            className="rounded-xl bg-amber-700 px-5 py-3 text-sm font-extrabold text-white hover:bg-amber-800"
+          >
+            Entrar agora (CPF/telefone)
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-amber-900 border border-amber-300 hover:bg-amber-100"
+          >
+            Tentar novamente
+          </button>
+        </div>
       </div>
     );
   }
@@ -126,6 +144,23 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
         <p className="text-sm mt-1">
           Tente novamente em instantes. Se continuar, faça login e volte para esta página.
         </p>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-xl bg-rose-700 px-5 py-3 text-sm font-extrabold text-white hover:bg-rose-800"
+          >
+            Tentar novamente
+          </button>
+
+          <Link
+            href={loginUrl}
+            className="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-rose-900 border border-rose-300 hover:bg-rose-100"
+          >
+            Entrar (CPF/telefone)
+          </Link>
+        </div>
       </div>
     );
   }
@@ -134,7 +169,7 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
     <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
       <p className="font-bold">Liberando seu acesso…</p>
       <p className="text-sm mt-1">
-        Se tudo estiver ok, você será redirecionado automaticamente.
+        Se tudo estiver ok, você será redirecionado automaticamente para os caminhões.
       </p>
     </div>
   );
