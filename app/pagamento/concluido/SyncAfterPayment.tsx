@@ -1,17 +1,11 @@
-// app/pagamento/concluido/SyncAfterPayment.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 
 type Props = {
-  nextUrl: string;
+  nextUrl: string; // mantido por compatibilidade (não usamos mais para o destino final)
   lang?: string;
-};
-
-type SessionResp = {
-  authenticated: boolean;
-  cpf: string;
-  plan: string;
 };
 
 type SyncResp = {
@@ -21,164 +15,162 @@ type SyncResp = {
   reason?: string;
 };
 
-function addParam(url: string, key: string, value: string) {
-  try {
-    const u = new URL(url, window.location.origin);
-    u.searchParams.set(key, value);
-    return u.pathname + (u.search ? u.search : "");
-  } catch {
-    return url;
-  }
-}
-
-function sleep(ms: number) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
-export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
-  const [status, setStatus] = useState<
-    "idle" | "checking" | "need_login" | "syncing" | "waiting_plan" | "redirecting" | "error"
+export default function SyncAfterPayment({ lang = "pt" }: Props) {
+  const [state, setState] = useState<
+    "idle" | "syncing" | "waiting" | "needs_login" | "done" | "error"
   >("idle");
 
-  const [msg, setMsg] = useState<string>("");
+  // ✅ Pós-pagamento: sempre volta para a home da plataforma (lista de caminhões)
+  const finalNext = useMemo(() => {
+    return `/caminhoes?lang=${encodeURIComponent(lang)}`;
+  }, [lang]);
 
-  const safeDest = useMemo(() => {
-    const fallback = `/catalogo?lang=${lang}`;
-    const dest = nextUrl?.startsWith("/") ? nextUrl : fallback;
-
-    // marcador para o middleware/páginas saberem que veio de pagamento
-    const withFrom = addParam(dest, "from", "payment");
-
-    // opcional: “fc=1” se você quiser reutilizar a lógica de “não interceptar” em /
-    return addParam(withFrom, "fc", "1");
-  }, [nextUrl, lang]);
+  // ✅ Se precisar login, manda o usuário para /entrar e depois volta para /pagamento/concluido
+  // (assim ele não se perde e o sync tenta de novo automaticamente ao voltar)
+  const loginUrl = useMemo(() => {
+    const backToConcluido = `/pagamento/concluido?lang=${encodeURIComponent(lang)}`;
+    return `/entrar?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
+      backToConcluido
+    )}&reason=auth`;
+  }, [lang]);
 
   useEffect(() => {
     let cancelled = false;
 
     async function run() {
       try {
-        setStatus("checking");
-        setMsg("Verificando sua sessão...");
+        setState("syncing");
 
-        // 0) Checa sessão (cookies neste aparelho)
-        const sessRes = await fetch("/api/auth/session", {
-          method: "GET",
-          credentials: "include",
-          cache: "no-store",
-        });
+        // Tentativas (webhook pode demorar um pouco)
+        const attempts = 6;
+        const delayMs = 1200;
 
-        const sess = (await sessRes.json().catch(() => null)) as SessionResp | null;
-
-        if (!sessRes.ok || !sess?.authenticated) {
-          if (cancelled) return;
-          setStatus("need_login");
-          setMsg("Para liberar o acesso neste aparelho, faça o login (CPF/telefone).");
-          return;
-        }
-
-        if (cancelled) return;
-        setStatus("syncing");
-        setMsg("Sincronizando seu plano...");
-
-        // 1) Retry curto para aguardar o webhook aplicar o plano no banco
-        // (ajuste tentativas/intervalo conforme necessário)
-        const maxTries = 6;
-        const intervalMs = 1500;
-
-        let last: SyncResp | null = null;
-
-        for (let i = 0; i < maxTries; i++) {
-          if (cancelled) return;
-
-          const syncRes = await fetch("/api/me/sync", {
+        for (let i = 1; i <= attempts; i++) {
+          const r = await fetch("/api/me/sync", {
             method: "POST",
-            credentials: "include",
             cache: "no-store",
+            credentials: "include", // ✅ garante cookies
+            headers: { "Cache-Control": "no-store" },
           });
 
-          last = (await syncRes.json().catch(() => null)) as SyncResp | null;
-
-          // se o endpoint falhou, não adianta insistir muito
-          if (!syncRes.ok) {
-            if (cancelled) return;
-            setStatus("error");
-            setMsg("Falha ao sincronizar o plano. Use “Entrar agora”.");
+          // Se não tem CPF cookie, pede login
+          if (r.status === 401) {
+            if (!cancelled) setState("needs_login");
             return;
           }
 
-          // ✅ plano ativo chegou
-          if (last?.status === "active") break;
+          const data = (await r.json().catch(() => null)) as SyncResp | null;
 
-          // ainda não chegou → aguarda e tenta de novo
-          setStatus("waiting_plan");
-          setMsg(
-            `Pagamento confirmado. Aguardando liberação do plano... (${i + 1}/${maxTries})`
-          );
-          await sleep(intervalMs);
+          if (!r.ok || !data) {
+            // erro transitório
+            if (i === attempts) break;
+          } else {
+            // ✅ Se plano ficou active, pode entrar
+            if (data.ok && data.status === "active") {
+              if (!cancelled) {
+                setState("done");
+                window.location.href = finalNext;
+              }
+              return;
+            }
+
+            // Ainda não aplicado no banco → aguarda e tenta novamente
+            if (data.ok && data.status !== "active") {
+              if (!cancelled) setState("waiting");
+            }
+          }
+
+          await new Promise((res) => setTimeout(res, delayMs));
         }
 
-        // se após retries continuar inactive, orienta o usuário
-        if (last?.status !== "active") {
-          if (cancelled) return;
-          setStatus("need_login");
-          setMsg(
-            "Seu pagamento pode levar alguns segundos para liberar. Se continuar, clique em “Entrar agora” ou atualize a página."
-          );
-          return;
-        }
-
-        // 2) (Opcional) ping /api/me para aquecer leitura de cookie
-        await fetch("/api/me", {
-          method: "GET",
-          credentials: "include",
-          cache: "no-store",
-        }).catch(() => null);
-
-        if (cancelled) return;
-        setStatus("redirecting");
-        setMsg("Tudo certo. Redirecionando...");
-
-        // 3) Redireciona sem poluir histórico
-        window.location.replace(safeDest);
-      } catch {
-        if (cancelled) return;
-        setStatus("error");
-        setMsg("Erro inesperado. Use “Entrar agora”.");
+        if (!cancelled) setState("error");
+      } catch (e) {
+        console.error("[SyncAfterPayment] erro:", e);
+        if (!cancelled) setState("error");
       }
     }
 
     run();
+
     return () => {
       cancelled = true;
     };
-  }, [safeDest]);
+  }, [finalNext]);
 
-  if (status === "need_login") {
+  if (state === "needs_login") {
     return (
-      <div className="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900">
-        <strong>Atenção:</strong> {msg}
+      <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+        <p className="font-bold">Quase lá.</p>
+        <p className="text-sm mt-1">
+          Para concluir a liberação, faça o login (CPF/telefone) neste aparelho.
+          Ao terminar, você voltará para esta página e liberaremos automaticamente.
+        </p>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link
+            href={loginUrl}
+            className="rounded-xl bg-amber-700 px-5 py-3 text-sm font-extrabold text-white hover:bg-amber-800"
+          >
+            Entrar agora (CPF/telefone)
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-amber-900 border border-amber-300 hover:bg-amber-100"
+          >
+            Tentar novamente
+          </button>
+        </div>
       </div>
     );
   }
 
-  if (status === "error") {
+  if (state === "waiting") {
     return (
-      <div className="mt-4 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-900">
-        Não foi possível sincronizar automaticamente. Clique em{" "}
-        <strong>Entrar agora</strong> para liberar o acesso.
-        <div className="mt-2 text-xs opacity-80">{msg}</div>
+      <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 text-slate-800">
+        <p className="font-bold">Sincronizando seu acesso…</p>
+        <p className="text-sm mt-1">
+          Estamos aguardando a confirmação final do pagamento. Isso pode levar alguns segundos.
+        </p>
+      </div>
+    );
+  }
+
+  if (state === "error") {
+    return (
+      <div className="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-rose-900">
+        <p className="font-bold">Não conseguimos liberar automaticamente.</p>
+        <p className="text-sm mt-1">
+          Tente novamente em instantes. Se continuar, faça login e volte para esta página.
+        </p>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-xl bg-rose-700 px-5 py-3 text-sm font-extrabold text-white hover:bg-rose-800"
+          >
+            Tentar novamente
+          </button>
+
+          <Link
+            href={loginUrl}
+            className="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-rose-900 border border-rose-300 hover:bg-rose-100"
+          >
+            Entrar (CPF/telefone)
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-4 text-sm text-slate-700">
-      {status === "idle" && "Preparando..."}
-      {status === "checking" && "Verificando sua sessão..."}
-      {status === "syncing" && "Sincronizando seu plano..."}
-      {status === "waiting_plan" && msg}
-      {status === "redirecting" && "Tudo certo. Redirecionando..."}
+    <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
+      <p className="font-bold">Liberando seu acesso…</p>
+      <p className="text-sm mt-1">
+        Se tudo estiver ok, você será redirecionado automaticamente para os caminhões.
+      </p>
     </div>
   );
 }
