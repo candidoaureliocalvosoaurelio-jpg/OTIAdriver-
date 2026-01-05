@@ -39,8 +39,8 @@ export default function PagamentoConcluido({
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
 
-  // ✅ Destino final seguro (apenas interno)
-  const next = safeNext(searchParams?.next, lang);
+  // ✅ depois – destino fixo pós-pagamento
+const next = `/caminhoes?lang=${lang}`;
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
