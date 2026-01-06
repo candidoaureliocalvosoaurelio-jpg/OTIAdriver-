@@ -1,3 +1,4 @@
+// components/Header.tsx
 "use client";
 
 import Link from "next/link";
@@ -8,11 +9,17 @@ import { useT } from "@/components/i18n/useT";
 
 type MeResp = {
   authenticated: boolean;
-  plan?: string; // "active" | "inactive" | undefined
+  plan?: string; // "active" | "inactive" | "basico" | "pro" | "premium" | undefined
 };
 
-const navLinks = [
-  { href: "/", key: "nav.home" },
+type NavItem = {
+  href: string;
+  key: string;
+  isHome?: boolean;
+};
+
+const navLinks: readonly NavItem[] = [
+  { href: "/", key: "nav.home", isHome: true }, // ✅ Home dinâmico (logado -> /caminhoes)
   { href: "/proposito", key: "nav.purpose" },
   { href: "/caminhoes-eletricos", key: "nav.electricTrucks" },
   { href: "/planos", key: "nav.plans" },
@@ -79,15 +86,21 @@ export default function Header() {
   const isLogged = !!me?.authenticated;
   const isPremium = me?.plan === "active";
 
-  // Destinos principais
-  const homeHref = isLogged && isPremium ? withLang("/catalogo") : withLang("/");
+  // ✅ Destinos principais
+  // Visitante: "/" (vitrine)
+  // Logado: "/caminhoes" (página das marcas)
+  const homeHref = isLogged ? withLang("/caminhoes") : withLang("/");
   const entrarHref = withLang("/entrar");
   const planosHref = withLang("/planos");
   const catalogoHref = withLang("/catalogo");
 
+  // ✅ "Início" do menu também precisa ser dinâmico
+  const navHomeHref = isLogged ? withLang("/caminhoes") : withLang("/");
+
   // Logout com preservação do lang + retorno seguro
+  // (após logout, volta para vitrine)
   const logoutHref = `/api/auth/logout?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
-    isPremium ? "/catalogo" : "/"
+    "/"
   )}`;
 
   // Evita flicker no topo
@@ -131,11 +144,12 @@ export default function Header() {
           {navLinks.map((item, idx) => (
             <div key={item.href} className="flex items-center">
               <Link
-                href={withLang(item.href)}
+                href={item.isHome ? navHomeHref : withLang(item.href)}
                 className="px-3 py-2 hover:underline underline-offset-4"
               >
                 {t(item.key)}
               </Link>
+
               {idx < navLinks.length - 1 && (
                 <span className="mx-1 text-white/80 select-none" aria-hidden>
                   |
@@ -205,15 +219,12 @@ export default function Header() {
                 </Link>
               </>
             ) : (
-              <>
-                
-                <Link
-                  href={entrarHref}
-                  className="text-sm font-black bg-white text-[#003F9A] px-5 py-2.5 rounded-xl hover:opacity-90 transition"
-                >
-                  Entrar
-                </Link>
-              </>
+              <Link
+                href={entrarHref}
+                className="text-sm font-black bg-white text-[#003F9A] px-5 py-2.5 rounded-xl hover:opacity-90 transition"
+              >
+                Entrar
+              </Link>
             )}
           </div>
 
@@ -278,7 +289,7 @@ export default function Header() {
           {navLinks.map((item) => (
             <Link
               key={item.href}
-              href={withLang(item.href)}
+              href={item.isHome ? navHomeHref : withLang(item.href)}
               className="block py-2"
               onClick={() => setMenuOpen(false)}
             >
@@ -294,7 +305,7 @@ export default function Header() {
             {t("nav.ebook")}
           </Link>
 
-          {/* Acesso rápido quando premium */}
+          {/* Acesso rápido quando logado */}
           {isLogged && (
             <Link
               href={isPremium ? catalogoHref : planosHref}
