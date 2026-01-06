@@ -38,6 +38,7 @@ export default function PagamentoConcluido({
   const plano = searchParams?.plano;
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
+  const next = `/catalogo?lang=${lang}`;
 
   // ✅ depois – destino fixo pós-pagamento
 const next = `/caminhoes?lang=${lang}`;
