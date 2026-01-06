@@ -1,14 +1,27 @@
-// 1. Importa a função para habilitar o MDX
-const withMDX = require('@next/mdx')({
-  // Opção para habilitar o suporte a arquivos .md E .mdx
+// next.config.js
+
+// 1) Habilita MDX
+const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Adiciona a extensão .md e .mdx ao roteamento do Next.js
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  // 2) Extensões aceitas pelo roteamento
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+
+  // 3) Redirect: SEM www -> COM www (evita perda de cookies / sessão)
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "otiadriver.com.br" }],
+        destination: "https://www.otiadriver.com.br/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
-// 3. Exporta a configuração final, envolvendo a configuração padrão com o MDX
+// 4) Exporta config final + MDX
 module.exports = withMDX(nextConfig);
