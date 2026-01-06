@@ -39,8 +39,13 @@ export default function PagamentoConcluido({
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
 
+<<<<<<< Updated upstream
   // ✅ destino fixo pós-pagamento
   const next = `/catalogo?lang=${lang}`;
+=======
+  // ✅ depois – destino fixo pós-pagamento
+const next = `/caminhoes?lang=${lang}`;
+>>>>>>> Stashed changes
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
