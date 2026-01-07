@@ -40,8 +40,13 @@ export default function PagamentoConcluido({
   const status = searchParams?.status ?? "";
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   // ✅ destino fixo pós-pagamento
   const next = `/catalogo?lang=${lang}`;
+=======
+  // ✅ depois – destino fixo pós-pagamento
+const next = `/caminhoes?lang=${lang}`;
+>>>>>>> Stashed changes
 =======
   // ✅ depois – destino fixo pós-pagamento
 const next = `/caminhoes?lang=${lang}`;
