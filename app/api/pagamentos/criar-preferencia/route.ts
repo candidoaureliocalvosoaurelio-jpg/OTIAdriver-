@@ -40,6 +40,11 @@ function prodWwwBaseUrl(baseUrl: string) {
   return baseUrl;
 }
 
+function normalizeLang(v: any) {
+  const s = String(v || "").toLowerCase();
+  return s === "en" ? "en" : "pt";
+}
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json().catch(() => ({}))) as any;
@@ -49,6 +54,7 @@ export async function POST(req: Request) {
     if (!cpf || cpf.length !== 11) cpf = onlyDigits(body?.cpf);
 
     const plano = String(body?.plano || "").toLowerCase() as "basico" | "pro" | "premium";
+    const lang = normalizeLang(body?.lang);
 
     if (!cpf || cpf.length !== 11) {
       return NextResponse.json(
@@ -72,10 +78,18 @@ export async function POST(req: Request) {
       );
     }
 
+    // ✅ Base URL: prioriza env var, fallback seguro
     const envBaseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
-    const origin = req.headers.get("origin") || "";
-    let baseUrl = normalizeBaseUrl(envBaseUrl || origin || "https://www.otiadriver.com.br");
+    const fallbackProd = "https://www.otiadriver.com.br";
+    const fallbackLocal = "http://localhost:3000";
+
+    let baseUrl = normalizeBaseUrl(envBaseUrl || fallbackProd);
     baseUrl = prodWwwBaseUrl(baseUrl);
+
+    // se alguém rodar sem NEXT_PUBLIC_SITE_URL no dev
+    if (!envBaseUrl && process.env.NODE_ENV !== "production") {
+      baseUrl = fallbackLocal;
+    }
 
     const local = isLocalhost(baseUrl);
 
@@ -83,6 +97,9 @@ export async function POST(req: Request) {
     const preference = new Preference(mp);
 
     const notification_url = local ? undefined : `${baseUrl}/api/webhook/mercadopago`;
+
+    // ✅ querystring para manter contexto no retorno (PIX precisa muito disso)
+    const qs = `?lang=${encodeURIComponent(lang)}&plano=${encodeURIComponent(plano)}`;
 
     const pref = await preference.create({
       body: {
@@ -96,13 +113,18 @@ export async function POST(req: Request) {
           },
         ],
         external_reference: cpf,
-        metadata: { cpf, plano, product: "otiadriver-subscription" },
+        metadata: { cpf, plano, lang, product: "otiadriver-subscription" },
+
         back_urls: {
-          success: `${baseUrl}/pagamento/concluido`,
-          pending: `${baseUrl}/pagamento/pendente`,
-          failure: `${baseUrl}/pagamento/erro`,
+          // PIX: pode cair em pending; precisa mandar contexto
+          success: `${baseUrl}/pagamento/concluido${qs}`,
+          pending: `${baseUrl}/pagamento/pendente${qs}`,
+          failure: `${baseUrl}/pagamento/erro${qs}`,
         },
+
+        // ok manter, mas não depende disso para PIX
         auto_return: "approved",
+
         ...(notification_url ? { notification_url } : {}),
       },
     });
