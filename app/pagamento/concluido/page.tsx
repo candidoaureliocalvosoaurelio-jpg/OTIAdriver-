@@ -9,7 +9,7 @@ export const metadata = {
 export const dynamic = "force-dynamic";
 
 function safeNext(nextRaw: string | undefined, lang: string) {
-  const fallback = `/catalogo?lang=${lang}`;
+  const fallback = `/caminhoes?lang=${lang}`;
 
   if (!nextRaw) return fallback;
 
@@ -39,18 +39,11 @@ export default function PagamentoConcluido({
   const paymentId = searchParams?.payment_id ?? "";
   const status = searchParams?.status ?? "";
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  // ✅ destino fixo pós-pagamento
-  const next = `/catalogo?lang=${lang}`;
-=======
-  // ✅ depois – destino fixo pós-pagamento
-const next = `/caminhoes?lang=${lang}`;
->>>>>>> Stashed changes
-=======
-  // ✅ depois – destino fixo pós-pagamento
-const next = `/caminhoes?lang=${lang}`;
->>>>>>> Stashed changes
+  // ✅ destino fixo pós-pagamento: home interna (página das marcas)
+  const next = `/caminhoes?lang=${lang}`;
+
+  // (Opcional) Se você quiser respeitar ?next= quando vier (mantendo seguro), use:
+  // const next = safeNext(searchParams?.next, lang);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
@@ -92,7 +85,9 @@ const next = `/caminhoes?lang=${lang}`;
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}&reason=auth`}
+            href={`/entrar?lang=${lang}&next=${encodeURIComponent(
+              next
+            )}&reason=auth`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
           >
             Entrar agora (CPF/telefone)
@@ -102,7 +97,7 @@ const next = `/caminhoes?lang=${lang}`;
             href={next}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
-            Ir para o catálogo
+            Ir para caminhões (marcas)
           </Link>
         </div>
 
