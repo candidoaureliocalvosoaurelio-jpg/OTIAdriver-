@@ -10,6 +10,12 @@ import AssinaturaHero from "@/components/AssinaturaHero";
 export const metadata: Metadata = {
   title: "OTIAdriver",
   description: "Conhecimento Inteligente para Motoristas",
+
+  // ✅ PWA: aponta para o manifest gerado por app/manifest.ts
+  manifest: "/manifest.webmanifest",
+
+  // ✅ cor do tema (Android/Chrome)
+  themeColor: "#0ea5e9",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
