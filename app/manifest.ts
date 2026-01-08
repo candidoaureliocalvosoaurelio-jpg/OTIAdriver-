@@ -1,4 +1,4 @@
-import type { MetadataRoute } from "next";
+import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -6,7 +6,6 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "OTIAdriver",
     description: "Conhecimento Inteligente para Motoristas",
     start_url: "/",
-    scope: "/",
     display: "standalone",
     background_color: "#ffffff",
     theme_color: "#0ea5e9",
