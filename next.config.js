@@ -1,16 +1,52 @@
 // next.config.js
 
-// 1) Habilita MDX
+const runtimeCaching = [
+  // API: nunca cachear
+  {
+    urlPattern: /^\/api\/.*$/i,
+    handler: "NetworkOnly",
+  },
+
+  // Navegação HTML: sempre respeita cookies
+  {
+    urlPattern: ({ request }) => request.mode === "navigate",
+    handler: "NetworkOnly",
+  },
+
+  // JS/CSS do Next
+  {
+    urlPattern: /^\/_next\/static\/.*$/i,
+    handler: "CacheFirst",
+    options: {
+      cacheName: "next-static",
+      expiration: { maxEntries: 256, maxAgeSeconds: 30 * 24 * 60 * 60 },
+    },
+  },
+
+  // Imagens
+  {
+    urlPattern: /\.(png|jpg|jpeg|webp|svg|ico)$/i,
+    handler: "StaleWhileRevalidate",
+  },
+];
+
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+  runtimeCaching,
+});
+
 const withMDX = require("@next/mdx")({
   extension: /\.mdx?$/,
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 2) Extensões aceitas pelo roteamento
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+  reactStrictMode: true,
 
-  // 3) Redirect: SEM www -> COM www (evita perda de cookies / sessão)
   async redirects() {
     return [
       {
@@ -23,5 +59,4 @@ const nextConfig = {
   },
 };
 
-// 4) Exporta config final + MDX
-module.exports = withMDX(nextConfig);
+module.exports = withMDX(withPWA(nextConfig));
