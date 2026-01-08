@@ -1,7 +1,17 @@
+# Dependencies
 node_modules/
+
+# Next.js build output
 .next/
 out/
 
+# next-pwa generated files (NÃO versionar)
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+
+# Env
 .env
 .env.local
 .env.production
