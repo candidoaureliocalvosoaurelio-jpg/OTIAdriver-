@@ -10,21 +10,18 @@ type BeforeInstallPromptEvent = Event & {
 export default function InstallPWAButton() {
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
-
   const [isInstalled, setIsInstalled] = useState(false);
 
   useEffect(() => {
-    // Detecta se já está instalado (PWA / standalone)
     const standalone =
       window.matchMedia?.("(display-mode: standalone)")?.matches ||
-      // iOS Safari legacy:
-      // @ts-expect-error - navigator.standalone existe no iOS
+      // iOS legacy
+      // @ts-ignore
       Boolean(navigator.standalone);
 
     setIsInstalled(Boolean(standalone));
 
     function onBeforeInstallPrompt(e: Event) {
-      // impede banner automático e guarda o evento para usar no botão
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     }
@@ -45,28 +42,69 @@ export default function InstallPWAButton() {
 
   async function handleInstall() {
     if (!deferredPrompt) return;
-
     await deferredPrompt.prompt();
     try {
       const choice = await deferredPrompt.userChoice;
       if (choice.outcome === "accepted") {
         setDeferredPrompt(null);
       }
-    } catch {
-      // ignore
-    }
+    } catch {}
   }
 
-  // Se já estiver instalado ou se o browser não disparou o evento, não mostra botão.
+  // Não mostra se já instalado ou se não for instalável
   if (isInstalled || !deferredPrompt) return null;
 
   return (
     <button
       type="button"
       onClick={handleInstall}
-      className="inline-flex items-center justify-center rounded-xl bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-700 active:scale-[0.99]"
+      className="
+        group
+        relative
+        inline-flex
+        items-center
+        justify-center
+        gap-2
+        rounded-full
+        bg-gradient-to-r
+        from-blue-600
+        via-sky-500
+        to-emerald-400
+        px-6
+        py-3
+        text-base
+        md:text-sm
+        font-extrabold
+        text-white
+        shadow-xl
+        transition
+        hover:scale-105
+        hover:shadow-2xl
+        active:scale-95
+        focus:outline-none
+      "
     >
-      Instalar OTIAdriver
+      {/* brilho animado */}
+      <span
+        className="
+          absolute
+          inset-0
+          rounded-full
+          bg-white/20
+          opacity-0
+          blur-xl
+          transition
+          group-hover:opacity-100
+        "
+      />
+
+      {/* ícone */}
+      <span className="text-xl md:text-lg">📲</span>
+
+      {/* texto */}
+      <span className="relative z-10 tracking-wide">
+        Instalar OTIAdriver
+      </span>
     </button>
   );
 }
