@@ -6,6 +6,7 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
+import InstallPWAButton from "@/components/InstallPWAButton";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -14,11 +15,15 @@ export const metadata: Metadata = {
   // ✅ PWA: aponta para o manifest gerado por app/manifest.ts
   manifest: "/manifest.webmanifest",
 
-  // ✅ cor do tema (Android/Chrome)
+  // ✅ cor do tema (Android / Chrome)
   themeColor: "#0ea5e9",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
@@ -28,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Espaço para não sobrepor conteúdo (Header é fixed) */}
         <div className="h-[72px] md:h-[80px]" />
 
-        {/* HERO GLOBAL (mantido) */}
+        {/* HERO GLOBAL */}
         <div
           id="site-hero"
           className="max-w-7xl mx-auto px-4 pt-6 pb-6 md:pb-8 text-center"
@@ -37,9 +42,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
           </h1>
+
           <p className="mt-2 text-lg md:text-xl font-semibold text-slate-900">
             Conhecimento Inteligente para Motoristas
           </p>
+
+          {/* ✅ BOTÃO PWA (só aparece quando instalável) */}
+          <div className="mt-4 flex justify-center">
+            <InstallPWAButton />
+          </div>
         </div>
 
         {/* BANNER DA ASSINATURA — EM TODAS AS PÁGINAS */}
