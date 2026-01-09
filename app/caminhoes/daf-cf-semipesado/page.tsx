@@ -354,7 +354,7 @@ export default function DafCFSemipesadoPage() {
       </p>
 
       <a
-        href="/fichas-tecnicas/regeneração-filtro-dpf-daf.pdf"
+        href="/fichas-tecnicas/regeneracao-filtro-dpf-daf.pdf"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-auto inline-flex items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 transition"
