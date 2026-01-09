@@ -7,6 +7,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 
+// ✅ Import do botão (caminho relativo, 100% compatível com Vercel/Linux)
+import InstallPWAButton from "../components/InstallPWAButton";
+
 export const metadata: Metadata = {
   title: "OTIAdriver",
   description: "Conhecimento Inteligente para Motoristas",
@@ -18,7 +21,11 @@ export const metadata: Metadata = {
   themeColor: "#0ea5e9",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
@@ -37,9 +44,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
           </h1>
+
           <p className="mt-2 text-lg md:text-xl font-semibold text-slate-900">
             Conhecimento Inteligente para Motoristas
           </p>
+
+          {/* ✅ BOTÃO PWA (aparece só quando instalável) */}
+          <div className="mt-4 flex justify-center">
+            <InstallPWAButton />
+          </div>
         </div>
 
         {/* BANNER DA ASSINATURA — EM TODAS AS PÁGINAS */}
