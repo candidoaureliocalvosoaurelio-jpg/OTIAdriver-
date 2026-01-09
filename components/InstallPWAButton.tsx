@@ -103,7 +103,7 @@ export default function InstallPWAButton() {
 
       {/* texto */}
       <span className="relative z-10 tracking-wide">
-        Instalar OTIAdriver
+        Baixar App OTIAdriver
       </span>
     </button>
   );
