@@ -868,7 +868,7 @@ export default function CaixaVolkswagenPage() {
         {/* Navegação */}
         <section className="flex flex-wrap gap-3">
           <Link
-            href="/"
+            href="/fichas-tecnicas/caixa-volkswagem.pdf"
             className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-white border border-slate-200 text-slate-900 hover:bg-slate-50 transition"
           >
             Ir para a página inicial
