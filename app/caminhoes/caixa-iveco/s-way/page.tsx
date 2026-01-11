@@ -218,7 +218,7 @@ export default function CaixaIvecoSWayTraXonPage() {
             {/* CTA (PDF + Voltar ao caminhão) */}
             <div className="mt-6 flex flex-wrap gap-3">
               <a
-                href="/fichas-tecnicas/caixa-iveco-s-way-traxon.pdf"
+                href="/fichas-tecnicas/caixa-iveco-s-way-zf-traxon.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-xl
