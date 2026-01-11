@@ -215,23 +215,20 @@ export default function CaixaIvecoSWayTraXonPage() {
               <strong>eficiência</strong> e <strong>durabilidade</strong>.
             </p>
 
-            {/* CTA (PDF + Voltar ao caminhão) */}
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="/fichas-tecnicas/caixa-iveco-s-way-traxon.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl
-                           bg-gradient-to-r from-sky-600 to-blue-700
-                           px-6 py-3 text-sm font-extrabold text-white
-                           shadow-lg shadow-sky-600/25
-                           hover:from-sky-700 hover:to-blue-800
-                           focus:outline-none focus:ring-4 focus:ring-sky-200
-                           transition-all"
-              >
-                Abrir apostila oficial (PDF)
-              </a>
-
+            <a
+  href="/fichas-tecnicas/caixa-iveco-s-way-zf-traxon.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center justify-center rounded-xl
+             bg-gradient-to-r from-sky-600 to-blue-700
+             px-6 py-3 text-sm font-extrabold text-white
+             shadow-lg shadow-sky-600/25
+             hover:from-sky-700 hover:to-blue-800
+             focus:outline-none focus:ring-4 focus:ring-sky-200
+             transition-all"
+>
+  Abrir apostila oficial (PDF)
+</a>
               <Link
                 href="/caminhoes/iveco-s-way-540-6x4"
                 className="inline-flex items-center justify-center rounded-xl
