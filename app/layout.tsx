@@ -1,41 +1,32 @@
 // app/layout.tsx
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import React from "react";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 
-// ✅ Import do botão (caminho relativo, 100% compatível com Vercel/Linux)
-import InstallPWAButton from "../components/InstallPWAButton";
-
 export const metadata: Metadata = {
   title: "OTIAdriver",
   description: "Conhecimento Inteligente para Motoristas",
 
-  // ✅ PWA: aponta para o manifest gerado por app/manifest.ts
+  // ✅ PWA: aponta para o manifest servido em /manifest.webmanifest
   manifest: "/manifest.webmanifest",
+};
 
-  // ✅ cor do tema (Android/Chrome)
+// ✅ Next 14: themeColor deve ir em viewport (não em metadata)
+export const viewport: Viewport = {
   themeColor: "#0ea5e9",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* HEADER COMPLETO (menu grande + idioma) */}
         <Header />
-
-        {/* Espaço para não sobrepor conteúdo (Header é fixed) */}
         <div className="h-[72px] md:h-[80px]" />
 
-        {/* HERO GLOBAL (mantido) */}
         <div
           id="site-hero"
           className="max-w-7xl mx-auto px-4 pt-6 pb-6 md:pb-8 text-center"
@@ -44,21 +35,13 @@ export default function RootLayout({
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
           </h1>
-
           <p className="mt-2 text-lg md:text-xl font-semibold text-slate-900">
             Conhecimento Inteligente para Motoristas
           </p>
-
-          {/* ✅ BOTÃO PWA (aparece só quando instalável) */}
-          <div className="mt-4 flex justify-center">
-            <InstallPWAButton />
-          </div>
         </div>
 
-        {/* BANNER DA ASSINATURA — EM TODAS AS PÁGINAS */}
         <AssinaturaHero />
 
-        {/* CONTEÚDO */}
         <main className="flex-1">{children}</main>
 
         <Footer />
