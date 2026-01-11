@@ -718,7 +718,55 @@ export default function CaixaIvecoSWayTraXonPage() {
             </Accordion>
           </div>
 
-          {/* BLOCO "Observação importante (para evitar 404)" REMOVIDO conforme solicitado */}
+          {{/* BLOCO "Observação importante (para evitar 404)" REMOVIDO conforme solicitado */}
+        </section>
+
+        {/* BLOCO FINAL — CTA forte (PDF) */}
+        <section className="mt-12 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl border border-slate-200 bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+              Quer dominar a TRAXON e reduzir custo por km?
+            </h3>
+
+            <p className="mt-2 max-w-2xl text-slate-300">
+              Abra a apostila completa em PDF e utilize este guia para treinar
+              condução, padronizar operação e preservar embreagem e transmissão.
+            </p>
+
+            <div className="mt-6 w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+              <a
+                href="/fichas-tecnicas/caixa-iveco-s-way-zf-traxon.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center rounded-2xl
+                           bg-gradient-to-r from-emerald-500 via-sky-500 to-fuchsia-500
+                           px-8 sm:px-10 py-4 text-base font-extrabold text-white
+                           shadow-lg shadow-fuchsia-500/20
+                           hover:brightness-110
+                           focus:outline-none focus:ring-4 focus:ring-white/20
+                           transition-all"
+              >
+                Abrir apostila da Caixa (PDF)
+              </a>
+
+              <Link
+                href="/"
+                className="w-full sm:w-auto inline-flex items-center justify-center rounded-2xl
+                           border border-white/20 bg-white/10 px-8 sm:px-10 py-4
+                           text-base font-extrabold text-white
+                           hover:bg-white/15
+                           focus:outline-none focus:ring-4 focus:ring-white/20
+                           transition-all"
+              >
+                Ir para a página inicial
+              </Link>
+            </div>
+
+            <p className="mt-4 text-xs text-slate-400">
+              Dica: se aparecer alerta crítico (pressão de ar / embreagem),
+              reduza exigência e procure assistência especializada.
+            </p>
+          </div>
         </section>
       </section>
     </main>
