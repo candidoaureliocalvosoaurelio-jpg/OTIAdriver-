@@ -24,21 +24,35 @@ function getSymbols() {
       );
     });
 
-  return imageFiles.map((file) => ({
-    file, // ex: simbolo-20.png
-    path: "/simbolos/" + file,
-    baseName: file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim(), // ex: simbolo-20
-  }));
+  return imageFiles.map((file) => {
+    const baseName = file.replace(/\.(png|jpg|jpeg|webp|svg)$/i, "").trim();
+
+    // defesa: garante path interno e previsível
+    const safeFile = file.replace(/[^a-zA-Z0-9._-]/g, "");
+    const publicPath = `/simbolos/${safeFile}`;
+
+    return {
+      file, // ex: simbolo-20.png
+      path: publicPath,
+      baseName, // ex: simbolo-20
+    };
+  });
 }
 
 /**
  * Segurança (CodeQL):
- * - Permite somente [a-z0-9-]
+ * - Produz slug SOMENTE [a-z0-9-]
  * - Evita injeção em href via valores "armazenados"
+ * - Fallback consistente
  */
 function safeSlug(input: string) {
-  const norm = normalizeSlug(input);
-  const cleaned = norm.replace(/[^a-z0-9-]/g, "");
+  const norm = normalizeSlug(String(input || ""));
+  const cleaned = norm
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
   return cleaned.length > 0 ? cleaned : "simbolo";
 }
 
@@ -84,7 +98,10 @@ function colorBadge(color?: string) {
         cls: "bg-slate-50 text-slate-800 border-slate-200",
       };
     default:
-      return { text: "Indicador", cls: "bg-slate-50 text-slate-800 border-slate-200" };
+      return {
+        text: "Indicador",
+        cls: "bg-slate-50 text-slate-800 border-slate-200",
+      };
   }
 }
 
@@ -118,10 +135,12 @@ export default function SimbolosPainelPage() {
                   Vermelho <span className="text-lg">🔴</span>
                 </td>
                 <td className="py-4 px-4">
-                  Emergência/Falha Grave. Risco imediato à segurança ou danos ao veículo.
+                  Emergência/Falha Grave. Risco imediato à segurança ou danos ao
+                  veículo.
                 </td>
                 <td className="py-4 px-4">
-                  Parada imediata em local seguro e desligamento do motor. Necessidade de reparo urgente.
+                  Parada imediata em local seguro e desligamento do motor.
+                  Necessidade de reparo urgente.
                 </td>
               </tr>
 
@@ -131,10 +150,12 @@ export default function SimbolosPainelPage() {
                   Amarelo/Laranja <span className="text-lg">🟡</span>
                 </td>
                 <td className="py-4 px-4">
-                  Advertência/Falha Moderada. Indica um problema que requer atenção, mas que não impede a continuação da viagem.
+                  Advertência/Falha Moderada. Indica um problema que requer
+                  atenção, mas que não impede a continuação da viagem.
                 </td>
                 <td className="py-4 px-4">
-                  Verificar a situação. Pode-se continuar a dirigir com cautela até um local seguro ou oficina.
+                  Verificar a situação. Pode-se continuar a dirigir com cautela
+                  até um local seguro ou oficina.
                 </td>
               </tr>
 
@@ -144,10 +165,12 @@ export default function SimbolosPainelPage() {
                   Verde/Azul/Branco <span className="text-lg">🟢 🔵 ⚪</span>
                 </td>
                 <td className="py-4 px-4">
-                  Informativo/Funcionalidade Ativa. Indica que um sistema está ligado ou ativo.
+                  Informativo/Funcionalidade Ativa. Indica que um sistema está
+                  ligado ou ativo.
                 </td>
                 <td className="py-4 px-4">
-                  Não requer ação de emergência, apenas confirmação do acionamento.
+                  Não requer ação de emergência, apenas confirmação do
+                  acionamento.
                 </td>
               </tr>
             </tbody>
@@ -156,7 +179,9 @@ export default function SimbolosPainelPage() {
 
         {/* ====================== LISTA DE SÍMBOLOS ====================== */}
         <header className="mb-10" id="topo-simbolos">
-          <h2 className="text-xl font-semibold text-gray-900">Símbolos do Painel</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Símbolos do Painel
+          </h2>
           <p className="mt-2 text-sm text-gray-600">
             Indicadores de segurança, sistemas e alertas do veículo.
           </p>
@@ -167,14 +192,20 @@ export default function SimbolosPainelPage() {
             const base = normalizeSlug(icon.baseName);
             const meta = metaBySlug.get(base);
 
-            const label = meta?.title ?? icon.baseName;
-            const id = meta ? String(meta.id) : icon.baseName;
+            const label = String(meta?.title ?? icon.baseName);
+            const id = meta ? String(meta.id) : String(icon.baseName);
 
             // ✅ Segurança: não deixar qualquer string virar rota
             const safe = safeSlug(id);
 
             const sev = severityBadge(meta?.severity);
             const col = colorBadge(meta?.color);
+
+            // defesa extra: garante que a imagem é um path interno esperado
+            const imgSrc =
+              typeof icon.path === "string" && icon.path.startsWith("/simbolos/")
+                ? icon.path
+                : "/simbolos/simbolo.png";
 
             return (
               <Link
@@ -184,7 +215,7 @@ export default function SimbolosPainelPage() {
               >
                 <div className="flex-shrink-0 flex items-center justify-center bg-white rounded-md border border-gray-200 w-20 h-20">
                   <Image
-                    src={icon.path}
+                    src={imgSrc}
                     alt={label}
                     width={64}
                     height={64}
@@ -217,7 +248,8 @@ export default function SimbolosPainelPage() {
 
                   {meta?.action ? (
                     <p className="mt-2 text-xs text-gray-700 leading-relaxed line-clamp-2">
-                      <span className="font-semibold">Ação:</span> {meta.action}
+                      <span className="font-semibold">Ação:</span>{" "}
+                      {String(meta.action)}
                     </p>
                   ) : null}
                 </div>
@@ -235,9 +267,10 @@ export default function SimbolosPainelPage() {
               </h2>
 
               <p className="text-sm md:text-base text-slate-700 mb-6">
-                Consulte o material completo com a explicação detalhada das luzes de aviso,
-                símbolos de painel e recomendações de ação para cada situação. Ideal para
-                treinamentos, consultas rápidas e apoio ao motorista.
+                Consulte o material completo com a explicação detalhada das
+                luzes de aviso, símbolos de painel e recomendações de ação para
+                cada situação. Ideal para treinamentos, consultas rápidas e
+                apoio ao motorista.
               </p>
 
               <a

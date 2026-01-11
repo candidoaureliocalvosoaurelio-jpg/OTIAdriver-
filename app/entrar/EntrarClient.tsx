@@ -42,6 +42,27 @@ function toE164(phoneRaw: string) {
   return d.length >= 8 ? `+55${d}` : "";
 }
 
+/**
+ * ✅ Anti Open-Redirect:
+ * Permite SOMENTE caminhos internos do seu site.
+ * Bloqueia:
+ * - urls absolutas (http://, https://)
+ * - protocol-relative (//evil.com)
+ * - backslash (\) e outras formas comuns
+ */
+function safeNextPath(nextRaw: string | null | undefined, fallback: string) {
+  const v = (nextRaw || "").trim();
+
+  // precisa começar com /
+  if (!v.startsWith("/")) return fallback;
+
+  // bloqueia protocol-relative e padrões suspeitos
+  if (v.startsWith("//")) return fallback;
+  if (v.includes("\\") || v.includes("://")) return fallback;
+
+  return v;
+}
+
 function getNextFromLocation() {
   if (typeof window === "undefined") {
     return { next: "/planos?lang=pt", lang: "pt" };
@@ -50,10 +71,13 @@ function getNextFromLocation() {
   const params = new URLSearchParams(window.location.search);
   const lang = params.get("lang") || "pt";
 
+  const fallback = `/planos?lang=${lang}`;
   const nextRaw = params.get("next");
-  const safeNext =
-    nextRaw && nextRaw.startsWith("/") ? nextRaw : `/planos?lang=${lang}`;
 
+  // ✅ aplica sanitização forte
+  const safeNext = safeNextPath(nextRaw, fallback);
+
+  // garante lang no destino
   const next = safeNext.includes("lang=")
     ? safeNext
     : `${safeNext}${safeNext.includes("?") ? "&" : "?"}lang=${lang}`;
@@ -105,7 +129,7 @@ export default function EntrarClient() {
         body: JSON.stringify({ cpf: cpfDigits, phone: phoneE164 }),
       });
 
-      const data = await r.json().catch(() => ({}));
+      const data = await r.json().catch(() => ({} as any));
       if (!r.ok) {
         setMsg(data?.error || "Não foi possível enviar o código.");
         return;
@@ -147,7 +171,7 @@ export default function EntrarClient() {
         }),
       });
 
-      const data = await r.json().catch(() => ({}));
+      const data = await r.json().catch(() => ({} as any));
       if (!r.ok) {
         setMsg(data?.error || "Código inválido.");
         return;
@@ -168,8 +192,8 @@ export default function EntrarClient() {
         ? `${next}&from=checkout&fc=1`
         : `${next}?from=checkout&fc=1`;
 
-      // 🔥 replace evita loop e interceptação
-      window.location.replace(nextWithCheckout);
+      // ✅ redirect seguro (anti open-redirect já aplicado no getNextFromLocation)
+      window.location.assign(nextWithCheckout);
     } catch {
       setMsg("Erro ao validar código.");
     } finally {
