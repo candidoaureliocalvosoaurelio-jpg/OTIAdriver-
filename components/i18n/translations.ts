@@ -1,9 +1,4 @@
-import type { Lang } from "./useLang";
-
-export type TranslationDict = Record<string, string>;
-export type TranslationsMap = Record<Lang, TranslationDict>;
-
-export const translations: TranslationsMap = {
+export const translations = {
   pt: {
     "brand.officialPlatform": "Plataforma Oficial",
 
@@ -54,4 +49,6 @@ export const translations: TranslationsMap = {
     "nav.openMenu": "Abrir menú",
     "nav.closeMenu": "Cerrar menú",
   },
-};
+} as const;
+
+export type TranslationKey = keyof typeof translations.pt;
