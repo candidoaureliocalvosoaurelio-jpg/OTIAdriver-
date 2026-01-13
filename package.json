@@ -22,7 +22,7 @@
     "twilio": "^5.11.1"
   },
   "devDependencies": {
-    "@types/node": "^20.19.27",
+    "@types/node": "^25.0.7",
     "@types/react": "^18.2.0",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.33",
