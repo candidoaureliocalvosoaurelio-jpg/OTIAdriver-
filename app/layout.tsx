@@ -6,21 +6,23 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
   description: "Conhecimento Inteligente para Motoristas",
-
-  // ✅ PWA: aponta para o manifest servido em /manifest.webmanifest
   manifest: "/manifest.webmanifest",
 };
 
-// ✅ Next 14: themeColor deve ir em viewport (não em metadata)
 export const viewport: Viewport = {
   themeColor: "#0ea5e9",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
@@ -45,6 +47,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
 
         <Footer />
+
+        {/* Vercel Analytics */}
+        <Analytics />
       </body>
     </html>
   );
