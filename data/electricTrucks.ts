@@ -555,9 +555,55 @@ export const electricTrucks: ElectricTruck[] = [
     },
   },
 
-  // =========================================================
+    // =========================================================
   // FUTURO / CONCEITUAIS
   // =========================================================
+  {
+    slug: "mercedes-nextgenh2-2026",
+    name: "Mercedes-Benz NextGenH2",
+    file: "/images/trucks-eletricos/mercedes-nextgenh2.jpg",
+    description:
+      "Caminhão de longa distância com célula de combustível e hidrogênio líquido (LH₂), alta autonomia e reabastecimento rápido.",
+    specs: {
+      "Marca / Modelo": "Mercedes-Benz NextGenH2",
+      "Tipo de Propulsão":
+        "Elétrico com célula de combustível (FCEV) – Hidrogênio líquido (LH₂)",
+
+      Autonomia: "bem superior a 1.000 km (com carga máxima)",
+      "Potência (célula de combustível)": "300 kW (150 kW + 150 kW)",
+      "Potência (veículo)":
+        "até 340 kW (Modo Econômico) / até 370 kW (Modo Potência)",
+
+      "Célula de Combustível": "BZA150 (cellcentric) – sistema duplo",
+      "Bateria (buffer)": "101 kWh – LFP (Fosfato de Ferro-Lítio)",
+
+      Hidrogênio: "LH₂ (−253°C)",
+      "Armazenamento de H₂": "até 85 kg (2 tanques LH₂ interligados)",
+      "Tempo de Reabastecimento (LH₂)": "10 a 15 minutos",
+      "Padrão de Abastecimento": "sLH2 (Daimler Truck + Linde)",
+
+      "Tração / Eixo": "eixo elétrico integrado (base do eActros 600)",
+      Transmissão: "4 velocidades (inclui 2 marchas à ré)",
+
+      Cabine: "ProCabin (aerodinâmica otimizada)",
+      Aerodinâmica: "−9% no coeficiente de arrasto vs. cabine anterior",
+      Cockpit: "Interactive 2",
+
+      "Distância entre Eixos": "4.000 mm (−150 mm vs. geração anterior)",
+
+      "Sistemas de Assistência":
+        "Assistente Ativo de Frenagem 6; Assistente de Proteção Frontal; Assistente Ativo de Proteção Lateral 2",
+
+      Emissões: "vapor de água puro",
+
+      "Produção (lote inicial)": "100 unidades (pequena série)",
+      "Início de Operação em Clientes": "final de 2026",
+      "Produção em Massa (previsão)": "início da década de 2030",
+
+      "País de Origem": "Alemanha",
+      "Uso Ideal": "Longa distância com zero emissões e reabastecimento rápido",
+    },
+  },
   {
     slug: "volvo-fh-aero-electric-2050",
     name: "Volvo FH Aero Electric",
