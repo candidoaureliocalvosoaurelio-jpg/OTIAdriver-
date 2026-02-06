@@ -121,12 +121,16 @@ const regions = [
       "freightliner-ecascadia-2050",
     ],
   },
-  {
+    {
     id: "future",
     title: "Futuro e Conceituais",
     subtitle:
       "Conceitos de alta autonomia com baterias de estado sólido, hidrogênio e direção autônoma em alto nível.",
-    slugs: ["volvo-fh-aero-electric-2050", "man-hydrogen-electric-2050"],
+    slugs: [
+      "mercedes-nextgenh2-2026",
+      "volvo-fh-aero-electric-2050",
+      "man-hydrogen-electric-2050",
+    ],
   },
 ];
 
