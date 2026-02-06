@@ -1,16 +1,19 @@
+// app/pagamento/erro/page.tsx
 import Link from "next/link";
 
 export const metadata = {
   title: "Pagamento não concluído | OTIAdriver",
 };
 
-export default function PagamentoErro({
-  searchParams,
-}: {
-  searchParams?: { plano?: string; status?: string };
-}) {
-  const plano = searchParams?.plano ?? "pro";
-  const status = searchParams?.status ?? "failure";
+type PageProps = {
+  searchParams?: Promise<{ plano?: string; status?: string }>;
+};
+
+export default async function PagamentoErro({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
+
+  const plano = sp?.plano ?? "pro";
+  const status = sp?.status ?? "failure";
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
@@ -20,7 +23,8 @@ export default function PagamentoErro({
         </h1>
 
         <p className="mt-2 text-slate-600">
-          O pagamento falhou ou foi cancelado (<strong>{status}</strong>). Você pode tentar novamente.
+          O pagamento falhou ou foi cancelado (<strong>{status}</strong>). Você
+          pode tentar novamente.
         </p>
 
         <div className="mt-6 flex gap-3 flex-wrap">
@@ -39,9 +43,7 @@ export default function PagamentoErro({
           </Link>
         </div>
 
-        <p className="mt-4 text-xs text-slate-500">
-          Plano selecionado: {plano}
-        </p>
+        <p className="mt-4 text-xs text-slate-500">Plano selecionado: {plano}</p>
       </div>
     </main>
   );

@@ -3,15 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import {
-  electricTrucks,
-  getElectricTruckBySlug,
-} from "@/data/electricTrucks";
+import { electricTrucks, getElectricTruckBySlug } from "@/data/electricTrucks";
 
 type Props = {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 };
 
 // Gera todas as rotas estáticas com base nos slugs definidos em data/electricTrucks.ts
@@ -22,8 +17,9 @@ export function generateStaticParams() {
 }
 
 // SEO dinâmico por modelo
-export function generateMetadata({ params }: Props): Metadata {
-  const truck = getElectricTruckBySlug(params.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const truck = getElectricTruckBySlug(slug);
 
   if (!truck) {
     return {
@@ -49,8 +45,10 @@ function sanitizeValue(value: string): string {
 }
 
 // Página técnica do caminhão elétrico
-export default function ElectricTruckPage({ params }: Props) {
-  const truck = getElectricTruckBySlug(params.slug);
+export default async function ElectricTruckPage({ params }: Props) {
+  const { slug } = await params;
+
+  const truck = getElectricTruckBySlug(slug);
 
   if (!truck) {
     return notFound();

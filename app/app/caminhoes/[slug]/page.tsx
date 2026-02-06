@@ -1,4 +1,3 @@
-// app/app/caminhoes/[slug]/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,13 +5,9 @@ import { trucks } from "@/data/trucks";
 
 export const dynamic = "force-dynamic";
 
-type PageProps = {
-  params: { slug: string };
-  searchParams?: { lang?: string };
-};
-
 function SpecsTable({ specs }: { specs?: Record<string, string> }) {
   if (!specs) return null;
+
   const entries = Object.entries(specs);
   if (entries.length === 0) return null;
 
@@ -39,14 +34,24 @@ function SpecsTable({ specs }: { specs?: Record<string, string> }) {
   );
 }
 
-export default function CaminhaoPremiumPage({ params, searchParams }: PageProps) {
-  const lang = searchParams?.lang ?? "pt";
-  const t = trucks.find((x) => x.slug === params.slug);
+export default async function CaminhaoPremiumPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ lang?: string }>;
+}) {
+  const { slug } = await params;
+  const sp = searchParams ? await searchParams : undefined;
+
+  const lang = sp?.lang ?? "pt";
+
+  const t = trucks.find((x) => x.slug === slug);
   if (!t) return notFound();
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-b from-[#eef7ff] to-white pb-16">
-      {/* Top breadcrumb / voltar */}
+      {/* Top breadcrumb */}
       <section className="pt-6">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between gap-3">
@@ -81,6 +86,7 @@ export default function CaminhaoPremiumPage({ params, searchParams }: PageProps)
                   priority
                 />
               </div>
+
               <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/55 to-transparent" />
             </div>
 
@@ -94,13 +100,9 @@ export default function CaminhaoPremiumPage({ params, searchParams }: PageProps)
                   {t.name}
                 </h1>
 
-                {t.description ? (
-                  <p className="mt-4 text-white/85 max-w-2xl">{t.description}</p>
-                ) : (
-                  <p className="mt-4 text-white/85 max-w-2xl">
-                    Conteúdo premium liberado para este modelo.
-                  </p>
-                )}
+                <p className="mt-4 text-white/85 max-w-2xl">
+                  {t.description ?? "Conteúdo premium liberado para este modelo."}
+                </p>
 
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
@@ -117,18 +119,6 @@ export default function CaminhaoPremiumPage({ params, searchParams }: PageProps)
                     Início Premium
                   </Link>
                 </div>
-
-                <div className="mt-6 flex flex-wrap gap-3 text-xs text-white/80">
-                  <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Conteúdo completo
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Materiais técnicos
-                  </span>
-                  <span className="rounded-full bg-white/10 px-3 py-2 ring-1 ring-white/15">
-                    Acesso premium
-                  </span>
-                </div>
               </div>
 
               <div className="hidden lg:block">
@@ -142,13 +132,13 @@ export default function CaminhaoPremiumPage({ params, searchParams }: PageProps)
                       alt={t.name}
                       fill
                       className="object-contain p-4"
-                      sizes="(max-width: 1200px) 50vw, 40vw"
                     />
                   </div>
 
                   <p className="mt-4 text-sm font-extrabold text-white">
                     Acesso premium ativo
                   </p>
+
                   <p className="mt-2 text-sm text-white/85">
                     Aqui você pode incluir PDFs, manuais e fichas técnicas deste modelo.
                   </p>
@@ -158,35 +148,6 @@ export default function CaminhaoPremiumPage({ params, searchParams }: PageProps)
           </div>
 
           <SpecsTable specs={t.specs} />
-
-          {/* Área para materiais premium */}
-          <section className="mt-8">
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-extrabold text-slate-900">
-                Materiais do modelo
-              </h3>
-              <p className="mt-1 text-sm text-slate-600">
-                Adicione aqui: ficha técnica (PDF), checklists, vídeos e módulos do caminhão.
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link
-                  href={`/app/caminhoes?lang=${lang}`}
-                  className="rounded-xl bg-sky-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-sky-700"
-                >
-                  Ver todos os caminhões
-                </Link>
-                <Link
-                  href={`/app?lang=${lang}`}
-                  className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
-                >
-                  Voltar ao início
-                </Link>
-              </div>
-            </div>
-          </section>
-
-          <div className="h-10" />
         </div>
       </section>
     </main>

@@ -7,7 +7,8 @@ function onlyDigits(v: string) {
 }
 
 export async function irParaMercadoPago(planoId: string) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
+
   const auth = cookieStore.get("otia_auth")?.value || "";
   const cpfRaw = cookieStore.get("otia_cpf")?.value || "";
   const cpf = onlyDigits(cpfRaw);

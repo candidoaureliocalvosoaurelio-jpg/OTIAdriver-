@@ -2,6 +2,7 @@
 import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
@@ -9,7 +10,7 @@ import { redirect } from "next/navigation";
 import { symbolData, normalizeSlug } from "../symbolData";
 
 type SymbolPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 // ✅ Planos pagos (ativos)
@@ -20,10 +21,10 @@ const ACTIVE_PLANS = new Set(["basico", "pro", "premium"]);
  * - Se não tiver login -> /entrar
  * - Se não tiver plano pago -> /planos
  */
-function requirePaidAccess(nextPath: string) {
-  const c = cookies();
+async function requirePaidAccess(nextPath: string) {
+  const c = await cookies(); // ✅ Next 16: cookies() é async
   const auth = c.get("otia_auth")?.value; // "1"
-  const cpf = c.get("otia_cpf")?.value;   // "62833030134"
+  const cpf = c.get("otia_cpf")?.value; // "62833030134"
   const plan = c.get("otia_plan")?.value; // "free" | "basico" | "pro" | "premium"
 
   if (!auth || !cpf) {
@@ -117,10 +118,11 @@ export function generateStaticParams() {
 }
 
 // ✅ SEO por símbolo
-export async function generateMetadata(
-  { params }: SymbolPageProps
-): Promise<Metadata> {
-  const raw = String(params.id ?? "").trim();
+export async function generateMetadata({
+  params,
+}: SymbolPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const raw = String(id ?? "").trim();
 
   // Se vier número, converte para slug correto (SEO)
   let lookup = raw;
@@ -171,13 +173,7 @@ function Badge({
   );
 }
 
-function Card({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <h2 className="text-base font-bold text-slate-900 mb-2">{title}</h2>
@@ -186,8 +182,9 @@ function Card({
   );
 }
 
-export default function SymbolPage({ params }: SymbolPageProps) {
-  const rawParam = String(params.id ?? "").trim();
+export default async function SymbolPage({ params }: SymbolPageProps) {
+  const { id } = await params;
+  const rawParam = String(id ?? "").trim();
 
   // ✅ Compat: URL antiga numérica -> URL nova slug
   if (/^\d+$/.test(rawParam)) {
@@ -198,11 +195,10 @@ export default function SymbolPage({ params }: SymbolPageProps) {
     }
   }
 
-  // 🔎 slug normalizado
   const safeParam = safeSlug(rawParam);
 
   // ✅ BLOQUEIO AQUI (garante que /simbolos-painel/[id] nunca seja público)
-  requirePaidAccess(`/simbolos-painel/${safeParam}`);
+  await requirePaidAccess(`/simbolos-painel/${safeParam}`);
 
   const symbolIndex = symbolData.findIndex((s) => safeSlug(s.slug) === safeParam);
   const symbol = symbolIndex >= 0 ? symbolData[symbolIndex] : undefined;
@@ -212,7 +208,10 @@ export default function SymbolPage({ params }: SymbolPageProps) {
       <main className="w-full bg-white">
         <section className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
           <h1 className="text-2xl font-bold mb-4">Símbolo não encontrado</h1>
-          <Link href="/simbolos-painel" className="text-sky-700 hover:underline font-semibold">
+          <Link
+            href="/simbolos-painel"
+            className="text-sky-700 hover:underline font-semibold"
+          >
             ← Voltar para a lista de símbolos
           </Link>
         </section>
@@ -253,9 +252,9 @@ export default function SymbolPage({ params }: SymbolPageProps) {
       "Possível agravamento do problema ao longo do tempo",
     ];
 
-  // Navegação anterior / próximo
   const prev = symbolIndex > 0 ? symbolData[symbolIndex - 1] : undefined;
-  const next = symbolIndex < symbolData.length - 1 ? symbolData[symbolIndex + 1] : undefined;
+  const next =
+    symbolIndex < symbolData.length - 1 ? symbolData[symbolIndex + 1] : undefined;
 
   return (
     <main className="w-full bg-white">
@@ -263,7 +262,10 @@ export default function SymbolPage({ params }: SymbolPageProps) {
         {/* Top bar */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between gap-4">
-            <Link href="/simbolos-painel" className="text-sm text-sky-700 hover:underline font-semibold">
+            <Link
+              href="/simbolos-painel"
+              className="text-sm text-sky-700 hover:underline font-semibold"
+            >
               ← Voltar para Símbolos do Painel
             </Link>
 
@@ -276,9 +278,13 @@ export default function SymbolPage({ params }: SymbolPageProps) {
 
           {/* Breadcrumb */}
           <p className="text-xs text-slate-500">
-            <Link href="/" className="hover:underline">Início</Link>
+            <Link href="/" className="hover:underline">
+              Início
+            </Link>
             <span className="mx-2">/</span>
-            <Link href="/simbolos-painel" className="hover:underline">Símbolos do Painel</Link>
+            <Link href="/simbolos-painel" className="hover:underline">
+              Símbolos do Painel
+            </Link>
             <span className="mx-2">/</span>
             <span className="text-slate-700">{symbol.slug}</span>
           </p>
@@ -287,7 +293,13 @@ export default function SymbolPage({ params }: SymbolPageProps) {
         {/* Header */}
         <div className="mt-6 flex flex-col sm:flex-row items-start gap-6">
           <div className="flex-shrink-0 flex items-center justify-center bg-slate-50 rounded-2xl border border-slate-200 w-28 h-28">
-            <Image src={imageSrc} alt={symbol.title} width={96} height={96} className="object-contain" />
+            <Image
+              src={imageSrc}
+              alt={symbol.title}
+              width={96}
+              height={96}
+              className="object-contain"
+            />
           </div>
 
           <div className="min-w-0">
@@ -301,7 +313,9 @@ export default function SymbolPage({ params }: SymbolPageProps) {
             </p>
 
             <p className="mt-4 text-slate-700 leading-relaxed whitespace-pre-line">
-              {symbol.description?.trim() ? symbol.description.trim() : "Descrição técnica não informada."}
+              {symbol.description?.trim()
+                ? symbol.description.trim()
+                : "Descrição técnica não informada."}
             </p>
           </div>
         </div>

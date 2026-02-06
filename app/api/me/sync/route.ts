@@ -31,13 +31,16 @@ function cookieBase() {
 
 export async function POST() {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const cpfRaw = cookieStore.get("otia_cpf")?.value || "";
     const cpf = onlyDigits(cpfRaw);
 
     // Precisa de CPF válido para sincronizar
     if (cpf.length !== 11) {
-      return NextResponse.json({ ok: false, reason: "not_authenticated" }, { status: 401 });
+      return NextResponse.json(
+        { ok: false, reason: "not_authenticated" },
+        { status: 401 }
+      );
     }
 
     const supabase = getSupabaseAdmin();

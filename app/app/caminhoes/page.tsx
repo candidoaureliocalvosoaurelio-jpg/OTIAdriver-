@@ -5,11 +5,15 @@ import { TruckGrid } from "@/components/TruckGrid";
 export const dynamic = "force-dynamic";
 
 type PageProps = {
-  searchParams?: { lang?: string };
+  searchParams?: Promise<{ lang?: string }>;
 };
 
-export default function CaminhoesIndexPage({ searchParams }: PageProps) {
-  const lang = searchParams?.lang ?? "pt";
+export default async function CaminhoesIndexPage({ searchParams }: PageProps) {
+  const resolvedSearchParams = searchParams
+    ? await searchParams
+    : undefined;
+
+  const lang = resolvedSearchParams?.lang ?? "pt";
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-b from-[#eef7ff] to-white pb-16">
@@ -33,6 +37,7 @@ export default function CaminhoesIndexPage({ searchParams }: PageProps) {
         <h1 className="mt-5 text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900">
           Caminhões — Catálogo Premium
         </h1>
+
         <p className="mt-3 text-slate-600 max-w-2xl">
           Abra qualquer modelo para ver o conteúdo completo.
         </p>

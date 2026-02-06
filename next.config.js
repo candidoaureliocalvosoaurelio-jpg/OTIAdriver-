@@ -1,7 +1,7 @@
 // next.config.js
 
 const PUBLIC_NAV_PATHS = [
-  "/", // home
+  "/",
   "/planos",
   "/entrar",
   "/suporte",
@@ -13,14 +13,12 @@ const PUBLIC_NAV_PATHS = [
 
 function isPublicNavigation(url) {
   const p = url.pathname || "/";
-  // exato "/" ou começa com qualquer uma das rotas públicas
   if (p === "/") return true;
   return PUBLIC_NAV_PATHS.some((base) => base !== "/" && p.startsWith(base));
 }
 
 function isProtectedNavigation(url) {
   const p = url.pathname || "/";
-  // tudo que NÃO queremos cachear HTML (por segurança / cookies / conteúdo pago)
   return (
     p.startsWith("/app") ||
     p.startsWith("/caminhoes") ||
@@ -33,35 +31,31 @@ function isProtectedNavigation(url) {
 }
 
 const runtimeCaching = [
-  // API: nunca cachear
   {
     urlPattern: /^\/api\/.*$/i,
     handler: "NetworkOnly",
   },
 
-  // ✅ Navegação HTML PÚBLICA: funciona offline (cai pro cache)
   {
     urlPattern: ({ request, url }) =>
       request.mode === "navigate" && isPublicNavigation(url),
     handler: "NetworkFirst",
     options: {
       cacheName: "html-public",
-      networkTimeoutSeconds: 3, // se a rede não responder rápido, usa cache
+      networkTimeoutSeconds: 3,
       expiration: {
         maxEntries: 64,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 dias
+        maxAgeSeconds: 7 * 24 * 60 * 60,
       },
     },
   },
 
-  // ✅ Navegação HTML PROTEGIDA: nunca cachear (evita vazar conteúdo)
   {
     urlPattern: ({ request, url }) =>
       request.mode === "navigate" && isProtectedNavigation(url),
     handler: "NetworkOnly",
   },
 
-  // JS/CSS do Next
   {
     urlPattern: /^\/_next\/static\/.*$/i,
     handler: "CacheFirst",
@@ -71,7 +65,6 @@ const runtimeCaching = [
     },
   },
 
-  // Imagens
   {
     urlPattern: /\.(png|jpg|jpeg|webp|svg|ico)$/i,
     handler: "StaleWhileRevalidate",
@@ -81,7 +74,6 @@ const runtimeCaching = [
     },
   },
 
-  // ✅ PDFs (apostilas): cacheia depois que abrir 1 vez
   {
     urlPattern: /\.(pdf)$/i,
     handler: "StaleWhileRevalidate",
@@ -108,6 +100,9 @@ const withMDX = require("@next/mdx")({
 const nextConfig = {
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   reactStrictMode: true,
+
+  // ✅ FORÇA USO DE WEBPACK (resolve erro Next 16 + PWA)
+  turbopack: {},
 
   async redirects() {
     return [

@@ -6,17 +6,17 @@ import { pneus, getTireBySlug, type TireSlug } from "@/data/pneus";
 
 // ---------- mapas por categoria ----------
 const sizeMap: Record<TireSlug, string[]> = {
-  'direcional-liso': ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "315/80 R22.5"],
-  'implementos':     ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "235/75 R17.5", "385/65 R22.5"],
-  'tracao':          ["295/80 R22.5 ⭐", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
-  'tracao-plus':     ["295/80 R22.5 ⭐", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
+  "direcional-liso": ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "315/80 R22.5"],
+  implementos: ["295/80 R22.5 ⭐", "275/80 R22.5", "255/70 R22.5", "235/75 R17.5", "385/65 R22.5"],
+  tracao: ["295/80 R22.5 ⭐", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
+  "tracao-plus": ["295/80 R22.5 ⭐", "275/80 R22.5", "285/75 R24.5", "315/80 R22.5"],
 };
 
 const operationMap: Record<TireSlug, string[]> = {
-  'direcional-liso': ["Rodoviário", "Misto", "Urbano — Dianteiro"],
-  'implementos':     ["Carreta Graneleira", "Carreta Baú", "Carreta Frigorífica", "Sider / Prancha"],
-  'tracao':          ["Rodoviário", "Misto", "Urbano — Motriz"],
-  'tracao-plus':     ["Rodoviário Pesado", "Misto", "Off-road leve — Motriz"],
+  "direcional-liso": ["Rodoviário", "Misto", "Urbano — Dianteiro"],
+  implementos: ["Carreta Graneleira", "Carreta Baú", "Carreta Frigorífica", "Sider / Prancha"],
+  tracao: ["Rodoviário", "Misto", "Urbano — Motriz"],
+  "tracao-plus": ["Rodoviário Pesado", "Misto", "Off-road leve — Motriz"],
 };
 
 const careItems = [
@@ -45,29 +45,41 @@ export function generateStaticParams() {
   return pneus.map((t) => ({ slug: t.slug }));
 }
 
-type Props = { params: { slug: string } };
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
-export default function TireDetailPage({ params }: Props) {
-  const slug = params.slug as TireSlug;
-  const cat = getTireBySlug(slug);
+export default async function TireDetailPage({ params }: Props) {
+  const { slug } = await params;
+
+  const typedSlug = slug as TireSlug;
+  const cat = getTireBySlug(typedSlug);
   if (!cat) return notFound();
 
-  const sizes = sizeMap[slug];
-  const ops = operationMap[slug];
+  const sizes = sizeMap[typedSlug] ?? [];
+  const ops = operationMap[typedSlug] ?? [];
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
       {/* Breadcrumbs */}
       <nav className="text-sm text-slate-500 mb-4">
-        <Link href="/" className="hover:underline">Início</Link> /{" "}
-        <Link href="/pneus" className="hover:underline">Pneus</Link> /{" "}
-        <span className="text-slate-700">{cat.title}</span>
+        <Link href="/" className="hover:underline">
+          Início
+        </Link>{" "}
+        /{" "}
+        <Link href="/pneus" className="hover:underline">
+          Pneus
+        </Link>{" "}
+        / <span className="text-slate-700">{cat.title}</span>
       </nav>
 
       {/* Cabeçalho */}
       <header className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 mb-8">
         <div className="relative w-full md:w-[440px]">
-          <div className="relative w-full overflow-hidden rounded-2xl border bg-gray-50" style={{ aspectRatio: "3 / 2" }}>
+          <div
+            className="relative w-full overflow-hidden rounded-2xl border bg-gray-50"
+            style={{ aspectRatio: "3 / 2" }}
+          >
             <Image
               src={cat.image}
               alt={`${cat.title} - ${cat.subtitle}`}
@@ -103,7 +115,9 @@ export default function TireDetailPage({ params }: Props) {
       {/* Medidas */}
       <section className="mt-6">
         <h2 className="text-xl font-bold text-slate-900">Medidas disponíveis</h2>
-        <p className="text-sm text-slate-500 mb-2">A medida com ⭐ é a principal/mais utilizada.</p>
+        <p className="text-sm text-slate-500 mb-2">
+          A medida com ⭐ é a principal/mais utilizada.
+        </p>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm border rounded-xl overflow-hidden">
@@ -114,11 +128,13 @@ export default function TireDetailPage({ params }: Props) {
                 <th className="px-3 py-2">Aplicação</th>
               </tr>
             </thead>
+
             <tbody className="divide-y">
               {sizes.map((m) => {
                 const isStar = m.includes("⭐");
                 const clean = m.replace(" ⭐", "");
                 const aro = clean.split(" ").pop() || "—";
+
                 return (
                   <tr key={m} className="hover:bg-slate-50">
                     <td className="px-3 py-2 font-medium">
@@ -131,11 +147,13 @@ export default function TireDetailPage({ params }: Props) {
                         clean
                       )}
                     </td>
+
                     <td className="px-3 py-2">{aro}</td>
+
                     <td className="px-3 py-2">
-                      {slug === "implementos"
+                      {typedSlug === "implementos"
                         ? "Reboques / eixos livres"
-                        : slug.startsWith("tracao")
+                        : typedSlug.startsWith("tracao")
                         ? "Eixos motrizes"
                         : "Eixo dianteiro"}
                     </td>
@@ -152,6 +170,7 @@ export default function TireDetailPage({ params }: Props) {
         <h2 className="text-xl font-bold text-slate-900 mb-3">
           Cuidados operacionais (segurança & estabilidade)
         </h2>
+
         <div className="grid md:grid-cols-3 gap-4">
           {careItems.map((c) => (
             <article key={c.code} className="rounded-2xl border bg-white p-4 shadow-sm">
@@ -175,7 +194,7 @@ export default function TireDetailPage({ params }: Props) {
         {/* Troque por seu WhatsApp quando quiser:
            href={`https://wa.me/55SEUNUMERO?text=${encodeURIComponent('Quero orçamento de ' + cat.title)}`}
         */}
-        </div>
+      </div>
     </main>
   );
 }
