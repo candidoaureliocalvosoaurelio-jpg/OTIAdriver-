@@ -7,8 +7,8 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    // ✅ Next 14: cookies() NÃO é async
-    const cookieStore = cookies();
+    // ✅ Next 16: cookies() pode ser async (Promise<ReadonlyRequestCookies>)
+    const cookieStore = await cookies();
 
     const auth = cookieStore.get("otia_auth")?.value || "";
     const cpfRaw = cookieStore.get("otia_cpf")?.value || "";
@@ -31,7 +31,8 @@ export async function GET() {
       {
         status: 200,
         headers: {
-          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+          "Cache-Control":
+            "no-store, no-cache, must-revalidate, proxy-revalidate",
           Pragma: "no-cache",
           Expires: "0",
         },
@@ -43,7 +44,7 @@ export async function GET() {
     return NextResponse.json(
       { authenticated: false, cpf: "", plan: "none" },
       {
-        status: 500, // ✅ importante
+        status: 500,
         headers: { "Cache-Control": "no-store" },
       }
     );

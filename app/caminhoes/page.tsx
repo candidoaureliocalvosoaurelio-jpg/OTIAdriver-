@@ -5,11 +5,12 @@ import { TruckGrid } from "@/components/TruckGrid";
 export const dynamic = "force-dynamic";
 
 type PageProps = {
-  searchParams?: { lang?: string };
+  searchParams?: Promise<{ lang?: string }>;
 };
 
-export default function CaminhoesIndex({ searchParams }: PageProps) {
-  const lang = searchParams?.lang ?? "pt";
+export default async function CaminhoesIndex({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
+  const lang = sp?.lang ?? "pt";
 
   return (
     <main className="min-h-screen w-full bg-slate-50 pb-16">
@@ -28,7 +29,10 @@ export default function CaminhoesIndex({ searchParams }: PageProps) {
           </p>
 
           <div className="mt-4">
-            <Link href={`/?lang=${lang}`} className="text-sm text-slate-500 hover:underline">
+            <Link
+              href={`/?lang=${lang}`}
+              className="text-sm text-slate-500 hover:underline"
+            >
               ← Voltar para a vitrine
             </Link>
           </div>

@@ -5,15 +5,19 @@ import { TruckGrid } from "@/components/TruckGrid";
 
 export const dynamic = "force-dynamic";
 
-export default function CatalogoPage({
-  searchParams,
-}: {
-  searchParams?: { lang?: string };
-}) {
-  const lang = searchParams?.lang ?? "pt";
+type PageProps = {
+  searchParams?: Promise<{ lang?: string }>;
+};
+
+export default async function CatalogoPage({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
+  const lang = sp?.lang ?? "pt";
+
+  // ✅ Next 16: cookies() pode ser async
+  const cookieStore = await cookies();
 
   // ✅ Cookie usado pelo middleware: "active" libera acesso premium
-  const plan = cookies().get("otia_plan")?.value;
+  const plan = cookieStore.get("otia_plan")?.value;
   const isPremium = plan === "active";
 
   // ✅ Para quem está no espelho, tudo vai para /entrar e depois retorna ao catálogo

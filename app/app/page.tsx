@@ -6,11 +6,15 @@ import { trucks } from "@/data/trucks";
 export const dynamic = "force-dynamic";
 
 type PageProps = {
-  searchParams?: { lang?: string };
+  searchParams?: Promise<{ lang?: string }>;
 };
 
-export default function AppHome({ searchParams }: PageProps) {
-  const lang = searchParams?.lang ?? "pt";
+export default async function AppHome({ searchParams }: PageProps) {
+  const resolvedSearchParams = searchParams
+    ? await searchParams
+    : undefined;
+
+  const lang = resolvedSearchParams?.lang ?? "pt";
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
   return (
@@ -44,8 +48,8 @@ export default function AppHome({ searchParams }: PageProps) {
                 </h1>
 
                 <p className="mt-4 text-white/85 max-w-2xl">
-                  Aqui você acessa caminhões, materiais e módulos completos. Use o catálogo
-                  para navegar por modelo.
+                  Aqui você acessa caminhões, materiais e módulos completos.
+                  Use o catálogo para navegar por modelo.
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -79,7 +83,10 @@ export default function AppHome({ searchParams }: PageProps) {
 
               <div className="hidden md:block">
                 <div className="rounded-2xl bg-white/10 ring-1 ring-white/20 p-5 backdrop-blur">
-                  <p className="text-sm font-extrabold text-white">Acesso liberado</p>
+                  <p className="text-sm font-extrabold text-white">
+                    Acesso liberado
+                  </p>
+
                   <ul className="mt-3 space-y-3 text-sm text-white/85">
                     <li className="flex gap-2">
                       <span className="font-extrabold text-sky-300">1.</span>
@@ -103,14 +110,12 @@ export default function AppHome({ searchParams }: PageProps) {
                       Ver caminhões
                     </Link>
                   </div>
-
-                  <p className="mt-3 text-xs text-white/70" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* INÍCIO ANTIGO (data/trucks.ts) – PREMIUM */}
+          {/* CATÁLOGO */}
           <section className="mt-10">
             <div className="flex items-end justify-between gap-3 px-1">
               <div>
@@ -148,12 +153,16 @@ export default function AppHome({ searchParams }: PageProps) {
                   </div>
 
                   <div className="p-4">
-                    <p className="text-base font-extrabold text-slate-900">{t.name}</p>
+                    <p className="text-base font-extrabold text-slate-900">
+                      {t.name}
+                    </p>
+
                     {t.description && (
                       <p className="mt-1 text-sm text-slate-600 line-clamp-2">
                         {t.description}
                       </p>
                     )}
+
                     <div className="mt-4 text-xs font-extrabold text-sky-700">
                       Abrir conteúdo completo
                     </div>
@@ -178,3 +187,4 @@ export default function AppHome({ searchParams }: PageProps) {
     </main>
   );
 }
+

@@ -23,27 +23,29 @@ function safeNext(nextRaw: string | undefined, lang: string) {
   return fallback;
 }
 
-export default function PagamentoConcluido({
-  searchParams,
-}: {
-  searchParams?: {
+type PageProps = {
+  searchParams?: Promise<{
     plano?: string;
     payment_id?: string;
     status?: string;
     lang?: string;
     next?: string;
-  };
-}) {
-  const lang = searchParams?.lang ?? "pt";
-  const plano = searchParams?.plano;
-  const paymentId = searchParams?.payment_id ?? "";
-  const status = searchParams?.status ?? "";
+  }>;
+};
+
+export default async function PagamentoConcluido({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
+
+  const lang = sp?.lang ?? "pt";
+  const plano = sp?.plano;
+  const paymentId = sp?.payment_id ?? "";
+  const status = sp?.status ?? "";
 
   // ✅ destino fixo pós-pagamento: home interna (página das marcas)
   const next = `/caminhoes?lang=${lang}`;
 
   // (Opcional) Se você quiser respeitar ?next= quando vier (mantendo seguro), use:
-  // const next = safeNext(searchParams?.next, lang);
+  // const next = safeNext(sp?.next, lang);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">

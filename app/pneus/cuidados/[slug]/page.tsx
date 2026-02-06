@@ -1,10 +1,11 @@
+// app/pneus/cuidados/[slug]/page.tsx
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 
 type TireCarePageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 const PNEUS_DIR = path.join(process.cwd(), "content", "pneus");
@@ -71,8 +72,9 @@ function simpleMarkdownToHtml(md: string): string {
   return finalHtml.join("\n");
 }
 
-export default function TireCareModulePage({ params }: TireCarePageProps) {
-  const { slug } = params;
+export default async function TireCareModulePage({ params }: TireCarePageProps) {
+  const { slug } = await params;
+
   const filePath = path.join(PNEUS_DIR, `${slug}.md`);
 
   if (!fs.existsSync(filePath)) {
@@ -86,6 +88,7 @@ export default function TireCareModulePage({ params }: TireCarePageProps) {
         <h1 className="text-2xl font-bold mb-4 text-red-700">
           Módulo de Pneus não encontrado
         </h1>
+
         <p className="mb-4 text-gray-700">
           O arquivo <code>{slug}.md</code> não existe dentro de{" "}
           <code>content/pneus</code>.
@@ -118,14 +121,16 @@ export default function TireCareModulePage({ params }: TireCarePageProps) {
   const { data, content } = matter(raw);
 
   const htmlContent = simpleMarkdownToHtml(content);
+
   const title =
-    (data.title as string | undefined) ?? "Módulo de Cuidados com Pneus";
-  const description = data.description as string | undefined;
+    (data as any).title ?? "Módulo de Cuidados com Pneus";
+  const description = (data as any).description as string | undefined;
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
       <article className="prose prose-slate max-w-none">
         <h1>{title}</h1>
+
         {description && (
           <p className="text-lg text-gray-600 leading-relaxed">
             {description}
@@ -145,6 +150,7 @@ export default function TireCareModulePage({ params }: TireCarePageProps) {
         >
           ← Voltar à lista de módulos
         </Link>
+
         <Link
           href="/pneus/cuidados"
           className="inline-block text-slate-500 hover:text-slate-700"

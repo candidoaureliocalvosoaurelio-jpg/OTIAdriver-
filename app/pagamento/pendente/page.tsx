@@ -3,11 +3,13 @@
 import PendingClient from "./PendingClient";
 
 type PageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default function PagamentoPendentePage({ searchParams }: PageProps) {
-  const nextUrlParam = searchParams?.nextUrl;
+export default async function PagamentoPendentePage({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
+
+  const nextUrlParam = sp?.nextUrl;
 
   const nextUrl =
     typeof nextUrlParam === "string" && nextUrlParam.trim().length > 0

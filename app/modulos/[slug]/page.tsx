@@ -6,7 +6,7 @@ import matter from "gray-matter";
 import Link from "next/link";
 
 type ModuloPageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 const MODULES_DIR = path.join(process.cwd(), "content", "modulos");
@@ -67,17 +67,25 @@ function simpleMarkdownToHtml(md: string): string {
   return finalHtml.join("\n");
 }
 
-export default function ModuloPage({ params }: ModuloPageProps) {
-  const filePath = path.join(MODULES_DIR, `${params.slug}.md`);
+export default async function ModuloPage({ params }: ModuloPageProps) {
+  const { slug } = await params;
+
+  const filePath = path.join(MODULES_DIR, `${slug}.md`);
 
   if (!fs.existsSync(filePath)) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-10">
-        <h1 className="text-2xl font-bold mb-4 text-red-700">Módulo não encontrado</h1>
+        <h1 className="text-2xl font-bold mb-4 text-red-700">
+          Módulo não encontrado
+        </h1>
         <p className="mb-4 text-gray-700">
-          O arquivo <code>{params.slug}.md</code> não existe dentro de <code>content/modulos</code>.
+          O arquivo <code>{slug}.md</code> não existe dentro de{" "}
+          <code>content/modulos</code>.
         </p>
-        <Link href="/caminhoes-eletricos" className="text-blue-600 hover:underline">
+        <Link
+          href="/caminhoes-eletricos"
+          className="text-blue-600 hover:underline"
+        >
           ← Voltar ao portal
         </Link>
       </main>
@@ -89,8 +97,8 @@ export default function ModuloPage({ params }: ModuloPageProps) {
 
   const htmlContent = simpleMarkdownToHtml(content);
 
-  const title = data.title ?? "Módulo OTIAdriver";
-  const description = data.description ?? "";
+  const title = (data as any).title ?? "Módulo OTIAdriver";
+  const description = (data as any).description ?? "";
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
@@ -101,7 +109,10 @@ export default function ModuloPage({ params }: ModuloPageProps) {
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </article>
 
-      <Link href="/caminhoes-eletricos" className="text-blue-600 hover:underline mt-10 inline-block">
+      <Link
+        href="/caminhoes-eletricos"
+        className="text-blue-600 hover:underline mt-10 inline-block"
+      >
         ← Voltar ao Portal de Certificação OTIAdriver
       </Link>
     </main>

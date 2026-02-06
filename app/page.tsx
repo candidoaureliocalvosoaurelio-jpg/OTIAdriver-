@@ -4,11 +4,12 @@ import Image from "next/image";
 import RowCarousel, { RowItem } from "@/components/RowCarousel";
 
 type PageProps = {
-  searchParams?: { lang?: string };
+  searchParams?: Promise<{ lang?: string }>;
 };
 
-export default function HomePage({ searchParams }: PageProps) {
-  const lang = searchParams?.lang ?? "pt";
+export default async function HomePage({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
+  const lang = sp?.lang ?? "pt";
   const heroImage = "/images/home/hero-otiadriver.jpg";
 
   // 🔒 Regra final: TODA a Home leva para /planos
@@ -162,11 +163,19 @@ export default function HomePage({ searchParams }: PageProps) {
 
               <div className="hidden md:block">
                 <div className="rounded-2xl bg-white/10 ring-1 ring-white/20 p-5 backdrop-blur">
-                  <p className="text-sm font-extrabold text-white">Como funciona</p>
+                  <p className="text-sm font-extrabold text-white">
+                    Como funciona
+                  </p>
                   <ul className="mt-3 space-y-3 text-sm text-white/85">
-                    <li><strong>1.</strong> Conheça os planos da plataforma.</li>
-                    <li><strong>2.</strong> Escolha o ideal para você.</li>
-                    <li><strong>3.</strong> Acesse todo o conteúdo exclusivo.</li>
+                    <li>
+                      <strong>1.</strong> Conheça os planos da plataforma.
+                    </li>
+                    <li>
+                      <strong>2.</strong> Escolha o ideal para você.
+                    </li>
+                    <li>
+                      <strong>3.</strong> Acesse todo o conteúdo exclusivo.
+                    </li>
                   </ul>
 
                   <div className="mt-5">
@@ -207,7 +216,8 @@ export default function HomePage({ searchParams }: PageProps) {
                 Quer liberar tudo?
               </h3>
               <p className="mt-1 text-sm text-slate-600">
-                Assine para acessar treinamentos completos e materiais exclusivos.
+                Assine para acessar treinamentos completos e materiais
+                exclusivos.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link

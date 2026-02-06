@@ -29,7 +29,8 @@ function buildRedirectToPlanos(req: NextRequest) {
   return NextResponse.redirect(planosUrl);
 }
 
-export function middleware(req: NextRequest) {
+// ✅ Next 16: middleware.ts -> proxy.ts e a função exportada vira "proxy"
+export function proxy(req: NextRequest) {
   const url = req.nextUrl;
   const { hostname, pathname } = url;
 
@@ -51,7 +52,7 @@ export function middleware(req: NextRequest) {
 
   // ✅ SOMENTE estas áreas ficam bloqueadas até pagar
   const protectedExactPaths = new Set([
-    "/caminhoes",              // (recomendado) home da plataforma
+    "/caminhoes", // (recomendado) home da plataforma
     "/caminhoes-eletricos",
     "/pneus",
     "/inspecao-manutencao",
