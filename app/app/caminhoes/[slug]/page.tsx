@@ -1,15 +1,9 @@
-// app/app/caminhoes/[slug]/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { trucks } from "@/data/trucks";
 
 export const dynamic = "force-dynamic";
-
-type PageProps = {
-  params: Promise<{ slug: string }>;
-  searchParams?: Promise<{ lang?: string }>;
-};
 
 function SpecsTable({ specs }: { specs?: Record<string, string> }) {
   if (!specs) return null;
@@ -43,21 +37,20 @@ function SpecsTable({ specs }: { specs?: Record<string, string> }) {
 export default async function CaminhaoPremiumPage({
   params,
   searchParams,
-}: PageProps) {
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ lang?: string }>;
+}) {
+  const { slug } = await params;
+  const sp = searchParams ? await searchParams : undefined;
 
-  const resolvedParams = await params;
-  const resolvedSearchParams = searchParams
-    ? await searchParams
-    : undefined;
+  const lang = sp?.lang ?? "pt";
 
-  const lang = resolvedSearchParams?.lang ?? "pt";
-
-  const t = trucks.find((x) => x.slug === resolvedParams.slug);
+  const t = trucks.find((x) => x.slug === slug);
   if (!t) return notFound();
 
   return (
     <main className="min-h-screen w-full bg-gradient-to-b from-[#eef7ff] to-white pb-16">
-      
       {/* Top breadcrumb */}
       <section className="pt-6">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -82,9 +75,7 @@ export default async function CaminhaoPremiumPage({
       {/* HERO */}
       <section className="mt-5">
         <div className="max-w-7xl mx-auto px-4 md:px-6">
-
           <div className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-
             <div className="absolute inset-0">
               <div className="relative h-full w-full min-h-[360px] md:min-h-[420px]">
                 <Image
@@ -100,7 +91,6 @@ export default async function CaminhaoPremiumPage({
             </div>
 
             <div className="relative grid lg:grid-cols-[1.1fr,0.9fr] gap-8 px-6 py-10 md:px-10 md:py-12">
-
               <div>
                 <p className="text-xs font-extrabold tracking-[0.25em] uppercase text-sky-300">
                   Caminhão • Premium
@@ -154,15 +144,12 @@ export default async function CaminhaoPremiumPage({
                   </p>
                 </div>
               </div>
-
             </div>
           </div>
 
           <SpecsTable specs={t.specs} />
-
         </div>
       </section>
-
     </main>
   );
 }
