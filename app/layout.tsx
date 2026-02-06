@@ -6,6 +6,7 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -55,6 +56,9 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
 
         <Footer />
+
+        {/* Vercel Analytics */}
+        <Analytics />
       </body>
     </html>
   );
