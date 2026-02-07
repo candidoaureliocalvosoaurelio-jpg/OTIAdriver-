@@ -176,5 +176,5 @@ export default function BrandPage({ data }: { data: BrandData }) {
         </div>
       </section>
     </main>
-  );
-      }
+   );
+}
