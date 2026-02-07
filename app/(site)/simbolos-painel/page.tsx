@@ -32,9 +32,9 @@ function getSymbols() {
     const publicPath = `/simbolos/${safeFile}`;
 
     return {
-      file, // ex: simbolo-20.png
+      file: safeFile, // ✅ sanitizado (evita "stored value" cru)
       path: publicPath,
-      baseName, // ex: simbolo-20
+      baseName,
     };
   });
 }
@@ -209,7 +209,7 @@ export default function SimbolosPainelPage() {
 
             return (
               <Link
-                key={icon.file}
+                key={`sym-${safe}`} // ✅ não usar valor cru do filesystem
                 href={`/simbolos-painel/${safe}`}
                 className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 hover:shadow-md transition"
               >
