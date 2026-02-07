@@ -1,4 +1,5 @@
-import BrandPage, { BrandData } from "../../../components/BrandPage";
+import BrandPage from "@/components/BrandPage";
+import type { BrandData } from "@/components/BrandPage";
 
 export default function Page() {
   const data: BrandData = {
