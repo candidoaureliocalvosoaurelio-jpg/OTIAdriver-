@@ -24,15 +24,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <head>
-        {/* Google AdSense */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1193667681913467"
-          crossOrigin="anonymous"
-        />
-      </head>
-
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
         <Header />
         <div className="h-[72px] md:h-[80px]" />
