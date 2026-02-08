@@ -48,6 +48,10 @@ export default function Footer() {
             <Link href="/privacidade" className="hover:underline">
               Política de Privacidade
             </Link>
+            <span>•</span>
+            <Link href="/cookies" className="hover:underline">
+              Política de Cookies
+            </Link>
           </div>
 
           <p>
