@@ -6,7 +6,7 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
-import AdsenseScript from "@components/AdsenseScript";
+import AdsenseScript from "@/components/AdsenseScript";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
