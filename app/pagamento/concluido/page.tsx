@@ -15,7 +15,6 @@ function safeNext(nextRaw: string | undefined, lang: string) {
 
   // Aceita apenas caminhos internos iniciando com "/"
   if (nextRaw.startsWith("/")) {
-    // Garante lang no destino final (se não tiver)
     if (nextRaw.includes("lang=")) return nextRaw;
     return `${nextRaw}${nextRaw.includes("?") ? "&" : "?"}lang=${lang}`;
   }
@@ -23,14 +22,16 @@ function safeNext(nextRaw: string | undefined, lang: string) {
   return fallback;
 }
 
+type SearchParams = {
+  plano?: string;
+  payment_id?: string;
+  status?: string;
+  lang?: string;
+  next?: string;
+};
+
 type PageProps = {
-  searchParams?: Promise<{
-    plano?: string;
-    payment_id?: string;
-    status?: string;
-    lang?: string;
-    next?: string;
-  }>;
+  searchParams?: Promise<SearchParams>;
 };
 
 export default async function PagamentoConcluido({ searchParams }: PageProps) {
@@ -41,10 +42,10 @@ export default async function PagamentoConcluido({ searchParams }: PageProps) {
   const paymentId = sp?.payment_id ?? "";
   const status = sp?.status ?? "";
 
-  // ✅ destino fixo pós-pagamento: home interna (página das marcas)
+  // ✅ destino fixo pós-pagamento
   const next = `/caminhoes?lang=${lang}`;
 
-  // (Opcional) Se você quiser respeitar ?next= quando vier (mantendo seguro), use:
+  // (Opcional) para respeitar ?next= com segurança:
   // const next = safeNext(sp?.next, lang);
 
   return (

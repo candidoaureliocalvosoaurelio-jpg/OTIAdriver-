@@ -4,29 +4,33 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 type Props = {
-  nextUrl: string; // mantido por compatibilidade (não usamos mais para o destino final)
+  nextUrl: string; // compatibilidade; vamos respeitar se vier
   lang?: string;
 };
 
-type SyncResp = {
-  ok: boolean;
-  plano?: string;
-  status?: "active" | "inactive";
-  reason?: string;
+type SessionResp = {
+  authenticated: boolean;
+  cpf: string;
+  plan: string; // basico|pro|premium|none
+  planStatus: "active" | "inactive";
+  expiresAt: string | null;
 };
 
-export default function SyncAfterPayment({ lang = "pt" }: Props) {
+export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
   const [state, setState] = useState<
-    "idle" | "syncing" | "waiting" | "needs_login" | "done" | "error"
+    "idle" | "checking" | "waiting" | "needs_login" | "done" | "error"
   >("idle");
 
-  // ✅ Pós-pagamento: sempre volta para a home da plataforma (lista de caminhões)
+  // ✅ destino final (se vier nextUrl, usamos; senão fallback)
   const finalNext = useMemo(() => {
-    return `/caminhoes?lang=${encodeURIComponent(lang)}`;
-  }, [lang]);
+    const fallback = `/caminhoes?lang=${encodeURIComponent(lang)}`;
+    const n = String(nextUrl || "").trim();
+    if (!n) return fallback;
+    if (!n.startsWith("/") || n.startsWith("//")) return fallback;
+    return n;
+  }, [nextUrl, lang]);
 
-  // ✅ Se precisar login, manda o usuário para /entrar e depois volta para /pagamento/concluido
-  // (assim ele não se perde e o sync tenta de novo automaticamente ao voltar)
+  // ✅ se precisar login: volta para /pagamento/concluido e tenta de novo
   const loginUrl = useMemo(() => {
     const backToConcluido = `/pagamento/concluido?lang=${encodeURIComponent(lang)}`;
     return `/entrar?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
@@ -39,59 +43,50 @@ export default function SyncAfterPayment({ lang = "pt" }: Props) {
 
     async function run() {
       try {
-        setState("syncing");
+        setState("checking");
 
-        // Tentativas (webhook pode demorar um pouco)
-        const attempts = 6;
-        const delayMs = 1200;
+        // ✅ PIX pode demorar um pouco / webhook aplicar — vamos dar mais fôlego
+        const attempts = 30; // ~60s
+        const delayMs = 2000;
 
         for (let i = 1; i <= attempts; i++) {
-          const r = await fetch("/api/me/sync", {
-            method: "POST",
+          const r = await fetch("/api/auth/session", {
+            method: "GET",
             cache: "no-store",
-            credentials: "include", // ✅ garante cookies
+            credentials: "include",
             headers: { "Cache-Control": "no-store" },
           });
 
-          // Se não tem CPF cookie, pede login
-          if (r.status === 401) {
+          const data = (await r.json().catch(() => null)) as SessionResp | null;
+
+          // sem sessão/cookies (não logado)
+          if (!data || !data.authenticated) {
             if (!cancelled) setState("needs_login");
             return;
           }
 
-          const data = (await r.json().catch(() => null)) as SyncResp | null;
-
-          if (!r.ok || !data) {
-            // erro transitório
-            if (i === attempts) break;
-          } else {
-            // ✅ Se plano ficou active, pode entrar
-            if (data.ok && data.status === "active") {
-              if (!cancelled) {
-                setState("done");
-                window.location.href = finalNext;
-              }
-              return;
+          // ✅ se plano ativo, libera
+          if (data.planStatus === "active") {
+            if (!cancelled) {
+              setState("done");
+              window.location.href = finalNext;
             }
-
-            // Ainda não aplicado no banco → aguarda e tenta novamente
-            if (data.ok && data.status !== "active") {
-              if (!cancelled) setState("waiting");
-            }
+            return;
           }
 
+          // ainda não aplicado
+          if (!cancelled) setState("waiting");
           await new Promise((res) => setTimeout(res, delayMs));
         }
 
         if (!cancelled) setState("error");
       } catch (e) {
-        console.error("[SyncAfterPayment] erro:", e);
+        console.error("[SyncAfterPayment] error:", e);
         if (!cancelled) setState("error");
       }
     }
 
     run();
-
     return () => {
       cancelled = true;
     };
@@ -102,8 +97,8 @@ export default function SyncAfterPayment({ lang = "pt" }: Props) {
       <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
         <p className="font-bold">Quase lá.</p>
         <p className="text-sm mt-1">
-          Para concluir a liberação, faça o login (CPF/telefone) neste aparelho.
-          Ao terminar, você voltará para esta página e liberaremos automaticamente.
+          Para concluir a liberação neste aparelho, faça login (CPF/telefone).
+          Ao voltar, liberamos automaticamente.
         </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
@@ -131,7 +126,7 @@ export default function SyncAfterPayment({ lang = "pt" }: Props) {
       <div className="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4 text-slate-800">
         <p className="font-bold">Sincronizando seu acesso…</p>
         <p className="text-sm mt-1">
-          Estamos aguardando a confirmação final do pagamento. Isso pode levar alguns segundos.
+          Aguardando o sistema aplicar o plano (PIX/webhook). Isso pode levar alguns segundos.
         </p>
       </div>
     );
@@ -142,7 +137,7 @@ export default function SyncAfterPayment({ lang = "pt" }: Props) {
       <div className="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 text-rose-900">
         <p className="font-bold">Não conseguimos liberar automaticamente.</p>
         <p className="text-sm mt-1">
-          Tente novamente em instantes. Se continuar, faça login e volte para esta página.
+          Tente novamente. Se continuar, faça login e volte para esta página.
         </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
@@ -169,7 +164,7 @@ export default function SyncAfterPayment({ lang = "pt" }: Props) {
     <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
       <p className="font-bold">Liberando seu acesso…</p>
       <p className="text-sm mt-1">
-        Se tudo estiver ok, você será redirecionado automaticamente para os caminhões.
+        Se estiver tudo ok, você será redirecionado automaticamente.
       </p>
     </div>
   );
