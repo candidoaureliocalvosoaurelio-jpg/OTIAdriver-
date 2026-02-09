@@ -25,46 +25,68 @@ function extractPaymentId(req: Request, body: any) {
     url.searchParams.get("data.id") ||
     url.searchParams.get("id") ||
     url.searchParams.get("payment_id");
-  if (qs) return String(qs);
-
-  return "";
+  return qs ? String(qs) : "";
 }
 
 function normalizePlan(p: string) {
   const plan = String(p || "").toLowerCase();
-  if (plan === "basico" || plan === "pro" || plan === "premium") return plan;
-  return "";
+  return plan === "basico" || plan === "pro" || plan === "premium" ? plan : "";
 }
 
-function planFromItems(payment: any) {
-  // tenta deduzir do item: "Plano PRO — OTIAdriver" ou id "plano-pro"
-  const items = payment?.additional_info?.items;
-  if (!Array.isArray(items) || !items.length) return "";
+async function applyPlanToProfiles(params: {
+  supabase: ReturnType<typeof getSupabaseAdmin>;
+  cpf: string;
+  plano: string;
+}) {
+  const { supabase, cpf, plano } = params;
 
-  const it0 = items[0] || {};
-  const title = String(it0?.title || "").toLowerCase();
-  const id = String(it0?.id || "").toLowerCase();
+  // pega expiração atual (se existir)
+  const now = new Date();
 
-  if (id.includes("plano-basico") || title.includes("basico")) return "basico";
-  if (id.includes("plano-pro") || title.includes("pro")) return "pro";
-  if (id.includes("plano-premium") || title.includes("premium")) return "premium";
-  return "";
-}
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("plan_expires_at")
+    .eq("cpf", cpf)
+    .maybeSingle();
 
-function extractCpf(payment: any) {
-  // 1) external_reference
-  const ext = onlyDigits(String(payment?.external_reference || ""));
-  if (ext.length === 11) return ext;
+  let baseDate = now;
+  if (profile?.plan_expires_at) {
+    const exp = new Date(profile.plan_expires_at);
+    if (!isNaN(exp.getTime()) && exp > now) baseDate = exp;
+  }
 
-  // 2) metadata.cpf
-  const metaCpf = onlyDigits(String(payment?.metadata?.cpf || ""));
-  if (metaCpf.length === 11) return metaCpf;
+  const newExp = new Date(baseDate);
+  newExp.setDate(newExp.getDate() + 30);
 
-  // 3) payer.identification.number (às vezes vem CPF aqui)
-  const payerCpf = onlyDigits(String(payment?.payer?.identification?.number || ""));
-  if (payerCpf.length === 11) return payerCpf;
+  // ✅ tenta UPDATE primeiro (funciona mesmo sem UNIQUE)
+  const upd = await supabase
+    .from("profiles")
+    .update({
+      plano,
+      plan_expires_at: newExp.toISOString(),
+    })
+    .eq("cpf", cpf);
 
-  return "";
+  if (upd.error) {
+    console.error("WEBHOOK_PROFILE_UPDATE_ERROR", { message: upd.error.message });
+  }
+
+  // Se atualizou alguém, acabou
+  if ((upd.data?.length || 0) > 0) return { ok: true };
+
+  // ✅ se não existia, tenta INSERT (id uuid normalmente tem default no banco)
+  const ins = await supabase.from("profiles").insert({
+    cpf,
+    plano,
+    plan_expires_at: newExp.toISOString(),
+  });
+
+  if (ins.error) {
+    console.error("WEBHOOK_PROFILE_INSERT_ERROR", { message: ins.error.message });
+    return { ok: false, error: ins.error.message };
+  }
+
+  return { ok: true };
 }
 
 export async function POST(req: Request) {
@@ -76,7 +98,7 @@ export async function POST(req: Request) {
     const paymentId = extractPaymentId(req, body);
     if (!paymentId) return NextResponse.json({ ok: true });
 
-    // fonte da verdade
+    // 1) consulta no MP (fonte da verdade)
     const resp = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
       cache: "no-store",
@@ -86,16 +108,13 @@ export async function POST(req: Request) {
     const payment = await resp.json();
 
     const status = String(payment?.status || "");
-    const cpf = extractCpf(payment);
-    const plano =
-      normalizePlan(payment?.metadata?.plano) ||
-      normalizePlan(payment?.metadata?.plan) ||
-      planFromItems(payment);
+    const cpf = onlyDigits(String(payment?.external_reference || ""));
+    const plano = normalizePlan(payment?.metadata?.plano);
 
     const supabase = getSupabaseAdmin();
     const nowIso = new Date().toISOString();
 
-    // sempre registra auditoria
+    // 2) auditoria/idempotência
     await supabase.from("mp_payments").upsert(
       {
         payment_id: String(paymentId),
@@ -108,12 +127,12 @@ export async function POST(req: Request) {
       { onConflict: "payment_id" }
     );
 
-    // só aplica quando aprovado + dados bons
+    // 3) só aplica aprovado + dados válidos
     if (status !== "approved") return NextResponse.json({ ok: true });
     if (cpf.length !== 11) return NextResponse.json({ ok: true });
     if (!plano) return NextResponse.json({ ok: true });
 
-    // idempotência
+    // 4) idempotência
     const { data: mpRow } = await supabase
       .from("mp_payments")
       .select("applied_at")
@@ -122,44 +141,11 @@ export async function POST(req: Request) {
 
     if (mpRow?.applied_at) return NextResponse.json({ ok: true });
 
-    // calcula expiração
-    const now = new Date();
-    let baseDate = now;
+    // 5) aplica plano (robusto)
+    const applied = await applyPlanToProfiles({ supabase, cpf, plano });
+    if (!applied.ok) return NextResponse.json({ ok: true });
 
-    const { data: profile, error: profileReadErr } = await supabase
-      .from("profiles")
-      .select("plan_expires_at")
-      .eq("cpf", cpf)
-      .maybeSingle();
-
-    if (profileReadErr) {
-      console.error("WEBHOOK_PROFILE_READ_ERROR", { message: profileReadErr.message });
-    }
-
-    if (profile?.plan_expires_at) {
-      const exp = new Date(profile.plan_expires_at);
-      if (!isNaN(exp.getTime()) && exp > now) baseDate = exp;
-    }
-
-    const newExp = new Date(baseDate);
-    newExp.setDate(newExp.getDate() + 30);
-
-    // aplica no profiles (sem updated_at)
-    const { error: upsertErr } = await supabase.from("profiles").upsert(
-      {
-        cpf,
-        plano, // <-- precisa existir coluna "plano"
-        plan_expires_at: newExp.toISOString(),
-      },
-      { onConflict: "cpf" }
-    );
-
-    if (upsertErr) {
-      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", { message: upsertErr.message });
-      return NextResponse.json({ ok: true });
-    }
-
-    // marca aplicado
+    // 6) marca como aplicado
     const { error: appliedErr } = await supabase
       .from("mp_payments")
       .update({ applied_at: nowIso, updated_at: nowIso })
