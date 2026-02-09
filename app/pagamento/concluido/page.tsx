@@ -8,53 +8,51 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
-function normalizeLang(v: any) {
-  const s = String(v || "").toLowerCase();
-  return s === "en" ? "en" : "pt";
-}
-
 function safeNext(nextRaw: string | undefined, lang: string) {
   const fallback = `/caminhoes?lang=${lang}`;
+
   if (!nextRaw) return fallback;
 
-  // só aceita path interno
-  if (!nextRaw.startsWith("/")) return fallback;
+  // Aceita apenas caminhos internos iniciando com "/"
+  if (nextRaw.startsWith("/")) {
+    if (nextRaw.includes("lang=")) return nextRaw;
+    return `${nextRaw}${nextRaw.includes("?") ? "&" : "?"}lang=${lang}`;
+  }
 
-  // bloqueia // e protocolos disfarçados
-  if (nextRaw.startsWith("//")) return fallback;
-  if (nextRaw.toLowerCase().startsWith("/\\") || nextRaw.toLowerCase().includes("http")) return fallback;
-
-  // garante lang
-  if (nextRaw.includes("lang=")) return nextRaw;
-  return `${nextRaw}${nextRaw.includes("?") ? "&" : "?"}lang=${lang}`;
+  return fallback;
 }
 
-type PageProps = {
-  searchParams?: {
-    plano?: string;
-    payment_id?: string;
-    status?: string;
-    lang?: string;
-    next?: string;
-  };
+type SearchParams = {
+  plano?: string;
+  payment_id?: string;
+  status?: string;
+  lang?: string;
+  next?: string;
 };
 
-export default function PagamentoConcluido({ searchParams }: PageProps) {
-  const sp = searchParams || {};
+type PageProps = {
+  searchParams?: Promise<SearchParams>;
+};
 
-  const lang = normalizeLang(sp.lang);
-  const plano = sp.plano ? String(sp.plano).toLowerCase() : "";
-  const paymentId = sp.payment_id ? String(sp.payment_id) : "";
-  const status = sp.status ? String(sp.status) : "";
+export default async function PagamentoConcluido({ searchParams }: PageProps) {
+  const sp = searchParams ? await searchParams : undefined;
 
-  // ✅ melhor: respeita ?next= quando vier (com segurança)
-  const next = safeNext(sp.next, lang);
+  const lang = sp?.lang ?? "pt";
+  const plano = sp?.plano;
+  const paymentId = sp?.payment_id ?? "";
+  const status = sp?.status ?? "";
+
+  // ✅ destino fixo pós-pagamento
+  const next = `/caminhoes?lang=${lang}`;
+
+  // (Opcional) para respeitar ?next= com segurança:
+  // const next = safeNext(sp?.next, lang);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
       <div className="max-w-2xl mx-auto rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900">
-          Pagamento confirmado
+          Pagamento aprovado
         </h1>
 
         <p className="mt-2 text-slate-600">
@@ -62,7 +60,8 @@ export default function PagamentoConcluido({ searchParams }: PageProps) {
           {plano ? (
             <>
               {" "}
-              Vamos liberar seu acesso do plano <strong>{plano.toUpperCase()}</strong>.
+              Vamos liberar seu acesso do plano{" "}
+              <strong>{plano.toUpperCase()}</strong>.
             </>
           ) : (
             <> Vamos liberar seu acesso.</>
@@ -84,12 +83,14 @@ export default function PagamentoConcluido({ searchParams }: PageProps) {
           </div>
         )}
 
-        {/* ✅ se estiver logado, ele faz polling em /api/auth/session até liberar e redireciona */}
+        {/* ✅ Se estiver logado: sync + redirect automático */}
         <SyncAfterPayment nextUrl={next} lang={lang} />
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href={`/entrar?lang=${lang}&next=${encodeURIComponent(next)}&reason=auth`}
+            href={`/entrar?lang=${lang}&next=${encodeURIComponent(
+              next
+            )}&reason=auth`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
           >
             Entrar agora (CPF/telefone)
@@ -99,13 +100,15 @@ export default function PagamentoConcluido({ searchParams }: PageProps) {
             href={next}
             className="rounded-xl bg-slate-100 px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-slate-200"
           >
-            Continuar
+            Ir para caminhões (marcas)
           </Link>
         </div>
 
         <p className="mt-4 text-xs text-slate-500">
-          No PIX, o Mercado Pago às vezes não redireciona automaticamente. Se você já está logado, esta tela sincroniza
-          seu plano e libera o acesso assim que o webhook confirmar.
+          Após o pagamento, o sistema sincroniza seu plano e libera o acesso. Se
+          você cair em “Entrar” ou “Planos”, normalmente é porque ainda não há
+          sessão (cookies) no aparelho — então basta entrar uma vez para amarrar
+          o CPF ao plano.
         </p>
       </div>
     </main>
