@@ -64,9 +64,7 @@ export async function POST(req: Request) {
     const supabase = getSupabaseAdmin();
     const nowIso = new Date().toISOString();
 
-    // Upsert do evento/pagamento
-    // - Mantém histórico do "raw"
-    // - Atualiza status
+    // Upsert do evento/pagamento (histórico + status)
     await supabase.from("mp_payments").upsert(
       {
         payment_id: String(paymentId),
@@ -84,19 +82,16 @@ export async function POST(req: Request) {
     if (cpf.length !== 11) return NextResponse.json({ ok: true });
     if (!plano) return NextResponse.json({ ok: true });
 
-    // Checa se já foi aplicado
+    // Checa se já foi aplicado (idempotência)
     const { data: mpRow } = await supabase
       .from("mp_payments")
       .select("applied_at")
       .eq("payment_id", String(paymentId))
       .maybeSingle();
 
-    if (mpRow?.applied_at) {
-      // Já aplicado → idempotência
-      return NextResponse.json({ ok: true });
-    }
+    if (mpRow?.applied_at) return NextResponse.json({ ok: true });
 
-    // Calcula expiração: soma +30 dias do maior entre (agora) e (plan_expires_at atual)
+    // Calcula expiração: +30 dias do maior entre (agora) e (plan_expires_at atual)
     const now = new Date();
     const baseDate = new Date();
 
@@ -107,10 +102,8 @@ export async function POST(req: Request) {
       .maybeSingle();
 
     if (profileErr) {
-      console.error("WEBHOOK_PROFILE_READ_ERROR", {
-        message: profileErr.message,
-      });
-      // Não aborta; ainda pode aplicar
+      console.error("WEBHOOK_PROFILE_READ_ERROR", profileErr);
+      // não aborta
     }
 
     if (profile?.plan_expires_at) {
@@ -122,21 +115,18 @@ export async function POST(req: Request) {
 
     baseDate.setDate(baseDate.getDate() + 30);
 
-    // Aplica plano no profile
+    // ✅ Aplica plano no profiles (SEM updated_at, porque sua tabela não tem essa coluna)
     const { error: upsertErr } = await supabase.from("profiles").upsert(
       {
         cpf,
         plano,
         plan_expires_at: baseDate.toISOString(),
-        updated_at: now.toISOString(),
       },
       { onConflict: "cpf" }
     );
 
     if (upsertErr) {
-      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", {
-        message: upsertErr.message,
-      });
+      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", upsertErr);
       return NextResponse.json({ ok: true });
     }
 
@@ -147,10 +137,8 @@ export async function POST(req: Request) {
       .eq("payment_id", String(paymentId));
 
     if (appliedErr) {
-      console.error("WEBHOOK_APPLIED_MARK_ERROR", {
-        message: appliedErr.message,
-      });
-      // Mesmo se falhar marcar, o plano já foi aplicado; ainda responde ok
+      console.error("WEBHOOK_APPLIED_MARK_ERROR", appliedErr);
+      // mesmo se falhar marcar, o plano já foi aplicado
     }
 
     return NextResponse.json({ ok: true });
