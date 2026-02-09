@@ -36,6 +36,37 @@ function normalizePlan(p: string) {
   return "";
 }
 
+function planFromItems(payment: any) {
+  // tenta deduzir do item: "Plano PRO — OTIAdriver" ou id "plano-pro"
+  const items = payment?.additional_info?.items;
+  if (!Array.isArray(items) || !items.length) return "";
+
+  const it0 = items[0] || {};
+  const title = String(it0?.title || "").toLowerCase();
+  const id = String(it0?.id || "").toLowerCase();
+
+  if (id.includes("plano-basico") || title.includes("basico")) return "basico";
+  if (id.includes("plano-pro") || title.includes("pro")) return "pro";
+  if (id.includes("plano-premium") || title.includes("premium")) return "premium";
+  return "";
+}
+
+function extractCpf(payment: any) {
+  // 1) external_reference
+  const ext = onlyDigits(String(payment?.external_reference || ""));
+  if (ext.length === 11) return ext;
+
+  // 2) metadata.cpf
+  const metaCpf = onlyDigits(String(payment?.metadata?.cpf || ""));
+  if (metaCpf.length === 11) return metaCpf;
+
+  // 3) payer.identification.number (às vezes vem CPF aqui)
+  const payerCpf = onlyDigits(String(payment?.payer?.identification?.number || ""));
+  if (payerCpf.length === 11) return payerCpf;
+
+  return "";
+}
+
 export async function POST(req: Request) {
   try {
     const accessToken = process.env.MP_ACCESS_TOKEN;
@@ -45,7 +76,7 @@ export async function POST(req: Request) {
     const paymentId = extractPaymentId(req, body);
     if (!paymentId) return NextResponse.json({ ok: true });
 
-    // 1) Consulta no MP (fonte da verdade)
+    // fonte da verdade
     const resp = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
       cache: "no-store",
@@ -55,13 +86,16 @@ export async function POST(req: Request) {
     const payment = await resp.json();
 
     const status = String(payment?.status || "");
-    const cpf = onlyDigits(String(payment?.external_reference || ""));
-    const plano = normalizePlan(payment?.metadata?.plano);
+    const cpf = extractCpf(payment);
+    const plano =
+      normalizePlan(payment?.metadata?.plano) ||
+      normalizePlan(payment?.metadata?.plan) ||
+      planFromItems(payment);
 
     const supabase = getSupabaseAdmin();
     const nowIso = new Date().toISOString();
 
-    // 2) Salva auditoria/idempotência em mp_payments
+    // sempre registra auditoria
     await supabase.from("mp_payments").upsert(
       {
         payment_id: String(paymentId),
@@ -69,17 +103,17 @@ export async function POST(req: Request) {
         plano: plano || null,
         status: status || null,
         raw: payment,
-        updated_at: nowIso, // <- aqui pode ficar, pq na sua mp_payments existe updated_at
+        updated_at: nowIso,
       },
       { onConflict: "payment_id" }
     );
 
-    // 3) Só aplica quando aprovado e dados válidos
+    // só aplica quando aprovado + dados bons
     if (status !== "approved") return NextResponse.json({ ok: true });
     if (cpf.length !== 11) return NextResponse.json({ ok: true });
     if (!plano) return NextResponse.json({ ok: true });
 
-    // 4) Idempotência: já aplicado?
+    // idempotência
     const { data: mpRow } = await supabase
       .from("mp_payments")
       .select("applied_at")
@@ -88,15 +122,19 @@ export async function POST(req: Request) {
 
     if (mpRow?.applied_at) return NextResponse.json({ ok: true });
 
-    // 5) Calcula nova expiração (+30 dias a partir do maior entre agora e expiração atual)
+    // calcula expiração
     const now = new Date();
     let baseDate = now;
 
-    const { data: profile } = await supabase
+    const { data: profile, error: profileReadErr } = await supabase
       .from("profiles")
       .select("plan_expires_at")
       .eq("cpf", cpf)
       .maybeSingle();
+
+    if (profileReadErr) {
+      console.error("WEBHOOK_PROFILE_READ_ERROR", { message: profileReadErr.message });
+    }
 
     if (profile?.plan_expires_at) {
       const exp = new Date(profile.plan_expires_at);
@@ -106,12 +144,11 @@ export async function POST(req: Request) {
     const newExp = new Date(baseDate);
     newExp.setDate(newExp.getDate() + 30);
 
-    // 6) Aplica plano no profiles
-    // ⚠️ removido updated_at porque sua tabela profiles (pelo print) não tem essa coluna
+    // aplica no profiles (sem updated_at)
     const { error: upsertErr } = await supabase.from("profiles").upsert(
       {
         cpf,
-        plano,
+        plano, // <-- precisa existir coluna "plano"
         plan_expires_at: newExp.toISOString(),
       },
       { onConflict: "cpf" }
@@ -122,7 +159,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    // 7) Marca como aplicado (idempotência)
+    // marca aplicado
     const { error: appliedErr } = await supabase
       .from("mp_payments")
       .update({ applied_at: nowIso, updated_at: nowIso })
