@@ -16,11 +16,9 @@ function getSupabaseAdmin() {
 }
 
 function extractPaymentId(req: Request, body: any) {
-  // 1) body padrão do webhook
   const fromBody = body?.data?.id || body?.id;
   if (fromBody) return String(fromBody);
 
-  // 2) fallback por querystring (alguns formatos)
   const url = new URL(req.url);
   const qs =
     url.searchParams.get("data.id") ||
@@ -46,12 +44,11 @@ export async function POST(req: Request) {
     const paymentId = extractPaymentId(req, body);
     if (!paymentId) return NextResponse.json({ ok: true });
 
-    // Consulta pagamento no MP (fonte da verdade)
+    // 1) consulta pagamento no MP (fonte da verdade)
     const resp = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
       cache: "no-store",
     });
-
     if (!resp.ok) return NextResponse.json({ ok: true });
 
     const payment = await resp.json();
@@ -60,11 +57,10 @@ export async function POST(req: Request) {
     const cpf = onlyDigits(String(payment?.external_reference || ""));
     const plano = normalizePlan(payment?.metadata?.plano);
 
-    // Registra no banco para auditoria / idempotência
     const supabase = getSupabaseAdmin();
     const nowIso = new Date().toISOString();
 
-    // Upsert do evento/pagamento (histórico + status)
+    // 2) grava/atualiza auditoria (mp_payments)
     await supabase.from("mp_payments").upsert(
       {
         payment_id: String(paymentId),
@@ -77,12 +73,12 @@ export async function POST(req: Request) {
       { onConflict: "payment_id" }
     );
 
-    // Só aplica se aprovado e com dados válidos
+    // 3) só aplica se approved + dados válidos
     if (status !== "approved") return NextResponse.json({ ok: true });
     if (cpf.length !== 11) return NextResponse.json({ ok: true });
     if (!plano) return NextResponse.json({ ok: true });
 
-    // Checa se já foi aplicado (idempotência)
+    // idempotência (não aplicar duas vezes)
     const { data: mpRow } = await supabase
       .from("mp_payments")
       .select("applied_at")
@@ -91,31 +87,24 @@ export async function POST(req: Request) {
 
     if (mpRow?.applied_at) return NextResponse.json({ ok: true });
 
-    // Calcula expiração: +30 dias do maior entre (agora) e (plan_expires_at atual)
+    // 4) calcula expiração (+30 dias do maior entre agora e expiração atual)
     const now = new Date();
-    const baseDate = new Date();
+    const baseDate = new Date(now);
 
-    const { data: profile, error: profileErr } = await supabase
+    const { data: profile } = await supabase
       .from("profiles")
       .select("plan_expires_at")
       .eq("cpf", cpf)
       .maybeSingle();
 
-    if (profileErr) {
-      console.error("WEBHOOK_PROFILE_READ_ERROR", profileErr);
-      // não aborta
-    }
-
     if (profile?.plan_expires_at) {
       const exp = new Date(profile.plan_expires_at);
-      if (!isNaN(exp.getTime()) && exp > now) {
-        baseDate.setTime(exp.getTime());
-      }
+      if (!isNaN(exp.getTime()) && exp > now) baseDate.setTime(exp.getTime());
     }
 
     baseDate.setDate(baseDate.getDate() + 30);
 
-    // ✅ Aplica plano no profiles (SEM updated_at, porque sua tabela não tem essa coluna)
+    // 5) aplica plano (⚠️ sem updated_at porque sua tabela não tem essa coluna)
     const { error: upsertErr } = await supabase.from("profiles").upsert(
       {
         cpf,
@@ -126,25 +115,23 @@ export async function POST(req: Request) {
     );
 
     if (upsertErr) {
-      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", upsertErr);
+      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", { message: upsertErr.message });
       return NextResponse.json({ ok: true });
     }
 
-    // Marca como aplicado (selo de idempotência)
+    // 6) marca como aplicado
     const { error: appliedErr } = await supabase
       .from("mp_payments")
       .update({ applied_at: nowIso, updated_at: nowIso })
       .eq("payment_id", String(paymentId));
 
     if (appliedErr) {
-      console.error("WEBHOOK_APPLIED_MARK_ERROR", appliedErr);
-      // mesmo se falhar marcar, o plano já foi aplicado
+      console.error("WEBHOOK_APPLIED_MARK_ERROR", { message: appliedErr.message });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("MP_WEBHOOK_ERROR", err);
-    // nunca estoure erro para o MP
     return NextResponse.json({ ok: true });
   }
 }
