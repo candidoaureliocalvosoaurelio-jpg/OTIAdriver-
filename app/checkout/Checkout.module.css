@@ -22,7 +22,16 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow-md);
   padding: 28px;
+
+  /* ✅ hover “vibrante” */
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
+.card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 18px 50px rgba(0,0,0,.18);
+  filter: saturate(1.06);
+}
+
 .card h1 {
   font-size: 24px;
   margin: 0 0 6px 0;
@@ -114,10 +123,16 @@
   font-weight: 900;
   text-decoration: none;
   color: #fff;
+  cursor: pointer;
+
   box-shadow: 0 14px 30px rgba(0,0,0,.12);
-  transition: transform .05s ease, filter .15s ease;
+  transition: transform .05s ease, filter .15s ease, box-shadow 160ms ease;
 }
 .btn:active { transform: translateY(1px); }
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: .75;
+}
 
 /* bullets do aside */
 .bullets {
@@ -167,14 +182,60 @@
 .proBtn { background: var(--pro-green-1); }
 .proBtn:hover { filter: brightness(0.95); }
 
-/* -------- PREMIUM (azul – Opção 2) -------- */
-.premiumAside {
-  background: linear-gradient(180deg, var(--brand-blue), var(--brand-blue-2));
-  color: #fff;
+/* -------- PREMIUM (LUXO + GLOW FORTE) -------- */
+.premiumCard {
+  border: 1px solid rgba(251, 191, 36, 0.22);
 }
+
+/* fundo premium escuro + borda dourada */
+.premiumAside {
+  background: linear-gradient(
+    180deg,
+    #070b14 0%,
+    #0b1220 45%,
+    #0f172a 100%
+  );
+  color: #fff;
+  border: 1px solid rgba(251, 191, 36, 0.18);
+}
+
 .premiumSelected { background: rgba(255,255,255,.10); color:#fff; }
-.premiumBtn { background: var(--brand-blue); }
-.premiumBtn:hover { filter: brightness(0.95); }
+
+/* botão dourado + verde com brilho forte */
+.premiumBtn {
+  background: linear-gradient(
+    90deg,
+    #fbbf24 0%,
+    #f59e0b 25%,
+    #10b981 100%
+  );
+  color: #07121a;
+  box-shadow:
+    0 20px 55px rgba(245, 158, 11, 0.35),
+    0 0 0 1px rgba(251, 191, 36, 0.22);
+}
+
+/* GLOW FORTE no hover */
+.premiumBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08) saturate(1.25);
+  box-shadow:
+    0 26px 70px rgba(245, 158, 11, 0.45),
+    0 0 55px rgba(251, 191, 36, 0.55),
+    0 0 110px rgba(16, 185, 129, 0.25),
+    0 0 0 1px rgba(251, 191, 36, 0.30);
+}
+
+.premiumBtn:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+}
+
+/* Badge dourado premium */
+.premiumCard .badge {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+  color: #07121a;
+}
 
 /* -------- BÁSICO (amarelo) -------- */
 .basicAside {
@@ -197,6 +258,7 @@
   .btn { padding: 14px; }
   .card { padding: 22px; }
 }
+
 /* Texto das bullets em branco no PREMIUM e no PRO */
 .premiumAside .bullets,
 .premiumAside .bullets li {
