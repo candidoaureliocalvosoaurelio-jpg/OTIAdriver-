@@ -8,9 +8,10 @@ const PROTECTED_PREFIXES = [
   "/caminhoes-eletricos",
   "/treinamentos",
   "/simbolos-painel",
-  "/inspecao-manutencao", // ✅ corrigido
+  "/inspecao-manutencao",
   "/pneus",
-  "/ebook-driver-economy",
+  "/ebook-driver",          // ✅ protege a rota real
+  "/ebook-driver-economy",  // (opcional) se você tiver essa rota também
 ];
 
 const PUBLIC_PREFIXES = [
