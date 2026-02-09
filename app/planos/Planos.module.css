@@ -408,3 +408,177 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* =========================================
+   PREMIUM ÚNICO — CENTRALIZADO (OVERRIDES)
+   ========================================= */
+
+/* HERO CTA (um botão só, bem destacado) */
+.heroCtas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* CTA principal mais premium (glow forte) */
+.heroPrimaryCta {
+  border: none;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  color: #07121a;
+
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 25%, #10b981 100%);
+  box-shadow:
+    0 26px 70px rgba(245, 158, 11, 0.40),
+    0 0 55px rgba(251, 191, 36, 0.55),
+    0 0 120px rgba(16, 185, 129, 0.18);
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+
+.heroPrimaryCta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08) saturate(1.25);
+  box-shadow:
+    0 30px 80px rgba(245, 158, 11, 0.48),
+    0 0 70px rgba(251, 191, 36, 0.62),
+    0 0 150px rgba(16, 185, 129, 0.22);
+}
+
+.heroPrimaryCta:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+}
+
+/* Pills de confiança mais “premium” */
+.trustRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.trustPill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  background: rgba(2, 6, 23, 0.06);
+  border: 1px solid rgba(2, 6, 23, 0.08);
+}
+
+/* GRID: com 1 plano, centraliza e limita largura */
+.planosGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  margin-top: 28px;
+}
+
+/* CARD: limita largura e centraliza */
+.card {
+  width: 100%;
+  max-width: 560px; /* largura boa para 1 card */
+  border-radius: 18px;
+}
+
+/* Premium: visual luxo */
+.planoPremium {
+  position: relative;
+  background: linear-gradient(180deg, #070b14 0%, #0b1220 45%, #0f172a 100%);
+  color: #fff;
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.24),
+    0 0 0 1px rgba(251, 191, 36, 0.08);
+}
+
+/* Textos internos premium */
+.planoPremium p,
+.planoPremium li {
+  color: rgba(255,255,255,.92);
+}
+
+.planoPremium .periodo,
+.planoPremium .cifra {
+  color: rgba(255,255,255,.85);
+}
+
+/* lista com separadores mais suaves no fundo escuro */
+.planoPremium .recursos li {
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+
+/* Botão Premium com GLOW FORTE */
+.btn-premium {
+  border: none;
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  color: #07121a;
+
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 25%, #10b981 100%);
+  box-shadow:
+    0 26px 70px rgba(245, 158, 11, 0.45),
+    0 0 55px rgba(251, 191, 36, 0.55),
+    0 0 140px rgba(16, 185, 129, 0.20);
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.10) saturate(1.28);
+  box-shadow:
+    0 32px 90px rgba(245, 158, 11, 0.52),
+    0 0 80px rgba(251, 191, 36, 0.70),
+    0 0 180px rgba(16, 185, 129, 0.28);
+}
+
+.btn-premium:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+}
+
+/* Selo Premium (ACESSO TOTAL) — Luxo + Glow */
+.premiumBadge {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+
+  padding: 8px 16px;
+  border-radius: 999px;
+
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+
+  color: #07121a;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #10b981);
+
+  box-shadow:
+    0 16px 40px rgba(245, 158, 11, 0.35),
+    0 0 45px rgba(251, 191, 36, 0.55),
+    0 0 100px rgba(16, 185, 129, 0.20);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 640px) {
+  .card {
+    max-width: 520px;
+  }
+  .heroPrimaryCta {
+    width: 100%;
+    max-width: 380px;
+  }
+}
