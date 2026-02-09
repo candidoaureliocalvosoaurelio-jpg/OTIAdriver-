@@ -12,19 +12,24 @@ function onlyDigits(v: string) {
 function getSupabaseAdmin() {
   const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
   if (!url || !serviceKey) throw new Error("Missing Supabase env vars");
+
   return createClient(url, serviceKey, { auth: { persistSession: false } });
 }
 
 function extractPaymentId(req: Request, body: any) {
+  // 1) body padrão
   const fromBody = body?.data?.id || body?.id;
   if (fromBody) return String(fromBody);
 
+  // 2) querystring fallback
   const url = new URL(req.url);
   const qs =
     url.searchParams.get("data.id") ||
     url.searchParams.get("id") ||
     url.searchParams.get("payment_id");
+
   if (qs) return String(qs);
 
   return "";
@@ -36,37 +41,6 @@ function normalizePlan(p: string) {
   return "";
 }
 
-function planFromItems(payment: any) {
-  // tenta deduzir do item: "Plano PRO — OTIAdriver" ou id "plano-pro"
-  const items = payment?.additional_info?.items;
-  if (!Array.isArray(items) || !items.length) return "";
-
-  const it0 = items[0] || {};
-  const title = String(it0?.title || "").toLowerCase();
-  const id = String(it0?.id || "").toLowerCase();
-
-  if (id.includes("plano-basico") || title.includes("basico")) return "basico";
-  if (id.includes("plano-pro") || title.includes("pro")) return "pro";
-  if (id.includes("plano-premium") || title.includes("premium")) return "premium";
-  return "";
-}
-
-function extractCpf(payment: any) {
-  // 1) external_reference
-  const ext = onlyDigits(String(payment?.external_reference || ""));
-  if (ext.length === 11) return ext;
-
-  // 2) metadata.cpf
-  const metaCpf = onlyDigits(String(payment?.metadata?.cpf || ""));
-  if (metaCpf.length === 11) return metaCpf;
-
-  // 3) payer.identification.number (às vezes vem CPF aqui)
-  const payerCpf = onlyDigits(String(payment?.payer?.identification?.number || ""));
-  if (payerCpf.length === 11) return payerCpf;
-
-  return "";
-}
-
 export async function POST(req: Request) {
   try {
     const accessToken = process.env.MP_ACCESS_TOKEN;
@@ -74,28 +48,32 @@ export async function POST(req: Request) {
 
     const body = await req.json().catch(() => ({}));
     const paymentId = extractPaymentId(req, body);
+
     if (!paymentId) return NextResponse.json({ ok: true });
 
-    // fonte da verdade
-    const resp = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      cache: "no-store",
-    });
+    // 1) Fonte da verdade: Mercado Pago
+    const resp = await fetch(
+      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        cache: "no-store",
+      }
+    );
+
     if (!resp.ok) return NextResponse.json({ ok: true });
 
     const payment = await resp.json();
 
     const status = String(payment?.status || "");
-    const cpf = extractCpf(payment);
-    const plano =
-      normalizePlan(payment?.metadata?.plano) ||
-      normalizePlan(payment?.metadata?.plan) ||
-      planFromItems(payment);
+    const cpf = onlyDigits(
+      String(payment?.external_reference || payment?.metadata?.cpf || "")
+    );
+    const plano = normalizePlan(payment?.metadata?.plano);
 
     const supabase = getSupabaseAdmin();
     const nowIso = new Date().toISOString();
 
-    // sempre registra auditoria
+    // 2) Auditoria / idempotência: registra em mp_payments
     await supabase.from("mp_payments").upsert(
       {
         payment_id: String(paymentId),
@@ -108,12 +86,12 @@ export async function POST(req: Request) {
       { onConflict: "payment_id" }
     );
 
-    // só aplica quando aprovado + dados bons
+    // 3) Só aplica se aprovado e válido
     if (status !== "approved") return NextResponse.json({ ok: true });
     if (cpf.length !== 11) return NextResponse.json({ ok: true });
     if (!plano) return NextResponse.json({ ok: true });
 
-    // idempotência
+    // 4) Idempotência: já aplicado?
     const { data: mpRow } = await supabase
       .from("mp_payments")
       .select("applied_at")
@@ -122,19 +100,15 @@ export async function POST(req: Request) {
 
     if (mpRow?.applied_at) return NextResponse.json({ ok: true });
 
-    // calcula expiração
+    // 5) Calcula expiração: +30 dias a partir do maior entre agora e expiração atual
     const now = new Date();
     let baseDate = now;
 
-    const { data: profile, error: profileReadErr } = await supabase
+    const { data: profile } = await supabase
       .from("profiles")
       .select("plan_expires_at")
       .eq("cpf", cpf)
       .maybeSingle();
-
-    if (profileReadErr) {
-      console.error("WEBHOOK_PROFILE_READ_ERROR", { message: profileReadErr.message });
-    }
 
     if (profile?.plan_expires_at) {
       const exp = new Date(profile.plan_expires_at);
@@ -144,29 +118,33 @@ export async function POST(req: Request) {
     const newExp = new Date(baseDate);
     newExp.setDate(newExp.getDate() + 30);
 
-    // aplica no profiles (sem updated_at)
+    // 6) Aplica plano no profiles
     const { error: upsertErr } = await supabase.from("profiles").upsert(
       {
         cpf,
-        plano, // <-- precisa existir coluna "plano"
+        plano,
         plan_expires_at: newExp.toISOString(),
       },
       { onConflict: "cpf" }
     );
 
     if (upsertErr) {
-      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", { message: upsertErr.message });
+      console.error("WEBHOOK_PROFILE_UPSERT_ERROR", {
+        message: upsertErr.message,
+      });
       return NextResponse.json({ ok: true });
     }
 
-    // marca aplicado
+    // 7) Marca como aplicado (idempotência)
     const { error: appliedErr } = await supabase
       .from("mp_payments")
       .update({ applied_at: nowIso, updated_at: nowIso })
       .eq("payment_id", String(paymentId));
 
     if (appliedErr) {
-      console.error("WEBHOOK_APPLIED_MARK_ERROR", { message: appliedErr.message });
+      console.error("WEBHOOK_APPLIED_MARK_ERROR", {
+        message: appliedErr.message,
+      });
     }
 
     return NextResponse.json({ ok: true });
