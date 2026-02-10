@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import styles from "./Planos.module.css";
 
 // ================= LISTA DE RECURSOS (PREMIUM) =================
@@ -18,8 +18,11 @@ function PlanosContent() {
   const searchParams = useSearchParams();
   const reason = searchParams.get("reason");
   const lang = searchParams.get("lang") || "pt";
+  const [loading, setLoading] = useState(false);
 
   function goPremiumCheckout() {
+    if (loading) return;
+    setLoading(true);
     window.location.href = `/checkout/premium?lang=${encodeURIComponent(lang)}`;
   }
 
@@ -58,8 +61,10 @@ function PlanosContent() {
             type="button"
             onClick={goPremiumCheckout}
             className={styles.heroPrimaryCta}
+            disabled={loading}
+            aria-busy={loading}
           >
-            Assinar PREMIUM
+            {loading ? "Abrindo checkout..." : "Assinar PREMIUM"}
           </button>
         </div>
 
@@ -73,6 +78,9 @@ function PlanosContent() {
       {/* CARD PREMIUM (ÚNICO) */}
       <section className={styles.planosGrid} aria-label="Plano disponível">
         <article className={`${styles.card} ${styles.planoPremium}`} style={{ height: 520 }}>
+          {/* ✅ SELO */}
+          <div className={styles.premiumBadge}>ACESSO TOTAL</div>
+
           <h2 className="text-2xl md:text-3xl font-extrabold m-0">Premium</h2>
 
           <div className={styles.preco}>
@@ -92,12 +100,14 @@ function PlanosContent() {
           <button
             type="button"
             onClick={goPremiumCheckout}
-            className={`${styles.btn} ${styles["btn-premium"] ?? ""}`}
+            className={`${styles.btn} ${styles["btn-premium"]}`}
+            disabled={loading}
+            aria-busy={loading}
           >
-            Assinar Premium
+            {loading ? "Abrindo checkout..." : "Assinar Premium"}
           </button>
 
-          <div className="mt-3 text-xs text-slate-500 text-center">
+          <div className="mt-3 text-xs text-slate-200 text-center">
             Ao continuar, você concorda com nossos{" "}
             <Link href="/termos" className="underline">
               Termos de Uso
