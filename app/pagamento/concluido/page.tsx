@@ -8,20 +8,6 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
-function safeNext(nextRaw: string | undefined, lang: string) {
-  const fallback = `/caminhoes?lang=${lang}`;
-
-  if (!nextRaw) return fallback;
-
-  // Aceita apenas caminhos internos iniciando com "/"
-  if (nextRaw.startsWith("/")) {
-    if (nextRaw.includes("lang=")) return nextRaw;
-    return `${nextRaw}${nextRaw.includes("?") ? "&" : "?"}lang=${lang}`;
-  }
-
-  return fallback;
-}
-
 type SearchParams = {
   plano?: string;
   payment_id?: string;
@@ -38,15 +24,12 @@ export default async function PagamentoConcluido({ searchParams }: PageProps) {
   const sp = searchParams ? await searchParams : undefined;
 
   const lang = sp?.lang ?? "pt";
-  const plano = sp?.plano;
+  const plano = sp?.plano ?? "premium";
   const paymentId = sp?.payment_id ?? "";
   const status = sp?.status ?? "";
 
   // ✅ destino fixo pós-pagamento
   const next = `/caminhoes?lang=${lang}`;
-
-  // (Opcional) para respeitar ?next= com segurança:
-  // const next = safeNext(sp?.next, lang);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#eef7ff] to-white px-4 py-12">
@@ -56,16 +39,8 @@ export default async function PagamentoConcluido({ searchParams }: PageProps) {
         </h1>
 
         <p className="mt-2 text-slate-600">
-          Obrigado. Seu pagamento foi confirmado.
-          {plano ? (
-            <>
-              {" "}
-              Vamos liberar seu acesso do plano{" "}
-              <strong>{plano.toUpperCase()}</strong>.
-            </>
-          ) : (
-            <> Vamos liberar seu acesso.</>
-          )}
+          Obrigado. Seu pagamento foi confirmado. Vamos liberar seu acesso{" "}
+          <strong>{plano.toUpperCase()}</strong>.
         </p>
 
         {(paymentId || status) && (
@@ -83,13 +58,21 @@ export default async function PagamentoConcluido({ searchParams }: PageProps) {
           </div>
         )}
 
-        {/* ✅ Se estiver logado: sync + redirect automático */}
-        <SyncAfterPayment nextUrl={next} lang={lang} />
+        {/* ✅ Se estiver logado: tenta sync forçado + redirect automático */}
+        <SyncAfterPayment
+          nextUrl={next}
+          lang={lang}
+          plano={plano}
+          paymentId={paymentId}
+          status={status}
+        />
 
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
             href={`/entrar?lang=${lang}&next=${encodeURIComponent(
-              next
+              `/pagamento/concluido?lang=${lang}&plano=${encodeURIComponent(plano)}${
+                paymentId ? `&payment_id=${encodeURIComponent(paymentId)}` : ""
+              }${status ? `&status=${encodeURIComponent(status)}` : ""}`
             )}&reason=auth`}
             className="rounded-xl bg-emerald-600 px-5 py-3 text-sm font-extrabold text-white hover:bg-emerald-700"
           >
@@ -105,12 +88,11 @@ export default async function PagamentoConcluido({ searchParams }: PageProps) {
         </div>
 
         <p className="mt-4 text-xs text-slate-500">
-          Após o pagamento, o sistema sincroniza seu plano e libera o acesso. Se
-          você cair em “Entrar” ou “Planos”, normalmente é porque ainda não há
-          sessão (cookies) no aparelho — então basta entrar uma vez para amarrar
-          o CPF ao plano.
+          Se após pagar você cair em “Entrar”, é normal: o navegador pode não ter sessão.
+          Basta entrar 1 vez e o acesso será liberado automaticamente.
         </p>
       </div>
     </main>
   );
 }
+
