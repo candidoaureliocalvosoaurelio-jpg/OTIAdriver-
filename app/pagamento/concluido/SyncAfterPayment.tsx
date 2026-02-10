@@ -4,8 +4,13 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 type Props = {
-  nextUrl: string; // compatibilidade; vamos respeitar se vier
+  nextUrl: string;
   lang?: string;
+
+  // ✅ novos (opcionais) para manter contexto do retorno
+  plano?: string;
+  paymentId?: string;
+  status?: string;
 };
 
 type SessionResp = {
@@ -16,12 +21,18 @@ type SessionResp = {
   expiresAt: string | null;
 };
 
-export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
+export default function SyncAfterPayment({
+  nextUrl,
+  lang = "pt",
+  plano = "premium",
+  paymentId = "",
+  status = "",
+}: Props) {
   const [state, setState] = useState<
     "idle" | "checking" | "waiting" | "needs_login" | "done" | "error"
   >("idle");
 
-  // ✅ destino final (se vier nextUrl, usamos; senão fallback)
+  // ✅ destino final
   const finalNext = useMemo(() => {
     const fallback = `/caminhoes?lang=${encodeURIComponent(lang)}`;
     const n = String(nextUrl || "").trim();
@@ -30,13 +41,18 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
     return n;
   }, [nextUrl, lang]);
 
-  // ✅ se precisar login: volta para /pagamento/concluido e tenta de novo
+  // ✅ se precisar login: volta para /pagamento/concluido COM OS PARAMS
   const loginUrl = useMemo(() => {
-    const backToConcluido = `/pagamento/concluido?lang=${encodeURIComponent(lang)}`;
+    const backToConcluido =
+      `/pagamento/concluido?lang=${encodeURIComponent(lang)}` +
+      `&plano=${encodeURIComponent(plano)}` +
+      (paymentId ? `&payment_id=${encodeURIComponent(paymentId)}` : "") +
+      (status ? `&status=${encodeURIComponent(status)}` : "");
+
     return `/entrar?lang=${encodeURIComponent(lang)}&next=${encodeURIComponent(
       backToConcluido
     )}&reason=auth`;
-  }, [lang]);
+  }, [lang, plano, paymentId, status]);
 
   useEffect(() => {
     let cancelled = false;
@@ -45,7 +61,6 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
       try {
         setState("checking");
 
-        // ✅ PIX pode demorar um pouco / webhook aplicar — vamos dar mais fôlego
         const attempts = 30; // ~60s
         const delayMs = 2000;
 
@@ -74,7 +89,27 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
             return;
           }
 
-          // ainda não aplicado
+          // ✅ tenta forçar sync (se existir /api/me/sync)
+          try {
+            await fetch("/api/me/sync", {
+              method: "POST",
+              cache: "no-store",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-store",
+              },
+              body: JSON.stringify({
+                plano,
+                payment_id: paymentId,
+                status,
+                source: "pagamento_concluido",
+              }),
+            });
+          } catch {
+            // ignora (se rota não existir ou falhar, seguimos no loop)
+          }
+
           if (!cancelled) setState("waiting");
           await new Promise((res) => setTimeout(res, delayMs));
         }
@@ -90,7 +125,7 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [finalNext]);
+  }, [finalNext, plano, paymentId, status]);
 
   if (state === "needs_login") {
     return (
@@ -98,7 +133,7 @@ export default function SyncAfterPayment({ nextUrl, lang = "pt" }: Props) {
         <p className="font-bold">Quase lá.</p>
         <p className="text-sm mt-1">
           Para concluir a liberação neste aparelho, faça login (CPF/telefone).
-          Ao voltar, liberamos automaticamente.
+          Ao voltar, liberamos automaticamente e te enviamos para Caminhões.
         </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
