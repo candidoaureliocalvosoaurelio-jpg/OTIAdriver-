@@ -106,7 +106,7 @@ export default function CheckoutPremium() {
 
       <div className={s.grid}>
         <section className={`${s.card} ${s.premiumCard}`}>
-          <span className={s.badge}>ACESSO TOTAL PREMIUM ⭐</span>
+          <span className={s.badge}>🚀 ACESSO TOTAL PREMIUM 🚀</span>
           <h1 className="font-bold text-2xl mb-2">Premium</h1>
           <div className={s.price}>
             R$ 99,90 <small>/ mês</small>
