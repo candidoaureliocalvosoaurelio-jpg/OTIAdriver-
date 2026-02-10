@@ -44,13 +44,20 @@ function jsonNoStore(data: any, init?: ResponseInit) {
 
 export async function POST(req: Request) {
   try {
-    const c = await cookies(); // ✅ AQUI
+    const c = await cookies();
 
     const cpf = onlyDigits(c.get("otia_cpf")?.value || "");
+    const phone = onlyDigits(c.get("otia_phone")?.value || "");
 
-    // ✅ sem CPF no cookie = sem sessão (não tem como sincronizar)
+    // ✅ sem CPF no cookie = sem sessão
     if (cpf.length !== 11) {
       return jsonNoStore({ ok: false, reason: "not_authenticated" }, { status: 401 });
+    }
+
+    // ✅ profiles.phone é NOT NULL no seu banco
+    // então se não vier, não pode sincronizar
+    if (phone.length < 10 || phone.length > 11) {
+      return jsonNoStore({ ok: false, reason: "missing_phone" }, { status: 400 });
     }
 
     // body é opcional (não pode quebrar)
@@ -82,8 +89,10 @@ export async function POST(req: Request) {
       const base = cookieBase();
       res.cookies.set("otia_auth", "1", base);
       res.cookies.set("otia_cpf", cpf, base);
+      res.cookies.set("otia_phone", phone, base);
       res.cookies.set("otia_plan", plan, base);
       res.cookies.set("otia_plan_status", "active", base);
+
       return res;
     }
 
@@ -119,6 +128,7 @@ export async function POST(req: Request) {
     const planoFromMp = String(pay?.plano || hintedPlano || "").toLowerCase();
     const statusFromMp = String(pay?.status || hintedStatus || "").toLowerCase();
 
+    // ❌ ainda não tem pagamento aprovado
     if (!paymentId || !isPaidPlan(planoFromMp) || statusFromMp !== "approved") {
       const res = jsonNoStore(
         { ok: true, plano: "none", status: "inactive" as const, reason: "not_applied_yet" },
@@ -128,8 +138,10 @@ export async function POST(req: Request) {
       const base = cookieBase();
       res.cookies.set("otia_auth", "1", base);
       res.cookies.set("otia_cpf", cpf, base);
+      res.cookies.set("otia_phone", phone, base);
       res.cookies.set("otia_plan", "none", base);
       res.cookies.set("otia_plan_status", "inactive", base);
+
       return res;
     }
 
@@ -143,6 +155,7 @@ export async function POST(req: Request) {
     const up = await sb.from("profiles").upsert(
       {
         cpf,
+        phone, // ✅ IMPORTANTE: evita erro NOT NULL
         plano: planoFromMp,
         plan_expires_at: newExp.toISOString(),
       },
@@ -169,6 +182,7 @@ export async function POST(req: Request) {
     const base = cookieBase();
     res.cookies.set("otia_auth", "1", base);
     res.cookies.set("otia_cpf", cpf, base);
+    res.cookies.set("otia_phone", phone, base);
     res.cookies.set("otia_plan", planoFromMp, base);
     res.cookies.set("otia_plan_status", "active", base);
 
