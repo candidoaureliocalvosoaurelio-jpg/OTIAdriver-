@@ -1,4 +1,3 @@
-// app/api/me/sync/route.ts
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createClient } from "@supabase/supabase-js";
@@ -33,18 +32,36 @@ function isPaidPlan(p: string) {
   return plan === "basico" || plan === "pro" || plan === "premium";
 }
 
-export async function POST() {
+function jsonNoStore(data: any, init?: ResponseInit) {
+  return NextResponse.json(data, {
+    ...init,
+    headers: {
+      "Cache-Control": "no-store, max-age=0",
+      ...(init?.headers || {}),
+    },
+  });
+}
+
+export async function POST(req: Request) {
   try {
-    const c = await cookies();
+    const c = await cookies(); // ✅ AQUI
+
     const cpf = onlyDigits(c.get("otia_cpf")?.value || "");
 
+    // ✅ sem CPF no cookie = sem sessão (não tem como sincronizar)
     if (cpf.length !== 11) {
-      return NextResponse.json({ ok: false, reason: "not_authenticated" }, { status: 401 });
+      return jsonNoStore({ ok: false, reason: "not_authenticated" }, { status: 401 });
     }
+
+    // body é opcional (não pode quebrar)
+    const body = (await req.json().catch(() => ({}))) as any;
+    const hintedPaymentId = String(body?.payment_id || body?.paymentId || "").trim();
+    const hintedPlano = String(body?.plano || "").toLowerCase();
+    const hintedStatus = String(body?.status || "").toLowerCase();
 
     const sb = getSupabaseAdmin();
 
-    // 1) Primeiro tenta pelo profiles (se já estiver aplicado, ótimo)
+    // 1) Primeiro tenta pelo profiles (fonte da verdade)
     const prof = await sb
       .from("profiles")
       .select("plano, plan_expires_at")
@@ -60,10 +77,7 @@ export async function POST() {
       isPaidPlan(plan) && !!exp && !isNaN(exp.getTime()) && exp > now;
 
     if (active) {
-      const res = NextResponse.json(
-        { ok: true, plano: plan, status: "active" as const },
-        { headers: { "Cache-Control": "no-store, max-age=0" } }
-      );
+      const res = jsonNoStore({ ok: true, plano: plan, status: "active" as const });
 
       const base = cookieBase();
       res.cookies.set("otia_auth", "1", base);
@@ -73,24 +87,42 @@ export async function POST() {
       return res;
     }
 
-    // 2) Fallback: se webhook não aplicou, usa mp_payments aprovado e applied_at NULL
-    const pay = await sb
-      .from("mp_payments")
-      .select("payment_id, plano, status, applied_at, updated_at")
-      .eq("cpf", cpf)
-      .eq("status", "approved")
-      .is("applied_at", null)
-      .order("updated_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    // 2) Se veio payment_id do retorno, tenta sincronizar ESSE pagamento primeiro
+    let pay: any = null;
 
-    const paymentId = String(pay.data?.payment_id || "");
-    const planoFromMp = String(pay.data?.plano || "").toLowerCase();
+    if (hintedPaymentId) {
+      const payById = await sb
+        .from("mp_payments")
+        .select("payment_id, plano, status, applied_at, updated_at")
+        .eq("cpf", cpf)
+        .eq("payment_id", hintedPaymentId)
+        .maybeSingle();
 
-    if (!paymentId || !isPaidPlan(planoFromMp)) {
-      const res = NextResponse.json(
+      if (payById.data) pay = payById.data;
+    }
+
+    // 3) Se não achou pelo payment_id, pega o último aprovado
+    if (!pay) {
+      const lastApproved = await sb
+        .from("mp_payments")
+        .select("payment_id, plano, status, applied_at, updated_at")
+        .eq("cpf", cpf)
+        .eq("status", "approved")
+        .order("updated_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (lastApproved.data) pay = lastApproved.data;
+    }
+
+    const paymentId = String(pay?.payment_id || hintedPaymentId || "");
+    const planoFromMp = String(pay?.plano || hintedPlano || "").toLowerCase();
+    const statusFromMp = String(pay?.status || hintedStatus || "").toLowerCase();
+
+    if (!paymentId || !isPaidPlan(planoFromMp) || statusFromMp !== "approved") {
+      const res = jsonNoStore(
         { ok: true, plano: "none", status: "inactive" as const, reason: "not_applied_yet" },
-        { headers: { "Cache-Control": "no-store, max-age=0" } }
+        { status: 200 }
       );
 
       const base = cookieBase();
@@ -101,7 +133,7 @@ export async function POST() {
       return res;
     }
 
-    // 3) Aplica aqui mesmo (+30 dias a partir do maior entre agora e expiração atual)
+    // 4) Aplica +30 dias a partir do maior entre agora e expiração atual
     let baseDate = now;
     if (exp && !isNaN(exp.getTime()) && exp > now) baseDate = exp;
 
@@ -119,7 +151,7 @@ export async function POST() {
 
     if (up.error) {
       console.error("ME_SYNC_PROFILE_UPSERT_ERROR", up.error);
-      return NextResponse.json({ ok: false, reason: "profile_upsert_failed" }, { status: 500 });
+      return jsonNoStore({ ok: false, reason: "profile_upsert_failed" }, { status: 500 });
     }
 
     const mark = await sb
@@ -129,14 +161,10 @@ export async function POST() {
 
     if (mark.error) {
       console.error("ME_SYNC_MARK_APPLIED_ERROR", mark.error);
-      // mesmo se falhar marcar, o plano já foi aplicado no profiles
     }
 
-    // 4) Cookies liberados
-    const res = NextResponse.json(
-      { ok: true, plano: planoFromMp, status: "active" as const },
-      { headers: { "Cache-Control": "no-store, max-age=0" } }
-    );
+    // 5) Cookies liberados
+    const res = jsonNoStore({ ok: true, plano: planoFromMp, status: "active" as const });
 
     const base = cookieBase();
     res.cookies.set("otia_auth", "1", base);
@@ -147,6 +175,6 @@ export async function POST() {
     return res;
   } catch (e) {
     console.error("ME_SYNC_ERROR:", e);
-    return NextResponse.json({ ok: false, reason: "server_error" }, { status: 500 });
+    return jsonNoStore({ ok: false, reason: "server_error" }, { status: 500 });
   }
 }
