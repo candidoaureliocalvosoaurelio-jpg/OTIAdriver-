@@ -1,0 +1,9 @@
+[
+  { "slug": "luz-injecao-caminhao", "updatedAt": "2026-02-11" },
+  { "slug": "luz-adblue-arla32", "updatedAt": "2026-02-11" },
+  { "slug": "luz-freio-caminhao", "updatedAt": "2026-02-11" },
+  { "slug": "luz-temperatura-motor-caminhao", "updatedAt": "2026-02-11" },
+  { "slug": "pressao-oleo-motor-caminhao", "updatedAt": "2026-02-11" },
+  { "slug": "luz-bateria-alternador-caminhao", "updatedAt": "2026-02-11" },
+  { "slug": "falha-sistema-scr-caminhao", "updatedAt": "2026-02-11" }
+]
