@@ -4,6 +4,15 @@ import alertas from "@/data/alertas.json";
 
 const SITE_URL = "https://www.otiadriver.com.br";
 
+type ChangeFreq =
+  | "always"
+  | "hourly"
+  | "daily"
+  | "weekly"
+  | "monthly"
+  | "yearly"
+  | "never";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base: MetadataRoute.Sitemap = [
     {
@@ -26,12 +35,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const pagesFromJson: MetadataRoute.Sitemap = (alertas as any[]).map((a) => ({
-    url: `${SITE_URL}/${a.slug}`,
-    lastModified: a.updatedAt ? new Date(a.updatedAt) : new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const pagesFromJson: MetadataRoute.Sitemap = (alertas as any[])
+    .filter((a) => a?.slug && a.slug !== "slug")
+    .map((a) => ({
+      url: `${SITE_URL}/${a.slug}`,
+      lastModified: a.updatedAt ? new Date(a.updatedAt) : new Date(),
+      changeFrequency: (a.changefreq as ChangeFreq) || "monthly",
+      priority: typeof a.priority === "number" ? a.priority : 0.7,
+    }));
 
   return [...base, ...pagesFromJson];
 }

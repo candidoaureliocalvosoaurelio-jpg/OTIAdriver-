@@ -1,9 +1,132 @@
 [
-  { "slug": "luz-injecao-caminhao", "updatedAt": "2026-02-11" },
-  { "slug": "luz-adblue-arla32", "updatedAt": "2026-02-11" },
-  { "slug": "luz-freio-caminhao", "updatedAt": "2026-02-11" },
-  { "slug": "luz-temperatura-motor-caminhao", "updatedAt": "2026-02-11" },
-  { "slug": "pressao-oleo-motor-caminhao", "updatedAt": "2026-02-11" },
-  { "slug": "luz-bateria-alternador-caminhao", "updatedAt": "2026-02-11" },
-  { "slug": "falha-sistema-scr-caminhao", "updatedAt": "2026-02-11" }
+  {
+    "slug": "simbolos-painel-caminhao",
+    "title": "Símbolos do Painel do Caminhão: guia completo para motoristas",
+    "description": "Guia completo dos símbolos do painel do caminhão: o que cada luz indica e como agir para evitar pane e prejuízo.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "caminhao-fumando-azul",
+    "title": "Caminhão Fumando Azul: o que significa e quanto pode custar",
+    "description": "Saiba o que significa fumaça azul no caminhão, principais causas e quando parar para evitar dano grave no motor.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "caminhao-fumando-branco",
+    "title": "Caminhão Fumando Branco: causas, riscos e solução",
+    "description": "Entenda as causas da fumaça branca no caminhão, quando é normal e quando pode indicar problema sério.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "caminhao-fumando-preto",
+    "title": "Caminhão Fumando Preto: o que causa e quando é perigoso",
+    "description": "Veja o que causa fumaça preta no caminhão, quando vira risco e o que fazer para evitar prejuízo e perda de força.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "consumo-alto-diesel-caminhao",
+    "title": "Consumo alto de diesel: 12 causas e como reduzir na prática",
+    "description": "Veja 12 causas do consumo alto de diesel e como reduzir na prática com técnica e manutenção.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "abs-caminhao-o-que-e",
+    "title": "ABS no Caminhão: o que significa e por que não pode ignorar",
+    "description": "Entenda o que é o ABS no caminhão, por que a luz acende e quais riscos existem ao ignorar o aviso.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "ebs-caminhao-o-que-e",
+    "title": "EBS no Caminhão: o que é e por que esse sistema salva vidas",
+    "description": "Saiba o que é o EBS, como ele ajuda na frenagem e por que é um sistema crucial de segurança no caminhão.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "retarder-o-que-e",
+    "title": "Retarder no Caminhão: o que é, como funciona e quando usar",
+    "description": "Entenda o que é o retarder, como funciona e como usar em descidas para segurar o caminhão com mais segurança.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "freio-motor-como-usar",
+    "title": "Freio Motor: como usar corretamente e economizar freio de serviço",
+    "description": "Veja como usar o freio motor do jeito certo em descidas para ganhar segurança e economizar lona e freio de serviço.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "cambio-automatizado-como-funciona",
+    "title": "Câmbio Automatizado no Caminhão: como funciona e como usar certo",
+    "description": "Aprenda como funciona o câmbio automatizado e como usar do jeito certo para economizar diesel e evitar desgaste.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "modo-emergencia-caminhao",
+    "title": "Modo de Emergência no Caminhão: o que é e como sair com segurança",
+    "description": "Entenda por que o caminhão entra em modo de emergência, o que significa na prática e como agir com segurança.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "caminhao-perdendo-forca",
+    "title": "Caminhão Perdendo Força: 9 causas mais comuns e o que fazer",
+    "description": "Veja as 9 causas mais comuns de perda de força no caminhão e o que fazer para evitar prejuízo.",
+    "type": "guia",
+    "symbolPath": "",
+    "updatedAt": "2026-02-11",
+    "priority": 0.7,
+    "changefreq": "monthly"
+  },
+  {
+    "slug": "falha-sistema-scr-caminhao",
+    "title": "Falha no Sistema SCR: por que acontece e como resolver",
+    "description": "Entenda o que significa a falha no sistema SCR, causas comuns e o que fazer para evitar limitações de potência.",
+    "type": "alerta",
+    "symbolPath": "/simbolos/simbolo-07.png",
+    "updatedAt": "2026-02-11",
+    "priority": 0.8,
+    "changefreq": "monthly"
+  }
 ]
