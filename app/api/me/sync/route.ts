@@ -42,6 +42,33 @@ function jsonNoStore(data: any, init?: ResponseInit) {
   });
 }
 
+/**
+ * ✅ Pega o UID (uuid) do usuário no profiles.
+ * Tenta coluna "id"; se não existir, tenta "user_id".
+ * Retorna null se não achou.
+ */
+async function getProfileUid(sb: ReturnType<typeof getSupabaseAdmin>, cpf: string) {
+  // tentativa 1: profiles.id
+  const r1 = await sb
+    .from("profiles")
+    .select("id")
+    .eq("cpf", cpf)
+    .maybeSingle();
+
+  if (!r1.error && r1.data?.id) return String(r1.data.id);
+
+  // se deu erro por coluna inexistente, tenta user_id
+  const r2 = await sb
+    .from("profiles")
+    .select("user_id")
+    .eq("cpf", cpf)
+    .maybeSingle();
+
+  if (!r2.error && (r2.data as any)?.user_id) return String((r2.data as any).user_id);
+
+  return null;
+}
+
 export async function POST(req: Request) {
   try {
     const c = await cookies();
@@ -55,12 +82,11 @@ export async function POST(req: Request) {
     }
 
     // ✅ profiles.phone é NOT NULL no seu banco
-    // então se não vier, não pode sincronizar
     if (phone.length < 10 || phone.length > 11) {
       return jsonNoStore({ ok: false, reason: "missing_phone" }, { status: 400 });
     }
 
-    // body é opcional (não pode quebrar)
+    // body opcional
     const body = (await req.json().catch(() => ({}))) as any;
     const hintedPaymentId = String(body?.payment_id || body?.paymentId || "").trim();
     const hintedPlano = String(body?.plano || "").toLowerCase();
@@ -68,7 +94,10 @@ export async function POST(req: Request) {
 
     const sb = getSupabaseAdmin();
 
-    // 1) Primeiro tenta pelo profiles (fonte da verdade)
+    // 🔥 pega uid do usuário (pra Copilot quota)
+    const uid = await getProfileUid(sb, cpf);
+
+    // 1) Fonte da verdade: profiles
     const prof = await sb
       .from("profiles")
       .select("plano, plan_expires_at")
@@ -80,8 +109,7 @@ export async function POST(req: Request) {
     const expRaw = prof.data?.plan_expires_at ?? null;
     const exp = expRaw ? new Date(expRaw) : null;
 
-    const active =
-      isPaidPlan(plan) && !!exp && !isNaN(exp.getTime()) && exp > now;
+    const active = isPaidPlan(plan) && !!exp && !isNaN(exp.getTime()) && exp > now;
 
     if (active) {
       const res = jsonNoStore({ ok: true, plano: plan, status: "active" as const });
@@ -93,10 +121,13 @@ export async function POST(req: Request) {
       res.cookies.set("otia_plan", plan, base);
       res.cookies.set("otia_plan_status", "active", base);
 
+      // ✅ cookie necessário pro /api/ai/chat consumir quota
+      if (uid) res.cookies.set("otia_uid", uid, base);
+
       return res;
     }
 
-    // 2) Se veio payment_id do retorno, tenta sincronizar ESSE pagamento primeiro
+    // 2) tenta sincronizar pelo payment_id
     let pay: any = null;
 
     if (hintedPaymentId) {
@@ -110,7 +141,7 @@ export async function POST(req: Request) {
       if (payById.data) pay = payById.data;
     }
 
-    // 3) Se não achou pelo payment_id, pega o último aprovado
+    // 3) se não achou pelo payment_id, pega último aprovado
     if (!pay) {
       const lastApproved = await sb
         .from("mp_payments")
@@ -142,10 +173,13 @@ export async function POST(req: Request) {
       res.cookies.set("otia_plan", "none", base);
       res.cookies.set("otia_plan_status", "inactive", base);
 
+      // ✅ mesmo inativo, seta uid se existir (pra UI/contador funcionar)
+      if (uid) res.cookies.set("otia_uid", uid, base);
+
       return res;
     }
 
-    // 4) Aplica +30 dias a partir do maior entre agora e expiração atual
+    // 4) aplica +30 dias a partir do maior entre agora e expiração atual
     let baseDate = now;
     if (exp && !isNaN(exp.getTime()) && exp > now) baseDate = exp;
 
@@ -155,7 +189,7 @@ export async function POST(req: Request) {
     const up = await sb.from("profiles").upsert(
       {
         cpf,
-        phone, // ✅ IMPORTANTE: evita erro NOT NULL
+        phone,
         plano: planoFromMp,
         plan_expires_at: newExp.toISOString(),
       },
@@ -176,7 +210,10 @@ export async function POST(req: Request) {
       console.error("ME_SYNC_MARK_APPLIED_ERROR", mark.error);
     }
 
-    // 5) Cookies liberados
+    // 🔁 depois do upsert, tenta pegar uid de novo (caso profile tenha sido criado agora)
+    const uid2 = uid || (await getProfileUid(sb, cpf));
+
+    // 5) cookies liberados
     const res = jsonNoStore({ ok: true, plano: planoFromMp, status: "active" as const });
 
     const base = cookieBase();
@@ -185,6 +222,9 @@ export async function POST(req: Request) {
     res.cookies.set("otia_phone", phone, base);
     res.cookies.set("otia_plan", planoFromMp, base);
     res.cookies.set("otia_plan_status", "active", base);
+
+    // ✅ ESSENCIAL
+    if (uid2) res.cookies.set("otia_uid", uid2, base);
 
     return res;
   } catch (e) {

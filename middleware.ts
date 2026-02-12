@@ -12,6 +12,9 @@ const PROTECTED_PREFIXES = [
   "/pneus",
   "/ebook-driver",          // ✅ protege a rota real
   "/ebook-driver-economy",  // (opcional) se você tiver essa rota também
+
+  // ✅ Copilot IA (protegido: só pagante)
+  "/copilot",
 ];
 
 const PUBLIC_PREFIXES = [
@@ -36,6 +39,9 @@ const API_ALLOW_PREFIXES = [
   "/api/webhook", // mercadopago webhook
   "/api/pagamentos", // criar preferencia etc
   "/api/me/sync", // se existir no seu projeto
+
+  // ✅ Copilot IA API (precisa estar liberado)
+  "/api/ai",
 ];
 
 function isStatic(pathname: string) {
