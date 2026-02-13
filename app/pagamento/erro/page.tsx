@@ -12,7 +12,7 @@ type PageProps = {
 export default async function PagamentoErro({ searchParams }: PageProps) {
   const sp = searchParams ? await searchParams : undefined;
 
-  const plano = sp?.plano ?? "pro";
+  const plano = sp?.plano ?? "premium";
   const status = sp?.status ?? "failure";
 
   return (

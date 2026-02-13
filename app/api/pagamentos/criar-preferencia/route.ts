@@ -9,12 +9,6 @@ function onlyDigits(v: string) {
   return (v || "").replace(/\D+/g, "");
 }
 
-const PLAN_PRICES: Record<"basico" | "pro" | "premium", number> = {
-  basico: 29.9,
-  pro: 49.9,
-  premium: 99.9,
-};
-
 function getCookie(req: Request, name: string) {
   const cookie = req.headers.get("cookie") || "";
   const m = cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
@@ -53,7 +47,6 @@ export async function POST(req: Request) {
     let cpf = onlyDigits(getCookie(req, "otia_cpf"));
     if (!cpf || cpf.length !== 11) cpf = onlyDigits(body?.cpf);
 
-    const plano = String(body?.plano || "").toLowerCase() as "basico" | "pro" | "premium";
     const lang = normalizeLang(body?.lang);
 
     if (!cpf || cpf.length !== 11) {
@@ -63,12 +56,9 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!PLAN_PRICES[plano]) {
-      return NextResponse.json(
-        { error: "Plano inválido" },
-        { status: 400, headers: { "Cache-Control": "no-store, max-age=0" } }
-      );
-    }
+    // ✅ PREMIUM-ONLY (ignora qualquer plano vindo do body)
+    const plano = "premium" as const;
+    const unit_price = 99.9;
 
     const accessToken = process.env.MP_ACCESS_TOKEN;
     if (!accessToken) {
@@ -96,9 +86,10 @@ export async function POST(req: Request) {
     const mp = new MercadoPagoConfig({ accessToken });
     const preference = new Preference(mp);
 
+    // ✅ webhook só em produção (em localhost pode ficar undefined)
     const notification_url = local ? undefined : `${baseUrl}/api/webhook/mercadopago`;
 
-    // ✅ querystring para manter contexto no retorno (PIX precisa muito disso)
+    // ✅ mantém contexto no retorno
     const qs = `?lang=${encodeURIComponent(lang)}&plano=${encodeURIComponent(plano)}`;
 
     const pref = await preference.create({
@@ -108,21 +99,20 @@ export async function POST(req: Request) {
             id: `plano-${plano}`,
             title: `Plano ${plano.toUpperCase()} — OTIAdriver`,
             quantity: 1,
-            unit_price: PLAN_PRICES[plano],
+            unit_price,
             currency_id: "BRL",
           },
         ],
+
         external_reference: cpf,
         metadata: { cpf, plano, lang, product: "otiadriver-subscription" },
 
         back_urls: {
-          // PIX: pode cair em pending; precisa mandar contexto
           success: `${baseUrl}/pagamento/concluido${qs}`,
           pending: `${baseUrl}/pagamento/pendente${qs}`,
           failure: `${baseUrl}/pagamento/erro${qs}`,
         },
 
-        // ok manter, mas não depende disso para PIX
         auto_return: "approved",
 
         ...(notification_url ? { notification_url } : {}),
