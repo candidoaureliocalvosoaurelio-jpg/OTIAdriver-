@@ -10,6 +10,7 @@ function uid() {
 }
 
 const STORAGE_KEY = "otiadriver_copilot_history_v1";
+const TTS_CACHE_NAME = "otiadriver-tts-v1";
 
 const SUGGESTIONS = [
   "Acendeu a luz do motor e perdeu força. Posso rodar?",
@@ -69,6 +70,23 @@ function alertBoxClass(type: NonNullable<TopAlert>["type"]) {
   return "border-blue-200 bg-blue-50 text-blue-800";
 }
 
+function canUseCacheStorage() {
+  try {
+    return typeof window !== "undefined" && "caches" in window;
+  } catch {
+    return false;
+  }
+}
+
+async function sha256Hex(input: string) {
+  // precisa HTTPS (ou localhost) para crypto.subtle
+  const enc = new TextEncoder();
+  const buf = await crypto.subtle.digest("SHA-256", enc.encode(input));
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 export default function CopilotPage() {
   const [msgs, setMsgs] = useState<Msg[]>([
     {
@@ -88,8 +106,20 @@ export default function CopilotPage() {
   const [quota, setQuota] = useState<Quota>({ limit: 150, used: 0, remaining: 150 });
   const [quotaLoading, setQuotaLoading] = useState(true);
 
-  // ✅ top alert (vermelho importante)
+  // ✅ top alert
   const [topAlert, setTopAlert] = useState<TopAlert>(null);
+
+  // ==========================
+  // 🎙️ VOZ / TTS
+  // ==========================
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const [handsFree, setHandsFree] = useState(false);
+  const [autoSpeak, setAutoSpeak] = useState(true);
+  const [ttsVoice, setTtsVoice] = useState<"onyx" | "alloy">("onyx");
+
+  const [listening, setListening] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
 
   const listRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -125,7 +155,209 @@ export default function CopilotPage() {
     } catch {}
   }, []);
 
-  // ✅ Load quota on open (GET /api/ai/chat)
+  // Cria audio element 1x
+  useEffect(() => {
+    if (audioRef.current) return;
+
+    const a = new Audio();
+    a.preload = "auto";
+
+    a.onplay = () => setSpeaking(true);
+    a.onended = () => {
+      setSpeaking(false);
+      inputRef.current?.focus();
+    };
+    a.onerror = () => setSpeaking(false);
+
+    audioRef.current = a;
+  }, []);
+
+  function stopAudio() {
+    try {
+      const a = audioRef.current;
+      if (!a) return;
+      a.pause();
+      a.currentTime = 0;
+      a.src = "";
+    } catch {}
+    setSpeaking(false);
+  }
+
+  function getLastAssistantMessage(arr: Msg[] = msgs): string {
+    for (let i = arr.length - 1; i >= 0; i--) {
+      if (arr[i]?.role === "assistant" && arr[i]?.content?.trim()) return arr[i].content.trim();
+    }
+    return "";
+  }
+
+  async function speak(textToSpeak: string) {
+    const clean = String(textToSpeak || "").trim();
+    if (!clean) return;
+
+    // não fala durante stream (evita repetir / cortar)
+    if (loading) return;
+
+    try {
+      setSpeaking(true);
+
+      // para áudio anterior
+      stopAudio();
+
+      // se não tiver crypto.subtle (ou não for https), ainda funciona: só sem cache por hash
+      let key = "";
+      try {
+        key = await sha256Hex(`v1|model=gpt-4o-mini-tts|voice=${ttsVoice}|text=${clean}`);
+      } catch {
+        key = `nocrypto-${ttsVoice}-${clean.length}`;
+      }
+
+      const cacheKeyUrl = `/__tts_cache__?k=${encodeURIComponent(key)}&voice=${encodeURIComponent(ttsVoice)}`;
+      const cacheReq = new Request(cacheKeyUrl);
+
+      // 1) tenta cache (se disponível)
+      if (canUseCacheStorage()) {
+        const cache = await caches.open(TTS_CACHE_NAME);
+        const cached = await cache.match(cacheReq);
+        if (cached) {
+          const blob = await cached.blob();
+          const url = URL.createObjectURL(blob);
+          const a = audioRef.current;
+          if (!a) return;
+
+          a.src = url;
+          await a.play().catch(() => {
+            setSpeaking(false);
+            setTopAlert({
+              type: "warning",
+              title: "🔇 Áudio bloqueado",
+              message: "Seu navegador bloqueou o autoplay. Toque em 🔊 para ouvir.",
+            });
+          });
+          return;
+        }
+      }
+
+      // 2) offline e sem cache
+      if (typeof navigator !== "undefined" && navigator.onLine === false) {
+        setSpeaking(false);
+        setTopAlert({
+          type: "warning",
+          title: "📴 Sem internet",
+          message: "Sem conexão. Só consigo tocar áudios já gerados (cache).",
+        });
+        return;
+      }
+
+      // 3) chama backend
+      const res = await fetch("/api/ai/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: clean, voice: ttsVoice }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        setSpeaking(false);
+        setTopAlert({
+          type: "warning",
+          title: "⚠️ Voz indisponível",
+          message: err?.error || "Não consegui gerar áudio agora. Tente novamente.",
+        });
+        return;
+      }
+
+      // 4) salva no cache (clone antes)
+      if (canUseCacheStorage()) {
+        try {
+          const cache = await caches.open(TTS_CACHE_NAME);
+          await cache.put(cacheReq, res.clone());
+        } catch {
+          // cache falhou -> segue sem travar
+        }
+      }
+
+      // 5) toca
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+
+      const a = audioRef.current;
+      if (!a) return;
+
+      a.src = url;
+      await a.play().catch(() => {
+        setSpeaking(false);
+        setTopAlert({
+          type: "warning",
+          title: "🔇 Áudio bloqueado",
+          message: "Seu navegador bloqueou o autoplay. Toque em 🔊 para ouvir.",
+        });
+      });
+    } catch {
+      setSpeaking(false);
+      setTopAlert({
+        type: "warning",
+        title: "⚠️ Falha no áudio",
+        message: "Houve falha ao tocar o áudio. Tente novamente.",
+      });
+    }
+  }
+
+  // SpeechRecognition (Browser)
+  function startListening() {
+    try {
+      // @ts-ignore
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        setTopAlert({
+          type: "danger",
+          title: "⚠️ Microfone indisponível",
+          message: "Seu navegador não suporta reconhecimento de voz. Use Chrome/Edge no Android/PC.",
+        });
+        return;
+      }
+
+      const rec = new SR();
+      rec.lang = "pt-BR";
+      rec.interimResults = false;
+      rec.maxAlternatives = 1;
+
+      setListening(true);
+      if (!blocked) setTopAlert(null);
+
+      rec.onresult = (event: any) => {
+        const t = String(event?.results?.[0]?.[0]?.transcript || "").trim();
+        if (t) {
+          setText(t);
+          send(t);
+        }
+      };
+
+      rec.onerror = () => {
+        setTopAlert({
+          type: "warning",
+          title: "⚠️ Falha no microfone",
+          message: "Não consegui ouvir. Verifique permissão do microfone.",
+        });
+      };
+
+      rec.onend = () => {
+        setListening(false);
+      };
+
+      rec.start();
+    } catch {
+      setListening(false);
+      setTopAlert({
+        type: "warning",
+        title: "⚠️ Falha",
+        message: "Não consegui iniciar o microfone.",
+      });
+    }
+  }
+
+  // ==========================
+  // QUOTA LOAD (GET /api/ai/chat)
+  // ==========================
   useEffect(() => {
     let alive = true;
 
@@ -139,7 +371,6 @@ export default function CopilotPage() {
 
         if (!alive) return;
 
-        // Se o backend devolver erro no GET, sobe o alerta
         if (!res.ok) {
           setStatus("erro");
 
@@ -156,12 +387,9 @@ export default function CopilotPage() {
             type: "danger",
             title: "⚠️ Atenção",
             message: msg,
-            // ✅ 401 -> entrar e voltar pro /copilot
             actionHref: code === 401 ? "/entrar?next=/copilot" : "/planos",
             actionLabel: code === 401 ? "Entrar" : "Ver planos",
           });
-
-          // Mesmo com erro, mantém default de quota
           return;
         }
 
@@ -173,12 +401,9 @@ export default function CopilotPage() {
         };
 
         setQuota(q);
-
-        // Se carregou ok, limpa alerta (exceto se já estiver bloqueado)
         setStatus("online");
         setTopAlert(null);
       } catch {
-        // não mata a página, só avisa
         if (!alive) return;
         setStatus("erro");
         setTopAlert({
@@ -197,7 +422,7 @@ export default function CopilotPage() {
     };
   }, []);
 
-  // ✅ Se bloquear, garante alerta vermelho forte (IMPORTANTE)
+  // Se bloquear, alerta vermelho forte
   useEffect(() => {
     if (quotaLoading) return;
     if (blocked) {
@@ -209,7 +434,9 @@ export default function CopilotPage() {
         actionLabel: "Ver planos / Renovar",
       });
       setStatus("erro");
+      stopAudio();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocked, quotaLoading, quota.used, quota.limit]);
 
   function clearChat() {
@@ -225,7 +452,7 @@ export default function CopilotPage() {
     setMsgs(base);
     setText("");
     setStatus("online");
-    // não limpa alerta se estiver bloqueado
+    stopAudio();
     if (!blocked) setTopAlert(null);
     inputRef.current?.focus();
   }
@@ -254,7 +481,6 @@ export default function CopilotPage() {
         type: "danger",
         title: "⚠️ Sessão inválida",
         message: "Usuário não identificado. Faça login novamente para usar o Copilot.",
-        // ✅ 401 -> entrar e voltar pro /copilot
         actionHref: "/entrar?next=/copilot",
         actionLabel: "Entrar",
       });
@@ -283,7 +509,6 @@ export default function CopilotPage() {
       return;
     }
 
-    // genérico
     setTopAlert({
       type: "danger",
       title: "⚠️ Atenção",
@@ -298,6 +523,9 @@ export default function CopilotPage() {
     setStatus("online");
     if (!blocked) setTopAlert(null);
 
+    // hands-free: corta áudio quando falar de novo
+    if (handsFree) stopAudio();
+
     pushUser(message);
     setText("");
     const assistantId = pushAssistantEmpty();
@@ -310,7 +538,7 @@ export default function CopilotPage() {
         body: JSON.stringify({ message }),
       });
 
-      // ✅ Atualiza quota pelos headers (mesmo stream)
+      // Atualiza quota pelos headers
       const qh = parseQuotaHeaders(res);
       if (qh) {
         setQuota((prev) => ({
@@ -321,7 +549,6 @@ export default function CopilotPage() {
         }));
       }
 
-      // Erro JSON
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: "Falha ao chamar IA." }));
         setStatus("erro");
@@ -377,11 +604,18 @@ export default function CopilotPage() {
           title: "⚠️ Atenção",
           message: "A IA não retornou texto. Tente novamente em alguns segundos.",
         });
-        setAssistantContent(assistantId, "⚠️ A IA não retornou texto. Tente novamente em alguns segundos.");
+        setAssistantContent(
+          assistantId,
+          "⚠️ A IA não retornou texto. Tente novamente em alguns segundos."
+        );
       } else {
         setStatus("online");
-        // limpa alerta se não estiver bloqueado
         if (!blocked) setTopAlert(null);
+
+        // ✅ AUTOPLAY
+        if (autoSpeak || handsFree) {
+          await speak(acc);
+        }
       }
     } catch {
       setStatus("erro");
@@ -390,12 +624,17 @@ export default function CopilotPage() {
         title: "⚠️ Falha de conexão",
         message: "Não consegui chamar a IA. Verifique sua internet e tente novamente.",
       });
-      setAssistantContent(assistantId, "⚠️ Falha de conexão ao chamar a IA. Verifique internet e tente novamente.");
+      setAssistantContent(
+        assistantId,
+        "⚠️ Falha de conexão ao chamar a IA. Verifique internet e tente novamente."
+      );
     } finally {
       setLoading(false);
       inputRef.current?.focus();
     }
   }
+
+  const lastAssistantMessage = getLastAssistantMessage();
 
   return (
     <div className="mx-auto flex min-h-[calc(100vh-64px)] max-w-4xl flex-col p-4">
@@ -452,7 +691,6 @@ export default function CopilotPage() {
               )}
             </div>
 
-            {/* Botão aparecer quando zerar */}
             {blocked && !quotaLoading ? (
               <a
                 href="/planos"
@@ -464,7 +702,89 @@ export default function CopilotPage() {
             ) : null}
           </div>
 
-          {/* ✅ BANNER VERMELHO (IMPORTANTE) / AMARELO (AVISO) */}
+          {/* 🎙️ CONTROLES */}
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={startListening}
+              disabled={blocked || loading || listening}
+              className={[
+                "w-full md:w-auto",
+                "rounded-2xl border px-5 py-4 md:py-3",
+                "text-sm md:text-xs font-black",
+                "shadow-sm hover:opacity-90 disabled:opacity-50",
+                "flex items-center justify-center gap-3",
+                listening ? "bg-black/5" : "bg-white",
+              ].join(" ")}
+              title="Falar com o Copilot"
+            >
+              <span className="text-xl">🎙️</span>
+              <span className="tracking-wide">
+                {listening ? "OUVINDO... FALE AGORA" : "RÁDIO COPILOT • TOQUE E FALE"}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => speak(lastAssistantMessage)}
+              disabled={!lastAssistantMessage || speaking || loading}
+              className="rounded-full border px-4 py-2 text-xs font-black hover:opacity-90 disabled:opacity-50"
+              title="Ouvir última resposta"
+            >
+              {speaking ? "🔊 Tocando..." : "🔊 Ouvir resposta"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setAutoSpeak((v) => !v);
+                if (autoSpeak) stopAudio();
+              }}
+              className={[
+                "rounded-full border px-4 py-2 text-xs font-black hover:opacity-90",
+                autoSpeak ? "border-emerald-200 bg-emerald-50 text-emerald-900" : "",
+              ].join(" ")}
+              title="Ler automaticamente as respostas"
+            >
+              {autoSpeak ? "✅ Auto-voz ON" : "🔇 Auto-voz OFF"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setHandsFree((v) => !v);
+                setAutoSpeak(true); // handsfree => sempre fala
+              }}
+              className={[
+                "rounded-full border px-4 py-2 text-xs font-black hover:opacity-90",
+                handsFree ? "border-emerald-200 bg-emerald-50 text-emerald-900" : "",
+              ].join(" ")}
+              title="Modo mãos-livres"
+            >
+              {handsFree ? "✅ Hands-Free ON" : "🚛 Hands-Free OFF"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setTtsVoice((v) => (v === "onyx" ? "alloy" : "onyx"))}
+              className="rounded-full border px-4 py-2 text-xs font-black hover:opacity-90"
+              title="Alternar voz"
+            >
+              🎧 Voz: {ttsVoice === "onyx" ? "Motorista (masc.)" : "Neutra"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => stopAudio()}
+              disabled={!speaking}
+              className="rounded-full border px-4 py-2 text-xs font-black hover:opacity-90 disabled:opacity-50"
+              title="Parar áudio"
+            >
+              ⏹️ Parar
+            </button>
+          </div>
+
+          {/* Banner */}
           {topAlert ? (
             <div
               className={[
