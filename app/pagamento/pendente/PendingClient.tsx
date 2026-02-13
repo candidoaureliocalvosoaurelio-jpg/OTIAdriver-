@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Props = {
   nextUrl: string;
@@ -21,18 +21,41 @@ export default function PendingClient({ nextUrl }: Props) {
   const [tries, setTries] = useState(0);
   const [state, setState] = useState<"checking" | "waiting" | "done">("checking");
 
+  // ✅ pega payment_id da URL (Mercado Pago / retorno)
+  const paymentId = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    const sp = new URLSearchParams(window.location.search);
+    return (
+      sp.get("payment_id") ||
+      sp.get("paymentId") ||
+      sp.get("id") ||
+      sp.get("data.id") ||
+      ""
+    );
+  }, []);
+
   useEffect(() => {
     let alive = true;
     let timer: any;
+    let localTries = 0;
 
     async function tick() {
       if (!alive) return;
 
-      setTries((t) => t + 1);
+      localTries += 1;
+      setTries(localTries);
       setState("checking");
 
       try {
-        await fetch("/api/me/sync", { cache: "no-store" });
+        // ✅ tenta sincronizar pelo payment_id (quando existir)
+        const body = paymentId ? JSON.stringify({ payment_id: paymentId }) : "{}";
+
+        await fetch("/api/me/sync", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body,
+          cache: "no-store",
+        });
 
         const r = await fetch("/api/me", { cache: "no-store" });
         const me = (r.ok ? await r.json() : null) as MeResp | null;
@@ -42,11 +65,14 @@ export default function PendingClient({ nextUrl }: Props) {
           window.location.href = nextUrl;
           return;
         }
-      } catch {}
+      } catch {
+        // ignora e tenta de novo
+      }
 
       setState("waiting");
 
-      if (alive && tries < 24) timer = setTimeout(tick, 5000);
+      // ✅ até 24 tentativas (2 min)
+      if (alive && localTries < 24) timer = setTimeout(tick, 5000);
     }
 
     tick();
@@ -55,8 +81,7 @@ export default function PendingClient({ nextUrl }: Props) {
       alive = false;
       if (timer) clearTimeout(timer);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nextUrl]);
+  }, [nextUrl, paymentId]);
 
   return (
     <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
@@ -68,6 +93,7 @@ export default function PendingClient({ nextUrl }: Props) {
       </p>
       <p className="mt-2 text-xs text-slate-500">
         Tentativas: {tries} • Status: {state}
+        {paymentId ? ` • payment_id: ${paymentId}` : ""}
       </p>
     </div>
   );

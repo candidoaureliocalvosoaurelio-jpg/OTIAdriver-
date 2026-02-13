@@ -106,11 +106,34 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // ✅ SEM WWW -> COM WWW (produção)
       {
         source: "/:path*",
         has: [{ type: "host", value: "otiadriver.com.br" }],
         destination: "https://www.otiadriver.com.br/:path*",
         permanent: true,
+      },
+
+      // ✅ ROTAS REMOVIDAS (BASICO/PRO) -> PREMIUM
+      {
+        source: "/checkout/basico",
+        destination: "/checkout/premium",
+        permanent: false,
+      },
+      {
+        source: "/checkout/pro",
+        destination: "/checkout/premium",
+        permanent: false,
+      },
+      {
+        source: "/checkout/basico/:path*",
+        destination: "/checkout/premium",
+        permanent: false,
+      },
+      {
+        source: "/checkout/pro/:path*",
+        destination: "/checkout/premium",
+        permanent: false,
       },
     ];
   },
