@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 import AdsenseScript from "@/components/AdsenseScript";
+import InstallPWAButton from "@/components/InstallPWAButton"; // ✅ ADD
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -40,9 +41,15 @@ export default function RootLayout({
             <span className="text-[#1F6FEB]">OTIA</span>
             <span className="text-[#40E0D0]">driver</span>
           </h1>
+
           <p className="mt-2 text-lg md:text-xl font-semibold text-slate-900">
             Conhecimento Inteligente para Motoristas
           </p>
+
+          {/* ✅ Informativo / Botão de instalar PWA (aparece quando o navegador permitir) */}
+          <div className="mt-4 flex justify-center">
+            <InstallPWAButton />
+          </div>
         </div>
 
         <AssinaturaHero />
