@@ -39,8 +39,24 @@ function cookieBase() {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: isProd, // HTTPS em produção
-    // ✅ não definir domain
   };
+}
+
+function isPlanActive(plano: string, planExpiresAt: any) {
+  const p = String(plano || "none").toLowerCase();
+  const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
+  if (!ACTIVE_PLANS.has(p)) return false;
+
+  // Se houver expiração, checa validade
+  if (planExpiresAt) {
+    const exp = new Date(planExpiresAt);
+    if (!isNaN(exp.getTime())) {
+      return exp > new Date();
+    }
+  }
+
+  // Se não houver expiração registrada, considera ativo por plano (fallback)
+  return true;
 }
 
 export async function POST(req: Request) {
@@ -49,6 +65,7 @@ export async function POST(req: Request) {
     const { code, cpf, phone } = body;
 
     const cpfDigits = onlyDigits(cpf || "");
+    const phoneDigits = onlyDigits(phone || ""); // ✅ vamos salvar assim no profiles
     const phoneE164 = normalizeToE164(phone || "");
     const otp = onlyDigits(code || "");
 
@@ -86,32 +103,49 @@ export async function POST(req: Request) {
       );
     }
 
-    // --- SUPABASE: consulta plano ---
-    const supaUrl = process.env.SUPABASE_URL;
+    // --- SUPABASE ---
+    const supaUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supaServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     let plano = "none";
+    let planExpiresAt: string | null = null;
 
     if (supaUrl && supaServiceKey) {
       const supabase = createClient(supaUrl, supaServiceKey, {
         auth: { persistSession: false },
       });
 
+      // ✅ 1) GARANTE QUE O PROFILE EXISTA + PHONE PREENCHIDO
+      // (isso resolve o webhook não conseguir aplicar o plano depois)
+      const { error: upErr } = await supabase.from("profiles").upsert(
+        {
+          cpf: cpfDigits,
+          // phone geralmente é NOT NULL no seu banco; então SEMPRE tentamos gravar
+          phone: phoneDigits || onlyDigits(phoneE164), // fallback
+        },
+        { onConflict: "cpf" }
+      );
+
+      if (upErr) {
+        console.error("VERIFY_OTP_PROFILE_UPSERT_ERROR:", { message: upErr.message, cpf: cpfDigits });
+        // continua mesmo assim, mas você verá o erro no log
+      }
+
+      // ✅ 2) Agora lê plano + expiração (já com profile garantido)
       const { data } = await supabase
         .from("profiles")
-        .select("plano")
+        .select("plano, plan_expires_at")
         .eq("cpf", cpfDigits)
         .maybeSingle();
 
       plano = String(data?.plano || "none").toLowerCase();
+      planExpiresAt = (data?.plan_expires_at as any) ?? null;
     }
 
-    // --- status do plano ---
-    const ACTIVE_PLANS = new Set(["basico", "pro", "premium", "active"]);
-    const planStatus = ACTIVE_PLANS.has(plano) ? "active" : "inactive";
+    const planStatus = isPlanActive(plano, planExpiresAt) ? "active" : "inactive";
 
     const res = NextResponse.json(
-      { ok: true, plano, planStatus },
+      { ok: true, plano, planStatus, planExpiresAt },
       { headers: { "Cache-Control": "no-store, max-age=0" } }
     );
 
