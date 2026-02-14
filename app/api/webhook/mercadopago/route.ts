@@ -1,3 +1,4 @@
+// app/api/webhook/mercadopago/route.ts
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
@@ -35,6 +36,7 @@ function normalizePlan(p: any) {
   return "";
 }
 
+// ✅ fallback pelo external_reference: "cpf|plano"
 function parseExternalReference(ext: any) {
   const raw = String(ext || "");
   const parts = raw.split("|").map((s) => s.trim());
@@ -43,6 +45,7 @@ function parseExternalReference(ext: any) {
   return { cpf, plano };
 }
 
+// ✅ fallback por texto ("Plano PREMIUM", etc.)
 function inferPlanFromText(txt: any) {
   const t = String(txt || "").toLowerCase();
   if (t.includes("premium")) return "premium";
@@ -51,6 +54,7 @@ function inferPlanFromText(txt: any) {
   return "";
 }
 
+// ✅ tenta montar phone com area_code + number (quando existir)
 function extractPhoneDigits(payment: any) {
   const metaPhone = onlyDigits(payment?.metadata?.phone || "");
   if (metaPhone) return metaPhone;
@@ -74,18 +78,25 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => ({}));
     const paymentId = extractPaymentId(req, body);
 
+    // ✅ agora retorna 400 (como você pediu)
     if (!paymentId) {
       console.error("MP_WEBHOOK: paymentId missing", { body });
-      return NextResponse.json({ ok: true });
+      return NextResponse.json(
+        { ok: false, error: "Missing payment id" },
+        { status: 400 }
+      );
     }
 
     const supabase = getSupabaseAdmin();
 
     // 1) Busca pagamento no MP (fonte da verdade)
-    const resp = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      cache: "no-store",
-    });
+    const resp = await fetch(
+      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        cache: "no-store",
+      }
+    );
 
     if (!resp.ok) {
       const txt = await resp.text().catch(() => "");
@@ -122,6 +133,7 @@ export async function POST(req: Request) {
     const payment = await resp.json();
     const status = String(payment?.status || "");
 
+    // ✅ cpf/plano: metadata -> external_reference -> texto
     const extParsed = parseExternalReference(payment?.external_reference);
 
     const cpf =
@@ -138,7 +150,7 @@ export async function POST(req: Request) {
 
     const phone = extractPhoneDigits(payment);
 
-    // 2) Sempre grava auditoria/idempotência (AGORA com checagem de erro)
+    // 2) Sempre grava auditoria/idempotência (com checagem de erro)
     const { error: upErr } = await supabase.from("mp_payments").upsert(
       {
         payment_id: String(paymentId),
@@ -159,18 +171,23 @@ export async function POST(req: Request) {
         plano,
         status,
       });
-      // Sem registrar mp_payments, não tem como seguir com segurança
       return NextResponse.json({ ok: true });
     }
 
     // 3) Só aplica se aprovado e válido
     if (status !== "approved") return NextResponse.json({ ok: true });
+
     if (cpf.length !== 11) {
       console.error("MP_WEBHOOK: cpf invalid after MP fetch", { paymentId, cpf });
       return NextResponse.json({ ok: true });
     }
+
     if (!plano) {
-      console.error("MP_WEBHOOK: plano not inferred", { paymentId, cpf, desc: payment?.description });
+      console.error("MP_WEBHOOK: plano not inferred", {
+        paymentId,
+        cpf,
+        desc: payment?.description,
+      });
       return NextResponse.json({ ok: true });
     }
 
@@ -182,13 +199,16 @@ export async function POST(req: Request) {
       .maybeSingle();
 
     if (mpRowErr) {
-      console.error("MP_WEBHOOK: read mp_payments failed", { paymentId, message: mpRowErr.message });
+      console.error("MP_WEBHOOK: read mp_payments failed", {
+        paymentId,
+        message: mpRowErr.message,
+      });
       return NextResponse.json({ ok: true });
     }
 
     if (mpRow?.applied_at) return NextResponse.json({ ok: true });
 
-    // 5) Calcula expiração
+    // 5) Calcula expiração (soma 30 dias; se já tem expiração futura, soma a partir dela)
     const now = new Date();
     let baseDate = now;
 
@@ -199,7 +219,10 @@ export async function POST(req: Request) {
       .maybeSingle();
 
     if (profErr) {
-      console.error("MP_WEBHOOK: profiles select failed", { cpf, message: profErr.message });
+      console.error("MP_WEBHOOK: profiles select failed", {
+        cpf,
+        message: profErr.message,
+      });
       return NextResponse.json({ ok: true });
     }
 
@@ -211,8 +234,7 @@ export async function POST(req: Request) {
     const newExp = new Date(baseDate);
     newExp.setDate(newExp.getDate() + 30);
 
-    // ⚠️ Se profiles.phone for NOT NULL e o profile não existir,
-    // este upsert pode falhar se finalPhone ficar null.
+    // ✅ Se o profile tiver phone NOT NULL, tente preencher
     const finalPhone = onlyDigits(profile?.phone || "") || phone || null;
 
     const { error: upsertProfileErr } = await supabase.from("profiles").upsert(
@@ -243,12 +265,18 @@ export async function POST(req: Request) {
       .eq("payment_id", String(paymentId));
 
     if (appliedErr) {
-      console.error("MP_WEBHOOK: applied mark failed", { paymentId, message: appliedErr.message });
+      console.error("MP_WEBHOOK: applied mark failed", {
+        paymentId,
+        message: appliedErr.message,
+      });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err: any) {
-    console.error("MP_WEBHOOK_ERROR", { message: err?.message, stack: err?.stack });
+    console.error("MP_WEBHOOK_ERROR", {
+      message: err?.message,
+      stack: err?.stack,
+    });
     return NextResponse.json({ ok: true });
   }
 }
