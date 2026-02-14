@@ -29,9 +29,9 @@ export default function CheckoutPremium() {
         method: "GET",
         credentials: "include",
         cache: "no-store",
-        headers: { 
+        headers: {
           "Cache-Control": "no-store",
-          "Pragma": "no-cache" 
+          Pragma: "no-cache",
         },
       });
 
@@ -41,15 +41,20 @@ export default function CheckoutPremium() {
         return;
       }
 
-      const sess: SessionResp = await sessRes.json().catch(() => ({}));
+      const sess: SessionResp = await sessRes.json().catch(() => ({} as any));
       const cpf = onlyDigits(sess?.cpf || "");
 
       // 2) Verifica se está autenticado e tem CPF válido
-      // Se não estiver, redirecionamos para o login preservando o destino
       if (!sess?.authenticated || cpf.length !== 11) {
         window.location.href = `/entrar?next=/checkout/premium&reason=auth`;
         return;
       }
+
+      // (Opcional, mas útil p/ rastreio)
+      try {
+        localStorage.setItem("otia_last_plan", "premium");
+        localStorage.setItem("otia_last_cpf", cpf);
+      } catch {}
 
       // 3) Cria preferência no Mercado Pago
       const res = await fetch("/api/pagamentos/criar-preferencia", {
@@ -60,25 +65,31 @@ export default function CheckoutPremium() {
           "Content-Type": "application/json",
           "Cache-Control": "no-store",
         },
-        body: JSON.stringify({ cpf, plano: "premium" }),
+        body: JSON.stringify({ cpf, plano: "premium", lang: "pt" }),
       });
 
-      const data = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({} as any));
 
       if (!res.ok) {
         throw new Error(data?.error || "Falha ao gerar o link de pagamento.");
       }
 
-      const redirectUrl = data?.init_point || data?.sandbox_init_point;
+      // ✅ 4) SALVA preference_id ANTES DO REDIRECT (GANCHO MASTER)
+      // Isso garante rastreio mesmo se o MP voltar sem payment_id
+      if (data?.id) {
+        try {
+          localStorage.setItem("otia_last_preference_id", String(data.id));
+        } catch {}
+      }
 
+      const redirectUrl = data?.init_point || data?.sandbox_init_point;
       if (!redirectUrl) {
         throw new Error("Erro na plataforma de pagamento: Link não gerado.");
       }
 
-      // 4) Redirecionamento Final
-      // Usamos replace para que o usuário não volte para o loading ao clicar em "Voltar"
-      window.location.replace(redirectUrl);
-
+      // 5) Redirecionamento Final
+      // href é mais “compatível” pro fluxo externo do MP
+      window.location.href = redirectUrl;
     } catch (e: any) {
       console.error("Erro no Checkout:", e);
       alert(e?.message ?? "Não foi possível iniciar o pagamento. Tente novamente.");
@@ -100,7 +111,9 @@ export default function CheckoutPremium() {
       </section>
 
       <div className="text-xs text-slate-500 mb-3 flex items-center justify-between">
-        <Link href="/planos" className="hover:underline">← Voltar aos planos</Link>
+        <Link href="/planos" className="hover:underline">
+          ← Voltar aos planos
+        </Link>
         <span>Checkout seguro via Mercado Pago</span>
       </div>
 
@@ -114,11 +127,21 @@ export default function CheckoutPremium() {
           <p className={s.subtitle}>Melhor custo-benefício para Profissionais.</p>
 
           <ul className={s.list}>
-            <li><span className={s.check}>✓</span> Fichas Técnicas COMPLETAS</li>
-            <li><span className={s.check}>✓</span> Suporte Técnico com IA</li>
-            <li><span className={s.check}>✓</span> Análise de Imagem</li>
-            <li><span className={s.check}>✓</span> Checklists PRO</li>
-            <li><span className={s.check}>✓</span> Assistente Inteligente de Performance</li>
+            <li>
+              <span className={s.check}>✓</span> Fichas Técnicas COMPLETAS
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Suporte Técnico com IA
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Análise de Imagem
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Checklists PRO
+            </li>
+            <li>
+              <span className={s.check}>✓</span> Assistente Inteligente de Performance
+            </li>
           </ul>
 
           <div className={s.terms}>
@@ -128,16 +151,23 @@ export default function CheckoutPremium() {
 
           <div className={s.footerNote}>
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">Termos de Uso</Link>{" "}
+            <Link href="/termos" className="underline">
+              Termos de Uso
+            </Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">Política de Privacidade</Link>.
+            <Link href="/privacidade" className="underline">
+              Política de Privacidade
+            </Link>
+            .
           </div>
         </section>
 
         <aside className={`${s.aside} ${s.premiumAside}`}>
           <div className={`${s.selected} ${s.selectedTopBox}`}>
-            Plano selecionado<br />
-            <strong>Premium</strong><br />
+            Plano selecionado
+            <br />
+            <strong>Premium</strong>
+            <br />
             R$ 99,90 / mês
           </div>
 
