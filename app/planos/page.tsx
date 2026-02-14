@@ -1,8 +1,8 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useMemo, useState } from "react";
 import styles from "./Planos.module.css";
 
 // ================= LISTA DE RECURSOS (PREMIUM) =================
@@ -15,16 +15,19 @@ const premium = [
 ];
 
 function PlanosContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
+
   const reason = searchParams.get("reason");
-  const lang = searchParams.get("lang") || "pt";
+  const lang = useMemo(() => searchParams.get("lang") || "pt", [searchParams]);
+
   const [loading, setLoading] = useState(false);
 
-  function goPremiumCheckout() {
+  const goPremiumCheckout = useCallback(() => {
     if (loading) return;
     setLoading(true);
-    window.location.href = `/checkout/premium?lang=${encodeURIComponent(lang)}`;
-  }
+    router.push(`/checkout/premium?lang=${encodeURIComponent(lang)}`);
+  }, [loading, router, lang]);
 
   return (
     <>
@@ -81,10 +84,7 @@ function PlanosContent() {
 
       {/* CARD PREMIUM (ÚNICO) */}
       <section className={styles.planosGrid} aria-label="Plano disponível">
-        <article
-          className={`${styles.card} ${styles.planoPremium}`}
-          style={{ height: 520 }}
-        >
+        <article className={`${styles.card} ${styles.planoPremium}`}>
           {/* ✅ SELO */}
           <div className={styles.premiumBadge}>ACESSO TOTAL</div>
 
@@ -118,7 +118,7 @@ function PlanosContent() {
             {loading ? "Abrindo checkout..." : "Assinar Premium"}
           </button>
 
-          <div className="mt-3 text-xs text-slate-200 text-center">
+          <div className="mt-3 text-xs text-slate-700 text-center">
             Ao continuar, você concorda com nossos{" "}
             <Link href="/termos" className="underline">
               Termos de Uso
@@ -172,7 +172,13 @@ function PlanosContent() {
 export default function PlanosPage() {
   return (
     <main className={`${styles.rootVars} mx-auto max-w-7xl px-4 py-10`}>
-      <Suspense fallback={<div className="text-center p-10">Carregando planos...</div>}>
+      <Suspense
+        fallback={
+          <div className="text-center p-10 text-slate-600">
+            Carregando planos...
+          </div>
+        }
+      >
         <PlanosContent />
       </Suspense>
     </main>
