@@ -1,100 +1,162 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   nextUrl: string;
+  payment_id?: string; // pode vir vazio
+  topic?: string; // "payment" | "merchant_order" (opcional)
 };
 
-type MeResp = {
-  authenticated: boolean;
+type SyncResp = {
+  ok?: boolean;
   plan?: string;
+  plano?: string;
+  planStatus?: "active" | "inactive";
+  status?: "active" | "inactive";
+  expiresAt?: string | null;
+  authenticated?: boolean;
+  reason?: string;
 };
 
-function hasAccess(me: MeResp | null) {
-  if (!me?.authenticated) return false;
-  const plan = String(me.plan || "none").toLowerCase();
-  return plan !== "none" && plan !== "inactive";
+type StatusResp = {
+  ok: boolean;
+  payment_id?: string;
+  exists?: boolean;
+  status?: string | null;
+  applied?: boolean;
+  error?: string;
+};
+
+function isActive(resp: SyncResp) {
+  const ps = String(resp?.planStatus || resp?.status || "").toLowerCase();
+  if (ps === "active") return true;
+
+  const p = String(resp?.plan || resp?.plano || "").toLowerCase();
+  return p === "premium" || p === "pro" || p === "basico";
 }
 
-export default function PendingClient({ nextUrl }: Props) {
+export default function PendingClient({ nextUrl, payment_id, topic }: Props) {
+  const router = useRouter();
+
+  const paymentId = useMemo(() => (payment_id || "").trim(), [payment_id]);
+  const topicClean = useMemo(() => (topic || "").trim().toLowerCase(), [topic]);
+
+  const [loading, setLoading] = useState(false);
   const [tries, setTries] = useState(0);
-  const [state, setState] = useState<"checking" | "waiting" | "done">("checking");
+  const [message, setMessage] = useState("Aguardando confirmação do pagamento...");
 
-  // ✅ pega payment_id da URL (Mercado Pago / retorno)
-  const paymentId = useMemo(() => {
-    if (typeof window === "undefined") return "";
-    const sp = new URLSearchParams(window.location.search);
-    return (
-      sp.get("payment_id") ||
-      sp.get("paymentId") ||
-      sp.get("id") ||
-      sp.get("data.id") ||
-      ""
-    );
-  }, []);
+  async function syncOnce(forceMsg?: string) {
+    setLoading(true);
+    try {
+      if (forceMsg) setMessage(forceMsg);
 
-  useEffect(() => {
-    let alive = true;
-    let timer: any;
-    let localTries = 0;
+      // 1) tenta sincronizar conta/plano (FLASH)
+      const syncRes = await fetch("/api/me/sync", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify(
+          paymentId
+            ? { payment_id: paymentId, topic: topicClean || undefined }
+            : {}
+        ),
+      });
 
-    async function tick() {
-      if (!alive) return;
+      const syncJson: SyncResp = await syncRes.json().catch(() => ({}));
 
-      localTries += 1;
-      setTries(localTries);
-      setState("checking");
-
-      try {
-        // ✅ tenta sincronizar pelo payment_id (quando existir)
-        const body = paymentId ? JSON.stringify({ payment_id: paymentId }) : "{}";
-
-        await fetch("/api/me/sync", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body,
-          cache: "no-store",
-        });
-
-        const r = await fetch("/api/me", { cache: "no-store" });
-        const me = (r.ok ? await r.json() : null) as MeResp | null;
-
-        if (hasAccess(me)) {
-          setState("done");
-          window.location.href = nextUrl;
-          return;
-        }
-      } catch {
-        // ignora e tenta de novo
+      if (isActive(syncJson)) {
+        setMessage("✅ Pagamento confirmado! Liberando acesso...");
+        router.replace(nextUrl || "/");
+        return;
       }
 
-      setState("waiting");
+      // 2) se tiver payment_id, checa status no DB (mp_payments)
+      if (paymentId) {
+        const stRes = await fetch(`/api/mp/status?payment_id=${encodeURIComponent(paymentId)}`, {
+          cache: "no-store",
+        });
+        const stJson: StatusResp = await stRes.json().catch(() => ({ ok: false } as any));
 
-      // ✅ até 24 tentativas (2 min)
-      if (alive && localTries < 24) timer = setTimeout(tick, 5000);
+        if (stJson?.ok && (stJson.applied || stJson.status === "approved")) {
+          // dá um sync final pra garantir cookie e libera
+          await fetch("/api/me/sync", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            cache: "no-store",
+            body: JSON.stringify({ payment_id: paymentId, topic: topicClean || undefined }),
+          }).catch(() => {});
+
+          setMessage("✅ Pagamento confirmado! Liberando acesso...");
+          router.replace(nextUrl || "/");
+          return;
+        }
+      }
+
+      setTries((t) => t + 1);
+      setMessage(
+        "Pagamento ainda pendente. Se você já pagou, clique em “✅ Já paguei — verificar agora”."
+      );
+    } catch {
+      setTries((t) => t + 1);
+      setMessage("Estamos verificando... clique em “✅ Já paguei — verificar agora” para forçar.");
+    } finally {
+      setLoading(false);
     }
+  }
 
-    tick();
+  useEffect(() => {
+    // chama imediatamente
+    syncOnce();
 
-    return () => {
-      alive = false;
-      if (timer) clearTimeout(timer);
-    };
-  }, [nextUrl, paymentId]);
+    // polling a cada 3s
+    const id = setInterval(() => {
+      syncOnce();
+    }, 3000);
+
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paymentId, topicClean, nextUrl]);
 
   return (
-    <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
-      <p className="text-sm font-semibold text-slate-900">
-        Verificando confirmação do PIX…
-      </p>
-      <p className="mt-1 text-xs text-slate-600">
-        Assim que confirmar, você será redirecionado automaticamente.
-      </p>
-      <p className="mt-2 text-xs text-slate-500">
-        Tentativas: {tries} • Status: {state}
-        {paymentId ? ` • payment_id: ${paymentId}` : ""}
-      </p>
+    <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="text-slate-800 font-medium">{message}</div>
+
+      {paymentId ? (
+        <div className="mt-2 text-sm text-slate-500">
+          payment_id: <span className="font-mono">{paymentId}</span>
+          {topicClean ? (
+            <>
+              {" "}
+              • topic: <span className="font-mono">{topicClean}</span>
+            </>
+          ) : null}
+        </div>
+      ) : (
+        <div className="mt-2 text-sm text-amber-700">
+          Dica: para ficar ⚡instantâneo, passe <b>payment_id</b> na URL desta página.
+        </div>
+      )}
+
+      <div className="mt-4 flex flex-wrap gap-3">
+        <button
+          onClick={() => syncOnce("Verificando agora...")}
+          disabled={loading}
+          className="rounded-lg bg-slate-900 px-4 py-2 text-white font-semibold disabled:opacity-60"
+        >
+          {loading ? "Verificando..." : "✅ Já paguei — verificar agora"}
+        </button>
+
+        <button
+          onClick={() => router.replace("/planos")}
+          className="rounded-lg border border-slate-300 px-4 py-2 text-slate-800 font-semibold"
+        >
+          Ver planos
+        </button>
+      </div>
+
+      <div className="mt-3 text-xs text-slate-400">Tentativas: {tries}</div>
     </div>
   );
 }
