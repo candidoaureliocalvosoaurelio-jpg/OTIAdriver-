@@ -1,7 +1,10 @@
-// middleware.ts (na RAIZ do projeto)
+// middleware.ts (NA RAIZ)
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// =====================
+// ✅ ROTAS PROTEGIDAS (somente Premium ativo)
+// =====================
 const PROTECTED_PREFIXES = [
   "/catalogo",
   "/caminhoes",
@@ -10,38 +13,50 @@ const PROTECTED_PREFIXES = [
   "/simbolos-painel",
   "/inspecao-manutencao",
   "/pneus",
-  "/ebook-driver",          // ✅ protege a rota real
-  "/ebook-driver-economy",  // (opcional) se você tiver essa rota também
 
-  // ✅ Copilot IA (protegido: só pagante)
+  // ✅ ebooks (conteúdo premium)
+  "/ebook-driver",
+  "/ebook-driver-economy",
+
+  // ✅ Copilot IA premium
   "/copilot",
 ];
 
+// =====================
+// ✅ ROTAS PÚBLICAS (VITRINE)
+// =====================
 const PUBLIC_PREFIXES = [
-  "/",
+  "/", // ✅ VITRINE principal (NÃO BLOQUEIA)
   "/inicio",
   "/proposito",
   "/planos",
   "/contato",
   "/sobre",
   "/privacy",
+  "/privacidade",
   "/termos",
+
+  // SEO/infra
   "/robots.txt",
+  "/sitemap.xml",
   "/favicon.ico",
 ];
 
+// =====================
+// ✅ AUTH + PAGAMENTO (sempre liberado)
+// =====================
 const AUTH_PREFIXES = ["/entrar", "/verificar-otp"];
-
 const PAYMENT_PREFIXES = ["/checkout", "/pagamento"];
 
+// =====================
+// ✅ APIs permitidas (nunca bloqueia no middleware)
+// =====================
 const API_ALLOW_PREFIXES = [
   "/api/auth", // request-otp, verify-otp, session, logout...
   "/api/webhook", // mercadopago webhook
   "/api/pagamentos", // criar preferencia etc
-  "/api/me/sync", // se existir no seu projeto
-
-  // ✅ Copilot IA API (precisa estar liberado)
-  "/api/ai",
+  "/api/me/sync", // sync de plano/conta, se existir
+  "/api/ai", // Copilot IA API (se você usa)
 ];
 
 function isStatic(pathname: string) {
@@ -76,7 +91,7 @@ function redirectTo(req: NextRequest, pathname: string, reason: string) {
   const lang = req.nextUrl.searchParams.get("lang");
   if (lang) url.searchParams.set("lang", lang);
 
-  // next = página original
+  // next = página original (pra voltar depois do login/pagamento)
   const nextPath = req.nextUrl.pathname + (req.nextUrl.search || "");
   url.searchParams.set("next", nextPath);
   url.searchParams.set("reason", reason);
@@ -85,44 +100,50 @@ function redirectTo(req: NextRequest, pathname: string, reason: string) {
 }
 
 async function fetchSession(req: NextRequest) {
-  // chama sua API (fonte da verdade: Supabase)
+  // fonte da verdade (seu endpoint server-side)
   const url = new URL("/api/auth/session", req.nextUrl.origin);
 
   const res = await fetch(url.toString(), {
     method: "GET",
     headers: {
-      // passa cookies do usuário para o endpoint enxergar auth/cpf
       cookie: req.headers.get("cookie") || "",
     },
     cache: "no-store",
   });
 
   if (!res.ok) return null;
+
   return (await res.json()) as
-    | { authenticated?: boolean; planStatus?: string; plan?: string; expiresAt?: string | null }
+    | {
+        authenticated?: boolean;
+        planStatus?: string; // "active" | "inactive"
+        plan?: string; // "premium" etc (se existir)
+        expiresAt?: string | null;
+      }
     | null;
 }
 
 export async function middleware(req: NextRequest) {
   const { pathname, hostname } = req.nextUrl;
 
-  // ✅ 0) ignora estáticos
+  // 0) ignora assets
   if (isStatic(pathname)) return NextResponse.next();
 
-  // ✅ 1) força WWW
+  // 1) força WWW
   if (hostname === "otiadriver.com.br") {
     const url = req.nextUrl.clone();
     url.hostname = "www.otiadriver.com.br";
     return NextResponse.redirect(url, 308);
   }
 
-  // ✅ 2) libera APIs permitidas
+  // 2) libera APIs (não faz paywall em /api)
   if (pathname.startsWith("/api")) {
+    // se estiver na lista, libera (e se não estiver, também não bloqueia API)
     if (startsWithAny(pathname, API_ALLOW_PREFIXES)) return NextResponse.next();
     return NextResponse.next();
   }
 
-  // ✅ 3) libera rotas públicas + auth + pagamento
+  // 3) libera vitrine + auth + pagamento
   if (
     startsWithAny(pathname, PUBLIC_PREFIXES) ||
     startsWithAny(pathname, AUTH_PREFIXES) ||
@@ -131,27 +152,27 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // ✅ 4) aplica proteção (plataforma)
+  // 4) se não for rota protegida, deixa passar
   const isProtected = startsWithAny(pathname, PROTECTED_PREFIXES);
   if (!isProtected) return NextResponse.next();
 
-  // ✅ 5) checa sessão real no servidor (Supabase)
+  // 5) checa sessão
   const session = await fetchSession(req);
 
   const authenticated = Boolean(session?.authenticated);
   const planStatus = String(session?.planStatus || "inactive").toLowerCase();
 
-  // 🔒 sem login -> manda entrar
+  // sem login -> entrar
   if (!authenticated) return redirectTo(req, "/entrar", "auth");
 
-  // 🔒 logado mas não pagante -> manda planos
+  // logado, mas sem Premium ativo -> planos
   if (planStatus !== "active") return redirectTo(req, "/planos", "paywall");
 
-  // ✅ pagante
+  // Premium ativo -> libera tudo nas rotas protegidas
   return NextResponse.next();
 }
 
-// ✅ roda “praticamente em tudo”, mas ignora assets via isStatic()
+// ✅ DEIXAR APENAS 1 CONFIG (sem duplicar)
 export const config = {
   matcher: ["/:path*"],
 };
