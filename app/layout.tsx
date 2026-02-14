@@ -6,8 +6,8 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
-import AdsenseScript from "@/components/AdsenseScript";
-import InstallPWAButton from "@/components/InstallPWAButton"; // ✅ ADD
+import GoogleAdsenseScript from "@/components/GoogleAdsenseScript";
+import InstallPWAButton from "@/components/InstallPWAButton";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -19,16 +19,12 @@ export const viewport: Viewport = {
   themeColor: "#0ea5e9",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body className="bg-gradient-to-b from-[#eef7ff] to-white text-gray-900 flex flex-col min-h-screen">
-        {/* ✅ Google AdSense (carrega globalmente) */}
-        <AdsenseScript />
+        {/* ✅ Google AdSense (script global) */}
+        <GoogleAdsenseScript />
 
         <Header />
         <div className="h-[72px] md:h-[80px]" />
@@ -46,7 +42,6 @@ export default function RootLayout({
             Conhecimento Inteligente para Motoristas
           </p>
 
-          {/* ✅ Informativo / Botão de instalar PWA (aparece quando o navegador permitir) */}
           <div className="mt-4 flex justify-center">
             <InstallPWAButton />
           </div>
