@@ -55,8 +55,9 @@ const API_ALLOW_PREFIXES = [
   "/api/auth", // request-otp, verify-otp, session, logout...
   "/api/webhook", // mercadopago webhook
   "/api/pagamentos", // criar preferencia etc
-  "/api/me/sync", // sync de plano/conta, se existir
-  "/api/ai", // Copilot IA API (se você usa)
+  "/api/me/sync", // sync de plano/conta
+  "/api/mp/status", // ✅ status do pagamento (polling)
+  "/api/ai", // Copilot IA API
 ];
 
 function isStatic(pathname: string) {
@@ -123,6 +124,11 @@ async function fetchSession(req: NextRequest) {
     | null;
 }
 
+function readCookieValue(cookieHeader: string, name: string) {
+  const m = cookieHeader.match(new RegExp(`(?:^|;\\s*)${name}=([^;]+)`));
+  return m?.[1] ? decodeURIComponent(m[1]) : "";
+}
+
 export async function middleware(req: NextRequest) {
   const { pathname, hostname } = req.nextUrl;
 
@@ -138,7 +144,6 @@ export async function middleware(req: NextRequest) {
 
   // 2) libera APIs (não faz paywall em /api)
   if (pathname.startsWith("/api")) {
-    // se estiver na lista, libera (e se não estiver, também não bloqueia API)
     if (startsWithAny(pathname, API_ALLOW_PREFIXES)) return NextResponse.next();
     return NextResponse.next();
   }
@@ -156,19 +161,26 @@ export async function middleware(req: NextRequest) {
   const isProtected = startsWithAny(pathname, PROTECTED_PREFIXES);
   if (!isProtected) return NextResponse.next();
 
-  // 5) checa sessão
-  const session = await fetchSession(req);
+  // 5) ✅ FLASH CHECK: primeiro pelos cookies setados em /api/me/sync
+  const cookieHeader = req.headers.get("cookie") || "";
 
+  const otiaAuth = readCookieValue(cookieHeader, "otia_auth"); // "1" quando logado
+  const planStatusCookie = readCookieValue(cookieHeader, "otia_plan_status").toLowerCase(); // "active" | "inactive"
+
+  // sem login -> entrar
+  if (otiaAuth !== "1") return redirectTo(req, "/entrar", "auth");
+
+  // se cookie já diz active -> libera sem fetch (⚡)
+  if (planStatusCookie === "active") return NextResponse.next();
+
+  // 6) fallback: fonte da verdade server-side (caso cookie ainda não tenha atualizado)
+  const session = await fetchSession(req);
   const authenticated = Boolean(session?.authenticated);
   const planStatus = String(session?.planStatus || "inactive").toLowerCase();
 
-  // sem login -> entrar
   if (!authenticated) return redirectTo(req, "/entrar", "auth");
-
-  // logado, mas sem Premium ativo -> planos
   if (planStatus !== "active") return redirectTo(req, "/planos", "paywall");
 
-  // Premium ativo -> libera tudo nas rotas protegidas
   return NextResponse.next();
 }
 

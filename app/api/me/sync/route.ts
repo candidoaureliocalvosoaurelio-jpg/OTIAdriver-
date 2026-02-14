@@ -43,30 +43,160 @@ function jsonNoStore(data: any, init?: ResponseInit) {
 }
 
 /**
- * ✅ Pega o UID (uuid) do usuário no profiles.
+ * Pega UID (uuid) do usuário no profiles.
  * Tenta coluna "id"; se não existir, tenta "user_id".
- * Retorna null se não achou.
  */
 async function getProfileUid(sb: ReturnType<typeof getSupabaseAdmin>, cpf: string) {
-  // tentativa 1: profiles.id
-  const r1 = await sb
-    .from("profiles")
-    .select("id")
-    .eq("cpf", cpf)
-    .maybeSingle();
-
+  const r1 = await sb.from("profiles").select("id").eq("cpf", cpf).maybeSingle();
   if (!r1.error && r1.data?.id) return String(r1.data.id);
 
-  // se deu erro por coluna inexistente, tenta user_id
-  const r2 = await sb
-    .from("profiles")
-    .select("user_id")
-    .eq("cpf", cpf)
-    .maybeSingle();
-
+  const r2 = await sb.from("profiles").select("user_id").eq("cpf", cpf).maybeSingle();
   if (!r2.error && (r2.data as any)?.user_id) return String((r2.data as any).user_id);
 
   return null;
+}
+
+async function mpFetchJson(path: string, accessToken: string) {
+  const base = new URL("https://api.mercadopago.com/");
+  base.pathname = path;
+
+  const resp = await fetch(base.toString(), {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
+  });
+
+  const text = await resp.text().catch(() => "");
+  let json: any = null;
+  try {
+    json = text ? JSON.parse(text) : null;
+  } catch {
+    json = null;
+  }
+
+  return { ok: resp.ok, status: resp.status, text, json };
+}
+
+function normalizePlan(p: any) {
+  const plan = String(p || "").toLowerCase();
+  if (plan === "basico" || plan === "pro" || plan === "premium") return plan;
+  return "";
+}
+
+// external_reference: "cpf|plano"
+function parseExternalReference(ext: any) {
+  const raw = String(ext || "");
+  const parts = raw.split("|").map((s) => s.trim());
+  const cpf = onlyDigits(parts[0] || "");
+  const plano = normalizePlan(parts[1] || "");
+  return { cpf, plano };
+}
+
+function inferPlanFromText(txt: any) {
+  const t = String(txt || "").toLowerCase();
+  if (t.includes("premium")) return "premium";
+  if (t.includes("pro")) return "pro";
+  if (t.includes("basico") || t.includes("básico")) return "basico";
+  return "";
+}
+
+function extractPhoneDigits(payment: any) {
+  const metaPhone = onlyDigits(payment?.metadata?.phone || "");
+  if (metaPhone) return metaPhone;
+
+  const area = onlyDigits(payment?.payer?.phone?.area_code || "");
+  const num = onlyDigits(payment?.payer?.phone?.number || "");
+  const combined = (area + num).trim();
+  return combined || "";
+}
+
+/**
+ * Turbo apply: dado um payment, grava em mp_payments e aplica plano no profiles.
+ * Idempotência via applied_at em mp_payments.
+ */
+async function applyPaymentIfApproved(sb: ReturnType<typeof getSupabaseAdmin>, payment: any, cpfFromCookie: string) {
+  const nowIso = new Date().toISOString();
+
+  const paymentId = String(payment?.id || "");
+  const status = String(payment?.status || "").toLowerCase();
+  if (!paymentId) return { ok: false as const, reason: "payment_missing_id" as const };
+
+  const extParsed = parseExternalReference(payment?.external_reference);
+
+  const cpf =
+    onlyDigits(String(payment?.metadata?.cpf || "")) ||
+    extParsed.cpf ||
+    onlyDigits(String(payment?.external_reference || "")) ||
+    cpfFromCookie;
+
+  const plano =
+    normalizePlan(payment?.metadata?.plano) ||
+    extParsed.plano ||
+    inferPlanFromText(payment?.description) ||
+    inferPlanFromText(payment?.additional_info?.items?.[0]?.title) ||
+    inferPlanFromText(payment?.statement_descriptor);
+
+  const phoneFromMp = extractPhoneDigits(payment);
+
+  // Audita sempre
+  await sb.from("mp_payments").upsert(
+    {
+      payment_id: paymentId,
+      cpf: cpf || null,
+      plano: plano || null,
+      status: status || null,
+      raw: payment,
+      updated_at: nowIso,
+    },
+    { onConflict: "payment_id" }
+  );
+
+  if (status !== "approved") return { ok: true as const, applied: false as const };
+
+  if (cpf.length !== 11) return { ok: false as const, reason: "cpf_invalid" as const };
+  if (!isPaidPlan(plano)) return { ok: false as const, reason: "plan_invalid" as const };
+
+  // Idempotência
+  const { data: mpRow } = await sb
+    .from("mp_payments")
+    .select("applied_at")
+    .eq("payment_id", paymentId)
+    .maybeSingle();
+
+  if (mpRow?.applied_at) return { ok: true as const, applied: false as const, already: true as const };
+
+  // Lê expiração atual
+  const now = new Date();
+  let baseDate = now;
+
+  const { data: prof } = await sb
+    .from("profiles")
+    .select("plan_expires_at, phone")
+    .eq("cpf", cpf)
+    .maybeSingle();
+
+  if (prof?.plan_expires_at) {
+    const exp = new Date(prof.plan_expires_at);
+    if (!isNaN(exp.getTime()) && exp > now) baseDate = exp;
+  }
+
+  const newExp = new Date(baseDate);
+  newExp.setDate(newExp.getDate() + 30);
+
+  const finalPhone = onlyDigits(prof?.phone || "") || phoneFromMp || null;
+
+  await sb.from("profiles").upsert(
+    {
+      cpf,
+      plano,
+      plan_expires_at: newExp.toISOString(),
+      ...(finalPhone ? { phone: finalPhone } : {}),
+    },
+    { onConflict: "cpf" }
+  );
+
+  await sb.from("mp_payments").update({ applied_at: nowIso, updated_at: nowIso }).eq("payment_id", paymentId);
+
+  return { ok: true as const, applied: true as const, plano };
 }
 
 export async function POST(req: Request) {
@@ -74,156 +204,116 @@ export async function POST(req: Request) {
     const c = await cookies();
 
     const cpf = onlyDigits(c.get("otia_cpf")?.value || "");
-    const phone = onlyDigits(c.get("otia_phone")?.value || "");
+    // ⚡ phone NÃO pode quebrar o sync:
+    const phoneCookie = onlyDigits(c.get("otia_phone")?.value || "");
 
-    // ✅ sem CPF no cookie = sem sessão
     if (cpf.length !== 11) {
       return jsonNoStore({ ok: false, reason: "not_authenticated" }, { status: 401 });
     }
 
-    // ✅ profiles.phone é NOT NULL no seu banco
-    if (phone.length < 10 || phone.length > 11) {
-      return jsonNoStore({ ok: false, reason: "missing_phone" }, { status: 400 });
-    }
-
-    // body opcional
-    const body = (await req.json().catch(() => ({}))) as any;
-    const hintedPaymentId = String(body?.payment_id || body?.paymentId || "").trim();
-    const hintedPlano = String(body?.plano || "").toLowerCase();
-    const hintedStatus = String(body?.status || "").toLowerCase();
-
     const sb = getSupabaseAdmin();
 
-    // 🔥 pega uid do usuário (pra Copilot quota)
-    const uid = await getProfileUid(sb, cpf);
+    // Body opcional: payment_id + topic (payment | merchant_order)
+    const body = (await req.json().catch(() => ({}))) as any;
+    const hintedPaymentId = onlyDigits(String(body?.payment_id || body?.paymentId || "").trim());
+    const hintedTopic = String(body?.topic || body?.type || "").toLowerCase();
 
     // 1) Fonte da verdade: profiles
-    const prof = await sb
+    const profRes = await sb
       .from("profiles")
-      .select("plano, plan_expires_at")
+      .select("plano, plan_expires_at, phone")
       .eq("cpf", cpf)
       .maybeSingle();
 
     const now = new Date();
-    const plan = String(prof.data?.plano || "").toLowerCase();
-    const expRaw = prof.data?.plan_expires_at ?? null;
+    const plan = String(profRes.data?.plano || "").toLowerCase();
+    const expRaw = profRes.data?.plan_expires_at ?? null;
     const exp = expRaw ? new Date(expRaw) : null;
 
     const active = isPaidPlan(plan) && !!exp && !isNaN(exp.getTime()) && exp > now;
 
+    // UID (pra quota/copilot)
+    const uid = await getProfileUid(sb, cpf);
+
+    // Se já está ativo, só seta cookies e sai ⚡
     if (active) {
-      const res = jsonNoStore({ ok: true, plano: plan, status: "active" as const });
+      const res = jsonNoStore({ ok: true, plan, plano: plan, status: "active" as const });
 
       const base = cookieBase();
       res.cookies.set("otia_auth", "1", base);
       res.cookies.set("otia_cpf", cpf, base);
-      res.cookies.set("otia_phone", phone, base);
+
+      // phone: pega do profile ou cookie (se tiver)
+      const phoneFinal = onlyDigits(profRes.data?.phone || "") || phoneCookie || "";
+      if (phoneFinal) res.cookies.set("otia_phone", phoneFinal, base);
+
       res.cookies.set("otia_plan", plan, base);
       res.cookies.set("otia_plan_status", "active", base);
 
-      // ✅ cookie necessário pro /api/ai/chat consumir quota
       if (uid) res.cookies.set("otia_uid", uid, base);
-
       return res;
     }
 
-    // 2) tenta sincronizar pelo payment_id
-    let pay: any = null;
-
+    // 2) TURBO: se veio payment_id, tenta confirmar no MP e aplicar agora
+    //    (funciona mesmo se webhook atrasou)
     if (hintedPaymentId) {
-      const payById = await sb
-        .from("mp_payments")
-        .select("payment_id, plano, status, applied_at, updated_at")
-        .eq("cpf", cpf)
-        .eq("payment_id", hintedPaymentId)
-        .maybeSingle();
-
-      if (payById.data) pay = payById.data;
+      const accessToken = process.env.MP_ACCESS_TOKEN;
+      if (accessToken) {
+        // Se vier como merchant_order, resolve primeiro
+        if (hintedTopic === "merchant_order" || hintedTopic === "merchant_orders") {
+          const mo = await mpFetchJson(`/merchant_orders/${encodeURIComponent(hintedPaymentId)}`, accessToken);
+          if (mo.ok && mo.json) {
+            const payments = Array.isArray(mo.json?.payments) ? mo.json.payments : [];
+            for (const p of payments) {
+              const pid = onlyDigits(String(p?.id || ""));
+              if (!pid) continue;
+              const pay = await mpFetchJson(`/v1/payments/${encodeURIComponent(pid)}`, accessToken);
+              if (pay.ok && pay.json) {
+                const applied = await applyPaymentIfApproved(sb, pay.json, cpf);
+                if (applied.ok && (applied as any).applied) break;
+              }
+            }
+          }
+        } else {
+          // Default: trata como payment_id
+          const pay = await mpFetchJson(`/v1/payments/${encodeURIComponent(hintedPaymentId)}`, accessToken);
+          if (pay.ok && pay.json) {
+            await applyPaymentIfApproved(sb, pay.json, cpf);
+          }
+        }
+      }
     }
 
-    // 3) se não achou pelo payment_id, pega último aprovado
-    if (!pay) {
-      const lastApproved = await sb
-        .from("mp_payments")
-        .select("payment_id, plano, status, applied_at, updated_at")
-        .eq("cpf", cpf)
-        .eq("status", "approved")
-        .order("updated_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+    // 3) Releia profiles depois do turbo
+    const prof2 = await sb
+      .from("profiles")
+      .select("plano, plan_expires_at, phone")
+      .eq("cpf", cpf)
+      .maybeSingle();
 
-      if (lastApproved.data) pay = lastApproved.data;
-    }
+    const plan2 = String(prof2.data?.plano || "").toLowerCase();
+    const exp2Raw = prof2.data?.plan_expires_at ?? null;
+    const exp2 = exp2Raw ? new Date(exp2Raw) : null;
+    const active2 = isPaidPlan(plan2) && !!exp2 && !isNaN(exp2.getTime()) && exp2 > new Date();
 
-    const paymentId = String(pay?.payment_id || hintedPaymentId || "");
-    const planoFromMp = String(pay?.plano || hintedPlano || "").toLowerCase();
-    const statusFromMp = String(pay?.status || hintedStatus || "").toLowerCase();
-
-    // ❌ ainda não tem pagamento aprovado
-    if (!paymentId || !isPaidPlan(planoFromMp) || statusFromMp !== "approved") {
-      const res = jsonNoStore(
-        { ok: true, plano: "none", status: "inactive" as const, reason: "not_applied_yet" },
-        { status: 200 }
-      );
-
-      const base = cookieBase();
-      res.cookies.set("otia_auth", "1", base);
-      res.cookies.set("otia_cpf", cpf, base);
-      res.cookies.set("otia_phone", phone, base);
-      res.cookies.set("otia_plan", "none", base);
-      res.cookies.set("otia_plan_status", "inactive", base);
-
-      // ✅ mesmo inativo, seta uid se existir (pra UI/contador funcionar)
-      if (uid) res.cookies.set("otia_uid", uid, base);
-
-      return res;
-    }
-
-    // 4) aplica +30 dias a partir do maior entre agora e expiração atual
-    let baseDate = now;
-    if (exp && !isNaN(exp.getTime()) && exp > now) baseDate = exp;
-
-    const newExp = new Date(baseDate);
-    newExp.setDate(newExp.getDate() + 30);
-
-    const up = await sb.from("profiles").upsert(
-      {
-        cpf,
-        phone,
-        plano: planoFromMp,
-        plan_expires_at: newExp.toISOString(),
-      },
-      { onConflict: "cpf" }
-    );
-
-    if (up.error) {
-      console.error("ME_SYNC_PROFILE_UPSERT_ERROR", up.error);
-      return jsonNoStore({ ok: false, reason: "profile_upsert_failed" }, { status: 500 });
-    }
-
-    const mark = await sb
-      .from("mp_payments")
-      .update({ applied_at: new Date().toISOString() })
-      .eq("payment_id", paymentId);
-
-    if (mark.error) {
-      console.error("ME_SYNC_MARK_APPLIED_ERROR", mark.error);
-    }
-
-    // 🔁 depois do upsert, tenta pegar uid de novo (caso profile tenha sido criado agora)
-    const uid2 = uid || (await getProfileUid(sb, cpf));
-
-    // 5) cookies liberados
-    const res = jsonNoStore({ ok: true, plano: planoFromMp, status: "active" as const });
+    const res = jsonNoStore({
+      ok: true,
+      plan: active2 ? plan2 : "none",
+      plano: active2 ? plan2 : "none",
+      status: active2 ? ("active" as const) : ("inactive" as const),
+    });
 
     const base = cookieBase();
     res.cookies.set("otia_auth", "1", base);
     res.cookies.set("otia_cpf", cpf, base);
-    res.cookies.set("otia_phone", phone, base);
-    res.cookies.set("otia_plan", planoFromMp, base);
-    res.cookies.set("otia_plan_status", "active", base);
 
-    // ✅ ESSENCIAL
+    const phoneFinal2 = onlyDigits(prof2.data?.phone || "") || phoneCookie || "";
+    if (phoneFinal2) res.cookies.set("otia_phone", phoneFinal2, base);
+
+    res.cookies.set("otia_plan", active2 ? plan2 : "none", base);
+    res.cookies.set("otia_plan_status", active2 ? "active" : "inactive", base);
+
+    const uid2 = uid || (await getProfileUid(sb, cpf));
     if (uid2) res.cookies.set("otia_uid", uid2, base);
 
     return res;
