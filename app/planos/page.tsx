@@ -120,11 +120,11 @@ function PlanosContent() {
 
           <div className="mt-3 text-xs text-slate-700 text-center">
             Ao continuar, você concorda com nossos{" "}
-            <Link href="/termos" className="underline">
+            <Link href="/termos" className="underline hover:text-slate-900">
               Termos de Uso
             </Link>{" "}
             e{" "}
-            <Link href="/privacidade" className="underline">
+            <Link href="/privacidade" className="underline hover:text-slate-900">
               Política de Privacidade
             </Link>
             .
