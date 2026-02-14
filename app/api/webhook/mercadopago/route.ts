@@ -87,7 +87,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ✅ JSON inválido deve retornar 400 (antes virava {})
+    // ✅ JSON inválido deve retornar 400
     let body: any;
     try {
       body = await req.json();
@@ -105,11 +105,31 @@ export async function POST(req: Request) {
       );
     }
 
+    // ============================================================
+    // ✅ FIX CODEQL (SSRF CRITICAL)
+    // paymentId vem do usuário -> precisa ser SOMENTE NÚMEROS
+    // ============================================================
+    const safePaymentId = onlyDigits(String(paymentId));
+
+    // MercadoPago payment id costuma ser numérico e grande.
+    // Vamos travar tamanho para evitar payload malicioso.
+    if (!safePaymentId || safePaymentId.length < 6 || safePaymentId.length > 25) {
+      console.error("MP_WEBHOOK: invalid paymentId format", {
+        paymentId,
+        safePaymentId,
+      });
+
+      return NextResponse.json(
+        { ok: false, error: "Invalid payment id" },
+        { status: 400 }
+      );
+    }
+
     const supabase = getSupabaseAdmin();
 
     // 1) Busca pagamento no MP (fonte da verdade)
     const resp = await fetch(
-      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      `https://api.mercadopago.com/v1/payments/${safePaymentId}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
         cache: "no-store",
@@ -121,7 +141,7 @@ export async function POST(req: Request) {
       const txt = await resp.text().catch(() => "");
 
       console.error("MP_WEBHOOK: MP fetch failed", {
-        paymentId,
+        paymentId: safePaymentId,
         status: resp.status,
         body: txt?.slice?.(0, 500),
       });
@@ -129,7 +149,7 @@ export async function POST(req: Request) {
       // Auditoria/idempotência (mesmo falhando)
       const { error: e0 } = await supabase.from("mp_payments").upsert(
         {
-          payment_id: String(paymentId),
+          payment_id: String(safePaymentId),
           cpf: null,
           plano: null,
           status: `mp_fetch_failed_${resp.status}`,
@@ -141,7 +161,7 @@ export async function POST(req: Request) {
 
       if (e0) {
         console.error("MP_WEBHOOK: mp_payments upsert failed (fetch_failed)", {
-          paymentId,
+          paymentId: safePaymentId,
           message: e0.message,
         });
       }
@@ -200,7 +220,7 @@ export async function POST(req: Request) {
     // 3) Sempre grava auditoria/idempotência
     const { error: upErr } = await supabase.from("mp_payments").upsert(
       {
-        payment_id: String(paymentId),
+        payment_id: String(safePaymentId),
         cpf: cpf || null,
         plano: plano || null,
         status: status || null,
@@ -212,14 +232,13 @@ export async function POST(req: Request) {
 
     if (upErr) {
       console.error("MP_WEBHOOK: mp_payments upsert error", {
-        paymentId,
+        paymentId: safePaymentId,
         message: upErr.message,
         cpf,
         plano,
         status,
       });
 
-      // aqui faz sentido retornar 500 (problema interno)
       return NextResponse.json(
         { ok: false, error: "Database error: mp_payments upsert failed" },
         { status: 500 }
@@ -232,7 +251,11 @@ export async function POST(req: Request) {
     }
 
     if (cpf.length !== 11) {
-      console.error("MP_WEBHOOK: cpf invalid after MP fetch", { paymentId, cpf });
+      console.error("MP_WEBHOOK: cpf invalid after MP fetch", {
+        paymentId: safePaymentId,
+        cpf,
+      });
+
       return NextResponse.json(
         { ok: false, error: "CPF invalid after MP fetch" },
         { status: 400 }
@@ -241,7 +264,7 @@ export async function POST(req: Request) {
 
     if (!plano) {
       console.error("MP_WEBHOOK: plano not inferred", {
-        paymentId,
+        paymentId: safePaymentId,
         cpf,
         desc: payment?.description,
       });
@@ -256,12 +279,12 @@ export async function POST(req: Request) {
     const { data: mpRow, error: mpRowErr } = await supabase
       .from("mp_payments")
       .select("applied_at")
-      .eq("payment_id", String(paymentId))
+      .eq("payment_id", String(safePaymentId))
       .maybeSingle();
 
     if (mpRowErr) {
       console.error("MP_WEBHOOK: read mp_payments failed", {
-        paymentId,
+        paymentId: safePaymentId,
         message: mpRowErr.message,
       });
 
@@ -321,7 +344,7 @@ export async function POST(req: Request) {
       console.error("MP_WEBHOOK: profile upsert failed", {
         cpf,
         plano,
-        paymentId,
+        paymentId: safePaymentId,
         message: upsertProfileErr.message,
         finalPhone,
       });
@@ -336,15 +359,14 @@ export async function POST(req: Request) {
     const { error: appliedErr } = await supabase
       .from("mp_payments")
       .update({ applied_at: nowIso, updated_at: nowIso })
-      .eq("payment_id", String(paymentId));
+      .eq("payment_id", String(safePaymentId));
 
     if (appliedErr) {
       console.error("MP_WEBHOOK: applied mark failed", {
-        paymentId,
+        paymentId: safePaymentId,
         message: appliedErr.message,
       });
 
-      // não precisa falhar o webhook, mas é bom avisar
       return NextResponse.json(
         { ok: false, error: "Database error: applied mark failed" },
         { status: 500 }
