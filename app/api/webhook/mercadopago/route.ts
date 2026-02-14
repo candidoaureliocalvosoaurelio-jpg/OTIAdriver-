@@ -69,16 +69,34 @@ export async function POST(req: Request) {
   const nowIso = new Date().toISOString();
 
   try {
+    // (Opcional, mas recomendado) valida content-type
+    const ct = req.headers.get("content-type") || "";
+    if (!ct.includes("application/json")) {
+      return NextResponse.json(
+        { ok: false, error: "Unsupported Media Type (expected application/json)" },
+        { status: 415 }
+      );
+    }
+
     const accessToken = process.env.MP_ACCESS_TOKEN;
     if (!accessToken) {
       console.error("MP_WEBHOOK: MP_ACCESS_TOKEN missing");
-      return NextResponse.json({ ok: true });
+      return NextResponse.json(
+        { ok: false, error: "MP_ACCESS_TOKEN missing" },
+        { status: 500 }
+      );
     }
 
-    const body = await req.json().catch(() => ({}));
+    // ✅ JSON inválido deve retornar 400
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+    }
+
     const paymentId = extractPaymentId(req, body);
 
-    // ✅ agora retorna 400 (como você pediu)
     if (!paymentId) {
       console.error("MP_WEBHOOK: paymentId missing", { body });
       return NextResponse.json(
@@ -87,30 +105,51 @@ export async function POST(req: Request) {
       );
     }
 
+    // ============================================================
+    // ✅ FIX CODEQL (SSRF CRITICAL)
+    // paymentId vem do usuário -> precisa ser SOMENTE NÚMEROS
+    // ============================================================
+    const safePaymentId = onlyDigits(String(paymentId));
+
+    // MercadoPago payment id costuma ser numérico e grande.
+    // Vamos travar tamanho para evitar payload malicioso.
+    if (!safePaymentId || safePaymentId.length < 6 || safePaymentId.length > 25) {
+      console.error("MP_WEBHOOK: invalid paymentId format", {
+        paymentId,
+        safePaymentId,
+      });
+
+      return NextResponse.json(
+        { ok: false, error: "Invalid payment id" },
+        { status: 400 }
+      );
+    }
+
     const supabase = getSupabaseAdmin();
 
     // 1) Busca pagamento no MP (fonte da verdade)
     const resp = await fetch(
-      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      `https://api.mercadopago.com/v1/payments/${safePaymentId}`,
       {
         headers: { Authorization: `Bearer ${accessToken}` },
         cache: "no-store",
       }
     );
 
+    // ❌ MP falhou
     if (!resp.ok) {
       const txt = await resp.text().catch(() => "");
+
       console.error("MP_WEBHOOK: MP fetch failed", {
-        paymentId,
+        paymentId: safePaymentId,
         status: resp.status,
         body: txt?.slice?.(0, 500),
       });
 
-      // ✅ IMPORTANTÍSSIMO: tenta ao menos registrar que chegou o evento
-      // (isso só funciona se sua tabela permitir cpf/plano/status null)
+      // Auditoria/idempotência (mesmo falhando)
       const { error: e0 } = await supabase.from("mp_payments").upsert(
         {
-          payment_id: String(paymentId),
+          payment_id: String(safePaymentId),
           cpf: null,
           plano: null,
           status: `mp_fetch_failed_${resp.status}`,
@@ -122,18 +161,46 @@ export async function POST(req: Request) {
 
       if (e0) {
         console.error("MP_WEBHOOK: mp_payments upsert failed (fetch_failed)", {
-          paymentId,
+          paymentId: safePaymentId,
           message: e0.message,
         });
       }
 
-      return NextResponse.json({ ok: true });
+      // ✅ Retornar status REAL (para diagnosticar 4001/404)
+      if (resp.status === 404) {
+        return NextResponse.json(
+          { ok: false, error: "Payment not found" },
+          { status: 404 }
+        );
+      }
+
+      // credenciais/token inválido
+      if (resp.status === 401 || resp.status === 403) {
+        return NextResponse.json(
+          { ok: false, error: "MercadoPago credentials error", code: "MP_AUTH" },
+          { status: 502 }
+        );
+      }
+
+      // alguns retornos do MP vêm com "4001" no body
+      if (txt.includes("4001")) {
+        return NextResponse.json(
+          { ok: false, error: "MercadoPago credentials error", code: "MP_4001" },
+          { status: 502 }
+        );
+      }
+
+      return NextResponse.json(
+        { ok: false, error: "MercadoPago fetch failed", status: resp.status },
+        { status: 502 }
+      );
     }
 
+    // 2) Pagamento OK
     const payment = await resp.json();
     const status = String(payment?.status || "");
 
-    // ✅ cpf/plano: metadata -> external_reference -> texto
+    // cpf/plano: metadata -> external_reference -> texto
     const extParsed = parseExternalReference(payment?.external_reference);
 
     const cpf =
@@ -150,10 +217,10 @@ export async function POST(req: Request) {
 
     const phone = extractPhoneDigits(payment);
 
-    // 2) Sempre grava auditoria/idempotência (com checagem de erro)
+    // 3) Sempre grava auditoria/idempotência
     const { error: upErr } = await supabase.from("mp_payments").upsert(
       {
-        payment_id: String(paymentId),
+        payment_id: String(safePaymentId),
         cpf: cpf || null,
         plano: plano || null,
         status: status || null,
@@ -165,50 +232,73 @@ export async function POST(req: Request) {
 
     if (upErr) {
       console.error("MP_WEBHOOK: mp_payments upsert error", {
-        paymentId,
+        paymentId: safePaymentId,
         message: upErr.message,
         cpf,
         plano,
         status,
       });
+
+      return NextResponse.json(
+        { ok: false, error: "Database error: mp_payments upsert failed" },
+        { status: 500 }
+      );
+    }
+
+    // 4) Só aplica se aprovado
+    if (status !== "approved") {
       return NextResponse.json({ ok: true });
     }
 
-    // 3) Só aplica se aprovado e válido
-    if (status !== "approved") return NextResponse.json({ ok: true });
-
     if (cpf.length !== 11) {
-      console.error("MP_WEBHOOK: cpf invalid after MP fetch", { paymentId, cpf });
-      return NextResponse.json({ ok: true });
+      console.error("MP_WEBHOOK: cpf invalid after MP fetch", {
+        paymentId: safePaymentId,
+        cpf,
+      });
+
+      return NextResponse.json(
+        { ok: false, error: "CPF invalid after MP fetch" },
+        { status: 400 }
+      );
     }
 
     if (!plano) {
       console.error("MP_WEBHOOK: plano not inferred", {
-        paymentId,
+        paymentId: safePaymentId,
         cpf,
         desc: payment?.description,
       });
-      return NextResponse.json({ ok: true });
+
+      return NextResponse.json(
+        { ok: false, error: "Plan not inferred from payment" },
+        { status: 400 }
+      );
     }
 
-    // 4) Idempotência: já aplicado?
+    // 5) Idempotência: já aplicado?
     const { data: mpRow, error: mpRowErr } = await supabase
       .from("mp_payments")
       .select("applied_at")
-      .eq("payment_id", String(paymentId))
+      .eq("payment_id", String(safePaymentId))
       .maybeSingle();
 
     if (mpRowErr) {
       console.error("MP_WEBHOOK: read mp_payments failed", {
-        paymentId,
+        paymentId: safePaymentId,
         message: mpRowErr.message,
       });
+
+      return NextResponse.json(
+        { ok: false, error: "Database error: mp_payments read failed" },
+        { status: 500 }
+      );
+    }
+
+    if (mpRow?.applied_at) {
       return NextResponse.json({ ok: true });
     }
 
-    if (mpRow?.applied_at) return NextResponse.json({ ok: true });
-
-    // 5) Calcula expiração (soma 30 dias; se já tem expiração futura, soma a partir dela)
+    // 6) Calcula expiração (30 dias; se já tem expiração futura, soma a partir dela)
     const now = new Date();
     let baseDate = now;
 
@@ -223,7 +313,11 @@ export async function POST(req: Request) {
         cpf,
         message: profErr.message,
       });
-      return NextResponse.json({ ok: true });
+
+      return NextResponse.json(
+        { ok: false, error: "Database error: profiles select failed" },
+        { status: 500 }
+      );
     }
 
     if (profile?.plan_expires_at) {
@@ -234,7 +328,6 @@ export async function POST(req: Request) {
     const newExp = new Date(baseDate);
     newExp.setDate(newExp.getDate() + 30);
 
-    // ✅ Se o profile tiver phone NOT NULL, tente preencher
     const finalPhone = onlyDigits(profile?.phone || "") || phone || null;
 
     const { error: upsertProfileErr } = await supabase.from("profiles").upsert(
@@ -251,24 +344,33 @@ export async function POST(req: Request) {
       console.error("MP_WEBHOOK: profile upsert failed", {
         cpf,
         plano,
-        paymentId,
+        paymentId: safePaymentId,
         message: upsertProfileErr.message,
         finalPhone,
       });
-      return NextResponse.json({ ok: true });
+
+      return NextResponse.json(
+        { ok: false, error: "Database error: profile upsert failed" },
+        { status: 500 }
+      );
     }
 
     // 7) Marca aplicado
     const { error: appliedErr } = await supabase
       .from("mp_payments")
       .update({ applied_at: nowIso, updated_at: nowIso })
-      .eq("payment_id", String(paymentId));
+      .eq("payment_id", String(safePaymentId));
 
     if (appliedErr) {
       console.error("MP_WEBHOOK: applied mark failed", {
-        paymentId,
+        paymentId: safePaymentId,
         message: appliedErr.message,
       });
+
+      return NextResponse.json(
+        { ok: false, error: "Database error: applied mark failed" },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ ok: true });
@@ -277,6 +379,10 @@ export async function POST(req: Request) {
       message: err?.message,
       stack: err?.stack,
     });
-    return NextResponse.json({ ok: true });
+
+    return NextResponse.json(
+      { ok: false, error: "Internal error" },
+      { status: 500 }
+    );
   }
 }
