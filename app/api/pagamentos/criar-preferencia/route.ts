@@ -89,8 +89,15 @@ export async function POST(req: Request) {
     // ✅ webhook só em produção (em localhost pode ficar undefined)
     const notification_url = local ? undefined : `${baseUrl}/api/webhook/mercadopago`;
 
-    // ✅ mantém contexto no retorno
-    const qs = `?lang=${encodeURIComponent(lang)}&plano=${encodeURIComponent(plano)}`;
+    // ✅ Retorno SEMPRE para /pagamento/pendente (PIX muitas vezes volta "vazio")
+    // nextUrl: pra onde liberar após confirmar (rota premium)
+    const nextUrl = "/caminhoes";
+    const qs = `?lang=${encodeURIComponent(lang)}&plano=${encodeURIComponent(
+      plano
+    )}&nextUrl=${encodeURIComponent(nextUrl)}`;
+
+    // ✅ external_reference forte: "cpf|plano" (te dá plano mesmo se metadata falhar)
+    const external_reference = `${cpf}|${plano}`;
 
     const pref = await preference.create({
       body: {
@@ -104,16 +111,21 @@ export async function POST(req: Request) {
           },
         ],
 
-        external_reference: cpf,
+        external_reference,
         metadata: { cpf, plano, lang, product: "otiadriver-subscription" },
 
+        // ✅ SEM ERRO FINAL: tudo cai em pendente e o polling resolve
         back_urls: {
-          success: `${baseUrl}/pagamento/concluido${qs}`,
+          success: `${baseUrl}/pagamento/pendente${qs}`,
           pending: `${baseUrl}/pagamento/pendente${qs}`,
-          failure: `${baseUrl}/pagamento/erro${qs}`,
+          failure: `${baseUrl}/pagamento/pendente${qs}`,
         },
 
+        // auto_return funciona bem para "approved" (cartão); PIX pode voltar antes => ok
         auto_return: "approved",
+
+        // (Opcional, mas bom): facilita reconhecimento no extrato
+        statement_descriptor: "OTIADRIVER",
 
         ...(notification_url ? { notification_url } : {}),
       },
