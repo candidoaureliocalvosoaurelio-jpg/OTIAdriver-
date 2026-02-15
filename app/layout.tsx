@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import AssinaturaHero from "@/components/AssinaturaHero";
 import GoogleAdsenseScript from "@/components/GoogleAdsenseScript";
 import InstallPWAButton from "@/components/InstallPWAButton";
+import CopilotFloatingButton from "@/components/CopilotFloatingButton";
 
 export const metadata: Metadata = {
   title: "OTIAdriver",
@@ -52,6 +53,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
 
         <Footer />
+
+        {/* ✅ FAB Copilot flutuante */}
+        <CopilotFloatingButton />
       </body>
     </html>
   );
