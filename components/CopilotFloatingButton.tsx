@@ -61,9 +61,10 @@ export default function CopilotFloatingButton() {
   }, []);
 
   function openCopilotNewTab() {
-    // abre em nova aba (não deixa a página atual)
+    // ✅ abre em nova aba (não tira o usuário da página atual)
     const w = window.open("/copilot", "_blank", "noopener,noreferrer");
-    // fallback se o navegador bloquear popup
+
+    // ✅ fallback se o navegador bloquear popup
     if (!w) router.push("/copilot");
   }
 
@@ -111,8 +112,8 @@ export default function CopilotFloatingButton() {
             loading
               ? "bg-black/5 text-black/60"
               : isPremium
-                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                : "bg-amber-50 text-amber-900 border border-amber-200",
+              ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+              : "bg-amber-50 text-amber-900 border border-amber-200",
           ].join(" ")}
         >
           {loading ? "..." : isPremium ? "PREMIUM" : "SÓ PREMIUM"}
@@ -125,8 +126,8 @@ export default function CopilotFloatingButton() {
             {loading
               ? "Verificando sua assinatura..."
               : isPremium
-                ? "Acesso liberado (abre em nova aba)."
-                : "Disponível somente no plano Premium."}
+              ? "Acesso liberado (abre em nova aba)."
+              : "Disponível somente no plano Premium."}
           </div>
         </div>
       </button>
