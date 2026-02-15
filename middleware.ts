@@ -129,6 +129,18 @@ function readCookieValue(cookieHeader: string, name: string) {
   return m?.[1] ? decodeURIComponent(m[1]) : "";
 }
 
+function getPaywallRedirectPath(pathname: string) {
+  // ✅ Copilot tem tela própria de upgrade
+  if (pathname === "/copilot" || pathname.startsWith("/copilot/")) {
+    // evita loop caso a pessoa acesse /copilot/upgrade direto (mas essa rota deve ser pública)
+    if (pathname.startsWith("/copilot/upgrade")) return "/planos";
+    return "/copilot/upgrade";
+  }
+
+  // ✅ outras rotas premium vão para planos
+  return "/planos";
+}
+
 export async function middleware(req: NextRequest) {
   const { pathname, hostname } = req.nextUrl;
 
@@ -147,6 +159,10 @@ export async function middleware(req: NextRequest) {
     if (startsWithAny(pathname, API_ALLOW_PREFIXES)) return NextResponse.next();
     return NextResponse.next();
   }
+
+  // ✅ IMPORTANTE:
+  // liberar a tela de upgrade do copilot pra qualquer um acessar
+  if (pathname.startsWith("/copilot/upgrade")) return NextResponse.next();
 
   // 3) libera vitrine + auth + pagamento
   if (
@@ -173,13 +189,20 @@ export async function middleware(req: NextRequest) {
   // se cookie já diz active -> libera sem fetch (⚡)
   if (planStatusCookie === "active") return NextResponse.next();
 
+  // se cookie diz que NÃO é active -> manda pro paywall certo
+  if (planStatusCookie && planStatusCookie !== "active") {
+    return redirectTo(req, getPaywallRedirectPath(pathname), "paywall");
+  }
+
   // 6) fallback: fonte da verdade server-side (caso cookie ainda não tenha atualizado)
   const session = await fetchSession(req);
   const authenticated = Boolean(session?.authenticated);
   const planStatus = String(session?.planStatus || "inactive").toLowerCase();
 
   if (!authenticated) return redirectTo(req, "/entrar", "auth");
-  if (planStatus !== "active") return redirectTo(req, "/planos", "paywall");
+  if (planStatus !== "active") {
+    return redirectTo(req, getPaywallRedirectPath(pathname), "paywall");
+  }
 
   return NextResponse.next();
 }
